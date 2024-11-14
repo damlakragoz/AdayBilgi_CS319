@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="trial2" />
+    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="application.properties">
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/UserRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -56,6 +71,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -100,6 +116,7 @@
       <updated>1731606946151</updated>
       <workItem from="1731606947209" duration="1500000" />
       <workItem from="1731608884355" duration="3655000" />
+      <workItem from="1731612837929" duration="2793000" />
     </task>
     <task id="LOCAL-00001" summary="trial2">
       <option name="closed" value="true" />
@@ -109,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731607188282</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="application.properties">
+      <option name="closed" value="true" />
+      <created>1731613003378</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731613003378</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,6 +142,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="trial2" />
-    <option name="LAST_COMMIT_MESSAGE" value="trial2" />
+    <MESSAGE value="application.properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="application.properties" />
   </component>
 </project>
