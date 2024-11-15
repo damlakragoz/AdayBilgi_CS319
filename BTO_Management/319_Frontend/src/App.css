@@ -1,0 +1,164 @@
+/* General Styles */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+/* Header and Navigation */
+.app-header, .main-header {
+    background-color: #1c3b8e;
+    padding: 10px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+}
+
+.navbar-links li {
+    margin-right: 15px;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.search-bar {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+/* Main Content */
+.app-main {
+    flex: 1;
+    padding: 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Login Form Styles */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.login-form {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+}
+
+.login-form label {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-button {
+    background-color: #1c3b8e;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-button:hover {
+    background-color: #142f6b;
+}
+
+/* Application Table Styles */
+.application-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.application-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.application-table th, .application-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.manage-btn {
+    background-color: #1c3b8e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.manage-btn:hover {
+    background-color: #142f6b;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination span {
+    margin: 0 10px;
+    cursor: pointer;
+    color: #1c3b8e;
+}
+
+/* Footer Styles */
+.app-footer, .main-footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: auto;
+}
+
+.app-footer a {
+    color: #1c3b8e;
+    text-decoration: none;
+    margin-left: 10px;
+}

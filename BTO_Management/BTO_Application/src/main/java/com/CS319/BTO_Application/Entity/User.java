@@ -5,41 +5,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@Table(name = "user", schema = "adaybilgi_db")
 public class User {
     @Id
-    @Getter
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID",unique = true, nullable = false)
+    @Column(name = "id",unique = true, nullable = false)
     private int id;
 
-    @Column(name = "USERNAME")
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "ROLE")
+    @Column(name = "role", nullable = false)
     private String role; // e.g., "ROLE_USER", "ROLE_ADMIN"
 
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
 
 
     // getters and setters

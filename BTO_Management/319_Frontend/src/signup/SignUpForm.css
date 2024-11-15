@@ -1,0 +1,87 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.signup-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+.signup-form h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #1c3b8e;
+}
+
+.signup-form p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #777;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: calc(50% - 10px);
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.submit-btn {
+    background-color: #1c3b8e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #142866;
+}
+
+.signup-form .form-group label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* SignUpForm.css */
+.back-button {
+    background-color: #1c3b8e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #142f6b;
+}
+
