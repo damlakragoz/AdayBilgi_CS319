@@ -4,6 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="application.properties">
+      <change afterPath="$PROJECT_DIR$/.idea/BTO_Management.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/components/TourApplications.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/components/TourApplications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/pages/SchoolTourApplicationFormPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/controller/TourApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/IndividualTourApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/SchoolTourApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/TourApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/repository/CounselorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/repository/TourApplicationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/service/TourApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
     <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="basic user API and damla AWS connection">
       <change afterPath="$PROJECT_DIR$/319_Frontend/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/319_Frontend/.idea/319_Frontend.iml" afterDir="false" />
@@ -31,6 +64,11 @@
       <change afterPath="$PROJECT_DIR$/319_Frontend/src/submitapplication/SubmitApplication.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/BtoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/BtoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/UserRepos.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/repository/UserRepos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +78,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -60,37 +98,43 @@
     &quot;accountId&quot;: &quot;f8c40dbb-e3ee-4caf-aa53-d12db21a4445&quot;
   }
 }</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2oqpQqiO5pM4u9ZcFFwGBg57G7C" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.BtoManagementApplication.executor": "Run",
     "git-widget-placeholder": "#1 on Implementation",
+    "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ERAY/Desktop/ADAYBILGI_Implementation/BTO_Management/319_Frontend",
+    "last_opened_file_path": "/Users/damlak/Desktop/AdayBilgi_CS319/BTO_Management",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
@@ -100,7 +144,30 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Spring Boot.BtoManagementApplication">
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.CS319.BTO_Application.repository" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/BTO_Application/frontend/src" />
+      <recent name="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity" />
+      <recent name="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.BtoApplication">
+    <configuration name="BtoApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.CS319.BTO_Application.BtoApplication" />
+      <module name="BTO_Application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.CS319.BTO_Application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BtoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="BTO_Application" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.CS319.BTO_Application.BtoApplication" />
@@ -117,6 +184,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BtoApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -164,12 +236,21 @@
       <updated>1731615930916</updated>
     </task>
     <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00003" summary="application.properties">
+      <created>1731658638552</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731658638552</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="trial2" />
     <MESSAGE value="application.properties" />
     <MESSAGE value="basic user API and damla AWS connection" />
