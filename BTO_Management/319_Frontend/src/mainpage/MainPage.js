@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import './MainPage.css';
+ // Import your protected page
 
 const MainPage = () => {
     const [loginData, setLoginData] = useState({
@@ -9,8 +10,15 @@ const MainPage = () => {
         password: '',
     });
     const [error, setError] = useState(''); // State to store error message
-
     const navigate = useNavigate();
+
+    // Clear existing tokens on component mount
+    useEffect(() => {
+        // Clear any tokens in localStorage or sessionStorage
+        localStorage.removeItem('userToken');
+        sessionStorage.removeItem('userToken'); // Just in case it's stored here
+    }, []);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,10 +41,23 @@ const MainPage = () => {
                 password: loginData.password,
             });
 
-            // If login is successful, store the user's email or token in localStorage
-            if (response.status === 200) {
-                localStorage.setItem('userToken', response.data.token || loginData.username);
+            // If login is successful, store the JWT token in localStorage
+            if (response.status === 200 && response.data.token) {
+                const token = typeof response.data === 'string' ? response.data : response.data.token;
+
+                // Store the JWT token in localStorage
+                localStorage.setItem('userToken', token);
+
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set token for future requests
+
+                // Log for debugging
+                console.log('Token stored in localStorage:', token);
+                console.log('Navigating to applications page');
+
                 navigate('/applications'); // Navigate to the applications page
+            }
+            else {
+                setError('Login failed: no token provided');
             }
         } catch (err) {
             console.error('Login failed:', err);

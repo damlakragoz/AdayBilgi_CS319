@@ -1,22 +1,33 @@
 package com.CS319.BTO_Application.Service;
 
+import com.CS319.BTO_Application.DTO.LoginRequest;
 import com.CS319.BTO_Application.Entity.User;
 import com.CS319.BTO_Application.Repos.UserRepos;
+import jakarta.transaction.Transactional;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepos userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepos userRepository) {
+    public UserService(UserRepos userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -31,11 +42,23 @@ public class UserService implements UserDetailsService {
                 .roles(user.getRole())
                 .build();
     }
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
     public User saveUser(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
+    @Transactional
+    public void deleteUserByUsername(String username) {
+        if(userRepository.existsByUsername(username)) {
+            userRepository.deleteByUsername(username);
+        } else {
+            throw new UsernameNotFoundException("User not found: " + username);
+        }    }
+
 }
+

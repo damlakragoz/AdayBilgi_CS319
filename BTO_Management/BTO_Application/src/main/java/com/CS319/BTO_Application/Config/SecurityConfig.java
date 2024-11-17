@@ -1,29 +1,32 @@
 package com.CS319.BTO_Application.Config;
 
-import com.CS319.BTO_Application.Service.UserService;
-
-import lombok.AllArgsConstructor;
+//import com.CS319.BTO_Application.jwt.JwtRequestFilter;
+import com.CS319.BTO_Application.jwt.JwtFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final UserService userService;
 
-    public SecurityConfig(UserService userService) {
-        this.userService = userService;
+    private JwtFilter jwtFilter;
+
+    @Autowired
+    public SecurityConfig(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
     }
 
     @Bean
@@ -31,19 +34,16 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login", "/api/auth/register").permitAll() // Allow unauthenticated access to the login endpoint
+                        .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/delete").permitAll() // Allow unauthenticated access to the login endpoint
+                        .requestMatchers("/applications").authenticated() // Protected endpoint
                         .anyRequest().authenticated() // Require authentication for all other requests
                 )
-                .formLogin(form -> form
-                        .loginPage("/login") // Redirect to custom login page
-                        .defaultSuccessUrl("/applications", true) // Redirect after successful login
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout") // Logout URL
-                        .logoutSuccessUrl("/login?logout") // Redirect after logout
-                        .permitAll()
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use stateless sessions for JWT
                 );
+
+        // Add JWT Filter to validate the token
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -53,11 +53,11 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /*
+       Provides a PasswordEncoder for secure password hashing using BCrypt.
+    */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    /*
-    Provides a PasswordEncoder for secure password hashing using BCrypt.
-     */
 }
