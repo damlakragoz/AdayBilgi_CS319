@@ -1,4 +1,5 @@
-package com.CS319.BTO_Application.entity;
+/*
+package com.CS319.BTO_Application.Entity;
 import jakarta.persistence.*;
 @Entity
 public class IndividualTourApplication extends TourApplication {
@@ -57,3 +58,6 @@ public class IndividualTourApplication extends TourApplication {
         return true;
     }
 }
+
+ */
+

@@ -1,33 +1,30 @@
-package com.CS319.BTO_Application.entity;
+
+package com.CS319.BTO_Application.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 @Entity
-public class Counselor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;  // Primary key for the Counselor entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Use SINGLE_TABLE strategy
+public class Counselor extends User{
 
     @ManyToOne
-    @Column(name = "school_id")  // Foreign key to HighSchool
-    private int school_id;
+    @JoinColumn(name = "school_id", referencedColumnName = "id") // referencedcolumnname: parenttaki primary
+    private HighSchool highSchool;
 
-    @Column(name = "tour-applications-list")  // One counselor has many tour applications
-    private List<SchoolTourApplication> tourApplicationsList;
-
-    // Getter and Setter methods
-
-    public String getId() {
-        return id;
-    }
-
-    public int getSchool() {
-        return school_id;
-    }
-
-    public void setSchool(int school_id) {
-        this.school_id = school_id;
+    public Counselor(String username, String password, String role, HighSchool highSchool) {
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setRole(role);
+        this.highSchool = highSchool;
     }
 }
+

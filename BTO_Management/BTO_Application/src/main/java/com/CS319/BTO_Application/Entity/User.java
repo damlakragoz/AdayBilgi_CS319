@@ -13,7 +13,7 @@ id si garip artıyor düzeltilebilir
 @Entity
 @Getter
 @Setter
-@Table(name = "user", schema = "adaybilgi_db")
+@Table(name = "User", schema = "bto_database")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

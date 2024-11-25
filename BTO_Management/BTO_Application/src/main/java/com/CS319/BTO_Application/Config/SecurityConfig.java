@@ -22,7 +22,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private JwtFilter jwtFilter;
+    private final JwtFilter jwtFilter;
 
     @Autowired
     public SecurityConfig(JwtFilter jwtFilter) {
@@ -34,9 +34,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/delete").permitAll() // Allow unauthenticated access to the login endpoint
-                        .requestMatchers("/applications").authenticated() // Protected endpoint
-                        .anyRequest().authenticated() // Require authentication for all other requests
+                        //.requestMatchers().permitAll() // Allow unauthenticated access to the login endpoint
+                        //.requestMatchers("/applications").authenticated() // Protected endpoint
+                        //.anyRequest().authenticated() // Require authentication for all other requests
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use stateless sessions for JWT
