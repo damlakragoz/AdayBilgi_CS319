@@ -1,6 +1,7 @@
 
 package com.CS319.BTO_Application.Controller;
 
+import com.CS319.BTO_Application.DTO.AddSchoolApplicationRequest;
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Entity.TourApplication;
@@ -33,11 +34,11 @@ public class TourApplicationController{
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TourApplication> addSchoolApplication(@RequestBody SchoolTourApplication tourApplication, Counselor counselor) {
-        if(userService.getUserByUsername(counselor.getUsername()) == null){
+    public ResponseEntity<TourApplication> addSchoolApplication(@RequestBody AddSchoolApplicationRequest applicationRequest) {
+        if(userService.getUserByUsername(applicationRequest.getCounselor().getUsername()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(tourApplicationService.addSchoolApplication(tourApplication,counselor), HttpStatus.CREATED);
+        return new ResponseEntity<>(tourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselor()), HttpStatus.CREATED);
     }
 
 }
