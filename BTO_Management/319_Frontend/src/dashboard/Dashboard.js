@@ -9,13 +9,14 @@ const Dashboard = () => {
     return (
         <div>
             {/* Include the navigation bar at the top */}
-            <NavigationBar />
-            
+            <NavigationBar/>
+
             {/* Include the application table below the navigation bar */}
             <div className="dashboard-content">
-                <ApplicationTable />
-                <UniversityInvitations />  {/* Add the university invitations section */}
+                <ApplicationTable/>
+                <UniversityInvitations/> {/* Add the university invitations section */}
             </div>
+
         </div>
     );
 };

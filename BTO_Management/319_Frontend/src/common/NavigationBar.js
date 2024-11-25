@@ -7,6 +7,16 @@ const NavigationBar = () => {
 
     const navigate = useNavigate();
 
+    const handleLogout = () => {
+        // Clear tokens and user-related data
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('username');
+        sessionStorage.removeItem('userToken'); // Just in case
+
+        // Navigate to login page
+        navigate('/');
+    };
+
     return (
         <div className="navbar">
             <ul className="nav-links">
@@ -25,12 +35,15 @@ const NavigationBar = () => {
                         <a href="#!">My Invitations</a>
                     </div>
                 </li>
+
             </ul>
             <input type="text" className="search-bar" placeholder="Sitede ara..." />
             <div className="icons">
                 <span className="icon-bell">&#128276;</span>
                 <span className="icon-user">&#128100;</span>
             </div>
+            {/* Add Logout Button */}
+            <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
     );
 };

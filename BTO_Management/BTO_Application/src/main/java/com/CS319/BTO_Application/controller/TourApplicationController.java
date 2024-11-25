@@ -35,8 +35,13 @@ public class TourApplicationController{
 
     @PostMapping("/add")
     public ResponseEntity<TourApplication> addSchoolApplication(@RequestBody AddSchoolApplicationRequest applicationRequest) {
-        if(userService.getUserByUsername(applicationRequest.getCounselor().getUsername()) == null){
+        Counselor applyingCounselor = applicationRequest.getCounselor();
+
+        if(userService.getUserByUsername(applyingCounselor.getUsername()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }// not found when searched by username
+        if(userService.getUserByUsername(applyingCounselor.getUsername()).getId() != applyingCounselor.getId()){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(tourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselor()), HttpStatus.CREATED);
     }

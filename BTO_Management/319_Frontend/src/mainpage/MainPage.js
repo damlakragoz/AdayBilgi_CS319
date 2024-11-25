@@ -12,12 +12,14 @@ const MainPage = () => {
     const [error, setError] = useState(''); // State to store error message
     const navigate = useNavigate();
 
-    // Clear existing tokens on component mount
     useEffect(() => {
-        // Clear any tokens in localStorage or sessionStorage
-        localStorage.removeItem('userToken');
-        sessionStorage.removeItem('userToken'); // Just in case it's stored here
+       // localStorage.removeItem('userToken');
+        //sessionStorage.removeItem('userToken');
+
+        //console.log("use effect called");
+        // No need to clear tokens here
     }, []);
+
 
 
     const handleChange = (e) => {
@@ -45,13 +47,16 @@ const MainPage = () => {
             if (response.status === 200 && response.data.token) {
                 const token = typeof response.data === 'string' ? response.data : response.data.token;
 
-                // Store the JWT token in localStorage
+
+                // Store the JWT token and username in localStorage
                 localStorage.setItem('userToken', token);
+                localStorage.setItem('username', loginData.username); // Save the username
 
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set token for future requests
 
                 // Log for debugging
                 console.log('Token stored in localStorage:', token);
+                console.log('Username stored in localStorage:', loginData.username);
                 console.log('Navigating to applications page');
 
                 navigate('/applications'); // Navigate to the applications page
@@ -64,6 +69,17 @@ const MainPage = () => {
             setError('Invalid username or password'); // Set error message if login fails
         }
     };
+
+    const handleLogout = () => {
+        // Clear tokens and user-related data
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('username');
+        sessionStorage.removeItem('userToken'); // In case it's stored here too
+
+        // Navigate the user to the login page
+        navigate('/');
+    };
+
 
     return (
         <div className="main-page">

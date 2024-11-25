@@ -34,17 +34,17 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> auth
-                        //.requestMatchers().permitAll() // Allow unauthenticated access to the login endpoint
-                        //.requestMatchers("/applications").authenticated() // Protected endpoint
-                        //.anyRequest().authenticated() // Require authentication for all other requests
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/auth/login", "/api/tour-applications/add").permitAll() // Allow unauthenticated access to the login endpoint
+                        .requestMatchers("/applications").authenticated() // Protected endpoint
+                        .anyRequest().authenticated() // Require authentication for all other requests
+                        //.anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use stateless sessions for JWT
                 );
 
         // Add JWT Filter to validate the token
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
