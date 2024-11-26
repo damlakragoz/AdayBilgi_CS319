@@ -5,20 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-/*
-Username unique
-password değil
-id si garip artıyor düzeltilebilir
- */
-@Entity
+
+
 @Getter
 @Setter
-@Table(name = "User", schema = "bto_database")
-public class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique = true, nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "username", nullable = false)
     private String username;
@@ -37,7 +34,4 @@ public class User {
     public User() {
 
     }
-
-
-    // getters and setters
 }

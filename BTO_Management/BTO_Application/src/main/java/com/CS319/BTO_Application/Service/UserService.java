@@ -2,8 +2,10 @@ package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.DTO.LoginRequest;
 import com.CS319.BTO_Application.Entity.User;
+import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,12 +24,11 @@ import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
-    private final UserRepos userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserRepos<User> userRepository;
 
-    public UserService(UserRepos userRepository, PasswordEncoder passwordEncoder) {
+    @Autowired
+    public UserService(UserRepos<User> userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -47,6 +48,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    /*
     public User saveUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -59,6 +61,8 @@ public class UserService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException("User not found: " + username);
         }    }
+
+     */
 
 }
 

@@ -35,10 +35,14 @@ const SubmitApplication = () => {
                     visitorCount: parseInt(formData.visitorCount, 10),
                     status: 'pending', // Default status
                 },
-                counselor: {
-                    username: localStorage.getItem('username'), // Retrieve counselor username from localStorage
-                },
+                counselorUsername: localStorage.getItem('username'), // Retrieve counselor username from localStorage
             };
+
+
+            console.log('Payload:', payload); // Debugging payload
+            console.log('Token from localStorage:', localStorage.getItem('userToken')); // Check token before the request
+            console.log('Username from localStorage:', localStorage.getItem('username')); // Check username before the request
+
 
             // Make POST request to the backend endpoint
             const response = await axios.post(
@@ -49,8 +53,11 @@ const SubmitApplication = () => {
                         Authorization: `Bearer ${localStorage.getItem('userToken')}`, // Include token in header
                         'Content-Type': 'application/json',
                     },
+                    withCredentials: true, // Ensures cookies and headers are included
                 }
             );
+
+            console.log('Response from backend:', response); // Debugging response
 
             // Handle successful response
             if (response.status === 201) {
@@ -62,12 +69,21 @@ const SubmitApplication = () => {
             }
         } catch (err) {
             // Handle errors
-            if (err.response && err.response.status === 401) {
-                setError('Unauthorized access. Please log in again.');
+            if (err.response) {
+                console.error('Response Error:', err.response); // Debugging server error response
+                if (err.response.status === 401) {
+                    setError('Unauthorized access. Please log in again.');
+                    console.warn('Unauthorized access: Token might be invalid or expired');
+                } else {
+                    setError('Failed to submit application. Please try again.');
+                }
+            } else if (err.request) {
+                console.error('Request Error:', err.request); // Debugging network errors
+                setError('Network error. Please check your connection.');
             } else {
-                setError('Failed to submit application. Please try again.');
+                console.error('Unexpected Error:', err.message); // Debugging unexpected errors
+                setError('An unexpected error occurred. Please try again.');
             }
-            console.error('Error submitting application:', err);
         }
     };
 

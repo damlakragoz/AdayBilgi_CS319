@@ -10,5 +10,5 @@ import lombok.Setter;
 @Getter
 public class AddSchoolApplicationRequest {
     private SchoolTourApplication tourApplication;
-    private Counselor counselor;
+    private String counselorUsername;
 }

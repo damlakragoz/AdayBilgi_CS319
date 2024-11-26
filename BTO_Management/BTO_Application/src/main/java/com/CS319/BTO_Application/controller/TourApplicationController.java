@@ -5,6 +5,7 @@ import com.CS319.BTO_Application.DTO.AddSchoolApplicationRequest;
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Entity.TourApplication;
+import com.CS319.BTO_Application.Service.CounselorService;
 import com.CS319.BTO_Application.Service.TourApplicationService;
 import com.CS319.BTO_Application.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3002")
 @RequestMapping("api/tour-applications")
 @Controller
 public class TourApplicationController{
 
     private final TourApplicationService tourApplicationService;
-    private final UserService userService;
+    private final CounselorService counselorService;
+    //there will be logic for individual tourapplciation also
 
     @Autowired
-    public TourApplicationController(TourApplicationService tourApplicationService, UserService userService) {
+    public TourApplicationController(TourApplicationService tourApplicationService, CounselorService counselorService) {
         this.tourApplicationService = tourApplicationService;
-        this.userService = userService;
+        this.counselorService = counselorService;
     }
 
     @GetMapping("/getAll")
@@ -35,16 +38,19 @@ public class TourApplicationController{
 
     @PostMapping("/add")
     public ResponseEntity<TourApplication> addSchoolApplication(@RequestBody AddSchoolApplicationRequest applicationRequest) {
-        Counselor applyingCounselor = applicationRequest.getCounselor();
+        System.out.println(applicationRequest.getCounselorUsername() + "addApplication controller");
+        if(counselorService.getCounselorByUsername(applicationRequest.getCounselorUsername()) == null){
 
-        if(userService.getUserByUsername(applyingCounselor.getUsername()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by username
-        if(userService.getUserByUsername(applyingCounselor.getUsername()).getId() != applyingCounselor.getId()){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        return new ResponseEntity<>(tourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselor()), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(tourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselorUsername()), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<TourApplication> deleteSchoolApplication(@RequestParam Long tourApplicationId) {
+        tourApplicationService.deleteById(tourApplicationId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 

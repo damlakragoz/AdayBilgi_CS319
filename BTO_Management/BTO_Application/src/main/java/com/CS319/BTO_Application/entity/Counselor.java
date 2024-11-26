@@ -9,11 +9,12 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Use SINGLE_TABLE strategy
+@Entity
+@Table(name = "Counselor", schema = "bto_database")
 public class Counselor extends User{
 
     @ManyToOne
