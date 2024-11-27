@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3007")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/tour-applications")
 @Controller
 public class TourApplicationController{
