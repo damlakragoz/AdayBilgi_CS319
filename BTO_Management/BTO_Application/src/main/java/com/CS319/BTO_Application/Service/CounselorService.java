@@ -27,7 +27,6 @@ public class CounselorService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     public Counselor getCounselorByUsername(String username) {
         if(!counselorRepos.existsByUsername(username)){
             System.out.println("Counselor Not Found with username " + username);

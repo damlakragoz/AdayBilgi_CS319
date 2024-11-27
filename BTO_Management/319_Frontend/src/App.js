@@ -5,6 +5,7 @@ import SignUpForm from './signup/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';  // Import the new page
+import CoordinatorHomepage from './dashboard/CoordinatorHomepage';
 import './App.css';
 
 
@@ -38,6 +39,8 @@ function App() {
                 }
             />
             <Route path="/submit-application" element={<SubmitApplication />} />  {/* New Route */}
+            <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />  {/* New Route */}
+
           </Routes>
         </main>
 

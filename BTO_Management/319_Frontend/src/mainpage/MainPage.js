@@ -43,25 +43,47 @@ const MainPage = () => {
                 password: loginData.password,
             });
 
+            //
+            const roleResponse = await axios.post('/api/auth/user-role', {
+                username: loginData.username,  // Assuming the backend expects 'username' instead of 'email'
+                password: loginData.password,
+            });
+            const role = roleResponse.data;
+
             // If login is successful, store the JWT token in localStorage
             if (response.status === 200 && response.data.token) {
                 const token = typeof response.data === 'string' ? response.data : response.data.token;
-
+                const username = response.data.username;
 
                 // Store the JWT token and username in localStorage
                 localStorage.setItem('userToken', token);
                 localStorage.setItem('username', loginData.username); // Save the username
+                localStorage.setItem('role', role);
 
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set token for future requests
 
                 // Log for debugging
                 console.log('Token stored in localStorage:', token);
                 console.log('Username stored in localStorage:', loginData.username);
-                console.log('Navigating to applications page');
+                console.log('Role:', role);
 
-                navigate('/applications'); // Navigate to the applications page
-            }
-            else {
+                 // Navigate based on the user's role
+                switch (role) {
+                    case 'Coordinator':
+                        navigate('/coordinator-homepage');
+                        console.log('COORDINATOR to applications page');
+                        break;
+                    case 'counselor':
+                        //navigate('/counselor-dashboard');
+                        break;
+                    case 'tourGuide':
+                        //navigate('/tour-guide-dashboard');
+                        break;
+                    default:
+                        navigate('/applications'); // Fallback if the role is unknown
+                        break;
+                }
+            } else {
                 setError('Login failed: no token provided');
             }
         } catch (err) {
