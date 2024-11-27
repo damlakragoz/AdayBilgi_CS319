@@ -16,7 +16,7 @@ import lombok.Setter;
 public class SchoolTourApplication extends TourApplication {
 
     @ManyToOne // A counselor can apply for many school tours
-    @JoinColumn(name = "counselor_id", referencedColumnName = "id") // Foreign key column for counselor
+    @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
 

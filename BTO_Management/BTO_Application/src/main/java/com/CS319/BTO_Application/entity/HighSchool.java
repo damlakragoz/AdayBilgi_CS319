@@ -1,6 +1,7 @@
 
 package com.CS319.BTO_Application.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,14 +25,14 @@ public class HighSchool {
     @Column(name = "name", nullable = false)
     private String schoolName;
 
+    @OneToMany(mappedBy = "highSchool", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Counselor> counselors;
+
     public HighSchool(String schoolName) {
         this.schoolName = schoolName;
     }
-    /*
-    @OneToMany(mappedBy = "highSchool")
-    private List<Counselor> counselors;
 
-     */
 }
 
 

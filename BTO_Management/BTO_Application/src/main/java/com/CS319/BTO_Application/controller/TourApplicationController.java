@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3002")
+@CrossOrigin(origins = "http://localhost:3007")
 @RequestMapping("api/tour-applications")
 @Controller
 public class TourApplicationController{
@@ -38,9 +38,7 @@ public class TourApplicationController{
 
     @PostMapping("/add")
     public ResponseEntity<TourApplication> addSchoolApplication(@RequestBody AddSchoolApplicationRequest applicationRequest) {
-        System.out.println(applicationRequest.getCounselorUsername() + "addApplication controller");
         if(counselorService.getCounselorByUsername(applicationRequest.getCounselorUsername()) == null){
-
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by username
 

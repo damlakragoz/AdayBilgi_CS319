@@ -1,6 +1,7 @@
 
 package com.CS319.BTO_Application.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,11 @@ import java.util.List;
 @Table(name = "Counselor", schema = "bto_database")
 public class Counselor extends User{
 
+    /*
+    the tour application can be held here
+     */
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "school_id", referencedColumnName = "id") // referencedcolumnname: parenttaki primary
     private HighSchool highSchool;
 
