@@ -4,7 +4,8 @@ import './SubmitApplication.css';
 
 const SubmitApplication = () => {
     const [formData, setFormData] = useState({
-        applicationDate: '',
+        applicationDates: [],
+        applicationDate: '', // Temporary storage for the selected date
         visitorCount: '',
     });
 
@@ -16,14 +17,38 @@ const SubmitApplication = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleAddDate = () => {
+        if (!formData.applicationDate) {
+            setError('Please select a valid date.');
+            return;
+        }
+        if (formData.applicationDates.includes(formData.applicationDate)) {
+            setError('Date already added.');
+            return;
+        }
+        setFormData((prevData) => ({
+            ...prevData,
+            applicationDates: [...prevData.applicationDates, formData.applicationDate],
+            applicationDate: '', // Clear the temporary date after adding
+        }));
+        setError(''); // Clear error if successful
+    };
+
+    const handleRemoveDate = (dateToRemove) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            applicationDates: prevData.applicationDates.filter((date) => date !== dateToRemove),
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(''); // Clear previous errors
         setSuccessMessage(''); // Clear previous success messages
 
         // Validate input data before submitting
-        if (!formData.applicationDate || !formData.visitorCount) {
-            setError('Please fill out all fields.');
+        if (formData.applicationDates.length === 0 || !formData.visitorCount) {
+            setError('Please fill out all fields and add at least one date.');
             return;
         }
 
@@ -31,18 +56,14 @@ const SubmitApplication = () => {
             // Define the payload for the API request
             const payload = {
                 tourApplication: {
-                    requestedDate: formData.applicationDate,
+                    requestedDates: formData.applicationDates,
                     visitorCount: parseInt(formData.visitorCount, 10),
                     status: 'pending', // Default status
                 },
                 counselorUsername: localStorage.getItem('username'), // Retrieve counselor username from localStorage
             };
 
-
             console.log('Payload:', payload); // Debugging payload
-            console.log('Token from localStorage:', localStorage.getItem('userToken')); // Check token before the request
-            console.log('Username from localStorage:', localStorage.getItem('username')); // Check username before the request
-
 
             // Make POST request to the backend endpoint
             const response = await axios.post(
@@ -57,12 +78,11 @@ const SubmitApplication = () => {
                 }
             );
 
-            console.log('Response from backend:', response); // Debugging response
-
             // Handle successful response
             if (response.status === 201) {
                 setSuccessMessage('Application submitted successfully!');
                 setFormData({
+                    applicationDates: [],
                     applicationDate: '',
                     visitorCount: '',
                 });
@@ -70,18 +90,8 @@ const SubmitApplication = () => {
         } catch (err) {
             // Handle errors
             if (err.response) {
-                console.error('Response Error:', err.response); // Debugging server error response
-                if (err.response.status === 401) {
-                    setError('Unauthorized access. Please log in again.');
-                    console.warn('Unauthorized access: Token might be invalid or expired');
-                } else {
-                    setError('Failed to submit application. Please try again.');
-                }
-            } else if (err.request) {
-                console.error('Request Error:', err.request); // Debugging network errors
-                setError('Network error. Please check your connection.');
+                setError(err.response.data?.message || 'Failed to submit application. Please try again.');
             } else {
-                console.error('Unexpected Error:', err.message); // Debugging unexpected errors
                 setError('An unexpected error occurred. Please try again.');
             }
         }
@@ -96,10 +106,30 @@ const SubmitApplication = () => {
                     <input
                         type="date"
                         name="applicationDate"
-                        value={formData.applicationDate}
+                        value={formData.applicationDate} // Controlled input for the temporary date
                         onChange={handleChange}
-                        required
                     />
+                    <button
+                        type="button"
+                        onClick={handleAddDate}
+                    >
+                        Add Date
+                    </button>
+                </div>
+                {/* Display the list of added dates */}
+                <div className="dates-list">
+                    <h4>Added Dates:</h4>
+                    {formData.applicationDates.map((date, index) => (
+                        <div key={index} className="date-item">
+                            <span>{date}</span>
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveDate(date)}
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    ))}
                 </div>
                 <div className="form-group">
                     <label>Visitor Count</label>
