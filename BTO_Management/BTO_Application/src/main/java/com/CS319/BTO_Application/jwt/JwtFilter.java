@@ -31,6 +31,11 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
+        // Skip JWT processing for public routes
+        if (request.getRequestURI().startsWith("/api/tourguide/register")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         System.out.println("Authorization Header: " + authHeader);
         String token = null;

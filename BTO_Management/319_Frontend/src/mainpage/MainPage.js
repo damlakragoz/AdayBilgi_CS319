@@ -43,12 +43,12 @@ const MainPage = () => {
                 password: loginData.password,
             });
 
-            //
             const roleResponse = await axios.post('/api/auth/user-role', {
                 username: loginData.username,  // Assuming the backend expects 'username' instead of 'email'
                 password: loginData.password,
             });
             const role = roleResponse.data;
+//const role = "Counselor";
 
             // If login is successful, store the JWT token in localStorage
             if (response.status === 200 && response.data.token) {

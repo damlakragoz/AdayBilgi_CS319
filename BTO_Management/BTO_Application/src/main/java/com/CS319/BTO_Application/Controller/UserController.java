@@ -1,29 +1,17 @@
 package com.CS319.BTO_Application.Controller;
-import com.CS319.BTO_Application.DTO.CoordinatorRegister;
-import com.CS319.BTO_Application.DTO.CounselorRegister;
-import com.CS319.BTO_Application.DTO.LoginRequest;
-import com.CS319.BTO_Application.DTO.RegisterRequest;
+import com.CS319.BTO_Application.DTO.*;
 import com.CS319.BTO_Application.Entity.Coordinator;
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.HighSchool;
-import com.CS319.BTO_Application.Entity.User;
-import com.CS319.BTO_Application.Repos.CoordinatorRepos;
-import com.CS319.BTO_Application.Repos.UserRepos;
 //import com.CS319.BTO_Application.Service.UserService;
-import com.CS319.BTO_Application.Service.CoordinatorService;
-import com.CS319.BTO_Application.Service.CounselorService;
-import com.CS319.BTO_Application.Service.HighSchoolService;
-import com.CS319.BTO_Application.Service.UserService;
-import jakarta.persistence.EntityNotFoundException;
+import com.CS319.BTO_Application.Entity.TourGuide;
+import com.CS319.BTO_Application.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -33,19 +21,36 @@ public class UserController {
     private final UserService userService;
     private final CounselorService counselorService;
     private final CoordinatorService coordinatorService;
+    private final TourGuideService tourGuideService;
     private final HighSchoolService highschoolService;
 
-
-
     @Autowired
-    public UserController(UserService userService, CounselorService counselorService, CoordinatorService coordinatorService, HighSchoolService highschoolService) {
+    public UserController(UserService userService, CounselorService counselorService,
+              CoordinatorService coordinatorService, TourGuideService tourGuideService,
+              HighSchoolService highschoolService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
+        this.tourGuideService = tourGuideService;
         this.highschoolService = highschoolService;
     }
 
 // Counselor Methods
+    @GetMapping("/counselors/getAll")
+    public ResponseEntity<?> getAllCounselors() {
+        try {
+            // Fetch all counselors from the service
+            List<CounselorDTO> counselors = counselorService.getAllCounselors();
+            counselors.forEach(counselor -> {
+                System.out.println("Counselor: " + counselor.getUsername() + ", HighSchool: " + counselor.getHighSchool());
+            });
+            return ResponseEntity.ok(counselors); // Return the list of counselors with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving counselors.");
+        }
+    }
+
     @PostMapping("/counselor/register")
     public ResponseEntity<?> registerCounselor(@RequestBody CounselorRegister counselorRegister) {
         // Check if the username is already taken
@@ -69,19 +74,44 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // Get HighSchool by Counselor username
+//    @GetMapping("/counselor/school")
+//    public ResponseEntity<?> getHighSchoolByCounselor(@PathVariable String username) {
+//        try {
+//            HighSchool highSchool = counselorService.getHighSchoolByCounselor(username);
+//            return ResponseEntity.ok(highSchool); // Return the HighSchool associated with the Counselor
+//        } catch (IllegalArgumentException ex) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()); // If no counselor found
+//        } catch (Exception ex) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+//        }
+//    }
 // Counselor Methods END
-////////////////////////
-//Coordinator Method
+////////////////////////////
+// Coordinator Methods START
     @PostMapping("/coordinator/register")
     public ResponseEntity<?> registerCoordinator(@RequestBody CoordinatorRegister coordinatorRegister) {
         // Check if the username is already taken
         // Username is user's Bilkent ID
-        if (coordinatorService.getCoordinatorByUsername(coordinatorRegister.getUsername()) != null) {
-            return ResponseEntity.status(400).body("Username is already taken");
+
+        if(coordinatorRegister.getRole() == "TourGuide") {
+            if (tourGuideService.getTourGuideByUsername(coordinatorRegister.getUsername()) != null) {
+                return ResponseEntity.status(400).body("Username for tour guide is already taken");
+            }
+            TourGuide tourGuide = new TourGuide(coordinatorRegister.getUsername(), coordinatorRegister.getPassword(), coordinatorRegister.getRole());
+            System.out.println("Newly created " + tourGuide.getUsername());
+            // Save the tour guide to the database
+            return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
+        } else if (coordinatorRegister.getRole() == "Counselor") {
+            if (coordinatorService.getCoordinatorByUsername(coordinatorRegister.getUsername()) != null) {
+                return ResponseEntity.status(400).body("Username for counselor is already taken");
+            }
+            Coordinator coordinator = new Coordinator(coordinatorRegister.getUsername(), coordinatorRegister.getPassword(), coordinatorRegister.getRole());
+            // Save the user to the database
+            return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
         }
-        Coordinator coordinator = new Coordinator(coordinatorRegister.getUsername(), coordinatorRegister.getPassword(), coordinatorRegister.getRole());
-        // Save the user to the database
-        return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+        else return null;
     }
 
     @DeleteMapping("/coordinator/delete")
@@ -94,7 +124,47 @@ public class UserController {
     }
 // Coordinator Methods END
 ////////////////////////
+// TourGuide Methods START
+    @GetMapping("/tourguides/getAll")
+    public ResponseEntity<?> getAllTourGuides() {
+        try {
+            // Fetch all tour guides from the service
+            List<TourGuide> tourGuides = tourGuideService.getAllTourGuides();
+            tourGuides.forEach(tourGuide -> {
+                System.out.println("TourGuide: " + tourGuide.getUsername());
+            });
+            return ResponseEntity.ok(tourGuides); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving tour guides.");
+        }
+    }
 
+    @PostMapping("/tourguide/register")
+    public ResponseEntity<?> registerTourGuide(@RequestBody TourGuideRegister tourGuideRegister) {
+        System.out.println("u s e r na me"+tourGuideRegister.getUsername());
+        // Check if the username is already taken
+        if (tourGuideService.getTourGuideByUsername(tourGuideRegister.getUsername()) != null) {
+            return ResponseEntity.status(400).body("Username is already taken");
+        }
+        TourGuide tourGuide = new TourGuide(tourGuideRegister.getUsername(), tourGuideRegister.getPassword(), tourGuideRegister.getRole());
+        System.out.println("Newly created "+tourGuide.getUsername());
+
+        // Save the tour guide to the database
+        return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/tourguide/delete")
+    public ResponseEntity<?> deleteTourGuide(@RequestParam String username) {
+        tourGuideService.deleteTourGuideByUsername(username);
+        if (tourGuideService.getTourGuideByUsername(username) == null) {
+            return ResponseEntity.status(400).body("TourGuide With Username " + username + " Not Found");
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+// TourGuide Methods END
+////////////////
 
 
     /*

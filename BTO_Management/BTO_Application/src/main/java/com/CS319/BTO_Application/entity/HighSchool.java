@@ -19,7 +19,7 @@ import java.util.List;
 public class HighSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private int id;
 
     @Column(name = "name", nullable = false)

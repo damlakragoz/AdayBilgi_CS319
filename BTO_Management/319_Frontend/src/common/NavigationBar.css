@@ -55,6 +55,7 @@
 .icons {
     display: flex;
     align-items: center;
+    color: white;
 }
 
 .icon-bell, .icon-user {
