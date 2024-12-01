@@ -91,25 +91,28 @@ public class UserController {
 ////////////////////////////
 // Coordinator Methods START
     @PostMapping("/coordinator/register")
-    public ResponseEntity<?> registerCoordinator(@RequestBody CoordinatorRegister coordinatorRegister) {
-        // Check if the username is already taken
+    public ResponseEntity<?> registerCoordinator(@RequestBody UserRegister userRegister) {
         // Username is user's Bilkent ID
 
-        if(coordinatorRegister.getRole() == "TourGuide") {
-            if (tourGuideService.getTourGuideByUsername(coordinatorRegister.getUsername()) != null) {
+        if(userRegister.getRole().equals("TourGuide")) {
+            // check for unique username
+            if (tourGuideService.getTourGuideByUsername(userRegister.getUsername()) != null) {
                 return ResponseEntity.status(400).body("Username for tour guide is already taken");
             }
-            TourGuide tourGuide = new TourGuide(coordinatorRegister.getUsername(), coordinatorRegister.getPassword(), coordinatorRegister.getRole());
+            TourGuide tourGuide = new TourGuide(userRegister.getUsername(), userRegister.getPassword(), userRegister.getRole());
             System.out.println("Newly created " + tourGuide.getUsername());
             // Save the tour guide to the database
             return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
-        } else if (coordinatorRegister.getRole() == "Counselor") {
-            if (coordinatorService.getCoordinatorByUsername(coordinatorRegister.getUsername()) != null) {
+
+        } else if (userRegister.getRole().equals("Counselor")) {
+            // check for unique username
+            if (coordinatorService.getCoordinatorByUsername(userRegister.getUsername()) != null) {
                 return ResponseEntity.status(400).body("Username for counselor is already taken");
             }
-            Coordinator coordinator = new Coordinator(coordinatorRegister.getUsername(), coordinatorRegister.getPassword(), coordinatorRegister.getRole());
-            // Save the user to the database
+            Coordinator coordinator = new Coordinator(userRegister.getUsername(), userRegister.getPassword(), userRegister.getRole());
+            // Save the Counselor to the database
             return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+
         }
         else return null;
     }
@@ -125,7 +128,7 @@ public class UserController {
 // Coordinator Methods END
 ////////////////////////
 // TourGuide Methods START
-    @GetMapping("/tourguides/getAll")
+    @GetMapping("/tourguide/getAll")
     public ResponseEntity<?> getAllTourGuides() {
         try {
             // Fetch all tour guides from the service
@@ -154,6 +157,7 @@ public class UserController {
         return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
     }
 
+    //doesnt work
     @DeleteMapping("/tourguide/delete")
     public ResponseEntity<?> deleteTourGuide(@RequestParam String username) {
         tourGuideService.deleteTourGuideByUsername(username);

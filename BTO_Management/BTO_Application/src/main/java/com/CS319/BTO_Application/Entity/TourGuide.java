@@ -13,6 +13,10 @@ import lombok.Setter;
 public class TourGuide extends User{
 
     private long puantage;
+    private String department;
+    private float workHours;
+    private boolean hasGraduated;
+    // List<Tour>
 
     public TourGuide(String username, String password, String role) {
         this.setUsername(username);

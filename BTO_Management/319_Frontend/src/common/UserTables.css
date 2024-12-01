@@ -1,0 +1,22 @@
+.user-table {
+  width: 100%;
+  margin: 20px;
+  border-collapse: collapse; /* Makes borders look cleaner */
+  text-align: center;
+}
+
+.user-table th {
+  border: 1px solid black; /* Adds a border around each cell */
+  padding: 10px; /* Adds spacing inside cells */
+  color: white;
+}
+.user-table td {
+ border: 1px solid black; /* Adds a border around each cell */
+ padding: 10px; /* Adds spacing inside cells */
+ color: black;
+}
+
+.user-table th {
+  background-color: #002855; /* Light grey background for headers */
+  font-weight: bold;
+}

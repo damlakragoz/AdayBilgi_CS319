@@ -48,7 +48,7 @@ const MainPage = () => {
                 password: loginData.password,
             });
             const role = roleResponse.data;
-//const role = "Counselor";
+//          const role = "Counselor";
 
             // If login is successful, store the JWT token in localStorage
             if (response.status === 200 && response.data.token) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './UserTables.css';
 
 const TourGuideList = () => {
   const [tourGuides, setTourGuides] = useState([]);
@@ -8,9 +9,10 @@ const TourGuideList = () => {
   // Fetch tour guides
   const fetchTourGuides = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/api/tourguides/getAll', {
+      const response = await axios.get('http://localhost:8081/api/tourguide/getAll', {
         withCredentials: true, // Include credentials like cookies
       });
+      console.log(response);
       setTourGuides(response.data);
       setError(null);
     } catch (err) {
@@ -26,21 +28,20 @@ const TourGuideList = () => {
 
   return (
     <div>
-      <h1>Tour Guides in System</h1>
-      {error ? (
-        <p style={{ color: "red" }}>Error: {error}</p>
-      ) : (
-        <ul>
-          {tourGuides.map((tourGuide, index) => {
-            console.log(tourGuide);
-            return (
-              <li key={index}>
-                {tourGuide.username}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <table className="user-table ">
+        <thead>
+          <tr>
+            <th>Tour Guides</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tourGuides.map((tourGuide, index) => (
+            <tr key={index}>
+              <td>{tourGuide.username}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
