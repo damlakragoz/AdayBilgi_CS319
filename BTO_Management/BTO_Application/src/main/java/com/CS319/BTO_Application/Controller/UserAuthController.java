@@ -35,9 +35,11 @@ public class UserAuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
+    /*
+    @PostMapping("/user-role")
+    public String getUserRole(@RequestBody LoginRequest loginRequest) {
+        return authService.getUserRole(loginRequest);
+    }
 
-//    @PostMapping("/user-role")
-//    public String getUserRole(@RequestBody LoginRequest loginRequest) {
-//        return authService.getUserRole(loginRequest);
-//    }
+     */
 }

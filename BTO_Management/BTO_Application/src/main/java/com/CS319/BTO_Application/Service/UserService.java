@@ -48,21 +48,5 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    /*
-    public User saveUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    @Transactional
-    public void deleteUserByUsername(String username) {
-        if(userRepository.existsByUsername(username)) {
-            userRepository.deleteByUsername(username);
-        } else {
-            throw new UsernameNotFoundException("User not found: " + username);
-        }    }
-
-     */
-
 }
 
