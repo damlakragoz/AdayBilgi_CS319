@@ -19,8 +19,8 @@ import java.util.List;
 public class HighSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    @Column(name = "id", unique = true, nullable = false) // the id can be made long
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String schoolName;

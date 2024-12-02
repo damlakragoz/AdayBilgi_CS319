@@ -1,4 +1,5 @@
 package com.CS319.BTO_Application.Controller;
+
 import com.CS319.BTO_Application.DTO.*;
 import com.CS319.BTO_Application.Entity.Coordinator;
 import com.CS319.BTO_Application.Entity.Counselor;
@@ -26,8 +27,8 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
-              CoordinatorService coordinatorService, TourGuideService tourGuideService,
-              HighSchoolService highschoolService) {
+                          CoordinatorService coordinatorService, TourGuideService tourGuideService,
+                          HighSchoolService highschoolService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
@@ -35,7 +36,7 @@ public class UserController {
         this.highschoolService = highschoolService;
     }
 
-// Counselor Methods
+    // Counselor Methods
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
         try {
@@ -54,7 +55,7 @@ public class UserController {
     @PostMapping("/counselor/register")
     public ResponseEntity<?> registerCounselor(@RequestBody CounselorRegister counselorRegister) {
         // Check if the username is already taken
-        if (counselorService.getCounselorByUsername(counselorRegister.getUsername()) != null) {
+        if (userService.getUserByUsername(counselorRegister.getUsername()) != null) {
             return ResponseEntity.status(400).body("Username is already taken");
         }
         if(highschoolService.getSchoolByName(counselorRegister.getSchoolName()) == null){
@@ -75,7 +76,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-// Counselor Methods END
+    // Counselor Methods END
 ////////////////////////////
 // BTO Member Methods START
     @PostMapping("/BTOMember/register")
@@ -83,7 +84,7 @@ public class UserController {
         // Username is user's Bilkent ID
         if(btoMemberRegister.getRole().equals("TourGuide")) {
             // check for unique username
-            if (tourGuideService.getTourGuideByUsername(btoMemberRegister.getUsername()) != null) {
+            if (userService.getUserByUsername(btoMemberRegister.getUsername()) != null) {
                 return ResponseEntity.status(400).body("Username for tour guide is already taken");
             }
             TourGuide tourGuide = new TourGuide(btoMemberRegister.getUsername(), btoMemberRegister.getPassword(), btoMemberRegister.getRole());
@@ -93,7 +94,7 @@ public class UserController {
 
         } else if (btoMemberRegister.getRole().equals("Coordinator")) {
             // check for unique username
-            if (coordinatorService.getCoordinatorByUsername(btoMemberRegister.getUsername()) != null) {
+            if (userService.getUserByUsername(btoMemberRegister.getUsername()) != null) {
                 return ResponseEntity.status(400).body("Username for coordinator is already taken");
             }
             Coordinator coordinator = new Coordinator(btoMemberRegister.getUsername(), btoMemberRegister.getPassword(), btoMemberRegister.getRole());
@@ -107,7 +108,7 @@ public class UserController {
         }
 
     }
-// BTO Member Methods END
+    // BTO Member Methods END
 ////////////////////////////
 // Coordinator Methods START
     @GetMapping("/coordinator/getAll")
@@ -132,7 +133,7 @@ public class UserController {
         coordinatorService.deleteCoordinatorByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-// Coordinator Methods END
+    // Coordinator Methods END
 ////////////////////////
 // TourGuide Methods START
     @GetMapping("/tourguide/getAll")
@@ -159,11 +160,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
 // TourGuide Methods END
 ////////////////
 }
-
-
-
-
