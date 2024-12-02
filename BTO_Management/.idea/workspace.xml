@@ -5,69 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="application.properties">
-      <change afterPath="$PROJECT_DIR$/.idea/BTO_Management.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/AdayBilgi_CS319.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/logo192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/logo512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/public/robots.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/components/TourApplications.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/components/TourApplications.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/pages/SchoolTourApplicationFormPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/controller/TourApplicationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/IndividualTourApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/SchoolTourApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/TourApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/repository/CounselorRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/repository/TourApplicationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/service/TourApplicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="basic user API and damla AWS connection">
-      <change afterPath="$PROJECT_DIR$/319_Frontend/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/.idea/319_Frontend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/common/NavigationBar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/common/NavigationBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/dashboard/ApplicationTable.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/dashboard/ApplicationTable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/dashboard/Dashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/dashboard/UniversityInvitations.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/dashboard/UniversityInvitations.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/mainpage/MainPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/mainpage/MainPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/signup/SignUpForm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/signup/SignUpForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/submitapplication/SubmitApplication.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/submitapplication/SubmitApplication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FairInvitationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AddInvitationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/FairInvitation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FairInvitationRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FairInvitationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_11_2024__20_28__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/BtoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/BtoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/UserRepos.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/repository/UserRepos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,6 +69,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.BtoApplication.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -123,7 +78,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.BtoManagementApplication.executor": "Run",
-    "git-widget-placeholder": "#1 on Implementation",
+    "git-widget-placeholder": "Implementation",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/damlak/Desktop/AdayBilgi_CS319/BTO_Management",
@@ -227,15 +182,6 @@
       <option name="project" value="LOCAL" />
       <updated>1731613003378</updated>
     </task>
-    <task id="LOCAL-00003" summary="basic user API and damla AWS connection">
-      <option name="closed" value="true" />
-      <created>1731615930916</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1731615930916</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <task id="LOCAL-00003" summary="application.properties">
       <created>1731658638552</created>
       <option name="number" value="00003" />
