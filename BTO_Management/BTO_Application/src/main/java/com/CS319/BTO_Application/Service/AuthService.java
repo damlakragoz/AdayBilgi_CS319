@@ -53,16 +53,16 @@ public class AuthService {
         }
     }
 
-    @GetMapping("/user/role")
-    public String getUserRole(LoginRequest loginRequest) {
-        // Extract the user information from the token and fetch the role from the database
-        String username = loginRequest.getUsername();  // Extract username from token
-        User user = userService.getUserByUsername(username);  // Fetch the user from the database
-
-        if (user != null) {
-            return user.getRole() ;  // Return the role
-        }
-        else return null;
-    }
+//    @GetMapping("/user/role")
+//    public String getUserRole(LoginRequest loginRequest) {
+//        // Extract the user information from the token and fetch the role from the database
+//        String username = loginRequest.getUsername();  // Extract username from token
+//        User user = userService.getUserByUsername(username);  // Fetch the user from the database
+//
+//        if (user != null) {
+//            return user.getRole() ;  // Return the role
+//        }
+//        else return null;
+//    }
 
 }

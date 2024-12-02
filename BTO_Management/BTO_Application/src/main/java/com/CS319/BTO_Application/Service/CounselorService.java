@@ -1,12 +1,8 @@
 package com.CS319.BTO_Application.Service;
 
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
-import com.CS319.BTO_Application.Entity.TourApplication;
-import com.CS319.BTO_Application.Entity.User;
+import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.SchoolTourApplicationRepos;
-import com.CS319.BTO_Application.Repos.UserRepos;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +23,9 @@ public class CounselorService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public List<Counselor> getAllCounselors() {
+        return counselorRepos.findAll();
+    }
     public Counselor getCounselorByUsername(String username) {
         if(!counselorRepos.existsByUsername(username)){
             System.out.println("Counselor Not Found with username " + username);
@@ -43,7 +42,7 @@ public class CounselorService {
     /*
     this method does not remove the tour applications of the deleted counselor
      it just turns their counselor id into null
-     */
+    */
     @Transactional
     public void deleteCounselorByUsername(String username) {
         Counselor counselor = counselorRepos.findByUsername(username);

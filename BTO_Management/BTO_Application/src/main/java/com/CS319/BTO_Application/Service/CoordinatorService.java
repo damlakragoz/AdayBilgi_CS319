@@ -21,6 +21,11 @@ public class CoordinatorService {
         this.coordinatorRepos = coordinatorRepos;
         this.passwordEncoder = passwordEncoder;
     }
+
+    public List<Coordinator> getAllCoordinators() {
+        return coordinatorRepos.findAll();
+    }
+
     public Coordinator getCoordinatorByUsername(String username) {
         if(!coordinatorRepos.existsByUsername(username)){
             System.out.println("Coordinator Not Found with username " + username);
@@ -39,8 +44,9 @@ public class CoordinatorService {
     public void deleteCoordinatorByUsername(String username) {
         Coordinator coordinator = coordinatorRepos.findByUsername(username);
         if (coordinator == null) {
-            throw new UsernameNotFoundException("Counselor not found: " + username);
+            throw new UsernameNotFoundException("Coordinator not found: " + username);
         }
         coordinatorRepos.delete(coordinator);
     }
+
 }

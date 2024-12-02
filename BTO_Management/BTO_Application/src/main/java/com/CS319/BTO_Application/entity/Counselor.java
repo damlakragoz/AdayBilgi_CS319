@@ -32,5 +32,12 @@ public class Counselor extends User{
         this.setRole(role);
         this.highSchool = highSchool;
     }
+
+    public String getSchoolName() {
+        return highSchool.getSchoolName();
+    }
+    public Long getSchoolId() {
+        return highSchool.getId();
+    }
 }
 

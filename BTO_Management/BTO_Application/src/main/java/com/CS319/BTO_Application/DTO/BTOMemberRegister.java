@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserRegister {
+public class BTOMemberRegister {
     private String username;
     private String password;
     private String role;
