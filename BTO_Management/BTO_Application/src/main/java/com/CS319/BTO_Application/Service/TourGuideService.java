@@ -11,24 +11,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TourGuideService {
     private final TourGuideRepos tourGuideRepos;
-    private final SchoolTourApplicationRepos schoolTourApplicationRepos;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public TourGuideService(TourGuideRepos tourGuideRepos, SchoolTourApplicationRepos schoolTourApplicationRepos, PasswordEncoder passwordEncoder) {
+    public TourGuideService(TourGuideRepos tourGuideRepos, PasswordEncoder passwordEncoder) {
         this.tourGuideRepos = tourGuideRepos;
-        this.schoolTourApplicationRepos = schoolTourApplicationRepos;
         this.passwordEncoder = passwordEncoder;
     }
 
     public TourGuide getTourGuideByUsername(String username) {
         if (!tourGuideRepos.existsByUsername(username)) {
-            throw new UsernameNotFoundException("TourGuide not found with username: " + username);
+            System.out.println("TourGuide Not Found with username " + username);
+            return null;
         }
         return tourGuideRepos.findByUsername(username);
     }
@@ -48,8 +46,6 @@ public class TourGuideService {
         if (tourGuide == null) {
             throw new UsernameNotFoundException("Tour Guide not found: " + username);
         }
-
-        // Set TourGuide to null in related entities
         tourGuideRepos.delete(tourGuide);
     }
 }

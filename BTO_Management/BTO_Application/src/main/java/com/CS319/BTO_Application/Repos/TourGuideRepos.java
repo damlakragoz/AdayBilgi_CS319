@@ -8,8 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TourGuideRepos extends UserRepos<TourGuide> {
-    TourGuide findByUsername(String username);
-    boolean existsByUsername(String username);
 
     @Query("SELECT c FROM TourGuide c")
     List<TourGuide> findAllTourGuides();

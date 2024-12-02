@@ -40,9 +40,9 @@ public class UserController {
     public ResponseEntity<?> getAllCounselors() {
         try {
             // Fetch all counselors from the service
-            List<CounselorDTO> counselors = counselorService.getAllCounselors();
+            List<Counselor> counselors = counselorService.getAllCounselors();
             counselors.forEach(counselor -> {
-                System.out.println("Counselor: " + counselor.getUsername() + ", HighSchool: " + counselor.getHighSchool());
+                System.out.println("Counselor: " + counselor.getUsername() + ", HighSchool: " + counselor.getHighSchool() );
             });
             return ResponseEntity.ok(counselors); // Return the list of counselors with a 200 OK status
         } catch (Exception ex) {
@@ -68,61 +68,68 @@ public class UserController {
 
     @DeleteMapping("/counselor/delete")
     public ResponseEntity<?> deleteCounselor(@RequestParam String username) {
-        counselorService.deleteCounselorByUsername(username);
         if (counselorService.getCounselorByUsername(username) == null) {
             return ResponseEntity.status(400).body("Counselor With Username "+username+"Not Found");
         }
+        counselorService.deleteCounselorByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // Get HighSchool by Counselor username
-//    @GetMapping("/counselor/school")
-//    public ResponseEntity<?> getHighSchoolByCounselor(@PathVariable String username) {
-//        try {
-//            HighSchool highSchool = counselorService.getHighSchoolByCounselor(username);
-//            return ResponseEntity.ok(highSchool); // Return the HighSchool associated with the Counselor
-//        } catch (IllegalArgumentException ex) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()); // If no counselor found
-//        } catch (Exception ex) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
-//        }
-//    }
 // Counselor Methods END
 ////////////////////////////
-// Coordinator Methods START
-    @PostMapping("/coordinator/register")
-    public ResponseEntity<?> registerCoordinator(@RequestBody UserRegister userRegister) {
+// BTO Member Methods START
+    @PostMapping("/BTOMember/register")
+    public ResponseEntity<?> registerBTOMember(@RequestBody BTOMemberRegister btoMemberRegister) {
         // Username is user's Bilkent ID
-
-        if(userRegister.getRole().equals("TourGuide")) {
+        if(btoMemberRegister.getRole().equals("TourGuide")) {
             // check for unique username
-            if (tourGuideService.getTourGuideByUsername(userRegister.getUsername()) != null) {
+            if (tourGuideService.getTourGuideByUsername(btoMemberRegister.getUsername()) != null) {
                 return ResponseEntity.status(400).body("Username for tour guide is already taken");
             }
-            TourGuide tourGuide = new TourGuide(userRegister.getUsername(), userRegister.getPassword(), userRegister.getRole());
-            System.out.println("Newly created " + tourGuide.getUsername());
+            TourGuide tourGuide = new TourGuide(btoMemberRegister.getUsername(), btoMemberRegister.getPassword(), btoMemberRegister.getRole());
+
             // Save the tour guide to the database
             return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
 
-        } else if (userRegister.getRole().equals("Counselor")) {
+        } else if (btoMemberRegister.getRole().equals("Coordinator")) {
             // check for unique username
-            if (coordinatorService.getCoordinatorByUsername(userRegister.getUsername()) != null) {
-                return ResponseEntity.status(400).body("Username for counselor is already taken");
+            if (coordinatorService.getCoordinatorByUsername(btoMemberRegister.getUsername()) != null) {
+                return ResponseEntity.status(400).body("Username for coordinator is already taken");
             }
-            Coordinator coordinator = new Coordinator(userRegister.getUsername(), userRegister.getPassword(), userRegister.getRole());
-            // Save the Counselor to the database
+            Coordinator coordinator = new Coordinator(btoMemberRegister.getUsername(), btoMemberRegister.getPassword(), btoMemberRegister.getRole());
+
+            // Save the Coordinator to the database
             return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
 
+        } // executive will be added
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified. Accepted roles are: TourGuide, Coordinator");
         }
-        else return null;
-    }
 
+    }
+// BTO Member Methods END
+////////////////////////////
+// Coordinator Methods START
+    @GetMapping("/coordinator/getAll")
+    public ResponseEntity<?> getAllCoordinators() {
+        try {
+            // Fetch all tour guides from the service
+            List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
+            coordinators.forEach(tourGuide -> {
+                System.out.println("TourGuide: " + tourGuide.getUsername());
+            });
+            return ResponseEntity.ok(coordinators); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving tour guides.");
+        }
+    }
     @DeleteMapping("/coordinator/delete")
     public ResponseEntity<?> deleteCoordinator(@RequestParam String username) {
-        coordinatorService.deleteCoordinatorByUsername(username);
         if (coordinatorService.getCoordinatorByUsername(username) == null) {
             return ResponseEntity.status(400).body("Coordinator With Username "+username+"Not Found");
         }
+        coordinatorService.deleteCoordinatorByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 // Coordinator Methods END
@@ -143,55 +150,18 @@ public class UserController {
         }
     }
 
-    @PostMapping("/tourguide/register")
-    public ResponseEntity<?> registerTourGuide(@RequestBody TourGuideRegister tourGuideRegister) {
-        System.out.println("u s e r na me"+tourGuideRegister.getUsername());
-        // Check if the username is already taken
-        if (tourGuideService.getTourGuideByUsername(tourGuideRegister.getUsername()) != null) {
-            return ResponseEntity.status(400).body("Username is already taken");
-        }
-        TourGuide tourGuide = new TourGuide(tourGuideRegister.getUsername(), tourGuideRegister.getPassword(), tourGuideRegister.getRole());
-        System.out.println("Newly created "+tourGuide.getUsername());
-
-        // Save the tour guide to the database
-        return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
-    }
-
-    //doesnt work
     @DeleteMapping("/tourguide/delete")
     public ResponseEntity<?> deleteTourGuide(@RequestParam String username) {
-        tourGuideService.deleteTourGuideByUsername(username);
         if (tourGuideService.getTourGuideByUsername(username) == null) {
             return ResponseEntity.status(400).body("TourGuide With Username " + username + " Not Found");
         }
+        tourGuideService.deleteTourGuideByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
 // TourGuide Methods END
 ////////////////
-
-
-    /*
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
-        // Check if the username is already taken
-        if (userService.getUserByUsername(registerRequest.getUsername()) != null) {
-            return ResponseEntity.status(400).body("Username is already taken");
-        }
-        // Create a new user with hashed password and specified role
-        User user = new User(registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getRole());
-
-        // Save the user to the database
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<HttpStatus> deleteUser(@RequestParam String username) {
-        userService.deleteUserByUsername(username);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-     */
 }
 
 

@@ -36,8 +36,8 @@ public class UserAuthController {
         }
     }
 
-    @PostMapping("/user-role")
-    public String getUserRole(@RequestBody LoginRequest loginRequest) {
-        return authService.getUserRole(loginRequest);
-    }
+//    @PostMapping("/user-role")
+//    public String getUserRole(@RequestBody LoginRequest loginRequest) {
+//        return authService.getUserRole(loginRequest);
+//    }
 }

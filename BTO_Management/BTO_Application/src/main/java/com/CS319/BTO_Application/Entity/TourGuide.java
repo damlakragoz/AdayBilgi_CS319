@@ -13,9 +13,9 @@ import lombok.Setter;
 public class TourGuide extends User{
 
     private long puantage;
-    private String department;
-    private float workHours;
-    private boolean hasGraduated;
+//    private String department;
+//    private float workHours;
+//    private boolean hasGraduated;
     // List<Tour>
 
     public TourGuide(String username, String password, String role) {
@@ -23,6 +23,9 @@ public class TourGuide extends User{
         this.setPassword(password);
         this.setRole(role);
         this.puantage = 0;
+//        department = null;
+//        workHours = 0;
+//        hasGraduated = false;
     }
 }
 

@@ -19,7 +19,6 @@ public class SchoolTourApplication extends TourApplication {
     @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
-
 }
 
 
