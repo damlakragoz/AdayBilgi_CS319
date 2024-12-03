@@ -8,8 +8,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CounselorRegister {
-    private String username;
+    private String email;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String role;
     private String schoolName;
 }

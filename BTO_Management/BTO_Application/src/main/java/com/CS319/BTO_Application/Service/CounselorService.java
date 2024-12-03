@@ -27,11 +27,11 @@ public class CounselorService {
         return counselorRepos.findAll();
     }
     public Counselor getCounselorByUsername(String username) {
-        if(!counselorRepos.existsByUsername(username)){
+        if(!counselorRepos.existsByEmail(username)){
             System.out.println("Counselor Not Found with username " + username);
             return null;
         }
-        return counselorRepos.findByUsername(username);
+        return counselorRepos.findByEmail(username);
     }
 
     public Counselor saveCounselor(Counselor counselor) {
@@ -45,7 +45,7 @@ public class CounselorService {
     */
     @Transactional
     public void deleteCounselorByUsername(String username) {
-        Counselor counselor = counselorRepos.findByUsername(username);
+        Counselor counselor = counselorRepos.findByEmail(username);
         if (counselor == null) {
             throw new UsernameNotFoundException("Counselor not found: " + username);
         }

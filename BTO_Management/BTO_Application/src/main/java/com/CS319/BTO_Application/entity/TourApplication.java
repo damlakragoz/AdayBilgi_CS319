@@ -15,7 +15,7 @@ import lombok.Setter;
 public abstract class TourApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID",unique = true, nullable = true)
+    @Column(name = "id",unique = true, nullable = false)
     private Long id;
 
     @ElementCollection
@@ -26,11 +26,11 @@ public abstract class TourApplication {
     @Column(name = "requested_date") // Name of the column in the secondary table
     private List<Date> requestedDates;
 
-    @Column(name = "VISITOR-COUNT")
+    @Column(name = "visitor-count")
     private int visitorCount; // Number of visitors attending the tour
 
 
-    @Column(name = "STATUS")
+    @Column(name = "status")
     private String status; // Status of the application (e.g., "pending", "approved", "denied")
 
 }

@@ -27,11 +27,11 @@ public class CoordinatorService {
     }
 
     public Coordinator getCoordinatorByUsername(String username) {
-        if(!coordinatorRepos.existsByUsername(username)){
+        if(!coordinatorRepos.existsByEmail(username)){
             System.out.println("Coordinator Not Found with username " + username);
             return null;
         }
-        return coordinatorRepos.findByUsername(username);
+        return coordinatorRepos.findByEmail(username);
     }
     public Coordinator saveCoordinator(Coordinator coordinator) {
         coordinator.setPassword(passwordEncoder.encode(coordinator.getPassword())); //setPassword is new for this one
@@ -42,7 +42,7 @@ public class CoordinatorService {
     // the coordinator in the future in this method
     @Transactional
     public void deleteCoordinatorByUsername(String username) {
-        Coordinator coordinator = coordinatorRepos.findByUsername(username);
+        Coordinator coordinator = coordinatorRepos.findByEmail(username);
         if (coordinator == null) {
             throw new UsernameNotFoundException("Coordinator not found: " + username);
         }

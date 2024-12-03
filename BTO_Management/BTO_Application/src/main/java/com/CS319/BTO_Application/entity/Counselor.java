@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Counselor", schema = "bto_database")
 public class Counselor extends User{
@@ -23,15 +24,30 @@ public class Counselor extends User{
      */
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "school_id", referencedColumnName = "id") // referencedcolumnname: parenttaki primary
+    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = false) // referencedcolumnname: parenttaki primary
     private HighSchool highSchool;
 
-    public Counselor(String username, String password, String role, HighSchool highSchool) {
-        this.setUsername(username);
+    //TODO:
+    //Feedback
+
+
+    public Counselor(String email, String password, String role, HighSchool highSchool) {
+        this.setEmail(email);
         this.setPassword(password);
         this.setRole(role);
         this.highSchool = highSchool;
     }
+
+    public Counselor(String email, String password, String firstName, String lastName, String phoneNumber, String role, HighSchool highSchool) {
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setPhoneNumber(phoneNumber);
+        this.setRole(role);
+        this.highSchool = highSchool;
+    }
+
 
     public String getSchoolName() {
         return highSchool.getSchoolName();

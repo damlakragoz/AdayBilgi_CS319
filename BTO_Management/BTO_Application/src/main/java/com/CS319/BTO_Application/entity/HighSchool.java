@@ -19,7 +19,7 @@ import java.util.List;
 public class HighSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false) // the id can be made long
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -29,8 +29,17 @@ public class HighSchool {
     @JsonManagedReference
     private List<Counselor> counselors;
 
-    public HighSchool(String schoolName) {
+    @Column(name = "city", nullable = false)
+    private String city;
+
+    @Column(name = "total_tour_count", nullable = true)
+    private Integer totalTourCount;
+
+    //TODO: Initialize Statistics
+
+    public HighSchool(String schoolName, String city) {
         this.schoolName = schoolName;
+        this.city = city;
     }
 
 }

@@ -19,6 +19,12 @@ public class SchoolTourApplication extends TourApplication {
     @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
+    /*
+    @ManyToOne // A highschool can apply for many school tours
+    @JoinColumn(name = "highschool_id", referencedColumnName = "id", nullable = false) // Foreign key column for counselor
+    private Counselor applyingHighSchool; // Highschool of applying counselor
+
+     */
 }
 
 

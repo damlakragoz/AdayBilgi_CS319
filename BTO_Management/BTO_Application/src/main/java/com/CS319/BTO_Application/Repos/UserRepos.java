@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 
 //@NoRepositoryBean
 public interface UserRepos<T extends User> extends JpaRepository<T, Long> {
-    T findByUsername(String username);
-    boolean existsByUsername(String username);
+    T findByEmail(String email);
+    boolean existsByEmail(String email);
 
     @Modifying
-    @Query("DELETE FROM #{#entityName} u WHERE u.username = :username")
-    void deleteByUsername(@Param("username") String username);
+    @Query("DELETE FROM #{#entityName} u WHERE u.email = :email")
+    void deleteByEmail(@Param("email") String email);
 }

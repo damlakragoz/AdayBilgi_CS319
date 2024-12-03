@@ -25,11 +25,11 @@ public class TourGuideService {
     }
 
     public TourGuide getTourGuideByUsername(String username) {
-        if (!tourGuideRepos.existsByUsername(username)) {
+        if (!tourGuideRepos.existsByEmail(username)) {
             System.out.println("TourGuide Not Found with username " + username);
             return null;
         }
-        return tourGuideRepos.findByUsername(username);
+        return tourGuideRepos.findByEmail(username);
     }
 
     public List<TourGuide> getAllTourGuides() {
@@ -43,7 +43,7 @@ public class TourGuideService {
 
     @Transactional
     public void deleteTourGuideByUsername(String username) {
-        TourGuide tourGuide = tourGuideRepos.findByUsername(username);
+        TourGuide tourGuide = tourGuideRepos.findByEmail(username);
         if (tourGuide == null) {
             throw new UsernameNotFoundException("Tour Guide not found: " + username);
         }

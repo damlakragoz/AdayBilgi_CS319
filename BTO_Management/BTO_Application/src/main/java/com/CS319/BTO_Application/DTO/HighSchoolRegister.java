@@ -11,4 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class HighSchoolRegister {
     private String schoolName;
+    private String city;
 }

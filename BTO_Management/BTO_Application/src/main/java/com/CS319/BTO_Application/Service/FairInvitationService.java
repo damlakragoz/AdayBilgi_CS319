@@ -24,7 +24,7 @@ public class FairInvitationService {
     }
 
     public FairInvitation addFairInvitation(FairInvitation fairInvitation, String counselorUsername) {
-        Counselor counselor = (Counselor)userRepos.findByUsername(counselorUsername);
+        Counselor counselor = (Counselor)userRepos.findByEmail(counselorUsername);
         fairInvitation.setApplyingCounselor(counselor);
         return fairInvitationRepos.save(fairInvitation);
     }

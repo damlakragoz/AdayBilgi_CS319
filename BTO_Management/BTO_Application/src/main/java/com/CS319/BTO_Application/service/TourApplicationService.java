@@ -23,7 +23,7 @@ public class TourApplicationService {
     }
 
     public SchoolTourApplication addSchoolApplication(SchoolTourApplication tourApplication, String counselorUsername) {
-        Counselor counselor = (Counselor)userRepos.findByUsername(counselorUsername);
+        Counselor counselor = (Counselor)userRepos.findByEmail(counselorUsername);
         tourApplication.setApplyingCounselor(counselor);
         return tourApplicationRepository.save(tourApplication);
     }

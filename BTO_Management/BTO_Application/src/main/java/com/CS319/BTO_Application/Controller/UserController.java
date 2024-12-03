@@ -43,7 +43,7 @@ public class UserController {
             // Fetch all counselors from the service
             List<Counselor> counselors = counselorService.getAllCounselors();
             counselors.forEach(counselor -> {
-                System.out.println("Counselor: " + counselor.getUsername() + ", HighSchool: " + counselor.getHighSchool() );
+                System.out.println("Counselor: " + counselor.getEmail() + ", HighSchool: " + counselor.getHighSchool() );
             });
             return ResponseEntity.ok(counselors); // Return the list of counselors with a 200 OK status
         } catch (Exception ex) {
@@ -55,14 +55,16 @@ public class UserController {
     @PostMapping("/counselor/register")
     public ResponseEntity<?> registerCounselor(@RequestBody CounselorRegister counselorRegister) {
         // Check if the username is already taken
-        if (userService.getUserByUsername(counselorRegister.getUsername()) != null) {
+        if (userService.getUserByUsername(counselorRegister.getEmail()) != null) {
             return ResponseEntity.status(400).body("Username is already taken");
         }
         if(highschoolService.getSchoolByName(counselorRegister.getSchoolName()) == null){
             return ResponseEntity.status(400).body("Highschool does not exist");
         }
         HighSchool highSchool = highschoolService.getSchoolByName(counselorRegister.getSchoolName());
-        Counselor counselor = new Counselor(counselorRegister.getUsername(), counselorRegister.getPassword(), counselorRegister.getRole(), highSchool);
+        Counselor counselor = new Counselor(counselorRegister.getEmail(), counselorRegister.getPassword(),
+                counselorRegister.getFirstName(), counselorRegister.getLastName(),
+                counselorRegister.getPhoneNumber(), counselorRegister.getRole(), highSchool);
         // Save the user to the database
         return new ResponseEntity<>(counselorService.saveCounselor(counselor), HttpStatus.CREATED);
     }
@@ -84,20 +86,25 @@ public class UserController {
         // Username is user's Bilkent ID
         if(btoMemberRegister.getRole().equals("TourGuide")) {
             // check for unique username
-            if (userService.getUserByUsername(btoMemberRegister.getUsername()) != null) {
+            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
                 return ResponseEntity.status(400).body("Username for tour guide is already taken");
             }
-            TourGuide tourGuide = new TourGuide(btoMemberRegister.getUsername(), btoMemberRegister.getPassword(), btoMemberRegister.getRole());
+            TourGuide tourGuide = new TourGuide(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
+                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
+                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getRole());
 
             // Save the tour guide to the database
             return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
 
-        } else if (btoMemberRegister.getRole().equals("Coordinator")) {
+        }
+        else if (btoMemberRegister.getRole().equals("Coordinator")) {
             // check for unique username
-            if (userService.getUserByUsername(btoMemberRegister.getUsername()) != null) {
+            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
                 return ResponseEntity.status(400).body("Username for coordinator is already taken");
             }
-            Coordinator coordinator = new Coordinator(btoMemberRegister.getUsername(), btoMemberRegister.getPassword(), btoMemberRegister.getRole());
+            Coordinator coordinator = new Coordinator(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
+                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
+                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getRole());
 
             // Save the Coordinator to the database
             return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
@@ -117,7 +124,7 @@ public class UserController {
             // Fetch all tour guides from the service
             List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
             coordinators.forEach(tourGuide -> {
-                System.out.println("TourGuide: " + tourGuide.getUsername());
+                System.out.println("TourGuide: " + tourGuide.getEmail());
             });
             return ResponseEntity.ok(coordinators); // Return the list of tour guides with a 200 OK status
         } catch (Exception ex) {
@@ -142,7 +149,7 @@ public class UserController {
             // Fetch all tour guides from the service
             List<TourGuide> tourGuides = tourGuideService.getAllTourGuides();
             tourGuides.forEach(tourGuide -> {
-                System.out.println("TourGuide: " + tourGuide.getUsername());
+                System.out.println("TourGuide: " + tourGuide.getEmail());
             });
             return ResponseEntity.ok(tourGuides); // Return the list of tour guides with a 200 OK status
         } catch (Exception ex) {
