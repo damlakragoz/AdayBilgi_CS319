@@ -26,6 +26,7 @@ public class CounselorService {
     public List<Counselor> getAllCounselors() {
         return counselorRepos.findAll();
     }
+
     public Counselor getCounselorByUsername(String username) {
         if(!counselorRepos.existsByEmail(username)){
             System.out.println("Counselor Not Found with username " + username);

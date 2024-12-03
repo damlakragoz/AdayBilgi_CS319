@@ -2,6 +2,7 @@ package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.FairInvitation;
+import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Repos.FairInvitationRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class FairInvitationService {
     };
     public List<FairInvitation> getAllFairInvitations() {
         return fairInvitationRepos.findAll();
+    }
+
+    public List<FairInvitation> getAllFairInvitationsByCounselor(Counselor counselor) {
+        return fairInvitationRepos.findByApplyingCounselor(counselor);
     }
 
     public FairInvitation addFairInvitation(FairInvitation fairInvitation, String counselorUsername) {
