@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "TourApplication", schema = "bto_database")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class TourApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

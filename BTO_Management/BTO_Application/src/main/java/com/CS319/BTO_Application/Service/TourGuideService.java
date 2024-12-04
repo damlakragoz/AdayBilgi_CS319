@@ -1,9 +1,7 @@
 package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.*;
-import com.CS319.BTO_Application.Repos.SchoolTourApplicationRepos;
 import com.CS319.BTO_Application.Repos.TourGuideRepos;
-import com.CS319.BTO_Application.Repos.UserRepos;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TourGuideService {
@@ -24,12 +21,12 @@ public class TourGuideService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public TourGuide getTourGuideByUsername(String username) {
-        if (!tourGuideRepos.existsByEmail(username)) {
-            System.out.println("TourGuide Not Found with username " + username);
+    public TourGuide getTourGuideByEmail(String email) {
+        if (!tourGuideRepos.existsByEmail(email)) {
+            System.out.println("TourGuide Not Found with username " + email);
             return null;
         }
-        return tourGuideRepos.findByEmail(username);
+        return tourGuideRepos.findByEmail(email);
     }
 
     public List<TourGuide> getAllTourGuides() {
@@ -42,10 +39,10 @@ public class TourGuideService {
     }
 
     @Transactional
-    public void deleteTourGuideByUsername(String username) {
-        TourGuide tourGuide = tourGuideRepos.findByEmail(username);
+    public void deleteTourGuideByUsername(String email) {
+        TourGuide tourGuide = tourGuideRepos.findByEmail(email);
         if (tourGuide == null) {
-            throw new UsernameNotFoundException("Tour Guide not found: " + username);
+            throw new UsernameNotFoundException("Tour Guide not found: " + email);
         }
         tourGuideRepos.delete(tourGuide);
     }

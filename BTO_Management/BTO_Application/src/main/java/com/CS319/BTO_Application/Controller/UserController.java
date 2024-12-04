@@ -134,7 +134,7 @@ public class UserController {
     }
     @DeleteMapping("/coordinator/delete")
     public ResponseEntity<?> deleteCoordinator(@RequestParam String username) {
-        if (coordinatorService.getCoordinatorByUsername(username) == null) {
+        if (coordinatorService.getCoordinatorByEmail(username) == null) {
             return ResponseEntity.status(400).body("Coordinator With Username "+username+"Not Found");
         }
         coordinatorService.deleteCoordinatorByUsername(username);
@@ -160,7 +160,7 @@ public class UserController {
 
     @DeleteMapping("/tourguide/delete")
     public ResponseEntity<?> deleteTourGuide(@RequestParam String username) {
-        if (tourGuideService.getTourGuideByUsername(username) == null) {
+        if (tourGuideService.getTourGuideByEmail(username) == null) {
             return ResponseEntity.status(400).body("TourGuide With Username " + username + " Not Found");
         }
         tourGuideService.deleteTourGuideByUsername(username);

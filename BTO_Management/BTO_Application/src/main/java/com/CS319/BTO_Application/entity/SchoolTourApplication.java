@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Use SINGLE_TABLE strategy
+@Table(name = "School_Tour_Application", schema = "bto_database")
 public class SchoolTourApplication extends TourApplication {
 
     @ManyToOne // A counselor can apply for many school tours
