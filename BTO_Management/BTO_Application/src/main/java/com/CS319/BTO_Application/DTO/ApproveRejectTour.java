@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApproveRejectTourApplication {
+public class ApproveRejectTour {
     private String coordinatorEmail;
-    private Long tourApplicationId;
+    private Long tourId;
     private String status;
 }
+

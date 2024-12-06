@@ -12,11 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class TourApplication {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",unique = true, nullable = false)
-    private Long id;
+public abstract class TourApplication extends TourEvent{
 
     @ElementCollection
     @CollectionTable(
@@ -26,13 +22,8 @@ public abstract class TourApplication {
     @Column(name = "requested_date") // Name of the column in the secondary table
     private List<Date> requestedDates;
 
-    @Column(name = "visitor-count")
-    private int visitorCount; // Number of visitors attending the tour
-
-
-    @Column(name = "status")
-    private String status; // Status of the application (e.g., "pending", "approved", "denied")
-
+    @Column(name = "application_status", nullable = true)
+    private String applicationStatus;
 }
 
 

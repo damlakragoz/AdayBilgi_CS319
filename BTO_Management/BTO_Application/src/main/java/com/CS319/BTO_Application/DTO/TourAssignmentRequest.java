@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TourAssignmentRequest {
-    private Long tourApplicationId;
-    private Tour tour;
+    private Long tourId;
     private String applyingGuideEmail;
 }
