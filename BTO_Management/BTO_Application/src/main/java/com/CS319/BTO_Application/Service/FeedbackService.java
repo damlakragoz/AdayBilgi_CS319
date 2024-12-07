@@ -18,7 +18,7 @@ public class FeedbackService {
     @Autowired
     private CounselorService counselorService;
 
-    public Feedback addFeedback(Long counselorId, Feedback feedback) {
+    public void addFeedback(Long counselorId, Feedback feedback) {
         Counselor counselor = counselorService.getCounselorById(counselorId);
         feedback.setCounselor(counselor);
 
@@ -28,10 +28,8 @@ public class FeedbackService {
         if (feedback.getRating() < 1 || feedback.getRating() > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5.");
         }
-        return feedbackRepository.save(feedback);
+        feedbackRepository.save(feedback);
     }
-
-
 
     public List<Feedback> getAllFeedbacks() {
         return feedbackRepository.findAll();

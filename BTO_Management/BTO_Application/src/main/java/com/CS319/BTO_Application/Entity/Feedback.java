@@ -28,7 +28,7 @@ public class Feedback {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "counselor_id", referencedColumnName = "id")
     private Counselor counselor;
 
     public Feedback() {}
