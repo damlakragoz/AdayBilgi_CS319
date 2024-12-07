@@ -1,9 +1,6 @@
 package com.CS319.BTO_Application.Controller;
 //import com.CS319.BTO_Application.Service.UserService;
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.FairInvitation;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
-import com.CS319.BTO_Application.Entity.TourApplication;
+import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Service.CounselorService;
 import com.CS319.BTO_Application.Service.FairInvitationService;
 import com.CS319.BTO_Application.Service.HighSchoolService;
@@ -60,7 +57,15 @@ public class CounselorController {
         }    }
 
 
-
+    @GetMapping("/{id}/feedbacks")
+    public ResponseEntity<?> getCounselorFeedbacks(@PathVariable Long id) {
+        try {
+            Counselor counselor = counselorService.getCounselorById(id);
+            return ResponseEntity.ok(counselor.getFeedbacks());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
 }
 
