@@ -2,6 +2,7 @@
 package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Counselor;
+import com.CS319.BTO_Application.Entity.HighSchool;
 import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Entity.TourApplication;
 import com.CS319.BTO_Application.Repos.SchoolTourApplicationRepos;
@@ -34,6 +35,8 @@ public class TourApplicationService {
     public SchoolTourApplication addSchoolApplication(SchoolTourApplication schoolTourApplication, String counselorEmail) {
         Counselor counselor = (Counselor)userRepos.findByEmail(counselorEmail);
         schoolTourApplication.setApplyingCounselor(counselor);
+        schoolTourApplication.setApplyingHighschool(counselor.getHighSchool());
+        schoolTourApplication.setApplicationStatus("Pending");
         return schoolTourApplicationRepos.save(schoolTourApplication);
     }
 
@@ -52,11 +55,13 @@ public class TourApplicationService {
 
     /*
         not sure if saving again is the best practice
-     */
+
     public SchoolTourApplication changeApplicationStatus(SchoolTourApplication schoolTourApplication, String status) {
-        schoolTourApplication.setStatus(status);
+        schoolTourApplication.setApplicationStatus(status);
         return schoolTourApplicationRepos.save(schoolTourApplication);
     }
+
+     */
 
     public void deleteById(Long tourApplicationId) {
         if(tourApplicationRepository.existsById(tourApplicationId)) {
