@@ -19,5 +19,4 @@ public abstract class TourEvent {
     private Integer visitorCount;
 
 
-
 }

@@ -41,7 +41,6 @@ public class Tour extends TourEvent{
     private String tourStatus;
 
 
-
     public Tour(Integer visitorCount, Date chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
         this.setVisitorCount(visitorCount);
         this.setChosenDate(chosenDate);

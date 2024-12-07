@@ -1,11 +1,8 @@
 package com.CS319.BTO_Application.Controller;
 
 import com.CS319.BTO_Application.DTO.*;
-import com.CS319.BTO_Application.Entity.Coordinator;
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.HighSchool;
+import com.CS319.BTO_Application.Entity.*;
 //import com.CS319.BTO_Application.Service.UserService;
-import com.CS319.BTO_Application.Entity.TourGuide;
 import com.CS319.BTO_Application.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,16 +21,18 @@ public class UserController {
     private final CoordinatorService coordinatorService;
     private final TourGuideService tourGuideService;
     private final HighSchoolService highschoolService;
+    private final AdvisorService advisorService;
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
                           CoordinatorService coordinatorService, TourGuideService tourGuideService,
-                          HighSchoolService highschoolService) {
+                          HighSchoolService highschoolService, AdvisorService advisorService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
         this.highschoolService = highschoolService;
+        this.advisorService = advisorService;
     }
 
     // Counselor Methods
@@ -109,9 +108,22 @@ public class UserController {
             // Save the Coordinator to the database
             return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
 
-        } // executive will be added
+        }
+        else if (btoMemberRegister.getRole().equals("Advisor")) {
+            // check for unique username
+            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
+                return ResponseEntity.status(400).body("Username for advisor is already taken");
+            }
+            Advisor advisor = new Advisor(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
+                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
+                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getAssignedDay(), btoMemberRegister.getRole());
+
+            // Save the Coordinator to the database
+            return new ResponseEntity<>(advisorService.saveAdvisor(advisor), HttpStatus.CREATED);
+
+        }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified. Accepted roles are: TourGuide, Coordinator");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified. Accepted roles are: TourGuide, Coordinator, Advisor");
         }
 
     }
@@ -169,4 +181,31 @@ public class UserController {
 
 // TourGuide Methods END
 ////////////////
+
+    // Advisor Methods START
+    @GetMapping("/advisor/getAll")
+    public ResponseEntity<?> getAllAdvisors() {
+        try {
+            // Fetch all tour guides from the service
+            List<Advisor> advisors = advisorService.getAllAdvisors();
+            return ResponseEntity.ok(advisors); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving tour guides.");
+        }
+    }
+
+    @DeleteMapping("/advisor/delete")
+    public ResponseEntity<?> deleteAdvisor(@RequestParam String email) {
+        if (advisorService.getAdvisorByEmail(email) == null) {
+            return ResponseEntity.status(400).body("Advisor With email " + email + " Not Found");
+        }
+        advisorService.deleteAdvisorByEmail(email);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+// Advisor Methods END
+////////////////
+
+
 }

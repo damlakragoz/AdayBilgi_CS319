@@ -12,5 +12,6 @@ public class BTOMemberRegister {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String assignedDay;
     private String role;
 }
