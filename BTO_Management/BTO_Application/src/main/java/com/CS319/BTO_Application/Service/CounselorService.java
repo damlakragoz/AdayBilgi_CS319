@@ -58,4 +58,21 @@ public class CounselorService {
         }
         counselorRepos.delete(counselor);
     }
+    public Counselor getCounselorById(Long id) {
+        return counselorRepos.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Counselor with ID " + id + " not found."));
+    }
+
+    @Transactional
+    public void deleteCounselorById(Long id) {
+        Counselor counselor = counselorRepos.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Counselor not found: " + id));
+
+        // Nullify related entities
+        List<SchoolTourApplication> applications = schoolTourApplicationRepos.findByApplyingCounselor(counselor);
+        applications.forEach(application -> application.setApplyingCounselor(null));
+
+        counselorRepos.delete(counselor);
+    }
+
 }

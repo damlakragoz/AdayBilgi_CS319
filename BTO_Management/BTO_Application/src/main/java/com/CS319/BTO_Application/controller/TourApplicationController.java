@@ -2,12 +2,12 @@
 package com.CS319.BTO_Application.Controller;
 
 import com.CS319.BTO_Application.DTO.AddSchoolApplicationRequest;
-import com.CS319.BTO_Application.Entity.Counselor;
+import com.CS319.BTO_Application.DTO.ApproveRejectTour;
 import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Entity.TourApplication;
+import com.CS319.BTO_Application.Service.CoordinatorService;
 import com.CS319.BTO_Application.Service.CounselorService;
 import com.CS319.BTO_Application.Service.TourApplicationService;
-import com.CS319.BTO_Application.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +23,26 @@ public class TourApplicationController{
 
     private final TourApplicationService tourApplicationService;
     private final CounselorService counselorService;
+    private final CoordinatorService coordinatorService;
     //there will be logic for individual tourapplciation also
 
     @Autowired
-    public TourApplicationController(TourApplicationService tourApplicationService, CounselorService counselorService) {
+    public TourApplicationController(TourApplicationService tourApplicationService, CounselorService counselorService, CoordinatorService coordinatorService) {
         this.tourApplicationService = tourApplicationService;
         this.counselorService = counselorService;
+        this.coordinatorService = coordinatorService;
     }
 
     @GetMapping("/getAll")
-    public List<TourApplication> getAllTourApplications() {
-        return tourApplicationService.getAllTourApplications();
+    public ResponseEntity<?> getAllTourApplications() {
+        try {
+            // Fetch all tour guides from the service
+            List<TourApplication> tourApplications = tourApplicationService.getAllTourApplications();
+            return ResponseEntity.ok(tourApplications); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving tour applications.");
+        }
     }
 
     @PostMapping("/add")
@@ -50,5 +59,7 @@ public class TourApplicationController{
         tourApplicationService.deleteById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }
 

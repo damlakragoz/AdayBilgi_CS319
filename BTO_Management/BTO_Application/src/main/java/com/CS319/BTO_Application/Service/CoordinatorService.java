@@ -1,8 +1,6 @@
 package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Coordinator;
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Repos.CoordinatorRepos;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +24,12 @@ public class CoordinatorService {
         return coordinatorRepos.findAll();
     }
 
-    public Coordinator getCoordinatorByUsername(String username) {
-        if(!coordinatorRepos.existsByEmail(username)){
-            System.out.println("Coordinator Not Found with username " + username);
+    public Coordinator getCoordinatorByEmail(String email) {
+        if(!coordinatorRepos.existsByEmail(email)){
+            System.out.println("Coordinator Not Found with username " + email);
             return null;
         }
-        return coordinatorRepos.findByEmail(username);
+        return coordinatorRepos.findByEmail(email);
     }
     public Coordinator saveCoordinator(Coordinator coordinator) {
         coordinator.setPassword(passwordEncoder.encode(coordinator.getPassword())); //setPassword is new for this one
