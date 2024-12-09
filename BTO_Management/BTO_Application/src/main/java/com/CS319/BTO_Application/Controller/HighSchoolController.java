@@ -29,7 +29,7 @@ public class HighSchoolController {
             return ResponseEntity.status(400).body("Highschool already exists");
         }
 
-        HighSchool highSchool = new HighSchool(highSchoolRegister.getSchoolName(), highSchoolRegister.getCity());
+        HighSchool highSchool = new HighSchool(highSchoolRegister.getSchoolName(), highSchoolRegister.getCity(), highSchoolRegister.getPriorityPoint());
         // Save the highschool to the database
         return new ResponseEntity<>(highschoolService.saveHighSchool(highSchool),HttpStatus.CREATED);
     }

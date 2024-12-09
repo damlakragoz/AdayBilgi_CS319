@@ -2,14 +2,12 @@
 package com.CS319.BTO_Application.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,17 +24,14 @@ public class Counselor extends User{
      */
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = false) // referencedcolumnname: parenttaki primary
     private HighSchool highSchool;
 
-    @OneToMany(mappedBy = "counselor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Feedback> feedbacks;
+    //TODO:
+    //Feedback
+
 
     public Counselor(String email, String password, String role, HighSchool highSchool) {
-        if (highSchool == null) {
-            throw new IllegalArgumentException("HighSchool cannot be null for Counselor.");
-        }
         this.setEmail(email);
         this.setPassword(password);
         this.setRole(role);
@@ -44,32 +39,21 @@ public class Counselor extends User{
     }
 
     public Counselor(String email, String password, String firstName, String lastName, String phoneNumber, String role, HighSchool highSchool) {
-        this(email, password, role, highSchool);
+        this.setEmail(email);
+        this.setPassword(password);
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setPhoneNumber(phoneNumber);
+        this.setRole(role);
+        this.highSchool = highSchool;
     }
+
 
     public String getSchoolName() {
-        return highSchool != null ? highSchool.getSchoolName() : null;
+        return highSchool.getSchoolName();
     }
-
     public Long getSchoolId() {
-        return highSchool != null ? highSchool.getId() : null;
-    }
-
-    public void addFeedback(Feedback feedback) {
-        if (feedbacks == null) {
-            feedbacks = new ArrayList<>();
-        }
-        feedback.setCounselor(this);
-        this.feedbacks.add(feedback);
-    }
-
-    public void removeFeedback(Feedback feedback) {
-        if (feedbacks != null) {
-            this.feedbacks.remove(feedback);
-            feedback.setCounselor(null);
-        }
+        return highSchool.getId();
     }
 }
+

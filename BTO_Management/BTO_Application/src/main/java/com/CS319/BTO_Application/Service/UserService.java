@@ -1,6 +1,7 @@
 package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.DTO.LoginRequest;
+import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.User;
 import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +49,12 @@ public class UserService implements UserDetailsService {
     public User getUserByUsername(String username) {
         return userRepository.findByEmail(username);
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
 
 }
 

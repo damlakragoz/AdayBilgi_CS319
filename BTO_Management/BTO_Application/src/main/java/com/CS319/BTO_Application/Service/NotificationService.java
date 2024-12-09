@@ -6,25 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NotificationService {
 
     private final NotificationRepos notificationRepos;
-    private final NotificationTemplateService templateService;
+    // Map to store notification templates
+    private final Map<String, String> templates = new HashMap<>();
 
     @Autowired
-    public NotificationService(NotificationRepos notificationRepos, NotificationTemplateService templateService) {
+    public NotificationService(NotificationRepos notificationRepos) {
         this.notificationRepos = notificationRepos;
-        this.templateService = templateService;
+        initializeTemplates();
+    }
+
+    // Initialize the templates
+    private void initializeTemplates() {
+        templates.put("Email", "Dear User, You have received an email notification.");
+        templates.put("Payment", "Payment has been successfully processed.");
+        templates.put("Schedule", "A new schedule has been created for you.");
+        templates.put("Reminder", "This is a reminder for your upcoming event.");
+    }
+
+    // Fetch the template based on notification type
+    private String getTemplate(String notificationType) {
+        return templates.getOrDefault(notificationType, "Default notification message.");
     }
 
     // Method to create and save a new notification
     public Notification createNotification(String notificationType, Long receiverID) {
-        String subject = templateService.getSubject(notificationType);
-        String text = templateService.getText(notificationType);
-        String message = subject + "\n" + text;
+        String message = getTemplate(notificationType);
         Notification notification = new Notification(notificationType, message,receiverID, false, false, LocalDateTime.now()
         );
         notificationRepos.save(notification);
