@@ -24,14 +24,19 @@ public class TourController {
     private final CoordinatorService coordinatorService;
     private final TourApplicationService tourApplicationService;
     private final AdvisorService advisorService;
+    private final NotificationService notificationService;
+    private final CounselorService counselorService;
 
     @Autowired
-    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, TourApplicationService tourApplicationService, AdvisorService advisorService){
+    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, TourApplicationService tourApplicationService, AdvisorService advisorService, NotificationService notificationService, CounselorService counselorService){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
         this.tourApplicationService = tourApplicationService;
         this.advisorService = advisorService;
+
+        this.notificationService = notificationService;
+        this.counselorService = counselorService;
     }
 
 
@@ -105,6 +110,11 @@ public class TourController {
         if(!tour.getTourStatus().equals("Pending")){
             return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
+
+        // notification sending
+        // notification to counselor should be sent
+        // notificationService.createNotification("Counselor Tour Approved", counselor.getId());
+
         return new ResponseEntity<>(tourService.setStatusRejected(tour), HttpStatus.ACCEPTED);
     }
 
@@ -112,6 +122,11 @@ public class TourController {
     @PostMapping("/enroll")
     public ResponseEntity<Tour> enrollInTour(@RequestBody TourOperationsForGuide tourOperationsForGuide) {
         Tour tour = tourService.getTourById(tourOperationsForGuide.getTourId());
+
+        TourGuide tourGuide = tourGuideService.getTourGuideByEmail(tourOperationsForGuide.getApplyingGuideEmail());
+        // counselor should be obtained
+        // Counselor counselor = counselorService.getCounselorByUsername()
+
         if(tourGuideService.getTourGuideByEmail(tourOperationsForGuide.getApplyingGuideEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email

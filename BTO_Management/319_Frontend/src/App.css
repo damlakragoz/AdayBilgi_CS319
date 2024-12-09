@@ -41,6 +41,7 @@
     border-radius: 5px;
     border: none;
     font-size: 14px;
+    width: 500px;
 }
 
 /* Main Content */
@@ -72,17 +73,18 @@
     border-radius: 10px;
     padding: 20px;
     width: 300px;
+    margin-left: 400px;
 }
 
 .login-form label {
-    margin-bottom: 5px;
+    margin-bottom: 1px;
     font-size: 14px;
 }
 
 .login-form input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 3px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
@@ -91,7 +93,7 @@
 .login-button {
     background-color: #1c3b8e;
     color: white;
-    padding: 10px;
+    padding: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
