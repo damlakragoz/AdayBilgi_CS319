@@ -14,9 +14,30 @@
  border: 1px solid black; /* Adds a border around each cell */
  padding: 10px; /* Adds spacing inside cells */
  color: black;
+ background: white;
 }
 
 .user-table th {
   background-color: #002855; /* Light grey background for headers */
   font-weight: bold;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip:hover::after {
+  content: attr(data-tooltip); /* Use the custom tooltip text */
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: grey;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 1;
 }

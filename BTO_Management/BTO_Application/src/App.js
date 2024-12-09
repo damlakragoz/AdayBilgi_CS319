@@ -1,13 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './mainpage/MainPage';
-import SignUpForm from './authorization/SignUpForm';
+import SignUpForm from './signup/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';  // Import the new page
-import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
-import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
-import LoginPage from './authorization/LoginPage';
 import './App.css';
 
 
@@ -16,7 +13,14 @@ function App() {
     <Router>
       <div className="app-container">
         <header className="app-header">
-
+          <nav className="navbar">
+            <ul className="navbar-links">
+              <li><a href="#contact">İletişim</a></li>
+              <li><a href="#photos">Fotoğraflarla Bilkent</a></li>
+              <li><a href="#faq">Sıkça Sorulan Sorular</a></li>
+            </ul>
+            <input className="search-bar" type="text" placeholder="Sitede ara..." />
+          </nav>
         </header>
 
         <main className="app-main">
@@ -34,10 +38,6 @@ function App() {
                 }
             />
             <Route path="/submit-application" element={<SubmitApplication />} />  {/* New Route */}
-            <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />  {/* New Route */}
-            <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />  {/* New Route */}
-            <Route path="/login" element={<LoginPage />} />  {/* New Route */}
-
           </Routes>
         </main>
 
