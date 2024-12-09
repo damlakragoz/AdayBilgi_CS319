@@ -1,5 +1,6 @@
 package com.CS319.BTO_Application.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,10 +32,14 @@ public class FairInvitation {
     @Column(name = "STATUS")
     private String status; // Status of the application (e.g., "pending", "approved", "denied")
 
-    @ManyToOne // A counselor can apply for many school tours
+    @ManyToOne // A counselor can apply for many fairs
     @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = true)
+    private HighSchool applyingHighschool;
 
     @PrePersist
     @PreUpdate
