@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import './MainPage.css';
+import '../mainpage/MainPage.css';
+ // Import your protected page
 
-const MainPage = () => {
+const LoginPage = () => {
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
@@ -47,7 +48,6 @@ const MainPage = () => {
                 password: loginData.password,
             });
             const role = roleResponse.data;
-            //const role = "Counselor";
 
             // If login is successful, store the JWT token in localStorage
             if (response.status === 200 && response.data.token) {
@@ -59,7 +59,7 @@ const MainPage = () => {
                 localStorage.setItem('username', loginData.username); // Save the username
                 localStorage.setItem('role', role);
 
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set token for future requests
+//                axios.defaults.headers.common['Authorization'] = Bearer ${token}; // Set token for future requests
 
                 // Log for debugging
                 console.log('Token stored in localStorage:', token);
@@ -76,7 +76,7 @@ const MainPage = () => {
                         //navigate('/counselor-dashboard');
                         break;
                     case 'tourGuide':
-                        //navigate('/tour-guide-dashboard');
+                        navigate('/applications');
                         break;
                     default:
                         navigate('/applications'); // Fallback if the role is unknown
@@ -103,57 +103,7 @@ const MainPage = () => {
 
 
     return (
-        <div className="main-page">
-            <header className="main-header">
-                <nav className="navbar">
-                  <div className="cpf">
-                    <a href="#contact">İletişim</a>
-                    <a href="#photos">Fotoğraflarla Bilkent</a>
-                    <a href="#faq">Sıkça Sorulan Sorular</a>
-                  </div>
-
-                  <div className="searchbar">
-                    <input className="search-bar" type="text" placeholder="Sitede ara..." />
-                  </div>
-
-                  <div className="socials">
-                    <a href="#facebook">Facebook</a>
-                    <a href="#instagram">Instagram</a>
-                    <a href="#twitter">Twitter</a>
-                  </div>
-                </nav>
-            </header>
-
-            <nav className="subnavbar">
-              <div className= "login">
-                <a href="#login" onClick={() => navigate('/login')} >Login</a>
-              </div>
-            </nav>
-
-            <nav className="subnavbar2">
-              <div className="contents">
-                <div className="dropdown_1">
-                  <a href="#tanitim">Tanıtım</a>
-                    <div className="tanitim-dropdown-content">
-                      <a href="#link1">Kampüs Ziyaretleri</a>
-                      <a href="#link2">Meslek Seminerleri</a>
-                      <a href="#link3">Sanal Kampüs Turu</a>
-                      <a href="#link4">Tanıtım Kitapçığı</a>
-                      <a href="#link5">Tanıtım Videoları</a>
-                    </div>
-                </div>
-
-                <a href="#photos">ÖSYS Bilgileri</a>
-                <a href="#faq">Eğitim Programları</a>
-                <a href="#faq">Ücretler-Burslar</a>
-                <a href="#faq">Akademik Bilgiler</a>
-                <a href="#faq">Kampüste Yaşam</a>
-                <a href="#faq">Mezunlar</a>
-                <a href="#faq">Sorular</a>
-              </div>
-            </nav>
-
-            {/* Main content area */}
+        <div className="login-page">
             <main className="main-content">
                 <h2>Explore Our Campus</h2>
                 <p>Discover the beauty and facilities of our state-of-the-art campus through our guided tours.</p>
@@ -161,6 +111,30 @@ const MainPage = () => {
 
             {/* Login Section */}
             <div className="login-container">
+                <form onSubmit={handleLogin} className="login-form">
+                    <label>Email</label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Kullanıcı adı girin"
+                        value={loginData.username}
+                        onChange={handleChange}
+                        required
+                    />
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Şifrenizi girin"
+                        value={loginData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button type="submit" className="login-button">
+                        Login
+                    </button>
+                </form>
+
                 {/* Add the Sign Up button here */}
                 <div className="signup-container">
                     <p>Don't have an account?</p>
@@ -177,4 +151,4 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;
+export default LoginPage;

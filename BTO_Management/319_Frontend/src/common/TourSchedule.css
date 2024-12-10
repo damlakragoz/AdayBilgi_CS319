@@ -1,0 +1,112 @@
+
+.tour-schedule-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--background-light);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Calendar Container Styling */
+.calendar-container {
+  flex: 1;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar {
+  width: 100%;
+  border: none;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.react-calendar__navigation button {
+  background: none;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.react-calendar__navigation button:hover {
+  transform: scale(1.1);
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+  color: var(--dark-gray);
+}
+
+.react-calendar__month-view__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.react-calendar__tile {
+  background: var(white);
+  border-radius: 5px;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.react-calendar__tile--now {
+  background-color: var(--orange);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.react-calendar__tile--active {
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.react-calendar__tile:hover {
+  background-color: var(--gray);
+  color: var(--dark-blue);
+}
+
+/* Tour List Container */
+.tour-list-container {
+  flex: 1;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tour-list-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--charcoal);
+  margin-bottom: 15px;
+}
+
+.tour-list-placeholder {
+  color: var(--dark-gray);
+  font-size: 16px;
+  text-align: center;
+}
