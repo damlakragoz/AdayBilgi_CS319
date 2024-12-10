@@ -1,6 +1,7 @@
 package com.CS319.BTO_Application.Controller;
 
 import com.CS319.BTO_Application.DTO.FeedbackRequest;
+import com.CS319.BTO_Application.Entity.Tour;
 import com.CS319.BTO_Application.Entity.Feedback;
 import com.CS319.BTO_Application.Service.FeedbackService;
 import com.CS319.BTO_Application.Service.TourService;
@@ -27,8 +28,13 @@ public class FeedbackController {
     @PostMapping
     public ResponseEntity<?> createFeedback(@RequestParam Long counselorId, @RequestBody FeedbackRequest feedbackRequest) {
         try {
+            Tour tour = tourService.getTourById(feedbackRequest.getTourId());
+            if (tour == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tour not found with ID: " + feedbackRequest.getTourId());
+            }
+
             Feedback feedback = new Feedback();
-            feedback.setTour(tourService.getTourById(feedbackRequest.getTourId()));
+            feedback.setTour(tour);
             feedback.setRating(feedbackRequest.getRating());
             feedback.setComment(feedbackRequest.getComment());
 
@@ -45,6 +51,7 @@ public class FeedbackController {
                     .body("An error occurred while creating feedback.");
         }
     }
+
 
     @GetMapping
     public ResponseEntity<List<Feedback>> getAllFeedbacks() {

@@ -20,7 +20,9 @@ public class FeedbackService {
 
     public void addFeedback(Long counselorId, Feedback feedback) {
         Counselor counselor = counselorService.getCounselorById(counselorId);
-        feedback.setCounselor(counselor);
+        if (counselor == null) {
+            throw new IllegalArgumentException("Counselor with ID " + counselorId + " does not exist.");
+        }
 
         if (feedback.getTour() == null) {
             throw new IllegalArgumentException("Tour is required for feedback.");
@@ -28,8 +30,11 @@ public class FeedbackService {
         if (feedback.getRating() < 1 || feedback.getRating() > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5.");
         }
+
+        feedback.setCounselor(counselor);
         feedbackRepository.save(feedback);
     }
+
 
     public List<Feedback> getAllFeedbacks() {
         return feedbackRepository.findAll();

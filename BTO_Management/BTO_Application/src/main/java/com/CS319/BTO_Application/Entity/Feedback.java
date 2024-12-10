@@ -16,28 +16,18 @@ public class Feedback {
     @Column(name = "feedback_id", unique = true, nullable = false)
     private Long feedbackId;
 
-    @ManyToOne
+    @ManyToOne(optional = false) // Ensures a non-null relationship
     @JoinColumn(name = "tour_id", referencedColumnName = "id", nullable = false)
-    private Tour tour; // Associated Tour
+    private Tour tour;
 
     @Column(name = "rating", nullable = false)
-    private int rating; // Rating for the tour
+    private int rating;
 
     @Column(name = "comment", length = 500)
-    private String comment; // Feedback comments
+    private String comment;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonBackReference
-    @JoinColumn(name = "counselor_id", referencedColumnName = "id")
+    @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = false)
     private Counselor counselor;
-
-    public Feedback() {}
-
-    public Feedback(Tour tour, int rating, String comment, Counselor counselor) {
-        this.tour = tour;
-        this.rating = rating;
-        this.comment = comment;
-        this.counselor = counselor;
-    }
 }
-
