@@ -9,6 +9,7 @@ import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import LoginPage from './authorization/LoginPage';
 import TourSchedule from './common/TourSchedule';
+import Notifications from './common/Notifications';
 import './App.css';
 
 
@@ -23,7 +24,9 @@ function App() {
         <main className="app-main">
           {/* React Router will control which component is displayed based on the URL */}
           <Routes>
-            <Route path="/" element={<TourSchedule />} />
+            <Route path="/" element={<Notifications />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/tour-schedule" element={<TourSchedule />} />
             <Route path="/signup" element={<SignUpForm />} />
             {/* Wrap the Dashboard route in ProtectedRoute */}
             <Route
