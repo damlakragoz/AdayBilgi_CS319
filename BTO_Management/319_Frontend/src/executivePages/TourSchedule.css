@@ -1,0 +1,111 @@
+/* General Container Styling */
+.tourschedule-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--background-light);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--n-gray);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Calendar Container Styling */
+.tourschedule-calendar-container {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px var(--n-gray);
+}
+
+.react-calendar {
+  width: 100%;
+  border: none;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-blue);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.react-calendar__navigation button {
+  background: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: none;
+}
+
+.react-calendar__navigation button:hover {
+  transform: scale(1.1);
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+  color: var(--dark-gray);
+}
+
+.react-calendar__month-view__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.react-calendar__tile {
+  background: white;
+  border-radius: 5px;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  transition: none;
+}
+
+.react-calendar__tile--now {
+  background-color: var(--light-blue);
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.react-calendar__tile--active {
+  background-color: var(--dark-blue);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.react-calendar__tile:hover {
+  background-color: var(--dark-blue);
+  color: white;
+}
+
+/* Tour List Container */
+.tourschedule-tour-list-container {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px var(--dark-gray);
+}
+
+.tourschedule-tour-list-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.tourschedule-tour-list-placeholder {
+  color: var(--dark-gray);
+  font-size: 16px;
+  text-align: center;
+}

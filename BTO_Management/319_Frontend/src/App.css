@@ -1,3 +1,23 @@
+/* COLORS */
+:root {
+  /* Primary Colors */
+    --dark-blue: #0A3981;    /* Dark Blue */
+    --light-blue: #D4EBF8;   /* Light Blue */
+    --n-blue: #D4Ergb(75, 157, 205)/* Light Blue */
+    --orange: #E38E49;       /* Orange */
+
+
+  /* Accent Colors */
+    --n-gray: #a8a8a8;         /* Neutral Gray */
+    --dark-gray: #5A5A5A;    /* Dark Gray */
+    --charcoal: #2B2B2B;     /* Charcoal */
+    --white: #FFFFFF;        /* White */
+    --black: #000000;        /* Black */
+
+  /* Background Colors */
+    --background-light: #F7FAFC; /* Light Background */
+    --background-dark: #1A1A1A;  /* Dark Background */
+}
 /* General Styles */
 .app-container {
     display: flex;
@@ -41,7 +61,6 @@
     border-radius: 5px;
     border: none;
     font-size: 14px;
-    width: 500px;
 }
 
 /* Main Content */
@@ -73,18 +92,17 @@
     border-radius: 10px;
     padding: 20px;
     width: 300px;
-    margin-left: 400px;
 }
 
 .login-form label {
-    margin-bottom: 1px;
+    margin-bottom: 5px;
     font-size: 14px;
 }
 
 .login-form input {
     width: 100%;
-    padding: 3px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
@@ -93,7 +111,7 @@
 .login-button {
     background-color: #1c3b8e;
     color: white;
-    padding: 5px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
