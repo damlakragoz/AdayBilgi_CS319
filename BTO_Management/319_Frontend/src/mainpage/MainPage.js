@@ -125,8 +125,15 @@ const MainPage = () => {
             </header>
 
             <nav className="subnavbar">
+
+                            <div className="bilkent-logo-container" onClick={() => navigate('/AnaSayfa')}>
+                              <a href="#bilkent">
+                                <img src="/images/adaybilgilogo.svg" alt="Bilkent Logo" className="bilkent-logo-image" />
+                                MainPage
+                              </a>
+                            </div>
               <div className= "login">
-                <a href="#login" onClick={() => navigate('/login')} >Login</a>
+                <a href="#login" onClick={() => navigate('/puantage-table')} >Login</a>
               </div>
             </nav>
 

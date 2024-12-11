@@ -1,5 +1,6 @@
 import React from 'react';
 import TourGuideNavbar from './TourGuideNavbar';
+import './TourGuidePuantage';
 
 const TourGuidePuantage = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/BTO_Management/BTO_Application/src/main/java" />
+      <root url="file://$PROJECT_DIR$/BTO_Management/BTO_Application/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

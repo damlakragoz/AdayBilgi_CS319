@@ -11,6 +11,7 @@ import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import TourSchedule from './common/TourSchedule';
 import FairSchedule from './common/FairSchedule';
 import TourApplications from './common/TourApplications';
+import PuantageTable from './common/PuantageTable';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/puantage-table" element={<PuantageTable />} />
 
             {/* Protected Routes Wrapper */}
             <Route
