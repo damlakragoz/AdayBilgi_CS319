@@ -6,9 +6,12 @@ import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';  // Import the new page
 import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
+import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
+import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import LoginPage from './authorization/LoginPage';
 import TourSchedule from './common/TourSchedule';
+import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import Notifications from './common/Notifications';
 import './App.css';
 
@@ -17,31 +20,31 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <header className="app-header">
-
-        </header>
+        <header className="app-header"></header>
 
         <main className="app-main">
-          {/* React Router will control which component is displayed based on the URL */}
           <Routes>
-            <Route path="/" element={<Notifications />} />
+            {/* Default route set to MainPage */}
+            <Route path="/" element={<MainPage />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/tour-schedule" element={<TourSchedule />} />
             <Route path="/signup" element={<SignUpForm />} />
-            {/* Wrap the Dashboard route in ProtectedRoute */}
             <Route
-                path="/applications"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
+              path="/applications"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/submit-application" element={<SubmitApplication />} />  {/* New Route */}
-            <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />  {/* New Route */}
-            <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />  {/* New Route */}
-            <Route path="/login" element={<LoginPage />} />  {/* New Route */}
-
+            <Route path="/submit-application" element={<SubmitApplication />} />
+            <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+            <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
+            <Route path="/tourguide-homepage" element={<TourGuideHomepage />} />
+            <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
+            <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
+            <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </main>
 

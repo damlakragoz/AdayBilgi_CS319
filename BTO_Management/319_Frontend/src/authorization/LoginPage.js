@@ -76,7 +76,7 @@ const LoginPage = () => {
                         //navigate('/counselor-dashboard');
                         break;
                     case 'tourGuide':
-                        navigate('/applications');
+                        navigate('/tourguide-homepage');
                         break;
                     default:
                         navigate('/applications'); // Fallback if the role is unknown
