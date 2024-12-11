@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
-            <Route path="/puantage-table" element={<PuantageTable />} />
+            <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
 
             {/* Protected Routes Wrapper */}
             <Route

@@ -51,7 +51,6 @@ const TourGuideNavbar = () => {
                                 <ul className="dropdown-menu">
                                     <li><Link to="/tourguide-tourenrollment">Başvur-Tur Takvimi</Link></li>
                                     <li><Link to="/basvur-fuar">Başvur-Fuar</Link></li>
-                                    <li><Link to="/basvur-diger">Başvur-Diğer</Link></li>
                                     <li><Link to="/tourguide-puantage">Puantaj-Aktivite Giriş</Link></li>
                                 </ul>
                             )}

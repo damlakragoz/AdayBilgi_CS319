@@ -1,18 +1,25 @@
 .calendar-container {
-  padding: 20px;
+  padding: 40px;
   font-family: Arial, sans-serif;
-}
-
-.month-selector {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  max-width: 100%; /* Ensures responsiveness */
+  overflow-x: auto; /* Add scroll if the content overflows */
 }
 
 .calendar-table {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
+  table-layout: fixed; /* Ensures consistent column widths */
+}
+
+.calendar-table th:first-child,
+.calendar-table td:first-child {
+  width: 150px; /* Adjust the width of the name column */
+  text-align: left;
+  padding: 8px;
+  background-color: #f9f9f9;
+  font-weight: bold;
+  white-space: nowrap; /* Prevent names from wrapping */
 }
 
 .calendar-table th,
@@ -31,23 +38,32 @@
   background-color: #fef3c7;
   border-radius: 4px;
   padding: 4px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .activity-cell .tooltip {
   display: none;
   position: absolute;
-  top: -40px;
+  top: 100%; /* Place the tooltip below the cell */
   left: 50%;
   transform: translateX(-50%);
   background: #333;
   color: #fff;
-  padding: 5px;
-  border-radius: 3px;
+  padding: 8px;
+  border-radius: 5px;
   font-size: 12px;
   white-space: nowrap;
   z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .activity-cell:hover .tooltip {
   display: block;
+}
+
+.month-selector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }

@@ -1,53 +1,50 @@
-.calendar-container {
+.tourguide-puantage {
   padding: 20px;
   font-family: Arial, sans-serif;
+  margin-top: 80px; /* Add some space below the navbar */
 }
 
-.month-selector {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.activity-form-container {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
 }
 
-.calendar-table {
-  width: 100%;
-  border-collapse: collapse;
+.activity-form h3 {
   text-align: center;
 }
 
-.calendar-table th,
-.calendar-table td {
-  border: 1px solid #ddd;
+.activity-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
   padding: 8px;
-  position: relative;
+  width: 200px;
+  margin-top: 5px;
 }
 
-.calendar-table th {
-  background-color: #f4f4f4;
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.activity-cell {
-  position: relative;
-  background-color: #fef3c7;
-  border-radius: 4px;
-  padding: 4px;
-}
-
-.activity-cell .tooltip {
-  display: none;
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #333;
-  color: #fff;
-  padding: 5px;
-  border-radius: 3px;
-  font-size: 12px;
-  white-space: nowrap;
-  z-index: 10;
-}
-
-.activity-cell:hover .tooltip {
-  display: block;
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
