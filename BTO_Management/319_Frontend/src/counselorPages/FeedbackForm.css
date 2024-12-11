@@ -1,0 +1,126 @@
+.feedback-container {
+    max-width: 800px; /* Increased width */
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
+}
+
+.feedback-header {
+    font-size: 2rem; /* Increased size */
+    color: #013365;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.feedback-details {
+    background-color: #e6f0f8;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.details-title {
+    font-size: 1.4rem;
+    color: #013365;
+    margin-bottom: 10px;
+}
+
+.rating {
+    margin-bottom: 25px;
+}
+
+.rating h5 {
+    margin-bottom: 10px;
+    color: #013365;
+    font-size: 1.2rem;
+}
+
+.stars-container i {
+    font-size: 28px;
+    color: #ddd;
+    cursor: pointer;
+    margin-right: 6px;
+    transition: color 0.2s;
+}
+
+.stars-container i.active-star {
+    color: #ffc107;
+}
+
+.form-label {
+    font-size: 1.2rem; /* Increased size */
+    color: #013365;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1.1rem; /* Slightly increased font size */
+}
+
+.form-control:focus {
+    border-color: #013365;
+    box-shadow: 0 0 5px rgba(1, 51, 101, 0.2);
+}
+
+.form-control-file {
+    display: block;
+    margin-top: 10px;
+}
+
+.file-info {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-submit {
+    background-color: #93C572;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.0rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    flex-grow: 1;
+    margin-right: 25px; /* Added spacing between buttons */
+}
+
+.btn-submit:hover {
+    background-color: #79a65b;
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Darker gray */
+    color: white;
+    padding: 8px 20px; /* Adjusted padding for a smaller button */
+    border: none;
+    border-radius: 6px;
+    font-size: 1.0rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}

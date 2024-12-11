@@ -1,7 +1,6 @@
-
 /* General Navbar Styles */
 .navbar {
-    background-color: var(--dark-blue); /* Navy blue background */
+    background-color: #002855; /* Navy blue background */
     padding: 10px 20px;
     display: flex;
     align-items: center;

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import '../mainpage/MainPage.css';
+import '../authorization/LoginPage.css';
  // Import your protected page
 
 const LoginPage = () => {
@@ -53,7 +53,7 @@ const LoginPage = () => {
             if (response.status === 200 && response.data.token) {
                 const token = typeof response.data === 'string' ? response.data : response.data.token;
                 const username = response.data.username;
-
+                console.log(token);
                 // Store the JWT token and username in localStorage
                 localStorage.setItem('userToken', token);
                 localStorage.setItem('username', loginData.username); // Save the username
@@ -72,11 +72,11 @@ const LoginPage = () => {
                         navigate('/coordinator-homepage');
                         console.log('COORDINATOR to applications page');
                         break;
-                    case 'counselor':
+                    case 'Counselor':
                         //navigate('/counselor-dashboard');
                         break;
-                    case 'tourGuide':
-                        navigate('/applications');
+                    case 'TourGuide':
+                        navigate('/tur-rehberi-anasayfa');
                         break;
                     default:
                         navigate('/applications'); // Fallback if the role is unknown
@@ -104,13 +104,13 @@ const LoginPage = () => {
 
     return (
         <div className="login-page">
-            <main className="main-content">
-                <h2>Explore Our Campus</h2>
-                <p>Discover the beauty and facilities of our state-of-the-art campus through our guided tours.</p>
-            </main>
+
 
             {/* Login Section */}
             <div className="login-container">
+                <h2>Explore Our Campus</h2>
+                <p>Discover the beauty and facilities of our state-of-the-art campus through our guided tours.</p>
+
                 <form onSubmit={handleLogin} className="login-form">
                     <label>Email</label>
                     <input
@@ -136,17 +136,13 @@ const LoginPage = () => {
                 </form>
 
                 {/* Add the Sign Up button here */}
-                <div className="signup-container">
+                <div>
                     <p>Don't have an account?</p>
                     <button className="signup-button" onClick={() => navigate('/signup')}>
                         Sign Up
                     </button>
                 </div>
             </div>
-
-            <footer className="main-footer">
-                <p>© 2023 Bilkent University. All rights reserved.</p>
-            </footer>
         </div>
     );
 };

@@ -1,15 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './mainpage/MainPage';
+import LoginPage from './authorization/LoginPage';
 import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
-import SubmitApplication from './submitapplication/SubmitApplication';  // Import the new page
+import SubmitApplication from './submitapplication/SubmitApplication';
 import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
-import LoginPage from './authorization/LoginPage';
 import TourSchedule from './common/TourSchedule';
+import FairSchedule from './common/FairSchedule';
+import TourApplications from './common/TourApplications';
+import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
+import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
+import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
+import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import './App.css';
 
 
@@ -17,31 +23,39 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <header className="app-header">
-
-        </header>
+        <header className="app-header"></header>
 
         <main className="app-main">
-          {/* React Router will control which component is displayed based on the URL */}
           <Routes>
-            <Route path="/" element={<Notifications />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/tour-schedule" element={<TourSchedule />} />
+            {/* Public Routes */}
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
-            {/* Wrap the Dashboard route in ProtectedRoute */}
-            <Route
-                path="/applications"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-            />
-            <Route path="/submit-application" element={<SubmitApplication />} />  {/* New Route */}
-            <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />  {/* New Route */}
-            <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />  {/* New Route */}
-            <Route path="/login" element={<LoginPage />} />  {/* New Route */}
 
+            {/* Protected Routes Wrapper */}
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <Routes>
+                    <Route path="/notifications" element={<Notifications />} />
+                    <Route path="/tur-takvimi" element={<TourSchedule />} />
+                    <Route path="/tur-basvurulari" element={<TourApplications />} />
+                    <Route path="/fuar-takvimi" element={<FairSchedule />} />
+                    <Route path="/fuar-davetleri" element={<FairInvitations />} />
+                    <Route path="/applications" element={<Dashboard />} />
+                    <Route path="/submit-application" element={<SubmitApplication />} />
+                    <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
+                    <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
+                    <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
+                    <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
+                    <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
+                    <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+
+                  </Routes>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
 

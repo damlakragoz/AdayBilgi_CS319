@@ -11,6 +11,7 @@ const NavigationBar = () => {
         // Clear tokens and user-related data
         localStorage.removeItem('userToken');
         localStorage.removeItem('username');
+        localStorage.removeItem('role');
         sessionStorage.removeItem('userToken'); // Just in case
 
         // Navigate to login page

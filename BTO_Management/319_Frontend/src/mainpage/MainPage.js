@@ -159,17 +159,6 @@ const MainPage = () => {
                 <p>Discover the beauty and facilities of our state-of-the-art campus through our guided tours.</p>
             </main>
 
-            {/* Login Section */}
-            <div className="login-container">
-                {/* Add the Sign Up button here */}
-                <div className="signup-container">
-                    <p>Don't have an account?</p>
-                    <button className="signup-button" onClick={() => navigate('/signup')}>
-                        Sign Up
-                    </button>
-                </div>
-            </div>
-
             <footer className="main-footer">
                 <p>© 2023 Bilkent University. All rights reserved.</p>
             </footer>

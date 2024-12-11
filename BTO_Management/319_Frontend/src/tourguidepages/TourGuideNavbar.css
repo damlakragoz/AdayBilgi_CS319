@@ -1,7 +1,6 @@
-
 /* General Navbar Styles */
 .navbar {
-    background-color: var(--dark-blue); /* Navy blue background */
+    background-color: #002855; /* Navy blue background */
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -13,7 +12,7 @@
     z-index: 1000;
 }
 
-.coord-navbar-links ul {
+.tourguide-navbar-links ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -22,14 +21,14 @@
     gap: 20px;
 }
 
-.coord-navbar-links a {
+.tourguide-navbar-links a {
     text-decoration: none;
     color: black; /* Default white color for text */
     font-size: 16px;
     font-weight: 500;
 }
 
-.coord-navbar-links a:hover {
+.tourguide-navbar-links a:hover {
     color: #00f0ff; /* Gold hover effect */
 }
 
@@ -45,12 +44,16 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
+    min-width: 150px; /* Ensure all buttons have a consistent minimum width */
+    padding: 10px 20px; /* Add padding to give the buttons more height */
+    text-align: center; /* Center the text inside the button */
 }
 
 .dropdown-button span {
     margin-left: 5px;
 }
 
+/* Ensure the dropdown menu links are displayed vertically */
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -60,20 +63,34 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     list-style: none;
-    padding: 10px 0;
+    padding: 0; /* Remove padding to avoid spacing issues */
+    margin: 0; /* Remove margins */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    display: flex;           /* Use flex to arrange items vertically */
+    flex-direction: column;  /* Stack the items vertically */
+    text-align: left;        /* Align the contents to the left */
 }
 
+/* Ensure entire item area is clickable */
 .dropdown-menu li {
-    padding: 5px 7px;
+    width: 100%;  /* Make the entire width clickable */
 }
 
-.dropdown-menu li:hover {
-    background-color: #f0f0f0;
+.dropdown-menu li a {
+    display: block;  /* Make the anchor tag block level to occupy the full width */
+    padding: 10px 15px;      /* Add padding for spacing between items */
+    text-decoration: none;   /* Remove underline */
+    color: black;           /* Text color */
+    font-size: 14px;         /* Font size */
 }
 
-.dropdown-menu dropdown-menu-options {
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0; /* Hover effect */
+}
+
+/* Make sure the text color remains black */
+.dropdown-menu .dropdown-menu-options {
     color: black;
     text-decoration: none;
     font-size: 14px;
