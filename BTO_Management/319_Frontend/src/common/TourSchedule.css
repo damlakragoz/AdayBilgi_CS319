@@ -133,3 +133,65 @@
   font-size: 16px;
   text-align: center;
 }
+
+.time-slot ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.time-slot li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.time-slot li strong {
+  color: #333;
+}
+
+.time-slot ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.time-slot li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Light gray background */
+}
+
+.time-slot li:hover {
+  background-color: #e0e0e0; /* Slightly darker gray on hover */
+}
+
+.time-slot p {
+  color: gray;
+  font-style: italic;
+}
+
+/* Green for critical statuses */
+.react-calendar__tile.highlight-green {
+  background-color: #d4edda; /* Light green */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Grey for all assigned */
+.react-calendar__tile.highlight-grey {
+  background-color: #e9ecef; /* Light grey */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Hover effect */
+.react-calendar__tile.highlight-green:hover,
+.react-calendar__tile.highlight-grey:hover {
+  background-color: #c3e6cb; /* Darker green for hover */
+}
+
+
