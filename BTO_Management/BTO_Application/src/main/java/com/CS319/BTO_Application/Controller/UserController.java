@@ -22,17 +22,19 @@ public class UserController {
     private final TourGuideService tourGuideService;
     private final HighSchoolService highschoolService;
     private final AdvisorService advisorService;
+    private final ExecutiveService executiveService;
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
                           CoordinatorService coordinatorService, TourGuideService tourGuideService,
-                          HighSchoolService highschoolService, AdvisorService advisorService) {
+                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
         this.highschoolService = highschoolService;
         this.advisorService = advisorService;
+        this.executiveService = executiveService;
     }
 
 
@@ -119,6 +121,19 @@ public class UserController {
 
             // Save the Coordinator to the database
             return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+
+        }
+        else if (btoMemberRegister.getRole().equals("Executive")) {
+            // check for unique username
+            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
+                return ResponseEntity.status(400).body("Username for executive is already taken");
+            }
+            Executive executive = new Executive(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
+                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
+                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getRole());
+
+            // Save the Executive to the database
+            return new ResponseEntity<>(executiveService.saveExecutive(executive), HttpStatus.CREATED);
 
         }
         else if (btoMemberRegister.getRole().equals("Advisor")) {
