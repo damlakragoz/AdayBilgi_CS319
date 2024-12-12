@@ -181,6 +181,31 @@ public class UserController {
     }
     // Coordinator Methods END
 ////////////////////////
+// Executive Methods START
+    @GetMapping("/executive/getAll")
+    public ResponseEntity<?> getAllExecutives() {
+        try {
+            // Fetch all executives from the service
+            List<Executive> executives = executiveService.getAllExecutives();
+            executives.forEach(executive -> {
+                System.out.println("Executive: " + executive.getEmail());
+            });
+            return ResponseEntity.ok(executives); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving executives.");
+        }
+    }
+    @DeleteMapping("/executive/delete")
+    public ResponseEntity<?> deleteExecutive(@RequestParam String username) {
+        if (executiveService.getExecutiveByEmail(username) == null) {
+            return ResponseEntity.status(400).body("Executive With Username "+username+"Not Found");
+        }
+        executiveService.deleteExecutiveByUsername(username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    // Executive Methods END
+////////////////////////
 // TourGuide Methods START
     @GetMapping("/tourguide/getAll")
     public ResponseEntity<?> getAllTourGuides() {
