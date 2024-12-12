@@ -26,26 +26,26 @@ public class NotificationController {
     @PostMapping("/create")
     public ResponseEntity<?> createNotification(@RequestBody NotificationRequest notificationRequest) {
         return new ResponseEntity<>(notificationService.createNotification(notificationRequest.getNotificationType(),
-                                                                            notificationRequest.getReceiverId()),
+                                                                            notificationRequest.getReceiverName()),
                                     HttpStatus.CREATED);
     }
 
     @GetMapping("/flagged")
-    public ResponseEntity<?> getFlaggedNotifications(@RequestParam Long receiverId) {
-        return new ResponseEntity<>(notificationService.getFlaggedNotifications(receiverId), HttpStatus.OK);
+    public ResponseEntity<?> getFlaggedNotifications(@RequestParam String receiverName) {
+        return new ResponseEntity<>(notificationService.getFlaggedNotifications(receiverName), HttpStatus.OK);
     }
 
     // Endpoint to retrieve unread notifications for a user
     @GetMapping("/unread")
-    public ResponseEntity<?> getUnreadNotifications(@RequestParam Long receiverId) {
-        return new ResponseEntity<>(notificationService.getUnreadNotifications(receiverId),
+    public ResponseEntity<?> getUnreadNotifications(@RequestParam String receiverName) {
+        return new ResponseEntity<>(notificationService.getUnreadNotifications(receiverName),
                                     HttpStatus.ACCEPTED);
     }
 
     // Endpoint to retrieve all notifications for a user
     @GetMapping("/all")
-    public ResponseEntity<?> getAllNotifications(@RequestParam Long receiverId) {
-        return new ResponseEntity<>(notificationService.getAllNotifications(receiverId),
+    public ResponseEntity<?> getAllNotifications(@RequestParam String receiverName) {
+        return new ResponseEntity<>(notificationService.getAllNotifications(receiverName),
                                     HttpStatus.ACCEPTED);
     }
 

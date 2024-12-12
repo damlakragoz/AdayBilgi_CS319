@@ -37,9 +37,9 @@ public class NotificationService {
     }
 
     // Method to create and save a new notification
-    public Notification createNotification(String notificationType, Long receiverID) {
+    public Notification createNotification(String notificationType, String receiverName) {
         String message = getTemplate(notificationType);
-        Notification notification = new Notification(notificationType, message,receiverID, false, false, LocalDateTime.now()
+        Notification notification = new Notification(notificationType, message,receiverName, false, false, LocalDateTime.now()
         );
         notificationRepos.save(notification);
         return notification;
@@ -73,18 +73,18 @@ public class NotificationService {
     }
 
     // Get flagged notifications for a user
-    public List<Notification> getFlaggedNotifications(Long receiverID) {
-        return notificationRepos.findByReceiverIDAndIsFlagged(receiverID, true);
+    public List<Notification> getFlaggedNotifications(String receiverName) {
+        return notificationRepos.findByReceiverNameAndIsFlagged(receiverName, true);
     }
 
     // Method to retrieve unread notifications for a user
-    public List<Notification> getUnreadNotifications(Long receiverID) {
-        return notificationRepos.findByReceiverIDAndIsRead(receiverID, false);
+    public List<Notification> getUnreadNotifications(String receiverName) {
+        return notificationRepos.findByReceiverNameAndIsRead(receiverName, false);
     }
 
     // Method to retrieve all notifications for a user, ordered by timestamp
-    public List<Notification> getAllNotifications(Long receiverID) {
-        return notificationRepos.findByReceiverIDOrderByTimestampDesc(receiverID);
+    public List<Notification> getAllNotifications(String receiverName) {
+        return notificationRepos.findByReceiverNameOrderByTimestampDesc(receiverName);
     }
 
     // Mark a notification as read

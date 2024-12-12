@@ -31,7 +31,7 @@ public class Notification {
     private String message;          // The message of the notification
 
     @Column(name = "receiver_id", nullable = true)
-    private Long receiverID;       // The ID of the user receiving the notification
+    private String receiverName;       // The ID of the user receiving the notification
 
     @Column(name = "is_read", nullable = true)
     private Boolean isRead;          // Status of the notification (read or unread)
@@ -43,10 +43,10 @@ public class Notification {
     private LocalDateTime timestamp; // When the notification was created
 
     // Constructor
-    public Notification(String notificationType, String message, Long receiverID, Boolean isRead, Boolean isFlagged , LocalDateTime timestamp) {
+    public Notification(String notificationType, String message, String receiverName, Boolean isRead, Boolean isFlagged , LocalDateTime timestamp) {
         this.notificationType = notificationType;
         this.message = message;
-        this.receiverID = receiverID;
+        this.receiverName = receiverName;
         this.isRead = isRead;
         this.isFlagged = isFlagged;
         this.timestamp = timestamp;
@@ -59,7 +59,7 @@ public class Notification {
                 "id=" + id +
                 ", notificationType='" + notificationType + '\'' +
                 ", message='" + message + '\'' +
-                ", receiverID=" + receiverID +
+                ", receiverName=" + receiverName + '\'' +
                 ", isRead=" + isRead +
                 ", isFlagged=" + isFlagged +
                 ", timestamp=" + timestamp +
