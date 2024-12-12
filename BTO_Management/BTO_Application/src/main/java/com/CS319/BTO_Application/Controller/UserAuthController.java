@@ -41,5 +41,4 @@ public class UserAuthController {
         return authService.getUserRole(loginRequest);
     }
 
-
 }

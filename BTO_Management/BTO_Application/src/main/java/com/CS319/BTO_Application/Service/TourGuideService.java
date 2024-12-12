@@ -46,4 +46,7 @@ public class TourGuideService {
         }
         tourGuideRepos.delete(tourGuide);
     }
+/*
+    public TourGuide getTourGuideById(Long tourGuideId) {
+    }*/
 }

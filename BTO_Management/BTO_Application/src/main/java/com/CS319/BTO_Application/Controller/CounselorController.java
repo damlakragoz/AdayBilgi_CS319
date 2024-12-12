@@ -1,12 +1,10 @@
 package com.CS319.BTO_Application.Controller;
 //import com.CS319.BTO_Application.Service.UserService;
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.FairInvitation;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
+import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Service.CounselorService;
 import com.CS319.BTO_Application.Service.FairInvitationService;
 import com.CS319.BTO_Application.Service.HighSchoolService;
-import com.CS319.BTO_Application.Service.SchoolTourApplicationService;
+import com.CS319.BTO_Application.Service.TourApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +20,15 @@ public class CounselorController {
     private final CounselorService counselorService;
     private final HighSchoolService highschoolService;
 
-    private final SchoolTourApplicationService schoolTourApplicationService;
+    private final TourApplicationService tourApplicationService;
     private final FairInvitationService fairInvitationService;
 
     @Autowired
     public CounselorController(CounselorService counselorService, HighSchoolService highschoolService, FairInvitationController fairInvitationController,
-                               TourApplicationController tourApplicationController, SchoolTourApplicationService schoolTourApplicationService, FairInvitationService fairInvitationService) {
+                               TourApplicationController tourApplicationController, TourApplicationService tourApplicationService, FairInvitationService fairInvitationService) {
         this.counselorService = counselorService;
         this.highschoolService = highschoolService;
-        this.schoolTourApplicationService = schoolTourApplicationService;
+        this.tourApplicationService = tourApplicationService;
         this.fairInvitationService = fairInvitationService;
     }
 
@@ -38,7 +36,7 @@ public class CounselorController {
     public ResponseEntity<?> getAllTourApplications(String counselorEmail) {
         try {
             Counselor applyingCounselor = counselorService.getCounselorByUsername(counselorEmail);
-            List<SchoolTourApplication> schoolTourApplications = schoolTourApplicationService.getAllSchoolTourApplicationsByCounselor(applyingCounselor);
+            List<SchoolTourApplication> schoolTourApplications = tourApplicationService.getAllSchoolTourApplicationsByCounselor(applyingCounselor);
             return ResponseEntity.ok(schoolTourApplications); // return the list of schoolApplications
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -59,6 +57,15 @@ public class CounselorController {
         }    }
 
 
+    @GetMapping("/{id}/feedbacks")
+    public ResponseEntity<?> getCounselorFeedbacks(@PathVariable Long id) {
+        try {
+            Counselor counselor = counselorService.getCounselorById(id);
+            return ResponseEntity.ok(counselor.getFeedbacks());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 
 
 }
