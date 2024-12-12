@@ -55,6 +55,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>3.3.5</version>  <!-- Use your Spring Boot version here -->

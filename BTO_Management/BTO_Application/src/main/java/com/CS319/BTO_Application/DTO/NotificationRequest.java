@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class NotificationRequest {
     private String notificationType;
-    private Long receiverId;
+    private String receiverName;
 }

@@ -2,7 +2,6 @@ package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.FairInvitation;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Repos.FairInvitationRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
 import org.springframework.beans.factory.annotation.Autowired;

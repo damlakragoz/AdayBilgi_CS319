@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,6 +31,13 @@ public class TourGuide extends BTOMember {
     @Column(name = "iban", nullable = true)
     private String iban;
 
+    @OneToMany(mappedBy = "assignedGuide")
+    private List<Tour> assignedTours;
+
+    @OneToMany(mappedBy = "guide")
+    private List<OtherActivity> otherActivities;
+
+
     /*
     TODO:
      -paymentHistory: List<Payment>
@@ -36,6 +45,9 @@ public class TourGuide extends BTOMember {
      -tours: List<Tour>
      -otherActivities: List<OtherActivities>
      */
+
+    @OneToMany(mappedBy = "tourGuide")
+    private List<Payment> paymentHistory;
 
     public TourGuide(String email, String password, String role) {
         this.setEmail(email);

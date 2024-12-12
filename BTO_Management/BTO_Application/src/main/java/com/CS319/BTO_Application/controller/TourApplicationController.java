@@ -47,7 +47,7 @@ public class TourApplicationController {
                     .body("An error occurred while retrieving tour applications.");
         }
     }
-////////////////////////////
+    ////////////////////////////
 // SchoolTourApplication Methods START
     @GetMapping("/getAll/school-applications")
     public ResponseEntity<?> getAllSchoolTourApplications() {
@@ -117,4 +117,3 @@ public class TourApplicationController {
 
 
 }
-
