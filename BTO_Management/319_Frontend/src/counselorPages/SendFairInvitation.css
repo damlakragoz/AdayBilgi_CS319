@@ -1,0 +1,76 @@
+.send-fair-invitation-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.send-fair-invitation-header {
+    font-size: 24px;
+    color: #004080;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.invitation-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.calendar-section,
+.time-selection-section,
+.time-confirm-section {
+    flex: 1;
+    margin: 10px;
+    text-align: center;
+}
+
+.section-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.date-picker,
+.time-selection-dropdown {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.select-button,
+.confirm-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-button {
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.select-button:hover,
+.confirm-button:hover {
+    background-color: #003366;
+}
+
+.time-confirm-section h3 {
+    color: #004080;
+}
+
+.time-confirm-section p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}

@@ -1,0 +1,113 @@
+/* TourApplications.css */
+
+/* Container styling */
+.tour-applications-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+.tour-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tour-table th, .tour-table td {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.tour-table th {
+  background-color: #003366;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.tour-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tour-table tr:hover {
+  background-color: #eef3f7;
+}
+
+/* Button styling */
+.action-button {
+  color: #0056b3;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.action-button:hover {
+  text-decoration: underline;
+}
+
+.edit-button {
+  background-color: #003366;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+  .tour-table th, .tour-table td {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .edit-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Add Application Button */
+.add-application-button {
+  display: inline-block;
+  background-color: #111111;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-application-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.add-application-button:active {
+  background-color: #218838;
+}
+
+.add-application-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+}

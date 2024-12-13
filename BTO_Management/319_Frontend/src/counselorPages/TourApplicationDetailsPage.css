@@ -1,0 +1,32 @@
+.application-details-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: var(--white); /* Updated */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.application-details-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--dark-blue); /* Updated */
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--dark-gray); /* Updated */
+}
+
+.form-control {
+    border: 1px solid var(--gray); /* Updated */
+}
+
+.save-button {
+    background-color: var(--light-blue);
+    color: var(--charcoal);
+}
+.cancel-button {
+    background-color: var(--orange);
+    color: var(--white);
+}
