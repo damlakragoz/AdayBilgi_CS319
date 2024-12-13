@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './FairInvitations.css'; // Import the updated CSS file
+import '../common/FairInvitations.css'; // Import the updated CSS file
 
-const FairInvitations = () => {
+const CoordinatorFairInvitationsPage = () => {
   const data = [
     { bto: '/', katilim: 'Onay bekliyor', lise: 'Atatürk Fen Lisesi', sehir: 'İzmir', tarih: '13.10.2025', saat: '9.00-17.00' },
     { bto: '/', katilim: 'Onay Bekliyor', lise: 'Nesibe Aydın', sehir: 'Konya', tarih: '13.10.2025', saat: '9.00-17.00' },
@@ -50,7 +50,6 @@ const FairInvitations = () => {
               <th>Şehir</th>
               <th>Tarih</th>
               <th>Fuar Saatleri</th>
-              <th>Actions</th> {/* New column for actions */}
             </tr>
           </thead>
           <tbody>
@@ -62,14 +61,6 @@ const FairInvitations = () => {
                 <td>{item.sehir}</td>
                 <td>{item.tarih}</td>
                 <td>{item.saat}</td>
-                <td>
-                  {/* Conditional Button Render */}
-                  {item.katilim !== 'Katılınacak' ? (
-                    <button className="fair-tour-lists-bto-button">Fuari Onayla</button>
-                  ) : (
-                    <button className="fair-tour-lists-bto-button-approved">Onaylandi</button>
-                  )}
-                </td>
               </tr>
             ))}
           </tbody>

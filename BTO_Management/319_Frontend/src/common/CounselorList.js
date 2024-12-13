@@ -12,10 +12,21 @@ const CounselorList = () => {
   // Function to fetch counselors
   const fetchCounselors = async () => {
     try {
-      const response = await axios.get(
+        const token = localStorage.getItem("userToken"); // Retrieve the auth token (adjust as needed)
+        if (!token) {
+          alert("Authorization token missing. Please log in.");
+          // Redirect to login page, e.g., window.location.href = '/login';
+          return;
+        }
+        console.log("Retrieved Token:", token);
+
+        const response = await axios.get(
         "http://localhost:8081/api/counselors/getAll",
         {
-          withCredentials: true, // Include credentials like cookies
+            headers: {
+              Authorization: `Bearer ${token}`, // Add the authorization header
+            },
+            withCredentials: true, // Include credentials like cookies
         }
       );
       console.log(response.data);

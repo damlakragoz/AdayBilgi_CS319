@@ -71,6 +71,11 @@ const CoordinatorNavbar = () => {
                             {isDropdown1Open && (
                                 <ul className="dropdown-menu">
                                     <li>
+                                        <Link to="/onay-bekleyen-islemler">
+                                            Onay Bekleyen Islemler
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link to="/bto-koordinasyonu">
                                             BTO Koordinasyonu
                                         </Link>
@@ -128,7 +133,7 @@ const CoordinatorNavbar = () => {
 
                         {/* FontAwesome Icons */}
                         <li>
-                            <Link to="/ana-sayfa" className="icon">
+                            <Link to="/koordinator-anasayfa" className="icon">
                                 <FontAwesomeIcon icon={faHome} style={{
                                    cursor: "pointer",
                                    marginLeft: "10px",

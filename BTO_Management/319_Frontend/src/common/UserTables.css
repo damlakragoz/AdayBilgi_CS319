@@ -1,6 +1,6 @@
 .user-table {
   width: 100%;
-  margin: 20px auto; /* Centers the table */
+  margin: 20px 0px 50px auto; /* Centers the table */
   border-collapse: separate; /* Allows for border-radius to take effect */
   border-spacing: 0; /* Ensures spacing between cells doesn't show gaps */
   text-align: center;

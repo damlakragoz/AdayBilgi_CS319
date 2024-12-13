@@ -1,5 +1,5 @@
 import React from "react";
-import "./Sidebar.css";
+import "../common/Sidebar.css";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (

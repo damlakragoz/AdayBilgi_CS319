@@ -1,7 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './MainPage.css';
+import MainPageHeader from './MainPageHeader';
+import Sidebar from "../counselorPages/Sidebar";
+import logo from "../assets/logo.png";
 
 const MainPage = () => {
     const [loginData, setLoginData] = useState({
@@ -9,17 +12,14 @@ const MainPage = () => {
         password: '',
     });
     const [error, setError] = useState(''); // State to store error message
+    const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
     const navigate = useNavigate();
 
+    const toggleSidebar = () => setSidebarOpen(!sidebarOpen); // Toggle sidebar
+
     useEffect(() => {
-       // localStorage.removeItem('userToken');
-        //sessionStorage.removeItem('userToken');
-
-        //console.log("use effect called");
-        // No need to clear tokens here
+        // Clear tokens or perform other side effects
     }, []);
-
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -104,54 +104,17 @@ const MainPage = () => {
 
     return (
         <div className="main-page">
-            <header className="main-header">
-                <nav className="navbar">
-                  <div className="cpf">
-                    <a href="#contact">İletişim</a>
-                    <a href="#photos">Fotoğraflarla Bilkent</a>
-                    <a href="#faq">Sıkça Sorulan Sorular</a>
-                  </div>
-
-                  <div className="searchbar">
-                    <input className="search-bar" type="text" placeholder="Sitede ara..." />
-                  </div>
-
-                  <div className="socials">
-                    <a href="#facebook">Facebook</a>
-                    <a href="#instagram">Instagram</a>
-                    <a href="#twitter">Twitter</a>
-                  </div>
-                </nav>
-            </header>
-
-            <nav className="subnavbar">
-              <div className= "login">
-                <a href="#login" onClick={() => navigate('/login')} >Login</a>
-              </div>
-            </nav>
-
-            <nav className="subnavbar2">
-              <div className="contents">
-                <div className="dropdown_1">
-                  <a href="#tanitim">Tanıtım</a>
-                    <div className="tanitim-dropdown-content">
-                      <a href="#link1">Kampüs Ziyaretleri</a>
-                      <a href="#link2">Meslek Seminerleri</a>
-                      <a href="#link3">Sanal Kampüs Turu</a>
-                      <a href="#link4">Tanıtım Kitapçığı</a>
-                      <a href="#link5">Tanıtım Videoları</a>
-                    </div>
+            <MainPageHeader toggleSidebar={toggleSidebar} />
+            <div className="d-flex">
+                <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+                <div
+                    className={`content-container flex-grow-1 ${
+                        sidebarOpen ? "with-sidebar" : ""
+                    }`}
+                >
+                    {/* Main content */}
                 </div>
-
-                <a href="#photos">ÖSYS Bilgileri</a>
-                <a href="#faq">Eğitim Programları</a>
-                <a href="#faq">Ücretler-Burslar</a>
-                <a href="#faq">Akademik Bilgiler</a>
-                <a href="#faq">Kampüste Yaşam</a>
-                <a href="#faq">Mezunlar</a>
-                <a href="#faq">Sorular</a>
-              </div>
-            </nav>
+            </div>
 
             {/* Main content area */}
             <main className="main-content">

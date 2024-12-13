@@ -1,14 +1,15 @@
-.outer-container {
+.fair-tour-lists-outer-container {
   padding: 40px;
   font-family: Arial, sans-serif;
   background-color: var(--background-light);
   border-radius: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1400px; /* Increased container width */
+  max-width: 1200px; /* Adjusted to make it more flexible */
   margin: auto;
+  width: 100%; /* Allow for responsiveness */
 }
 
-.title {
+.fair-tour-lists-title {
   text-align: center;
   color: var(--black);
   margin-bottom: 30px;
@@ -16,56 +17,57 @@
   font-weight: bold;
 }
 
-.table-container {
-  overflow-x: hidden;
+.fair-tour-lists-table-container {
+  overflow-x: auto;
 }
 
-.table {
+.fair-tour-lists-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-.table th,
-.table td {
+.fair-tour-lists-table th,
+.fair-tour-lists-table td {
   text-align: left;
-  padding: 20px 40px;
+  padding: 20px 30px; /* Reduced padding for better table density */
   font-size: 16px;
+  word-wrap: break-word; /* Prevent text overflow */
 }
 
-.table th {
+.fair-tour-lists-table th {
   color: var(--dark-blue);
   font-weight: bold;
   white-space: nowrap;
 }
 
-.table tr td {
+.fair-tour-lists-table tr td {
   color: var(--dark-gray);
-  border-bottom: 1px solid var(--gray); /* Thin line between rows */
+  border-top: 1px solid var(--gray); /* Thin line between rows */
 }
 
-.table tbody tr {
+.fair-tour-lists-table tbody tr {
   background-color: transparent;
 }
 
-.footer {
+.fair-tour-lists-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 }
 
-.pagination-info {
+.fair-tour-lists-pagination-info {
   color: var(--dark-gray);
   font-size: 14px;
 }
 
-.arrow-navigation {
+.fair-tour-lists-arrow-navigation {
   display: flex;
   gap: 20px;
 }
 
-.arrow {
+.fair-tour-lists-arrow {
   font-size: 24px;
   font-weight: bold;
   color: var(--dark-blue);
@@ -74,11 +76,52 @@
   transition: color 0.3s;
 }
 
-.arrow:hover {
+.fair-tour-lists-arrow:hover {
   color: var(--orange);
 }
 
-.arrow.disabled {
+.fair-tour-lists-arrow.disabled {
   color: var(--gray);
   pointer-events: none;
+}
+
+/* Add responsive design rules */
+@media (max-width: 768px) {
+  .fair-tour-lists-outer-container {
+    padding: 20px;
+  }
+
+  .fair-tour-lists-title {
+    font-size: 22px;
+  }
+
+  .fair-tour-lists-table th,
+  .fair-tour-lists-table td {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .fair-tour-lists-arrow {
+    font-size: 20px;
+  }
+
+  .fair-tour-lists-bto-button {
+    background-color: var(--orange);
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .fair-tour-lists-bto-button:hover {
+    background-color: var(--dark-orange);
+  }
+
+  .fair-tour-lists-bto-button:focus {
+    outline: none;
+  }
+
 }

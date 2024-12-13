@@ -1,20 +1,35 @@
 import React from "react";
-import "./CoordinatorHeader.css";
+import { useNavigate, Link } from "react-router-dom"; // Import for navigation
+import "../common/Header.css";
+import logo from "../assets/logo.png";
 
 const CoordinatorHeader = ({ toggleSidebar }) => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Clear authentication data (example: localStorage or context)
+        localStorage.removeItem("userToken");
+         localStorage.removeItem("username");
+         localStorage.removeItem("role");// Adjust this as per your authentication logic
+        // Redirect to login page
+        navigate("/login");
+    };
+
     return (
         <div className="header">
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
-                <img src="/logo.png" alt="Logo" className="logo" />
-                <h1>BTO AdayBilgi</h1>
+                <Link to="/anasayfa" className="logo-link">
+                    <img src={logo} alt="Logo" className="logo" />
+                    <h1>BTO AdayBilgi</h1>
+                </Link>
             </div>
             <div className="nav-links">
-                <a href="#" className="nav-link">
+                <a href="/coordinator-homepage" className="nav-link">
                     Anasayfa
                 </a>
-                <a href="#" className="nav-link">
-                    Onay Beklenen İşlemler
+                <a href="/onay-bekleyen-islemler" className="nav-link">
+                    Onay Bekleyen İşlemler
                 </a>
                 <a href="#" className="nav-link">
                     Yaklaşan Etkinlikler
@@ -35,7 +50,9 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                     </div>
                     <div className="dropdown-menu">
                         <a href="#">Şifremi Değiştir</a>
-                        <a href="#">Çıkış Yap</a>
+                        <a href="#" onClick={handleLogout}>
+                            Çıkış Yap
+                        </a>
                     </div>
                 </div>
             </div>

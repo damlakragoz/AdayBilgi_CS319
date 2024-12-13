@@ -30,7 +30,7 @@
 }
 
 .coord-navbar-links a:hover {
-    color: #00f0ff; /* Gold hover effect */
+    color: var(--orange); /* Gold hover effect */
 }
 
 /* Dropdown Menu Styles */

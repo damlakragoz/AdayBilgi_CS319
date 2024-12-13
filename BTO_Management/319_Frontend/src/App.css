@@ -5,7 +5,7 @@
     --dark-blue: #002855;    /* Dark Blue */
     --deep-blue:#142f6b;
     --orange: #E38E49;       /* Orange */
-
+    --my-red: #df5454;       /* My Red */
 
   /* Accent Colors */
     --dark-gray: #5A5A5A;    /* Dark Gray */
@@ -24,7 +24,7 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
+    font-family: Poppins, sans-serif;
 }
 h1, h2, h3, h4, h5, h6, p, span, a, button {
     font-family: 'Poppins', sans-serif;
@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
 }
 
 .login-button:hover {
-    background-color: var(--deep-blue) ;
+    background-color: var(--light-blue) ;
 }
 
 /* Application Table Styles */
@@ -206,50 +206,6 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
     margin-left: 250px;
 }
 
-/* Header styles */
-.header {
-    height: 60px;
-    background-color: #013365;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header .logo {
-    height: 40px;
-}
-
-.header nav {
-    display: flex;
-    align-items: center;
-}
-
-.header .user-menu {
-    display: flex;
-    align-items: center;
-}
-
-.header .user-menu .text-muted {
-    font-size: 12px;
-}
-
-/* Sidebar styles */
-.sidebar {
-    width: 250px;
-    background-color: #013365;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: -250px;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    color: white;
-}
-
-.sidebar.open {
-    left: 0;
-}
 
 /* Content container styles */
 .content-container {
