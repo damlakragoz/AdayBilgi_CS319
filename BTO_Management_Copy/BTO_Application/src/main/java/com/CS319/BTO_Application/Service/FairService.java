@@ -10,119 +10,49 @@ import java.util.List;
 
 @Service
 public class FairService {
+    private final FairRepos fairRepos;
     private final FairInvitationRepos fairInvitationRepos;
     private final TourGuideRepos tourGuideRepos;
-    private final ExecutiveRepos executiveRepos;
     private final CoordinatorRepos coordinatorRepos;
+    private final ExecutiveRepos executiveRepos;
 
     @Autowired
-    public FairService(FairInvitationRepos fairInvitationRepos, TourGuideRepos tourGuideRepos, ExecutiveRepos executiveRepos, CoordinatorRepos coordinatorRepos) {
+    public FairService(FairRepos fairRepos, FairInvitationRepos fairInvitationRepos, TourGuideRepos tourGuideRepos, CoordinatorRepos coordinatorRepos, ExecutiveRepos executiveRepos) {
+        this.fairRepos = fairRepos;
         this.fairInvitationRepos = fairInvitationRepos;
         this.tourGuideRepos = tourGuideRepos;
-        this.executiveRepos = executiveRepos;
         this.coordinatorRepos = coordinatorRepos;
+        this.executiveRepos = executiveRepos;
     }
 
-    public Fair createFair(Fair fair) {
-
-    }
-}
-
-
-    /*
-        this method changes the status of the schooltourapplication to enrolled
-     */
-    public Tour createSchoolTour(Tour tour, SchoolTourApplication schoolTourApplication) {
-        return schoolTourRepos.save(tour);
+    public Fair createFair(FairInvitation fairInvitation) {
+        Fair fair = new Fair();
+        fair.setFairInvitation(fairInvitation);
+        fair.setFairStatus("Pending");
+        return fairRepos.save(fair);
     }
 
-    public Tour setStatusApproved(Tour tour) {
-        tour.setTourStatus("Approved");
-        return schoolTourRepos.save(tour);
+    public Fair setStatusApproved(Fair fair) {
+        fair.setFairStatus("Approved");
+        return fairRepos.save(fair);
     }
 
-    public Tour setStatusRejected(Tour tour) {
-        tour.setTourStatus("Rejected");
-        tour.getTourApplication().setApplicationStatus("Rejected");
-        tourApplicationRepos.save(tour.getTourApplication());
-        return schoolTourRepos.save(tour);
+    public Fair setStatusRejected(Fair fair) {
+        fair.setFairStatus("Rejected");
+        return fairRepos.save(fair);
     }
 
-    private void setStatusGuideAssigned(Tour tour) {
-        tour.setTourStatus("GuideAssigned");
-        schoolTourRepos.save(tour);
+    public Fair getFairById(Long fairId) {
+        return fairRepos.findById(fairId)
+                .orElseThrow(() -> new EntityNotFoundException("Fair not found with id: " + fairId));
     }
 
-    /*
-        Guide requests withdraw and the corresponding advisor gets notified
-        If advisor rejects the request the status will be changed to "Withdrawn"
-        otherwise "AdvisorAssigned"
-     */
-    private void setStatusWithdrawRequested(Tour tour) {
-        tour.setTourStatus("WithdrawRequested");
-        schoolTourRepos.save(tour);
+    public void setStatusBTOMemberAssigned(Fair fair) {
+        fair.setFairStatus("BTOMemberAssigned");
+        fairRepos.save(fair);
     }
 
-    private void setStatusAdvisorAssigned(Tour tour) {
-        tour.setTourStatus("AdvisorAssigned");
-        schoolTourRepos.save(tour);
+    public List<Fair> getAllFairs() {
+        return fairRepos.findAll();
     }
-
-    /*
-        In this state the tour is open for other guides' application
-        If no guide applies the previous guide will be assigned to the tour
-        and the status will be changed to the "GuideAssigned"
-     */
-    private void setStatusWithdrawn(Tour tour) {
-        tour.setTourStatus("Withdrawn");
-        schoolTourRepos.save(tour);
-    }
-
-    public Tour getTourById(Long tourId) {
-        return schoolTourRepos.findById(tourId)
-                .orElseThrow(() -> new EntityNotFoundException("Tour not found with id: " + tourId));
-    }
-
-    public Tour assignTour(Tour tour, String tourGuideEmail) {
-        TourGuide guide = tourGuideRepos.findByEmail(tourGuideEmail);
-        if (guide == null) {
-            throw new EntityNotFoundException("Tour guide not found with email: " + tourGuideEmail);
-        }
-        tour.getTourApplication().setApplicationStatus("Approved");
-        setStatusGuideAssigned(tour);
-        tour.setAssignedGuide(guide);
-        return schoolTourRepos.save(tour);
-    }
-
-    public Tour requestWithdraw(Tour tour) {
-        setStatusWithdrawRequested(tour);
-        return schoolTourRepos.save(tour);
-    }
-
-    public Tour acceptWithdrawRequest(Tour tour, String advisorEmail) {
-        Advisor advisor = advisorRepos.findByEmail(advisorEmail);
-        if (advisor == null) {
-            throw new EntityNotFoundException("Advisor not found with email: " + advisorEmail);
-        }
-        setStatusAdvisorAssigned(tour);
-        tour.setAssignedGuide(advisor);
-        return schoolTourRepos.save(tour);
-    }
-
-    public Tour rejectWithdrawRequest(Tour tour, String advisorEmail) {
-        Advisor advisor = advisorRepos.findByEmail(advisorEmail);
-        if (advisor == null) {
-            throw new EntityNotFoundException("Advisor not found with email: " + advisorEmail);
-        }
-        setStatusWithdrawn(tour);
-        return schoolTourRepos.save(tour);
-    }
-
-    public List<Tour> getAllTours() {
-        return schoolTourRepos.findAll();
-    }
-
-
-
-
 }
