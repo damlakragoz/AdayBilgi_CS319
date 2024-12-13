@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -9,55 +10,55 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
             <ul className="nav flex-column">
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/" className="nav-link text-white">
                         Anasayfa
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/create-tour-application" className="nav-link text-white">
                         Tur Başvurusu Yap
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/tour-applications" className="nav-link text-white">
                         Tur Başvurularım
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/edit-tour-applications" className="nav-link text-white">
                         Tur Başvurularımı Düzenle
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/feedback" className="nav-link text-white">
                         Geri Bildirimlerim
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/send-fair-invitation" className="nav-link text-white">
                         Fuar Davetiyesi Gönder
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/fair-invitations" className="nav-link text-white">
                         Fuar Davetlerim
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/notifications" className="nav-link text-white">
                         Bildirimlerim
-                    </a>
+                    </Link>
                 </li>
                 <hr />
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/settings" className="nav-link text-white">
                         Ayarlar
-                    </a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link text-white">
+                    <Link to="/logout" className="nav-link text-white">
                         Çıkış Yap
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>

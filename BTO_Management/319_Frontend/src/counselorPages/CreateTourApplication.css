@@ -1,0 +1,96 @@
+.tour-application-container {
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    color: #333;
+    max-width: 800px;
+    margin: auto;
+}
+
+.tour-application-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tour-application-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.calendar-section, .time-selection-section {
+    flex: 1;
+    text-align: center;
+}
+
+.date-picker {
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid #013365;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.time-dropdown {
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid #013365;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.select-button {
+    margin-top: 10px;
+    background-color: #93c572;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.select-button:hover {
+    background-color: #82b060;
+}
+
+.summary-section {
+    text-align: center;
+    border-top: 2px solid #f0f0f0;
+    padding-top: 20px;
+}
+
+.confirmation-box {
+    border: 2px solid #013365;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    display: inline-block;
+    text-align: left;
+}
+
+.confirmation-box p {
+    margin: 5px 0;
+}
+
+.confirm-button {
+    margin-top: 10px;
+    background-color: #013365;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.confirm-button:hover {
+    background-color: #011f4b;
+}
+
+.no-selection {
+    font-style: italic;
+    color: #666;
+}
