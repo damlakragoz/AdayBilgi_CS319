@@ -1,10 +1,7 @@
 package com.CS319.BTO_Application.Controller;
 //import com.CS319.BTO_Application.Service.UserService;
 import com.CS319.BTO_Application.Entity.*;
-import com.CS319.BTO_Application.Service.CounselorService;
-import com.CS319.BTO_Application.Service.FairInvitationService;
-import com.CS319.BTO_Application.Service.HighSchoolService;
-import com.CS319.BTO_Application.Service.TourApplicationService;
+import com.CS319.BTO_Application.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,21 +19,23 @@ public class CounselorController {
 
     private final TourApplicationService tourApplicationService;
     private final FairInvitationService fairInvitationService;
+    private final SchoolTourApplicationService schoolTourApplicationService;
 
     @Autowired
     public CounselorController(CounselorService counselorService, HighSchoolService highschoolService, FairInvitationController fairInvitationController,
-                               TourApplicationController tourApplicationController, TourApplicationService tourApplicationService, FairInvitationService fairInvitationService) {
+                               TourApplicationController tourApplicationController, TourApplicationService tourApplicationService, FairInvitationService fairInvitationService, SchoolTourApplicationService schoolTourApplicationService) {
         this.counselorService = counselorService;
         this.highschoolService = highschoolService;
         this.tourApplicationService = tourApplicationService;
         this.fairInvitationService = fairInvitationService;
+        this.schoolTourApplicationService = schoolTourApplicationService;
     }
 
     @GetMapping("tourApplications/getAll")
     public ResponseEntity<?> getAllTourApplications(String counselorEmail) {
         try {
             Counselor applyingCounselor = counselorService.getCounselorByUsername(counselorEmail);
-            List<SchoolTourApplication> schoolTourApplications = tourApplicationService.getAllSchoolTourApplicationsByCounselor(applyingCounselor);
+            List<SchoolTourApplication> schoolTourApplications = schoolTourApplicationService.getAllSchoolTourApplicationsByCounselor(applyingCounselor);
             return ResponseEntity.ok(schoolTourApplications); // return the list of schoolApplications
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -56,7 +55,7 @@ public class CounselorController {
                     .body("An error occurred while retrieving tour invitations of counselor: " + counselorEmail);
         }    }
 
-
+/*
     @GetMapping("/{id}/feedbacks")
     public ResponseEntity<?> getCounselorFeedbacks(@PathVariable Long id) {
         try {
@@ -66,6 +65,8 @@ public class CounselorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+ */
+
 
 
 }
