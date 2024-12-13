@@ -18,8 +18,8 @@ public class FeedbackService {
     @Autowired
     private CounselorService counselorService;
 
-    public void addFeedback(Long counselorId, Feedback feedback) {
-        Counselor counselor = counselorService.getCounselorById(counselorId);
+    public void addFeedback(String counselorUsername, Feedback feedback) {
+        Counselor counselor = counselorService.getCounselorByUsername(counselorUsername);
         feedback.setCounselor(counselor);
 
         if (feedback.getTour() == null) {

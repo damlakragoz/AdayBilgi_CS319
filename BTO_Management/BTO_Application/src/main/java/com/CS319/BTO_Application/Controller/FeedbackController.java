@@ -25,16 +25,16 @@ public class FeedbackController {
     private TourService tourService;
 
     @PostMapping
-    public ResponseEntity<?> createFeedback(@RequestParam Long counselorId, @RequestBody FeedbackRequest feedbackRequest) {
+    public ResponseEntity<?> createFeedback(@RequestParam String counselorUsername, @RequestBody FeedbackRequest feedbackRequest) {
         try {
             Feedback feedback = new Feedback();
             feedback.setTour(tourService.getTourById(feedbackRequest.getTourId()));
             feedback.setRating(feedbackRequest.getRating());
             feedback.setComment(feedbackRequest.getComment());
 
-            feedbackService.addFeedback(counselorId, feedback);
+            feedbackService.addFeedback(counselorUsername, feedback);
 
-            log.info("Feedback created successfully for counselorId: {}", counselorId);
+            log.info("Feedback created successfully for counselorId: {}", counselorUsername);
             return ResponseEntity.status(HttpStatus.CREATED).body("Feedback created successfully.");
         } catch (IllegalArgumentException ex) {
             log.warn("Validation failed while creating feedback: {}", ex.getMessage());
