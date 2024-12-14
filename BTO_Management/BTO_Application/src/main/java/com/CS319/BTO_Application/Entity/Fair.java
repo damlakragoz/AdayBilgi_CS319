@@ -28,11 +28,6 @@ public class Fair {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @OneToOne
-    @JsonBackReference
-    @JoinColumn(name = "feedback", referencedColumnName = "id", nullable = true)
-    private Feedback feedback;
-
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "assigned_BTO_member", referencedColumnName = "id", nullable = true)
@@ -51,14 +46,13 @@ public class Fair {
     @Column(name = "fair_status", nullable = true)
     private String fairStatus;
 
-    public Fair(Date startDate, Date endDate, BTOMember assignedBTOMember, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation, Feedback feedback) {
+    public Fair(Date startDate, Date endDate, BTOMember assignedBTOMember, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.assignedBTOMember = assignedBTOMember;
         this.fairStatus = fairStatus;
         this.applyingHighschool = applyingHighschool;
         this.fairInvitation = fairInvitation;
-        this.feedback = feedback;
     }
 
     public FairInvitation getFairInvitation() {
