@@ -15,7 +15,7 @@ const ChangePassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            setErrorMessage("Parolalar eşleşmiyor");
+            setErrorMessage("Parolalar eşleşmiyor!");
             return;
         }
         if (newPassword.length < 8 || !/[!@#$%^&*]/.test(newPassword)) {
@@ -25,7 +25,7 @@ const ChangePassword = () => {
             return;
         }
         setErrorMessage("");
-        alert("Şifre başarıyla değiştirildi");
+        alert("Şifre başarıyla değiştirildi.");
     };
 
     const togglePasswordVisibility = (field) => {
@@ -40,7 +40,7 @@ const ChangePassword = () => {
             <h2>Şifreyi Değiştir</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Şuanki Şifreniz</label>
+                    <label>Mevcut Şifreniz</label>
                     <input
                         type="password"
                         value={currentPassword}
@@ -66,7 +66,7 @@ const ChangePassword = () => {
                     </div>
                 </div>
                 <div className="form-group">
-                    <label>Yeni Şifreyi Onayla</label>
+                    <label>Yeni Şifrenizi Onaylayın</label>
                     <div className="password-input">
                         <input
                             type={showPassword.confirmPassword ? "text" : "password"}

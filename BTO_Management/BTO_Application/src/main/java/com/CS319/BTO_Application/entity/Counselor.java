@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Counselor", schema = "bto_database")
+@Table(name = "Counselor", schema = "kubra_db")
 public class Counselor extends User{
 
     /*

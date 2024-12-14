@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Highschool", schema = "bto_database")
+@Table(name = "Highschool", schema = "kubra_db")
 public class HighSchool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

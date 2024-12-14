@@ -21,13 +21,6 @@ const PasswordReset = () => {
                     <button className="submit-btn">Şifremi Onaylıyorum</button>
                 </div>
             </div>
-            <footer className="footer">
-                <p>
-                    <a href="#">Gizlilik Politikası</a> | <a href="#">Hizmet Koşulları</a> |{" "}
-                    <a href="#">Bizimle İletişime Geçin</a>
-                </p>
-                <p>© 2024 Bilkent Üniversitesi. Tüm hakları saklıdır.</p>
-            </footer>
         </div>
     );
 };

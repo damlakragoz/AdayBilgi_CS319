@@ -1,0 +1,84 @@
+.navbar {
+    background-color: #002855;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.navbar .menu {
+    display: flex;
+    align-items: center;
+}
+.navbar .menu > div {
+    position: relative;
+    margin-right: 20px;
+}
+.navbar .menu > div > a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+.navbar .menu > div > div {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.navbar .menu > div:hover > div {
+    display: block;
+}
+.navbar .menu > div > div > a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+.navbar .menu > div > div > a:hover {
+    background-color: #f0f0f0;
+}
+.navbar .search {
+    display: flex;
+    align-items: center;
+}
+.navbar .search input {
+    padding: 5px;
+    margin-right: 10px;
+}
+.navbar .user-menu {
+    display: flex;
+    align-items: center;
+}
+.navbar .user-menu > div {
+    position: relative;
+    margin-left: 20px;
+}
+.navbar .user-menu > div > a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+.navbar .user-menu > div > div {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.navbar .user-menu > div:hover > div {
+    display: block;
+}
+.navbar .user-menu > div > div > a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+.navbar .user-menu > div > div > a:hover {
+    background-color: #f0f0f0;
+}

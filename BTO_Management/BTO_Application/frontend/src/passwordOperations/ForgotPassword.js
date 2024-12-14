@@ -1,6 +1,5 @@
-// React Component (ForgotPassword.js)
-import React from 'react';
-import './ForgotPassword.css';
+import React, { useState } from "react";
+import "./ForgotPassword.css";
 
 const ForgotPassword = () => {
     return (
@@ -21,9 +20,9 @@ const ForgotPassword = () => {
             </header>
             <div className="content">
                 <h2>Şifremi Unuttum</h2>
-                <p>Lütfen şifre sıfırlama linkinin gönderileceği mail adresini giriniz.</p>
+                <p>Lütfen şifre sıfırlama linkinin gönderileceği hesap mailini yazınız</p>
                 <form className="form">
-                    <input type="email" placeholder="E-mailinizi giriniz" required/>
+                    <input type="email" placeholder="E-mailinizi giriniz" required />
                     <div className="buttons">
                         <button type="button" className="cancel">İptal</button>
                         <button type="submit" className="confirm">Onayla</button>

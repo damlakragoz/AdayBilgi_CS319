@@ -1,0 +1,77 @@
+/* General styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a, button {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Content container with padding */
+.content-container {
+    transition: margin-left 0.3s;
+    margin-left: 0;
+}
+
+.content-container.with-sidebar {
+    margin-left: 250px;
+}
+
+/* Header styles */
+.header {
+    height: 60px;
+    background-color: #013365;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .logo {
+    height: 40px;
+}
+
+.header nav {
+    display: flex;
+    align-items: center;
+}
+
+.header .user-menu {
+    display: flex;
+    align-items: center;
+}
+
+.header .user-menu .text-muted {
+    font-size: 12px;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background-color: #013365;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    color: white;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+/* Content container styles */
+.content-container {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+    width: 100%;
+}
+
+.content-container.with-sidebar {
+    margin-left: 250px;
+}

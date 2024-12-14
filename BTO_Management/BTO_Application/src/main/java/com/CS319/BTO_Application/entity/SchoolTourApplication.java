@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "School_Tour_Application", schema = "bto_database")
+@Table(name = "School_Tour_Application", schema = "kubra_db")
 public class SchoolTourApplication extends TourApplication {
 
     @ManyToOne // A counselor can apply for many school tours

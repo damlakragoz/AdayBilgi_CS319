@@ -1,0 +1,120 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.navbar {
+    background-color: #002147;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.menu {
+    display: flex;
+    align-items: center;
+}
+.menu > div {
+    margin-right: 20px;
+    position: relative;
+}
+.menu > div:hover .dropdown {
+    display: block;
+}
+.menu > div > a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    color: black;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+.dropdown a {
+    color: black;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+}
+.dropdown a:hover {
+    background-color: #f1f1f1;
+}
+.search {
+    flex-grow: 1;
+    margin: 0 20px;
+}
+.search input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+.icons {
+    display: flex;
+    align-items: center;
+}
+.icons > div {
+    margin-left: 20px;
+}
+.icons > div a {
+    color: white;
+    text-decoration: none;
+}
+.content {
+    padding: 20px;
+}
+.content h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.notification {
+    background-color: #e6f7ff;
+    border: 1px solid #b3e5fc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.notification .icon {
+    font-size: 40px;
+    color: #007bff;
+    margin-right: 20px;
+}
+.notification .text {
+    flex-grow: 1;
+}
+.notification .text h2 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+}
+.notification .text p {
+    margin: 0;
+    font-size: 14px;
+}
+.notification .buttons {
+    display: flex;
+    flex-direction: column;
+}
+.notification .buttons button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.notification .buttons button:last-child {
+    background-color: black;
+}
