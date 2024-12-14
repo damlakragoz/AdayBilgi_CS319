@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Tour", schema = "bto_database")
+@Table(name = "Tour", schema = "kubra_db")
 public class Tour extends TourEvent{
 
     @Column(name = "chosen_date", nullable = false)

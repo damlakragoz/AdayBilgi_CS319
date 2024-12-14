@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "Coordinator", schema = "bto_database")
+@Table(name = "Coordinator", schema = "kubra_db")
 public class Coordinator extends BTOManager {
 
     //TODO Initialize Payment Service

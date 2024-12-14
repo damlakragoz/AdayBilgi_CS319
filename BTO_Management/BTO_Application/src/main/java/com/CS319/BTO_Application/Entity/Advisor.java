@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Advisor", schema = "bto_database")
+@Table(name = "Advisor", schema = "kubra_db")
 public class Advisor extends TourGuide{
 
     @Column(name = "assigned_day", nullable = true)

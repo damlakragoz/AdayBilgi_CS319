@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="FairInvitation", schema = "bto_database")
+@Table(name ="FairInvitation", schema = "kubra_db")
 
 public class FairInvitation {
     @Id

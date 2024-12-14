@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TourGuide", schema = "bto_database")
+@Table(name = "TourGuide", schema = "kubra_db")
 public class TourGuide extends BTOMember {
 
     @Column(name = "department", nullable = true)
