@@ -1,46 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TourGuideNavbar from './TourGuideNavbar';
-import './TourGuidePuantage.css'; // Make sure to import the styles if you have custom ones.
+import './TourGuidePuantage.css';
 import PuantageTable from '../common/PuantageTable';
+import axios from 'axios';
 
 const TourGuidePuantage = () => {
   const [newActivity, setNewActivity] = useState({
     date: '',
-    activityType: 'Tour', // Default value is 'Tour'
     hoursWorked: '',
   });
 
-  const [activities, setActivities] = useState([
-    { user: "Damla Kara", date: "2024-10-05", activity: "3", time: "10:00", activityType: "Tour" },
-    // Other sample activities for Damla Kara or existing users can be added here
-  ]);
+  const [activities, setActivities] = useState([]);
+  const [tourGuides, setTourGuides] = useState([]);
+  const [userName, setUserName] = useState(""); // State to hold the logged-in username
+  const [userRole, setUserRole] = useState(""); // State to hold the logged-in user's role
 
-  const [users, setUsers] = useState([
-    "Damla Kara", "Eray İşçi", "Yiğit Özhan", "İbrahim Çaycı"
-    // Yuyu Yokonova is not initially added to the users list
-  ]);
+  // Fetch the list of tour guides and their total hours worked
+  const fetchTourGuides = async () => {
+    try {
+      const token = localStorage.getItem("userToken");
+      if (!token) {
+        alert("Authorization token missing. Please log in.");
+        return;
+      }
 
-  // useEffect to log activities and check when they change
+      // Get username and role from localStorage
+      const storedUserName = localStorage.getItem('username');
+      const storedRole = localStorage.getItem('role');
+
+      if (storedUserName) setUserName(storedUserName);
+      if (storedRole) setUserRole(storedRole);
+
+      // Fetch tour guides and their total hours worked from backend
+      const response = await axios.get('http://localhost:8081/api/tourguide/getAll', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.status === 200) {
+        setTourGuides(response.data); // Set the list of tour guides with their total hours worked
+      } else {
+        alert("Error fetching tour guides data.");
+      }
+    } catch (error) {
+      console.error("Error fetching tour guides:", error);
+      alert("Failed to load tour guides. Please try again later.");
+    }
+  };
+
   useEffect(() => {
-    console.log("Activities updated:", activities);
-  }, [activities]); // Log every time activities change
+    fetchTourGuides(); // Fetch the initial tour guide data
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Replace comma with dot for decimal separator
-    const formattedValue = value.replace(',', '.');
-
     setNewActivity((prevState) => ({
       ...prevState,
-      [name]: formattedValue,
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Ensure hoursWorked is a valid number greater than 0 and in increments of 0.5
     const hours = parseFloat(newActivity.hoursWorked);
     if (hours <= 0) {
       alert("Please enter a valid number of hours worked (greater than 0).");
@@ -51,30 +72,58 @@ const TourGuidePuantage = () => {
       return;
     }
 
-    const formattedDate = new Date(newActivity.date);
-    const time = new Date(formattedDate.setHours(0, 0, 0, 0)).toISOString(); // Assign a time for the activity.
-
-    const userName = "Yuyu Yokonova"; // The user you want to check
-
-    // Add Yuyu Yokonova to the users list only if they submit an activity
-    if (!users.includes(userName)) {
-      setUsers((prevUsers) => [...prevUsers, userName]);
+    if (!userName) {
+      alert("User not logged in.");
+      return;
     }
 
-    // Add the new activity to the activities list
+    console.log("Submitting data:", {
+      userName,       // Log username to check it's correct
+      hoursWorked: newActivity.hoursWorked, // Log hoursWorked to verify it's parsed correctly
+      date: newActivity.date,
+    });
+
     setActivities(prevActivities => [
       ...prevActivities,
-      { user: userName, date: newActivity.date, activity: newActivity.hoursWorked, time, activityType: newActivity.activityType },
+      { user: userName, date: newActivity.date, activity: newActivity.hoursWorked },
     ]);
 
-    // Reset the form
-    setNewActivity({ date: '', activityType: 'Tour', hoursWorked: '' });
+    try {
+      const token = localStorage.getItem("userToken");
+      const response = await axios.put(
+        'http://localhost:8081/api/tourguide/updateWorkHours',
+        {
+          userName: userName,  // Ensure the userName (email) is correct
+          hoursWorked: hours,  // Send the parsed number
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Response from backend:", response); // Log the response to check what's returned
+
+      if (response.status === 200) {
+        alert("Work hours updated successfully!");
+        fetchTourGuides(); // Re-fetch tour guides to update the frontend
+      } else {
+        alert("Failed to update work hours.");
+      }
+    } catch (error) {
+      console.error("Error updating work hours:", error);
+      alert("Error updating work hours. Please try again later.");
+    }
+
+    // Reset the form after submission
+    setNewActivity({ date: '', hoursWorked: '' });
   };
 
   return (
     <div className="tourguide-puantage">
       <TourGuideNavbar />
-      <PuantageTable activities={activities} users={users} />
+      <PuantageTable activities={activities} users={tourGuides} />
 
       {/* Activity Submission Form */}
       <div className="activity-form-container">
@@ -90,20 +139,6 @@ const TourGuidePuantage = () => {
               onChange={handleChange}
               required
             />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="activityType">Activity Type:</label>
-            <select
-              id="activityType"
-              name="activityType"
-              value={newActivity.activityType}
-              onChange={handleChange}
-              required
-            >
-              <option value="Tour">Tour</option>
-              <option value="Fair">Fair</option>
-            </select>
           </div>
 
           <div className="form-group">

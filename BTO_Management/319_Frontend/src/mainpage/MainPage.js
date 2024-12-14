@@ -133,7 +133,7 @@ const MainPage = () => {
                               </a>
                             </div>
               <div className= "login">
-                <a href="#login" onClick={() => navigate('/tourguide-puantage')} >Login</a>
+                <a href="#login" onClick={() => navigate('/login')} >Login</a>
               </div>
             </nav>
 

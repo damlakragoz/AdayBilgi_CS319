@@ -1,0 +1,70 @@
+.payments-container {
+  font-family: Arial, sans-serif;
+  background-color: #fff5ec;
+  border: 1px solid #f4a261;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  margin: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.payments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.payments-header h2 {
+  margin: 0;
+  color: #e76f51;
+}
+
+.month-select {
+  padding: 5px 10px;
+  border: 1px solid #e76f51;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #e76f51;
+  font-size: 14px;
+}
+
+.payments-table {
+  background-color: #ffe5d4;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #e76f51;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f4a261;
+}
+
+.payment-row:last-child {
+  border-bottom: none;
+}
+
+.payment-row span {
+  flex: 1;
+  text-align: center;
+}
+
+.payment-row input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.paid {
+  color: #2a9d8f;
+}

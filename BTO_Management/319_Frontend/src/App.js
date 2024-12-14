@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
-            <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
+
 
             {/* Protected Routes Wrapper */}
             <Route
@@ -40,6 +40,7 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Routes>
+                    <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/tur-takvimi" element={<TourSchedule />} />
                     <Route path="/tur-basvurulari" element={<TourApplications />} />

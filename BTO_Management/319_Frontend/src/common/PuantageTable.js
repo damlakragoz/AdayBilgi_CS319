@@ -9,30 +9,47 @@ const PuantageTable = ({ activities, users }) => {
   const daysInMonth = getDaysInMonth(selectedMonth); // Get total days in the month
   const formatDate = (date) => format(date, "yyyy-MM-dd"); // Format date to compare
 
-  // Function to group activities by type (Fair or Tour) and sum hours
-  const groupActivitiesByType = (activities) => {
+  // Function to group activities by date and sum hours worked
+  const groupActivitiesByDate = (activities) => {
     return activities.reduce((grouped, activity) => {
       const date = activity.date;
-      const type = activity.activityType;
+      const hoursWorked = parseFloat(activity.activity); // Assume activity contains hours worked
 
-      if (!grouped[date]) grouped[date] = { tour: [], fair: [] };
+      if (!grouped[date]) grouped[date] = {};
 
-      grouped[date][type.toLowerCase()].push(activity);
+      // Aggregate total hours worked per user per date
+      if (!grouped[date][activity.user]) {
+        grouped[date][activity.user] = 0;
+      }
+      grouped[date][activity.user] += hoursWorked;
+
       return grouped;
     }, {});
   };
 
-  const groupedActivities = groupActivitiesByType(activities);
+  const groupedActivities = groupActivitiesByDate(activities); // Group the activities by date
 
   return (
     <div className="calendar-container">
       {/* Month Selector */}
       <div className="month-selector">
-        <button onClick={() => setSelectedMonth(new Date(selectedMonth.setMonth(selectedMonth.getMonth() - 1)))} >
+        <button
+          onClick={() =>
+            setSelectedMonth(
+              new Date(selectedMonth.setMonth(selectedMonth.getMonth() - 1))
+            )
+          }
+        >
           Önceki Ay
         </button>
         <span>{format(selectedMonth, "MMMM yyyy", { locale: tr })}</span>
-        <button onClick={() => setSelectedMonth(new Date(selectedMonth.setMonth(selectedMonth.getMonth() + 1)))} >
+        <button
+          onClick={() =>
+            setSelectedMonth(
+              new Date(selectedMonth.setMonth(selectedMonth.getMonth() + 1))
+            )
+          }
+        >
           Sonraki Ay
         </button>
       </div>
@@ -50,49 +67,39 @@ const PuantageTable = ({ activities, users }) => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user}>
-                <td>{user}</td>
+              <tr key={user.id}> {/* Ensure user has an 'id' */}
+                <td>{user.firstName} {user.lastName}</td> {/* Display full name */}
                 {Array.from({ length: daysInMonth }, (_, i) => {
-                  const day = formatDate(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), i + 1));
-                  const userActivities = activities.filter(
-                    (activity) => activity.user === user && activity.date === day
+                  const day = formatDate(
+                    new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), i + 1)
                   );
-
-                  // Group the activities by Fair and Tour
-                  const fairActivities = userActivities.filter((activity) => activity.activityType === 'Fair');
-                  const tourActivities = userActivities.filter((activity) => activity.activityType === 'Tour');
-
-                  const totalFairHours = fairActivities.reduce((acc, curr) => acc + parseFloat(curr.activity), 0);
-                  const totalTourHours = tourActivities.reduce((acc, curr) => acc + parseFloat(curr.activity), 0);
+                  const userActivities = groupedActivities[day]
+                    ? groupedActivities[day][user.id] || 0 // Assuming user.id is unique
+                    : 0; // Get total hours worked for this day and user
 
                   return (
                     <td key={i}>
                       <div>
-                        {/* Fair Activity Total */}
-                        {fairActivities.length > 0 && (
-                          <div className="activity-box fair">
-                            <span>{totalFairHours} </span>
+                        {/* Display the total hours worked for the day */}
+                        {userActivities > 0 ? (
+                          <div className="activity-box">
+                            <span>{userActivities} saat</span>
                             <div className="tooltip">
-                              {fairActivities.map((activity, idx) => (
-                                <div key={idx}>
-                                  {activity.activity} saat - {activity.date} ({activity.activityType})
-                                </div>
-                              ))}
+                              {/* Add more details about the activity if needed */}
+                              {activities
+                                .filter(
+                                  (activity) =>
+                                    activity.user === user.id && activity.date === day
+                                )
+                                .map((activity, idx) => (
+                                  <div key={idx}>
+                                    {activity.activity} saat - {activity.date}
+                                  </div>
+                                ))}
                             </div>
                           </div>
-                        )}
-                        {/* Tour Activity Total */}
-                        {tourActivities.length > 0 && (
-                          <div className="activity-box tour">
-                            <span>{totalTourHours}</span>
-                            <div className="tooltip">
-                              {tourActivities.map((activity, idx) => (
-                                <div key={idx}>
-                                  {activity.activity} saat - {activity.date} ({activity.activityType})
-                                </div>
-                              ))}
-                            </div>
-                          </div>
+                        ) : (
+                          <span>–</span> // No activity for this day
                         )}
                       </div>
                     </td>
