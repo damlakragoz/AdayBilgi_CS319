@@ -22,17 +22,19 @@ public class UserController {
     private final TourGuideService tourGuideService;
     private final HighSchoolService highschoolService;
     private final AdvisorService advisorService;
+    private final ExecutiveService executiveService;
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
                           CoordinatorService coordinatorService, TourGuideService tourGuideService,
-                          HighSchoolService highschoolService, AdvisorService advisorService) {
+                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
         this.highschoolService = highschoolService;
         this.advisorService = advisorService;
+        this.executiveService = executiveService;
     }
 
 
@@ -134,8 +136,22 @@ public class UserController {
             return new ResponseEntity<>(advisorService.saveAdvisor(advisor), HttpStatus.CREATED);
 
         }
+
+        else if (btoMemberRegister.getRole().equals("Executive")) {
+            // check for unique username
+            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
+                return ResponseEntity.status(400).body("Username for executive is already taken");
+            }
+            Executive executive = new Executive(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
+                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
+                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getRole());
+
+            // Save the Executive to the database
+            return new ResponseEntity<>(executiveService.saveExecutive(executive), HttpStatus.CREATED);
+
+        }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified. Accepted roles are: TourGuide, Coordinator, Advisor");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified. Accepted roles are: TourGuide, Coordinator, Advisor, Executive");
         }
 
     }
@@ -147,13 +163,13 @@ public class UserController {
         try {
             // Fetch all tour guides from the service
             List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
-            coordinators.forEach(tourGuide -> {
-                System.out.println("TourGuide: " + tourGuide.getEmail());
+            coordinators.forEach(coordinator -> {
+                System.out.println("Coordinator: " + coordinator.getEmail());
             });
             return ResponseEntity.ok(coordinators); // Return the list of tour guides with a 200 OK status
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while retrieving tour guides.");
+                    .body("An error occurred while retrieving coordinators.");
         }
     }
     @DeleteMapping("/coordinator/delete")
@@ -217,6 +233,30 @@ public class UserController {
     }
 
 // Advisor Methods END
+    // Executive Methods START
+    @GetMapping("/executive/getAll")
+    public ResponseEntity<?> getAllExecutives() {
+        try {
+            // Fetch all tour guides from the service
+            List<Executive> executives = executiveService.getAllExecutives();
+            executives.forEach(executive -> {
+                System.out.println("Executive: " + executive.getEmail());
+            });
+            return ResponseEntity.ok(executives); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving executives.");
+        }
+    }
+        @DeleteMapping("/executive/delete")
+        public ResponseEntity<?> deleteExecutive(@RequestParam String username) {
+            if (executiveService.getExecutiveByEmail(username) == null) {
+                return ResponseEntity.status(400).body("Executive With Username "+username+"Not Found");
+            }
+            executiveService.deleteExecutiveByUsername(username);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    // Executive Methods END
 ////////////////
 
 
