@@ -15,12 +15,12 @@
 }
 .subnavbar
 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #E1E5F2;
-            padding: 200px 300px;
-            width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: #E1E5F2;
+    padding: 20px;
+    width: 100%;
 }
 
 .subnavbar2

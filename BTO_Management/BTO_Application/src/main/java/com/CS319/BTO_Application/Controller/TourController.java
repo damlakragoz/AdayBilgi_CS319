@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,21 +23,16 @@ public class TourController {
     private final TourService tourService;
     private final TourGuideService tourGuideService;
     private final CoordinatorService coordinatorService;
-    private final TourApplicationService tourApplicationService;
+    private final SchoolTourApplicationService schoolTourApplicationService;
     private final AdvisorService advisorService;
-    private final NotificationService notificationService;
-    private final CounselorService counselorService;
 
     @Autowired
-    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, TourApplicationService tourApplicationService, AdvisorService advisorService, NotificationService notificationService, CounselorService counselorService){
+    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService, AdvisorService advisorService){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
-        this.tourApplicationService = tourApplicationService;
+        this.schoolTourApplicationService = schoolTourApplicationService;
         this.advisorService = advisorService;
-
-        this.notificationService = notificationService;
-        this.counselorService = counselorService;
     }
 
 
@@ -48,27 +44,25 @@ public class TourController {
      */
     @PostMapping("/create")
     public ResponseEntity<Tour> createTour(@RequestParam Long tourApplicationId) {
-        SchoolTourApplication schoolTourApplication = tourApplicationService.getSchoolTourApplicationById(tourApplicationId);
-        /*
-            TODO:
-                date assignment algorithm will work here
-         */
-        Date chosenDate = schoolTourApplication.getRequestedDates().get(0);
-        Integer visitorCount = schoolTourApplication.getVisitorCount();
-        HighSchool applyingSchool = schoolTourApplication.getApplyingHighschool();
-
-        Tour tour = new Tour(visitorCount, chosenDate,"Pending", applyingSchool, schoolTourApplication);
+        SchoolTourApplication schoolTourApplication = schoolTourApplicationService.getSchoolTourApplicationById(tourApplicationId);
 
         if(!schoolTourApplication.getApplicationStatus().equals("Pending")){// if status not pending
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        else{
-            /*
-                make the status of application: "Scheduled" in createSchoolTour method
-                the status of tour is: Pending (it will be approved by coordinator then assigned)
-             */
-            return new ResponseEntity<>(tourService.createSchoolTour(tour, schoolTourApplication), HttpStatus.CREATED);
-        }
+
+        // Status = "Pending" which means it passed the scheduling phase and a time and date is assigned
+        //otherwise it would be "Pre-rejected"
+
+        LocalDateTime selectedDate = schoolTourApplication.getSelectedDate();
+        TimeSlot selectedTimeSlot = schoolTourApplication.getSelectedTimeSlot();
+
+        Integer visitorCount = schoolTourApplication.getVisitorCount();
+        HighSchool applyingSchool = schoolTourApplication.getApplyingHighschool();
+
+        Tour tour = new Tour(visitorCount, selectedTimeSlot, selectedDate,"Pending", applyingSchool, schoolTourApplication);
+
+        return new ResponseEntity<>(tourService.createSchoolTour(tour, schoolTourApplication), HttpStatus.CREATED);
+
     }
 
     @GetMapping("/getAll")
@@ -110,11 +104,6 @@ public class TourController {
         if(!tour.getTourStatus().equals("Pending")){
             return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
-
-        // notification sending
-        // notification to counselor should be sent
-        // notificationService.createNotification("Counselor Tour Approved", counselor.getId());
-
         return new ResponseEntity<>(tourService.setStatusRejected(tour), HttpStatus.ACCEPTED);
     }
 
@@ -122,15 +111,10 @@ public class TourController {
     @PostMapping("/enroll")
     public ResponseEntity<Tour> enrollInTour(@RequestBody TourOperationsForGuide tourOperationsForGuide) {
         Tour tour = tourService.getTourById(tourOperationsForGuide.getTourId());
-
-        TourGuide tourGuide = tourGuideService.getTourGuideByEmail(tourOperationsForGuide.getApplyingGuideEmail());
-        // counselor should be obtained
-        // Counselor counselor = counselorService.getCounselorByUsername()
-
         if(tourGuideService.getTourGuideByEmail(tourOperationsForGuide.getApplyingGuideEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
-        if(tour.getTourStatus().equals("Approved") || tour.getTourStatus().equals("Withdrawn")){
+        if(tour.getTourStatus().equals("Approved") || tour.getTourStatus().equals("Withdrawn") || tour.getTourStatus().equals("WithdrawRequested")){
             return new ResponseEntity<>(tourService.assignTour(tour,
                     tourOperationsForGuide.getApplyingGuideEmail()), HttpStatus.CREATED);
         }

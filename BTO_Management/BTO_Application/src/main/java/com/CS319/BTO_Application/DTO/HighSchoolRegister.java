@@ -12,4 +12,5 @@ import lombok.Setter;
 public class HighSchoolRegister {
     private String schoolName;
     private String city;
+    private Integer priorityPoint;
 }

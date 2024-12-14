@@ -16,10 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@CrossOrigin()
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -35,7 +37,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login", "/api/*/register","/api/school/getCounselors","/api/*/delete", "/api/*/getAll").permitAll() // Allow unauthenticated access to the login endpoint
+                        .requestMatchers("/api/auth/login", "/api/auth/user-role", "/api/advisor/*","/api/tour/*","/api/*/register","/api/school/getCounselors","/api/*/delete", "/api/*/getAll","/api/*/*/getAll").permitAll() // Allow unauthenticated access to the login endpoint
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated() // Require authentication for all other requests
                 )

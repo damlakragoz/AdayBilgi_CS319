@@ -12,14 +12,25 @@ const TourGuideList = () => {
   // Fetch tour guides
   const fetchTourGuides = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8081/api/tourguide/getAll",
-        {
-          withCredentials: true, // Include credentials like cookies
+        const token = localStorage.getItem("userToken"); // Retrieve the auth token (adjust as needed)
+        if (!token) {
+          alert("Authorization token missing. Please log in.");
+          // Redirect to login page, e.g., window.location.href = '/login';
+          return;
         }
-      );
-      setTourGuides(response.data);
-      setError(null);
+        console.log("Retrieved Token:", token);
+
+        const response = await axios.get(
+            "http://localhost:8081/api/tourguide/getAll",
+            {
+                headers: {
+                  Authorization: `Bearer ${token}`, // Add the authorization header
+                },
+                withCredentials: true, // Include credentials like cookies
+            },
+        );
+        setTourGuides(response.data);
+        setError(null);
     } catch (err) {
       setError(err.response ? err.response.data : "Error fetching data");
       setTourGuides([]); // Clear data on error
@@ -43,14 +54,22 @@ const TourGuideList = () => {
       );
       if (confirmRemoval) {
           try {
-            const token = localStorage.getItem('userToken');
+            const token = localStorage.getItem("userToken"); // Retrieve the auth token (adjust as needed)
+            if (!token) {
+              alert("Authorization token missing. Please log in.");
+              // Redirect to login page, e.g., window.location.href = '/login';
+              return;
+            }
+            console.log("Retrieved Token:", token);
+
             const response = await axios.delete(
-              "http://localhost:8081/api/tourguide/delete", {
-                params: { email: email },
-                withCredentials: true,
+              "http://localhost:8081/api/tourguide/delete",
+              {
+                params: { username: email },
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${token}`, // Add the authorization header
                 },
+                withCredentials: true,
               }
             );
 
@@ -111,7 +130,7 @@ const TourGuideList = () => {
                       />
                     </span>
                   )}
-                  {tourGuide.username}
+                  {tourGuide.email}
                 </td>
                 <td>{tourGuide.department || "*No Department*"}</td>
                 <td>{tourGuide.puantage || "*No Puantage*"}</td>

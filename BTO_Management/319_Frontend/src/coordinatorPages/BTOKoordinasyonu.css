@@ -1,0 +1,132 @@
+:root {
+  /* Primary Colors */
+  --light-blue: #d4ebf8; /* Light Blue */
+  --dark-blue: #0a3981; /* Dark Blue */
+  --orange: #e38e49; /* Orange */
+  --details: #f5e749; /* Yellow for details button */
+  --approve: #49c718; /* Green for approve button */
+  --decline: #cf0e00; /* Red for reject button */
+
+  /* Accent Colors */
+  --dark-gray: #5a5a5a; /* Dark Gray */
+  --charcoal: #2b2b2b; /* Charcoal */
+  --white: #ffffff; /* White */
+  --black: #000000; /* Black */
+  --gray: #d9d9d9; /* Neutral Gray */
+
+  /* Background Colors */
+  --background-light: #f7fafc; /* Light Background */
+  --background-dark: #1a1a1a; /* Dark Background */
+}
+
+body {
+  background-color: var(--background-light);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--dark-gray);
+}
+
+.bto-container {
+  max-width: 1200px; /* Made container wider */
+  margin: 20px auto;
+  text-align: center;
+  background: var(--white);
+  padding: 40px; /* Increased padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: var(--dark-blue);
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: var(--dark-blue);
+  margin-bottom: 20px;
+}
+
+.bto-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.bto-table th,
+.bto-table td {
+  border: none;
+  padding: 20px; /* Increased padding */
+  text-align: center;
+}
+
+.bto-table th {
+  color: var(--dark-blue);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.bto-table tr {
+  border-bottom: 1px solid var(--gray);
+}
+
+.bto-table tr:last-child {
+  border-bottom: none;
+}
+
+.bto-table td:nth-child(3) {
+  padding-right: 120px; /* Further increased padding between Bilkent ID and Hareketler */
+}
+
+button {
+  padding: 12px 16px; /* Increased button padding */
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.details-btn {
+  background-color: var(--details);
+  color: var(--black);
+}
+
+.approve-btn {
+  background-color: var(--approve);
+  color: var(--black);
+}
+
+.reject-btn {
+  background-color: var(--decline);
+  color: var(--white);
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagination span {
+  text-align: left;
+  color: var(--dark-gray);
+  font-size: 14px;
+}
+
+.pagination-buttons {
+  text-align: right;
+}
+
+.pagination-buttons button {
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 8px 12px;
+}

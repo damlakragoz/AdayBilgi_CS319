@@ -1,0 +1,115 @@
+/* NotificationsPage.css */
+.notifications-page {
+  margin: 0;
+  padding: 20px;
+  background-color: var(--background-light);
+  border-radius: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.notifications-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
+.notifications-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--n-gray);
+  color: var(--charcoal);
+}
+
+.active-tab {
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.notification-card {
+  background-color: var(--white);
+  padding: 15px;
+  border: 1px solid var(--n-gray);
+  border-radius: 8px;
+}
+
+.notification-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--charcoal);
+}
+
+.notification-details {
+  font-size: 14px;
+  color: var(--dark-gray);
+  margin: 5px 0;
+}
+
+.notification-date {
+  font-size: 12px;
+  color: var(--n-gray);
+}
+
+.notification-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.email-button {
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+
+.delete-button {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--n-gray);
+  cursor: pointer;
+}
+.notification-actions button {
+  background: none;
+  border: none;
+  color: var(--dark-blue);
+  cursor: pointer;
+  font-size: 0.9em;
+}

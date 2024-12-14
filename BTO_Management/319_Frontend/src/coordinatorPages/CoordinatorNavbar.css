@@ -1,6 +1,7 @@
+
 /* General Navbar Styles */
 .navbar {
-    background-color: #002855; /* Navy blue background */
+    background-color: var(--dark-blue); /* Navy blue background */
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -29,7 +30,7 @@
 }
 
 .coord-navbar-links a:hover {
-    color: #00f0ff; /* Gold hover effect */
+    color: var(--orange); /* Gold hover effect */
 }
 
 /* Dropdown Menu Styles */

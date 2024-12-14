@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SchoolTourApplicationRepos extends JpaRepository<SchoolTourApplication, Long> {
+public interface SchoolTourApplicationRepos extends TourApplicationRepos<SchoolTourApplication> {
     List<SchoolTourApplication> findByApplyingCounselor(Counselor counselor);
 }

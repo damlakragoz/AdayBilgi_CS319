@@ -20,10 +20,6 @@ public class SchoolTourApplication extends TourApplication {
     @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = true)
-    private HighSchool applyingHighschool;
 }
 
 

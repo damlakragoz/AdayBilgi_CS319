@@ -2,7 +2,6 @@ package com.CS319.BTO_Application.Controller;
 
 import com.CS319.BTO_Application.DTO.NotificationRequest;
 import com.CS319.BTO_Application.Entity.Notification;
-import com.CS319.BTO_Application.Service.MailService;
 import com.CS319.BTO_Application.Service.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +16,15 @@ import java.util.List;
 public class NotificationController {
 
     private final NotificationService notificationService;
-    private final MailService mailService;
 
     @Autowired
-    public NotificationController(NotificationService notificationService, MailService mailService) {
+    public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
-        this.mailService = mailService;
     }
 
     // Endpoint to create a notification (e.g., triggered by events)
     @PostMapping("/create")
     public ResponseEntity<?> createNotification(@RequestBody NotificationRequest notificationRequest) {
-        // Send mail
-      //  mailService.sendMail(notificationRequest.getNotificationType(), notificationRequest.getReceiverId());
-
         return new ResponseEntity<>(notificationService.createNotification(notificationRequest.getNotificationType(),
                                                                             notificationRequest.getReceiverId()),
                                     HttpStatus.CREATED);

@@ -35,11 +35,16 @@ public class HighSchool {
     @Column(name = "total_tour_count", nullable = true)
     private Integer totalTourCount;
 
+    @Column(name = "priority_point", nullable = true)
+    private Integer priorityPoint;
+
+
     //TODO: Initialize Statistics
 
-    public HighSchool(String schoolName, String city) {
+    public HighSchool(String schoolName, String city, Integer priorityPoint) {
         this.schoolName = schoolName;
         this.city = city;
+        this.priorityPoint = priorityPoint;
     }
 
 }

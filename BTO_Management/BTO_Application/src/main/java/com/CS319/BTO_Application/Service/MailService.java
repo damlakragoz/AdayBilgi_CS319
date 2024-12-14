@@ -10,20 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailService {
 
-    private final JavaMailSender mailSender;
-    private final NotificationTemplateService templateService;
-
     @Autowired
-    public MailService(JavaMailSender mailSender, NotificationTemplateService templateService) {
-        this.mailSender = mailSender;
-        this.templateService = templateService;
-    }
+    private JavaMailSender mailSender;
 
-    public void sendMail(String notificationType, String to) {
-        // Fetch subject and text from NotificationTemplateService
-        String subject = templateService.getSubject(notificationType);
-        String text = templateService.getText(notificationType);
-
+    public void sendMail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("btomailservice@gmail.com"); // Set the sender email here (use environment variable for better security)
         message.setTo(to);

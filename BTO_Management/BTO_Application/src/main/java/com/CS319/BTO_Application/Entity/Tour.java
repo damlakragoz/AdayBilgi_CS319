@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,7 +18,11 @@ import java.util.Date;
 public class Tour extends TourEvent{
 
     @Column(name = "chosen_date", nullable = false)
-    private Date chosenDate;
+    private LocalDateTime chosenDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "chosen_time_slot", nullable = false)
+    private TimeSlot chosenTimeSlot; // The selected time slot for the tour
 
     @ManyToOne
     @JsonBackReference
@@ -41,8 +47,9 @@ public class Tour extends TourEvent{
     private String tourStatus;
 
 
-    public Tour(Integer visitorCount, Date chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
+    public Tour(Integer visitorCount, TimeSlot timeSlot, LocalDateTime chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
         this.setVisitorCount(visitorCount);
+        this.setChosenTimeSlot(timeSlot);
         this.setChosenDate(chosenDate);
         this.setTourStatus(status);
         this.setApplyingHighschool(applyingHighschool);

@@ -12,10 +12,21 @@ const CounselorList = () => {
   // Function to fetch counselors
   const fetchCounselors = async () => {
     try {
-      const response = await axios.get(
+        const token = localStorage.getItem("userToken"); // Retrieve the auth token (adjust as needed)
+        if (!token) {
+          alert("Authorization token missing. Please log in.");
+          // Redirect to login page, e.g., window.location.href = '/login';
+          return;
+        }
+        console.log("Retrieved Token:", token);
+
+        const response = await axios.get(
         "http://localhost:8081/api/counselors/getAll",
         {
-          withCredentials: true, // Include credentials like cookies
+            headers: {
+              Authorization: `Bearer ${token}`, // Add the authorization header
+            },
+            withCredentials: true, // Include credentials like cookies
         }
       );
       console.log(response.data);
@@ -44,18 +55,30 @@ const CounselorList = () => {
     );
     if (confirmRemoval) {
         try {
-          const response = await axios.delete(
-            "http://localhost:8081/api/counselor/delete", {
-              params: { email: email },
-              withCredentials: true,
+            const token = localStorage.getItem("userToken"); // Retrieve the auth token (adjust as needed)
+            if (!token) {
+              alert("Authorization token missing. Please log in.");
+              // Redirect to login page, e.g., window.location.href = '/login';
+              return;
             }
-          );
+            console.log("Retrieved Token:", token);
 
-          if (response.status === 204 || response.status === 200) {
-            // Remove the deleted counselor from the list
-            setCounselors(counselors.filter(counselor => counselor.email !== email));
-            alert("Counselor successfully deleted!");
-          }
+            const response = await axios.delete(
+              "http://localhost:8081/api/counselor/delete",
+              {
+                params: { username: email },
+                headers: {
+                  Authorization: `Bearer ${token}`, // Add the authorization header
+                },
+                withCredentials: true,
+              }
+            );
+
+            if (response.status === 204 || response.status === 200) {
+                // Remove the deleted counselor from the list
+                setCounselors(counselors.filter(counselor => counselor.email !== email));
+                alert("Counselor successfully deleted!");
+            }
         } catch (error) {
           if (error.response) {
             alert(`Error: ${error.response.data}`);

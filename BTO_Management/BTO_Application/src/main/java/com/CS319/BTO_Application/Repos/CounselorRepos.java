@@ -1,11 +1,11 @@
 package com.CS319.BTO_Application.Repos;
 
 import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Repos.UserRepos;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface CounselorRepos extends UserRepos<Counselor> {
-    Optional<Counselor> findById(Long id); // Find by counselor ID
-    boolean existsById(Long id); // Check existence by counselor ID
+
 }

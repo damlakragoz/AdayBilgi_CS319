@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faBell, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, Link, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Notifications from '../common/Notifications';
 
 
 const CoordinatorNavbar = () => {
@@ -42,6 +43,17 @@ const CoordinatorNavbar = () => {
         setDropdown2Open(!isDropdown2Open);
     };
 
+    const handleLogout = () => {
+            // Clear tokens and user-related data
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+            sessionStorage.removeItem('userToken'); // Just in case
+
+            // Navigate to login page
+            navigate('/');
+        };
+
     return (
         <div className="dashboard-container">
             {/* Top Navbar */}
@@ -59,6 +71,11 @@ const CoordinatorNavbar = () => {
                             {isDropdown1Open && (
                                 <ul className="dropdown-menu">
                                     <li>
+                                        <Link to="/onay-bekleyen-islemler">
+                                            Onay Bekleyen Islemler
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link to="/bto-koordinasyonu">
                                             BTO Koordinasyonu
                                         </Link>
@@ -66,6 +83,11 @@ const CoordinatorNavbar = () => {
                                     <li>
                                         <Link to="/fuar-davetleri">
                                             Fuar Davetleri
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/tur-basvurulari">
+                                            Tur Basvurulari
                                         </Link>
                                     </li>
                                     <li>
@@ -88,7 +110,7 @@ const CoordinatorNavbar = () => {
                             {isDropdown2Open && (
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <Link to="/tur-takvimi">Tur Takvimi</Link>
+                                        <Link to="/tur-takvimi">TourSchedule</Link>
                                     </li>
                                     <li>
                                         <Link to="/fuar-takvimi">Fuar Takvimi</Link>
@@ -111,7 +133,7 @@ const CoordinatorNavbar = () => {
 
                         {/* FontAwesome Icons */}
                         <li>
-                            <Link to="/coordinator-homepage" className="icon">
+                            <Link to="/koordinator-anasayfa" className="icon">
                                 <FontAwesomeIcon icon={faHome} style={{
                                    cursor: "pointer",
                                    marginLeft: "10px",
@@ -137,6 +159,9 @@ const CoordinatorNavbar = () => {
                                 }}/>
                             </Link>
                         </li>
+                        {/* Add Logout Button */}
+                         <button onClick={handleLogout} className="logout-button">Logout</button>
+
                     </ul>
                 </nav>
             </header>

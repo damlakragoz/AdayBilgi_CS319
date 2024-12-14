@@ -37,6 +37,18 @@ public class UserController {
         this.executiveService = executiveService;
     }
 
+
+    @GetMapping("/users/getAll")
+    public ResponseEntity<?> getAllUsers() {
+        try {
+            // Fetch all counselors from the service
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users); // Return the list of counselors with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving users.");
+        }
+    }
     // Counselor Methods
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
