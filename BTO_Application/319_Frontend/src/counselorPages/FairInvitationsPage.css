@@ -1,0 +1,83 @@
+.fair-invitations-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fair-invitations-header {
+    font-size: 24px;
+    color: #004080;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fair-invitations-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.fair-invitations-table th,
+.fair-invitations-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.fair-invitations-table th {
+    background-color: #004080;
+    color: white;
+}
+
+.table-row-even {
+    background-color: #f2f2f2;
+}
+
+.table-row-odd {
+    background-color: #ffffff;
+}
+
+.cancel-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cancel-button.active {
+    background-color: #004080;
+    color: white;
+}
+
+.cancel-button.active:hover {
+    background-color: #003366;
+}
+
+.cancel-button.disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #004080;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination-button:hover {
+    background-color: #003366;
+}

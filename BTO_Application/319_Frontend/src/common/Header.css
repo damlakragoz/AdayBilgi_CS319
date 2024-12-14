@@ -1,0 +1,177 @@
+.header {
+    position: fixed; /* Make the navbar fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100%;     /* Make it span the entire width of the page */
+    z-index: 1000;   /* Ensure it stays above other content */
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--dark-blue); /* Keep the original header color */
+    padding: 10px 20px;
+    color: white;
+    height: 60px;
+}
+/*body {
+    padding-top: 60px;  Add padding to prevent content from overlapping the fixed navbar
+}*/
+
+.header h1 {
+    font-size: 18px; /* Adjust the size as needed */
+    font-weight: 600; /* Keep it bold but reduce weight slightly */
+    margin: 0; /* Remove any default margin */
+    color: white; /* Ensure text color matches the header */
+}
+
+.header .logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.user-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.role {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.user-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--gray);
+    color: black;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 100;
+    width: 150px;
+}
+
+.user-dropdown .dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black; /* Ensure the text color */
+    font-size: 14px;
+}
+
+.user-dropdown .dropdown-menu a:hover {
+    background-color: var(--dark-blue); /* Optional: Add a hover effect for the links */
+    color: white; /* Ensure the hover text color stays consistent */
+}
+
+.search-icon {
+    margin-left: -30px;
+    color: #ccc;
+    cursor: pointer;
+}
+.search-bar-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the container */
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+    width: 50%; /* Adjust width as needed */
+}
+
+.search-bar {
+    width: 100%; /* Make the search bar take up the full width of the container */
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.nav-actions .btn {
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--light-blue); /* Replace with your button color */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between the elements */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.btn.login-btn {
+    padding: 5px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--my-red); /* Button color */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.logo-link {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Makes the link inherit the color of its parent */
+    display: flex; /* Ensures the logo and text are aligned */
+    align-items: center;
+    gap: 10px; /* Optional: Adds spacing between the logo and the text */
+}
+
+.logo-link:hover {
+    text-decoration: none; /* Ensures no underline on hover */
+    color: inherit; /* Keeps the color consistent on hover */
+}
