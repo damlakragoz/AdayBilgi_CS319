@@ -3,40 +3,47 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f7f7f7;
-}
-
-.signup-form {
-    background-color: white;
+    background: linear-gradient(135deg, #1c3b8e, #142866);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
+    color: #fff;
 }
 
-.signup-form h2 {
-    font-size: 24px;
+.signup-card {
+    background-color: #fff;
+    color: #333;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.signup-card h2 {
+    font-size: 28px;
     margin-bottom: 10px;
     color: #1c3b8e;
 }
 
-.signup-form p {
+.signup-card p {
     font-size: 14px;
     margin-bottom: 20px;
-    color: #777;
+    color: #555;
 }
+
 .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 15px;
+    gap: 10px;
 }
 
 .form-group input {
-    width: calc(50% - 10px);
-    padding: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: calc(50% - 5px);
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 14px;
 }
 
@@ -46,42 +53,84 @@
     width: 100%;
 }
 
-.form-group input[type="checkbox"] {
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.checkbox-group input {
     margin-right: 10px;
+    transform: scale(1.2);
 }
 
 .submit-btn {
-    background-color: #1c3b8e;
-    color: white;
-    padding: 10px 20px;
+    background: linear-gradient(135deg, #1c3b8e, #0a3981);
+    color: #fff;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .submit-btn:hover {
-    background-color: #142866;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #142866, #1c3b8e);
 }
 
-.signup-form .form-group label {
-    font-size: 12px;
-    color: #666;
-}
-
-/* SignUpForm.css */
 .back-button {
     background-color: #1c3b8e;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
     cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.2s ease;
 }
 
 .back-button:hover {
-    background-color: #142f6b;
+    background-color: #142866;
 }
+
+/* Dropdown styling */
+.combo-box {
+    position: relative;
+}
+
+.combo-box .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 0;
+    list-style: none;
+}
+
+.combo-box .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.combo-box .dropdown-item:hover {
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+}
+
 

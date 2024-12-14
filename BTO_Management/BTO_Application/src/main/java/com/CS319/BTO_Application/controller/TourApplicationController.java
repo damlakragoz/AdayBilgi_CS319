@@ -34,8 +34,6 @@ public class TourApplicationController {
         this.tourApplicationService = tourApplicationService;
     }
 
-
-
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllTourApplications() {
         try {
@@ -47,7 +45,7 @@ public class TourApplicationController {
                     .body("An error occurred while retrieving tour applications.");
         }
     }
-////////////////////////////
+    ////////////////////////////
 // SchoolTourApplication Methods START
     @GetMapping("/getAll/school-applications")
     public ResponseEntity<?> getAllSchoolTourApplications() {
@@ -75,12 +73,10 @@ public class TourApplicationController {
         schoolTourApplicationService.deleteSchoolTourApplicationById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-////////////////////////////
+    ////////////////////////////
 // SchoolTourApplication Methods END
-
     ////////////////////////////
 // IndividualTourApplication Methods START
-
     @GetMapping("/getAll/individual-applications")
     public ResponseEntity<?> getAllIndividualTourApplications() {
         try {
@@ -92,7 +88,6 @@ public class TourApplicationController {
                     .body("An error occurred while retrieving tour applications.");
         }
     }
-
     @PostMapping("/add/individual-application")
     public ResponseEntity<?> addIndividualApplication(@RequestBody AddIndividualApplicationRequest applicationRequest) {
         HighSchool highSchool = highSchoolService.getSchoolByName(applicationRequest.getSchoolName());
@@ -102,7 +97,6 @@ public class TourApplicationController {
         return new ResponseEntity<>(individualTourApplicationService.addIndividualApplication(applicationRequest.getIndividualTourApplication(),
                 applicationRequest.getSchoolName()), HttpStatus.CREATED);
     }
-
     @DeleteMapping("delete/individual-application")
     public ResponseEntity<?> deleteIndividualApplication(@RequestParam Long tourApplicationId) {
         if (individualTourApplicationService.getIndividualTourApplicationById(tourApplicationId).isEmpty()) {
@@ -111,10 +105,8 @@ public class TourApplicationController {
         individualTourApplicationService.deleteIndividualTourApplicationById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
     ////////////////////////////
 // IndividualTourApplication Methods END
 
 
 }
-

@@ -1,26 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../authorization/LoginPage.css';
- // Import your protected page
+import './LoginPage.css';
 
 const LoginPage = () => {
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
     });
-    const [error, setError] = useState(''); // State to store error message
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-       // localStorage.removeItem('userToken');
-        //sessionStorage.removeItem('userToken');
-
-        //console.log("use effect called");
-        // No need to clear tokens here
+        // Giriş öncesi token temizleme işlemi
+        localStorage.removeItem('userToken');
+        sessionStorage.removeItem('userToken');
     }, []);
-
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,43 +29,30 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(''); // Clear any existing error messages
+        setError('');
 
         try {
-            // Send a POST request to the backend login endpoint
             const response = await axios.post('/api/auth/login', {
-                username: loginData.username,  // Assuming the backend expects 'username' instead of 'email'
+                username: loginData.username,
                 password: loginData.password,
             });
 
             const roleResponse = await axios.post('/api/auth/user-role', {
-                username: loginData.username,  // Assuming the backend expects 'username' instead of 'email'
+                username: loginData.username,
                 password: loginData.password,
             });
+
             const role = roleResponse.data;
 
-            // If login is successful, store the JWT token in localStorage
             if (response.status === 200 && response.data.token) {
-                const token = typeof response.data === 'string' ? response.data : response.data.token;
-                const username = response.data.username;
-                console.log(token);
-                // Store the JWT token and username in localStorage
+                const token = response.data.token;
                 localStorage.setItem('userToken', token);
-                localStorage.setItem('username', loginData.username); // Save the username
+                localStorage.setItem('username', loginData.username);
                 localStorage.setItem('role', role);
 
-//                axios.defaults.headers.common['Authorization'] = Bearer ${token}; // Set token for future requests
-
-                // Log for debugging
-                console.log('Token stored in localStorage:', token);
-                console.log('Username stored in localStorage:', loginData.username);
-                console.log('Role:', role);
-
-                 // Navigate based on the user's role
                 switch (role) {
                     case 'Coordinator':
                         navigate('/coordinator-homepage');
-                        console.log('COORDINATOR to applications page');
                         break;
                     case 'Counselor':
                         navigate('/rehber-ogretmen-anasayfa');
@@ -79,49 +61,37 @@ const LoginPage = () => {
                         navigate('/tur-rehberi-anasayfa');
                         break;
                     default:
-                        navigate('/applications'); // Fallback if the role is unknown
+                        navigate('/applications');
                         break;
                 }
             } else {
-                setError('Login failed: no token provided');
+                setError('Giriş başarısız: Token sağlanmadı');
             }
         } catch (err) {
-            console.error('Login failed:', err);
-            setError('Invalid username or password'); // Set error message if login fails
+            console.error('Giriş başarısız:', err);
+            setError('Geçersiz kullanıcı adı veya şifre');
         }
     };
 
-    const handleLogout = () => {
-        // Clear tokens and user-related data
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('username');
-        sessionStorage.removeItem('userToken'); // In case it's stored here too
-
-        // Navigate the user to the login page
-        navigate('/');
-    };
-
-
     return (
         <div className="login-page">
-
-
-            {/* Login Section */}
             <div className="login-container">
-                <h2>Explore Our Campus</h2>
-                <p>Discover the beauty and facilities of our state-of-the-art campus through our guided tours.</p>
+                <h2>Kampüsümüzü Keşfedin</h2>
+                <p>
+                    Modern kampüsümüzün güzelliklerini ve olanaklarını rehberli turlarımızla keşfedin.
+                </p>
 
                 <form onSubmit={handleLogin} className="login-form">
-                    <label>Email</label>
+                    <label>Kullanıcı Adı</label>
                     <input
                         type="text"
                         name="username"
-                        placeholder="Kullanıcı adı girin"
+                        placeholder="Kullanıcı adınızı girin"
                         value={loginData.username}
                         onChange={handleChange}
                         required
                     />
-                    <label>Password</label>
+                    <label>Şifre</label>
                     <input
                         type="password"
                         name="password"
@@ -130,16 +100,16 @@ const LoginPage = () => {
                         onChange={handleChange}
                         required
                     />
-                    <button type="submit" className="login-button">
-                        Login
-                    </button>
+                    <button type="submit" className="login-button">Giriş Yap</button>
                 </form>
 
-                {/* Add the Sign Up button here */}
                 <div>
-                    <p>Don't have an account?</p>
-                    <button className="signup-button" onClick={() => navigate('/signup')}>
-                        Sign Up
+                    <p>Hesabınız yok mu?</p>
+                    <button
+                        className="signup-button"
+                        onClick={() => navigate('/signup')}
+                    >
+                        Kayıt Ol
                     </button>
                 </div>
             </div>

@@ -1,36 +1,56 @@
-import React from "react";
-import "../common/Header.css";
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './MainPageHeader.css';
+import logo from '../assets/logo.png';
 
-import logo from "../assets/logo.png";
-import { useNavigate, Link } from 'react-router-dom';
+const MainPageHeader = () => {
+    const navigate = useNavigate(); // Initialize useNavigate
 
-const MainPageHeader = ({ toggleSidebar }) => {
     return (
-        <div className="header">
-            <div className="d-flex align-items-center">
-                <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
-                <Link to="/anasayfa" className="logo-link">
-                    <img src={logo} alt="Logo" className="logo" />
-                    <h1>BTO AdayBilgi</h1>
-                </Link>
+        <header className="header">
+            <div className="header-top">
+                <nav className="header-nav">
+                    <a href="#contact" className="header-link">İletişim</a>
+                    <a href="#photos" className="header-link">Fotoğraflarla Bilkent</a>
+                    <a href="#faq" className="header-link">Sıkça Sorulan Sorular</a>
+                </nav>
+                <div className="social-icons">
+                    <i className="fab fa-facebook"></i>
+                    <i className="fab fa-twitter"></i>
+                    <i className="fab fa-instagram"></i>
+                    <i className="fab fa-linkedin"></i>
+                    <i className="fab fa-youtube"></i>
+                </div>
             </div>
-            <div className="search-bar-container">
+            <div className="header-main">
+                <div className="logo-section">
+                    <img src={logo} alt="Bilkent Üniversitesi Logo" className="logo"/>
+                    <h1 className="logo-title">Bilkent Üniversitesi</h1>
+                    <h2 className="logo-subtitle">Üniversite Adaylarına Bilgi</h2>
+                </div>
                 <input
                     type="text"
                     className="search-bar"
                     placeholder="Sitede ara..."
                 />
-                <i className="fas fa-search search-icon"></i>
+                <div className={"button-section"}>
+                    <button
+                        className="btn login-btn"
+                        onClick={() => navigate('/login')} // Navigate to login
+                    >
+                        Giriş Yap
+                    </button>
+                    <button
+                        className="btn signup-btn"
+                        onClick={() => navigate('/individual-application')} // Navigate to signup
+                    >
+                        Bizi Ziyaret Edin
+                    </button>
+                </div>
+
             </div>
-            <div className="nav-actions">
-                <a href="#contact" className="nav-link iletisim-link">
-                    İletişim
-                </a>
-                <button className="btn login-btn" onClick={() => window.location.href = '/login'}>
-                    Login
-                </button>
-            </div>
-        </div>
+
+        </header>
     );
 };
 

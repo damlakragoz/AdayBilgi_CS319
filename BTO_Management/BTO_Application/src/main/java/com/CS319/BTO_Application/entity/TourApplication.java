@@ -3,7 +3,6 @@ package com.CS319.BTO_Application.Entity;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,9 +38,7 @@ public abstract class TourApplication extends TourEvent{
 
     @Column(name = "selected_date", nullable = true)
     private LocalDateTime selectedDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "selected_time_slot", nullable = true)
     private TimeSlot selectedTimeSlot; // The selected time slot for the tour application
 }
-

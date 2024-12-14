@@ -1,6 +1,7 @@
 package com.CS319.BTO_Application.Service;
 
-import com.CS319.BTO_Application.Entity.*;
+import com.CS319.BTO_Application.Entity.Counselor;
+import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.SchoolTourApplicationRepos;
 import jakarta.transaction.Transactional;
@@ -13,9 +14,11 @@ import java.util.List;
 
 @Service
 public class CounselorService {
+
     private final CounselorRepos counselorRepos;
     private final SchoolTourApplicationRepos schoolTourApplicationRepos;
     private final PasswordEncoder passwordEncoder;
+
     @Autowired
     public CounselorService(CounselorRepos counselorRepos, SchoolTourApplicationRepos schoolTourApplicationRepos, PasswordEncoder passwordEncoder) {
         this.counselorRepos = counselorRepos;
@@ -28,22 +31,28 @@ public class CounselorService {
     }
 
     public Counselor getCounselorByUsername(String username) {
-        if(!counselorRepos.existsByEmail(username)){
-            System.out.println("Counselor Not Found with username " + username);
+        if (!counselorRepos.existsByEmail(username)) {
+            System.out.println("Counselor Not Found with username: " + username);
             return null;
         }
         return counselorRepos.findByEmail(username);
     }
 
+    public Counselor getCounselorById(Long id) {
+        return counselorRepos.findById(id).orElseThrow(() ->
+                new UsernameNotFoundException("Counselor not found with ID: " + id));
+    }
+
     public Counselor saveCounselor(Counselor counselor) {
-        counselor.setPassword(passwordEncoder.encode(counselor.getPassword())); //setPassword is new for this one
+        counselor.setPassword(passwordEncoder.encode(counselor.getPassword()));
         return counselorRepos.save(counselor);
     }
 
-    /*
-    this method does not remove the tour applications of the deleted counselor
-     it just turns their counselor id into null
-    */
+    /**
+     * Deletes a counselor by username and nullifies related tour applications.
+     *
+     * @param username the username of the counselor to delete
+     */
     @Transactional
     public void deleteCounselorByUsername(String username) {
         Counselor counselor = counselorRepos.findByEmail(username);
@@ -51,11 +60,10 @@ public class CounselorService {
             throw new UsernameNotFoundException("Counselor not found: " + username);
         }
 
-        // Set counselor_id to null in related entities
+        // Nullify counselor_id in related SchoolTourApplications
         List<SchoolTourApplication> applications = schoolTourApplicationRepos.findByApplyingCounselor(counselor);
-        for (SchoolTourApplication application : applications) {
-            application.setApplyingCounselor(null);
-        }
+        applications.forEach(application -> application.setApplyingCounselor(null));
+
         counselorRepos.delete(counselor);
     }
 }

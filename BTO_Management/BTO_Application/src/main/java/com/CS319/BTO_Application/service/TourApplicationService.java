@@ -18,7 +18,6 @@ import java.util.Map;
 public class TourApplicationService {
     private final TourApplicationRepos<TourApplication> tourApplicationRepository;
 
-
     @Autowired
     public TourApplicationService(TourApplicationRepos<TourApplication> tourApplicationRepository) {
         this.tourApplicationRepository = tourApplicationRepository;
@@ -32,20 +31,15 @@ public class TourApplicationService {
     @Transactional
     public void processTourApplications() {
         System.out.println("Processing tour applications");
-
         LocalDateTime now = LocalDateTime.now(); // Şu anki zaman
-
         // "Created" durumunda olan ve işlenme zamanı gelen başvuruları al
         List<TourApplication> applications = tourApplicationRepository.findByStatusAndTransitionTime("Created", now);
-
         for (TourApplication application : applications) {
             boolean assigned = assignSlotWithPrioritization(application);
-
             if (!assigned) {
                 // Eğer slot atanamadıysa, durumu "Pre-rejected" olarak ayarla
                 application.setApplicationStatus("Pre-rejected");
             }
-
             // Güncellenen başvuru durumunu kaydet
             tourApplicationRepository.save(application);
         }
@@ -58,10 +52,8 @@ public class TourApplicationService {
         for (RequestedDateTime requestedDateTime : application.getRequestedDates()) {
             LocalDateTime requestedDate = requestedDateTime.getDate();
             TimeSlot requestedSlot = requestedDateTime.getTimeSlot();
-
             // Aynı tarih ve zaman diliminde başka bir başvuru var mı kontrol et
             TourApplication conflictingApplication = tourApplicationRepository.findBySelectedDateAndSelectedTimeSlot(requestedDate, requestedSlot);
-
             if (conflictingApplication == null) {
                 // Eğer çatışma yoksa, slot'u atayın
                 application.setSelectedDate(requestedDate);
@@ -72,11 +64,9 @@ public class TourApplicationService {
             else {
                 // Çatışma varsa, önceliklendirme yap
                 TourApplication prioritizedApplication = prioritizeSchool(application, conflictingApplication);
-
                 if (prioritizedApplication == application) {
                     // Daha düşük öncelikli uygulamayı işleme al
                     handleLessPrioritizedSchool(conflictingApplication);
-
                     // Slot'u mevcut uygulamaya ata
                     application.setSelectedDate(requestedDate);
                     application.setSelectedTimeSlot(requestedSlot);
@@ -99,7 +89,6 @@ public class TourApplicationService {
 
         int priority1 = highSchool1.getPriorityPoint();
         int priority2 = highSchool2.getPriorityPoint();
-
         return (priority1 >= priority2) ? app1 : app2;
     }
 
@@ -108,14 +97,11 @@ public class TourApplicationService {
      */
     private void handleLessPrioritizedSchool(TourApplication application) {
         List<RequestedDateTime> remainingPreferences = application.getRequestedDates().subList(1, application.getRequestedDates().size());
-
         for (RequestedDateTime requestedDateTime : remainingPreferences) {
             LocalDateTime requestedDate = requestedDateTime.getDate();
             TimeSlot requestedSlot = requestedDateTime.getTimeSlot();
-
             // Aynı tarih ve zaman diliminde başka bir başvuru var mı kontrol et
             TourApplication conflictingApplication = tourApplicationRepository.findBySelectedDateAndSelectedTimeSlot(requestedDate, requestedSlot);
-
             if (conflictingApplication == null) {
                 // Eğer slot boşsa, atama yap
                 application.setSelectedDate(requestedDate);

@@ -37,8 +37,6 @@ public class HighSchool {
 
     @Column(name = "priority_point", nullable = true)
     private Integer priorityPoint;
-
-
     //TODO: Initialize Statistics
 
     public HighSchool(String schoolName, String city, Integer priorityPoint) {
@@ -48,5 +46,3 @@ public class HighSchool {
     }
 
 }
-
-
