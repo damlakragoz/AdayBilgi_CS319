@@ -18,7 +18,9 @@
     "bootstrap": "^5.3.3",
     "postcss": "^8.4.49",
     "react": "^18.0.0",
+    "react-calendar": "^5.1.0",
     "react-dom": "^18.0.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.28.0",
     "react-scripts": "^5.0.1"
   },

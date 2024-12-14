@@ -38,6 +38,7 @@
 
 .nav-link:hover {
     background-color: var(--orange); /* Using variable */
+    color: var(--white); /* Ensures contrast */
 }
 
 hr {

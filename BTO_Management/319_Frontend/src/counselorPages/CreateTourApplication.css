@@ -2,8 +2,13 @@
     padding: 20px;
     font-family: "Poppins", sans-serif;
     color: #333;
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: static;
+    overflow: visible;
 }
 
 .tour-application-container h2 {
@@ -13,29 +18,58 @@
 
 .tour-application-wrapper {
     display: flex;
-    justify-content: space-between;
     gap: 20px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
-.calendar-section, .time-selection-section {
+.calendar-section,
+.time-selection-section {
     flex: 1;
     text-align: center;
+    min-width: 300px;
 }
 
-.date-picker {
-    margin-top: 10px;
-    padding: 10px;
-    border: 2px solid #013365;
-    border-radius: 8px;
+.react-calendar {
     width: 100%;
-    max-width: 300px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.react-calendar__tile {
+    background: var(--white);
+    border-radius: 5px;
+    padding: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.react-calendar__tile--now {
+    background-color: var(--orange);
+    color: var(--white);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.react-calendar__tile--active {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.react-calendar__tile:hover {
+    background-color: var(--gray);
+    color: var(--dark-blue);
 }
 
 .time-dropdown {
     margin-top: 10px;
     padding: 10px;
-    border: 2px solid #013365;
+    border: 2px solid var(--dark-blue);
     border-radius: 8px;
     width: 100%;
     max-width: 300px;
@@ -43,7 +77,7 @@
 
 .select-button {
     margin-top: 10px;
-    background-color: #93c572;
+    background-color: var(--orange);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -53,7 +87,7 @@
 }
 
 .select-button:hover {
-    background-color: #82b060;
+    background-color: var(--dark-blue);
 }
 
 .summary-section {
@@ -63,7 +97,7 @@
 }
 
 .confirmation-box {
-    border: 2px solid #013365;
+    border: 2px solid var(--dark-blue);
     border-radius: 8px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -77,7 +111,7 @@
 
 .confirm-button {
     margin-top: 10px;
-    background-color: #013365;
+    background-color: var(--dark-blue);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -87,10 +121,73 @@
 }
 
 .confirm-button:hover {
-    background-color: #011f4b;
+    background-color: var(--orange);
 }
 
 .no-selection {
     font-style: italic;
     color: #666;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9); /* Opaque white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050; /* Ensure this is higher than any other element */
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    z-index: 1060; /* Higher than overlay */
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    color: var(--dark-blue);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-confirm-button {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-confirm-button:hover {
+    background-color: var(--orange);
+}
+
+.modal-cancel-button {
+    background-color: var(--gray);
+    color: var(--dark-gray);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-cancel-button:hover {
+    background-color: var(--dark-gray);
+    color: var(--white);
 }

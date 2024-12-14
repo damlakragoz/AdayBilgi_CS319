@@ -1,57 +1,45 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainPage from './mainpage/MainPage';
-import SignUpForm from './authorization/SignUpForm';
-import Dashboard from './dashboard/Dashboard';
-import ProtectedRoute from "./dashboard/ProtectedRoute";
-import SubmitApplication from './submitapplication/SubmitApplication';  // Import the new page
-import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
-import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
-import LoginPage from './authorization/LoginPage';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./counselorPages/Sidebar";
+import Header from "./counselorPages/Header";
+import CounselorDashboardContent from "./counselorPages/CounselorDashboardContent";
+import FeedbackForm from "./counselorPages/FeedbackForm";
+import CounselorTourApplicationsPage from "./counselorPages/CounselorTourApplicationsPage";
+import CreateTourApplication from "./counselorPages/CreateTourApplication";
+import TourApplicationDetailsPage from "./counselorPages/TourApplicationDetailsPage";
+import SendFairInvitation from "./counselorPages/SendFairInvitation";
+import FairInvitationsPage from "./counselorPages/FairInvitationsPage";
+import "./App.css";
 
+const App = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-function App() {
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <Router>
-      <div className="app-container">
-        <header className="app-header">
+      <Router>
+        <Header toggleSidebar={toggleSidebar} />
+        <div className="d-flex">
+          <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+          <div
+              className={`content-container flex-grow-1 ${sidebarOpen ? "with-sidebar" : ""}`}
+          >
 
-        </header>
-
-        <main className="app-main">
-          {/* React Router will control which component is displayed based on the URL */}
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/signup" element={<SignUpForm />} />
-            {/* Wrap the Dashboard route in ProtectedRoute */}
-            <Route
-                path="/applications"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-            />
-            <Route path="/submit-application" element={<SubmitApplication />} />  {/* New Route */}
-            <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />  {/* New Route */}
-            <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />  {/* New Route */}
-            <Route path="/login" element={<LoginPage />} />  {/* New Route */}
-
-          </Routes>
-        </main>
-
-        <footer className="app-footer">
-          <p>© 2023 Bilkent University. All rights reserved.</p>
-          <div>
-            <a href="#privacy">Privacy Policy</a> |
-            <a href="#terms">Terms of Service</a> |
-            <a href="#contact">Contact Us</a>
+            <Routes>
+              <Route path="/" element={<CounselorDashboardContent/>}/>
+              <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
+              <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
+              <Route path="/feedback" element={<FeedbackForm/>}/>
+              <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
+              <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
+              <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
+            </Routes>
           </div>
-        </footer>
-      </div>
-    </Router>
+        </div>
+      </Router>
   );
-}
+};
 
 export default App;

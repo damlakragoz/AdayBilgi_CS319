@@ -25,11 +25,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/edit-tour-applications" className="nav-link text-white">
-                        Tur Başvurularımı Düzenle
-                    </Link>
-                </li>
-                <li className="nav-item">
                     <Link to="/feedback" className="nav-link text-white">
                         Geri Bildirimlerim
                     </Link>

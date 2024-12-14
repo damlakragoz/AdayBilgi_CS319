@@ -1,136 +1,92 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "./TourApplicationDetailsPage.css";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./CounselorTourApplicationsPage.css";
 
-const TourApplicationDetailsPage = () => {
-    const { id } = useParams();
+const applications = [
+    { id: 1, status: "Onay bekleniyor", date: "25.08.2024", time: "15:30-16:30", canCancel: true },
+    { id: 2, status: "Onay bekleniyor", date: "24.08.2024", time: "11:30-12:30", canCancel: true },
+    { id: 3, status: "Reddedildi", date: "21.07.2024", time: "10:30-11:30", canCancel: false },
+    { id: 4, status: "Reddedildi", date: "20.07.2024", time: "15:30-16:30", canCancel: false },
+    { id: 5, status: "Onaylandı", date: "14.07.2024", time: "14:30-15:30", canCancel: false },
+    { id: 6, status: "Onaylandı", date: "13.07.2024", time: "14:30-15:20", canCancel: false },
+];
+
+const CounselorTourApplicationsPage = () => {
     const navigate = useNavigate();
 
-    const [application, setApplication] = useState(null);
-
-    useEffect(() => {
-        // Simulate API fetch or data loading
-        const fetchedApplication = {
-            id,
-            status: id === "5" || id === "6" ? "Onaylandı" : "Onay bekleniyor", // Example data for approved/rejected
-            date: "25.08.2024",
-            time: "15:30-16:30",
-            canCancel: id !== "5" && id !== "6", // Example data to disable cancel for "Onaylandı"
-        };
-        setApplication(fetchedApplication);
-    }, [id]);
-
-    const handleSave = () => {
-        // Logic to save the updated application
-        alert("Başvuru başarıyla güncellendi!");
-        navigate("/applications");
+    const handleCardClick = (id) => {
+        if (applications.find((app) => app.id === id).status !== "Reddedildi") {
+            navigate(`/tour-application/${id}`);
+        }
     };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setApplication((prev) => ({ ...prev, [name]: value }));
-    };
-
-    if (!application) {
-        return <div>Loading Application Details...</div>;
-    }
-
-    if (application.status === "Onaylandı") {
-        return (
-            <div className="application-details-container">
-                <h2>Başvuru Detayları</h2>
-                <form>
-                    <div className="form-group">
-                        <label>Durum</label>
-                        <input
-                            type="text"
-                            value={application.status}
-                            disabled
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Tarih</label>
-                        <input
-                            type="date"
-                            name="date"
-                            value={application.date}
-                            disabled
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Saat</label>
-                        <input
-                            type="time"
-                            name="time"
-                            value={application.time}
-                            disabled
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="form-actions">
-                        <button
-                            type="button"
-                            onClick={() => navigate("/applications")}
-                            className="cancel-button"
-                        >
-                            Geri Dön
-                        </button>
-                    </div>
-                </form>
-            </div>
-        );
-    }
 
     return (
-        <div className="application-details-container">
-            <h2>Başvuru Detayları</h2>
-            <form>
-                <div className="form-group">
-                    <label>Durum</label>
-                    <input
-                        type="text"
-                        value={application.status}
-                        disabled
-                        className="form-control"
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Tarih</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={application.date}
-                        onChange={handleChange}
-                        className="form-control"
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Saat</label>
-                    <input
-                        type="time"
-                        name="time"
-                        value={application.time}
-                        onChange={handleChange}
-                        className="form-control"
-                    />
-                </div>
-                <div className="form-actions">
-                    <button type="button" onClick={handleSave} className="save-button">
-                        Kaydet
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate("/applications")}
-                        className="cancel-button"
+        <div className="applications-container">
+            {/* Pagination at the top */}
+            <div className="pagination-container">
+                <button className="pagination-button">&laquo;</button>
+                <button className="pagination-button">&lsaquo;</button>
+                <button className="pagination-button">&rsaquo;</button>
+                <button className="pagination-button">&raquo;</button>
+            </div>
+
+            <h2 className="applications-header">Başvurularım</h2>
+            <div className="applications-grid">
+                {applications.map((application) => (
+                    <div
+                        key={application.id}
+                        className={`application-card ${
+                            application.status === "Onay bekleniyor"
+                                ? "pending-card"
+                                : application.status === "Onaylandı"
+                                    ? "approved-card"
+                                    : "rejected-card"
+                        }`}
+                        onClick={() => handleCardClick(application.id)}
                     >
-                        İptal
-                    </button>
-                </div>
-            </form>
+                        <div className="card-status">
+                            <span
+                                className={`status-badge ${
+                                    application.status === "Onay bekleniyor"
+                                        ? "pending"
+                                        : application.status === "Onaylandı"
+                                            ? "approved"
+                                            : "rejected"
+                                }`}
+                            >
+                                {application.status}
+                            </span>
+                        </div>
+                        <div className="card-details">
+                            <p>
+                                <strong>Tarih:</strong> {application.date}
+                            </p>
+                            <p>
+                                <strong>Saat:</strong> {application.time}
+                            </p>
+                        </div>
+                        <div className="card-actions">
+                            {application.canCancel ? (
+                                <button className="cancel-button active">İptal Et</button>
+                            ) : (
+                                <button className="cancel-button disabled" disabled>
+                                    İptal Et
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Pagination at the bottom */}
+            <div className="pagination-container">
+                <button className="pagination-button">&laquo;</button>
+                <button className="pagination-button">&lsaquo;</button>
+                <button className="pagination-button">&rsaquo;</button>
+                <button className="pagination-button">&raquo;</button>
+            </div>
         </div>
     );
 };
 
-export default TourApplicationDetailsPage;
+export default CounselorTourApplicationsPage;

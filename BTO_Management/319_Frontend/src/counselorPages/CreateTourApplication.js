@@ -1,27 +1,41 @@
 import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import "./CreateTourApplication.css";
+import ReactDOM from "react-dom";
 
 const CreateTourApplication = () => {
-    const [selectedDate, setSelectedDate] = useState("");
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTimeRange, setSelectedTimeRange] = useState("");
-    const [confirmed, setConfirmed] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleDateChange = (e) => {
-        setSelectedDate(e.target.value);
-        setConfirmed(false);
-    };
+    const timeSlots = [
+        "09:00-11:00",
+        "11:00-13:00",
+        "14:00-16:00",
+        "16:30-18:30",
+    ];
 
     const handleTimeChange = (e) => {
         setSelectedTimeRange(e.target.value);
-        setConfirmed(false);
     };
 
     const handleConfirm = () => {
-        if (selectedDate && selectedTimeRange) {
-            setConfirmed(true);
+        if (selectedTimeRange) {
+            setIsModalOpen(true); // Open the modal when preferences are set
         } else {
-            alert("Lütfen bir tarih ve saat aralığı seçin!");
+            alert("Lütfen bir saat aralığı seçin!");
         }
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false); // Close the modal
+    };
+
+    const handleFinalApproval = () => {
+        // Logic to handle approval, such as sending data to an API
+        alert("Tur tercihleri başarıyla onaylandı!");
+        setIsModalOpen(false); // Close the modal after confirmation
     };
 
     return (
@@ -29,29 +43,26 @@ const CreateTourApplication = () => {
             <h2>Tur Başvurusu Yap</h2>
             <div className="tour-application-wrapper">
                 <div className="calendar-section">
-                    <label htmlFor="date-picker">Bir Tarih Seçiniz:</label>
-                    <input
-                        id="date-picker"
-                        type="date"
+                    <label>Bir Tarih Seçiniz:</label>
+                    <Calendar
+                        onChange={setSelectedDate}
                         value={selectedDate}
-                        onChange={handleDateChange}
-                        className="date-picker"
+                        locale="tr-TR"
                     />
                 </div>
-
                 <div className="time-selection-section">
-                    <label htmlFor="time-range">Tur İçin Saat Aralığı Seçiniz:</label>
+                    <label>Tur İçin Saat Aralığı Seçiniz:</label>
                     <select
-                        id="time-range"
                         value={selectedTimeRange}
                         onChange={handleTimeChange}
                         className="time-dropdown"
                     >
                         <option value="">Saat Aralığı Seç</option>
-                        <option value="09:00-11:00">09:00-11:00</option>
-                        <option value="11:30-13:30">11:30-13:30</option>
-                        <option value="14:00-16:00">14:00-16:00</option>
-                        <option value="16:30-18:30">16:30-18:30</option>
+                        {timeSlots.map((slot) => (
+                            <option key={slot} value={slot}>
+                                {slot}
+                            </option>
+                        ))}
                     </select>
                     <button className="select-button" onClick={handleConfirm}>
                         Seç
@@ -59,18 +70,25 @@ const CreateTourApplication = () => {
                 </div>
             </div>
 
-            <div className="summary-section">
-                <h3>Zaman Tercihiniz:</h3>
-                {confirmed && selectedDate && selectedTimeRange ? (
-                    <div className="confirmation-box">
-                        <p>Tarih: {new Date(selectedDate).toLocaleDateString("tr-TR")}</p>
-                        <p>Saat: {selectedTimeRange}</p>
-                        <button className="confirm-button">Tercihleri Onayla</button>
-                    </div>
-                ) : (
-                    <p className="no-selection">Henüz bir tercih yapılmadı.</p>
+            {isModalOpen &&
+                ReactDOM.createPortal(
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <h3>Tercihlerinizi Onaylayın</h3>
+                            <p><strong>Tarih:</strong> {selectedDate.toLocaleDateString("tr-TR")}</p>
+                            <p><strong>Saat:</strong> {selectedTimeRange}</p>
+                            <div className="modal-actions">
+                                <button className="modal-confirm-button" onClick={handleFinalApproval}>
+                                    Onayla
+                                </button>
+                                <button className="modal-cancel-button" onClick={handleModalClose}>
+                                    İptal
+                                </button>
+                            </div>
+                        </div>
+                    </div>,
+                    document.getElementById("modal-root")
                 )}
-            </div>
         </div>
     );
 };

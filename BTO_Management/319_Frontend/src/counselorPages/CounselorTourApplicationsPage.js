@@ -14,8 +14,8 @@ const applications = [
 const CounselorTourApplicationsPage = () => {
     const navigate = useNavigate();
 
-    const handleCardClick = (id, status) => {
-        if (status === "Onay bekleniyor") {
+    const handleCardClick = (id) => {
+        if (applications.find((app) => app.id === id).status !== "Reddedildi") {
             navigate(`/tour-application/${id}`);
         }
     };
@@ -30,20 +30,20 @@ const CounselorTourApplicationsPage = () => {
                         className={`application-card ${
                             application.status === "Onay bekleniyor"
                                 ? "pending-card"
-                                : application.status === "Reddedildi"
-                                    ? "rejected-card disabled-card"
-                                    : "approved-card"
+                                : application.status === "Onaylandı"
+                                    ? "approved-card"
+                                    : "rejected-card"
                         }`}
-                        onClick={() => handleCardClick(application.id, application.status)}
+                        onClick={() => handleCardClick(application.id)}
                     >
                         <div className="card-status">
                             <span
                                 className={`status-badge ${
                                     application.status === "Onay bekleniyor"
                                         ? "pending"
-                                        : application.status === "Reddedildi"
-                                            ? "rejected"
-                                            : "approved"
+                                        : application.status === "Onaylandı"
+                                            ? "approved"
+                                            : "rejected"
                                 }`}
                             >
                                 {application.status}
@@ -58,23 +58,24 @@ const CounselorTourApplicationsPage = () => {
                             </p>
                         </div>
                         <div className="card-actions">
-                            {application.canCancel && application.status === "Onay bekleniyor" ? (
+                            {application.canCancel ? (
                                 <button className="cancel-button active">İptal Et</button>
                             ) : (
-                                <button
-                                    className={`cancel-button ${
-                                        application.status === "Onay bekleniyor"
-                                            ? "disabled"
-                                            : "approved-disabled"
-                                    }`}
-                                    disabled
-                                >
+                                <button className="cancel-button disabled" disabled>
                                     İptal Et
                                 </button>
                             )}
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Pagination moved below the cards */}
+            <div className="pagination-container">
+                <button className="pagination-button">&laquo;</button>
+                <button className="pagination-button">&lsaquo;</button>
+                <button className="pagination-button">&rsaquo;</button>
+                <button className="pagination-button">&raquo;</button>
             </div>
         </div>
     );
