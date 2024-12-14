@@ -6,3 +6,17 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Handle line endings for text files
+* text=auto
+
+# Force LF for specific file types
+*.js text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+
+# Binary files - no normalization
+*.png binary
+*.jpg binary
+*.gif binary
+*.zip binary
