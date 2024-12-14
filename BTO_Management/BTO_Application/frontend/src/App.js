@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SchoolTourApplicationFormPage from './pages/SchoolTourApplicationFormPage';
-import TourApplication from './components/TourApplications';
+import ChangePassword from "../../../319_Frontend/src/passwordOperations/ChangePassword";
 
 const App = () => {
 
-  return (
-    <div>
-        <Routes>
-            <Route path="/school-tour-application-form" element={<SchoolTourApplicationFormPage />} />
-         </Routes>
-      <TourApplication />
-    </div>
-  );
+    return (
+        <div>
+            <Routes>
+                <Route path="/change-password" element={<ChangePassword />} />
+            </Routes>
+        </div>
+    );
 };
 
 export default App;

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "Executive", schema = "bto_database")
+@Table(name = "Executive", schema = "kubra_db")
 public class Executive extends BTOManager{
     public Executive(String email, String password, String firstName, String lastName, String phoneNumber, String role) {
        this.setEmail(email);

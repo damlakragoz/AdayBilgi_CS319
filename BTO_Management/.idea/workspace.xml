@@ -5,24 +5,575 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="application.properties">
-      <change afterPath="$PROJECT_DIR$/../.idea/AdayBilgi_CS319.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FairInvitationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AddInvitationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/FairInvitation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FairInvitationRepos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FairInvitationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_12_2024__15_38__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Header 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Header 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Header 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Notifications 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Notifications 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Notifications 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Notifications 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/feedback/ViewFeedback 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/feedback/ViewFeedback 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/feedback/ViewFeedback 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/feedback/ViewFeedback 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ChangePassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ChangePassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ForgotPassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ForgotPassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/PasswordReset.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/PasswordReset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/tailwind.config 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/tailwind.config 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/pages/ChangePassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/ChangePassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/ForgotPassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/ResetPassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/BTO_Management 3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/BTO_Management.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/compiler 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources.local 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7df31d70-6721-40b9-9bc6-868367a51f11 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7df31d70-6721-40b9-9bc6-868367a51f11/storage_v2/_src_/schema/bto_database.HZ2IxQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7f0f87ea-49f4-4f9b-a4dc-735f585635f0 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7f0f87ea-49f4-4f9b-a4dc-735f585635f0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7f0f87ea-49f4-4f9b-a4dc-735f585635f0/storage_v2/_src_/schema/FairInvitation._VkQVg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7f0f87ea-49f4-4f9b-a4dc-735f585635f0/storage_v2/_src_/schema/adayb_db.llOesg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7f0f87ea-49f4-4f9b-a4dc-735f585635f0/storage_v2/_src_/schema/adaybilgi_db.sU-b7A.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7f0f87ea-49f4-4f9b-a4dc-735f585635f0/storage_v2/_src_/schema/kubra_db.VsMFRg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/bd87ef5c-3e83-4d8c-9fce-9afdcef50430 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/encodings 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/jarRepositories 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_5_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__ch_qos_logback_logback_core_1_5_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_classmate_1_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_17_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_17_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_17_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_17_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_17_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_17_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_mysql_mysql_connector_j_8_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_4_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__com_zaxxer_HikariCP_5_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__io_jsonwebtoken_jjwt_api_0_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__io_jsonwebtoken_jjwt_impl_0_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__io_jsonwebtoken_jjwt_jackson_0_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__io_micrometer_micrometer_commons_1_13_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__io_micrometer_micrometer_observation_1_13_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__io_smallrye_jandex_3_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_activation_jakarta_activation_api_2_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_2_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_inject_jakarta_inject_api_2_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_2_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_4_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_14_19.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_14_19.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__net_minidev_accessors_smart_2_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__net_minidev_json_smart_2_5_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_antlr_antlr4_runtime_4_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_23_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_23_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_10_1_31.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_10_1_31.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_10_1_31.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_22_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_assertj_assertj_core_3_25_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_awaitility_awaitility_4_2_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_64.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_64.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_eclipse_angus_angus_activation_2_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_eclipse_angus_jakarta_mail_2_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_core_4_0_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_4_0_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_glassfish_jaxb_txw2_4_0_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_hamcrest_hamcrest_2_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_6_0_6_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_hibernate_orm_hibernate_core_6_5_3_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_5_3_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_10_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_10_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_10_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_10_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_10_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_10_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_mockito_mockito_core_5_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_5_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_objenesis_objenesis_3_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_opentest4j_opentest4j_1_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_ow2_asm_asm_9_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_projectlombok_lombok_1_18_34.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_2_0_16.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_slf4j_slf4j_api_2_0_16.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_data_spring_data_commons_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_3_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_security_spring_security_config_6_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_security_spring_security_core_6_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_security_spring_security_crypto_6_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_security_spring_security_jwt_1_0_11_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_security_spring_security_test_6_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_security_spring_security_web_6_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_aop_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_aspects_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_beans_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_context_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_context_support_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_core_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_expression_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_jcl_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_jdbc_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_orm_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_test_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_tx_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_web_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_springframework_spring_webmvc_6_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_9_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/libraries/Maven__org_yaml_snakeyaml_2_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/misc 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/modules 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024,_10_48_[Changes]/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024,_10_48_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024,_10_48_[Changes]1/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024,_10_48_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024__10_48__Changes_ 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024__10_48__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024__10_48__Changes_1 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2024__10_48__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_12_2024,_19_23_[Changes]/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_12_2024,_19_23_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_12_2024,_19_23_[Changes]1/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_12_2024,_19_23_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_12_2024__19_23__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_12_2024__19_23__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2024,_19_25_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2024__19_25__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_2_12_2024,_22_13_[Changes]/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_2_12_2024,_22_13_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_2_12_2024__22_13__Changes_ 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_2_12_2024__22_13__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_8_12_2024,_14_57_[Changes]/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_8_12_2024,_14_57_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_8_12_2024__14_57__Changes_ 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_8_12_2024__14_57__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_9_12_2024,_19_02_[Changes]/shelved 2.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_9_12_2024,_19_02_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_9_12_2024__19_02__Changes_ 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/shelf/Uncommitted_changes_before_Update_at_9_12_2024__19_02__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/uiDesigner 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/uiDesigner 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/uiDesigner 4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/vcs 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/workspace 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/workspace 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/workspace 4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/.gitignore 2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/.gitignore 3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/.gitignore 4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/319_Frontend 2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/319_Frontend 3.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/319_Frontend 4.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/319_Frontend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/misc 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/misc 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/misc 4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/modules 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/modules 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/modules 4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/vcs 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/vcs 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/vcs 4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package 3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package 4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package-lock 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package-lock 3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package-lock 4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/images/adaybilgilogo 2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/images/adaybilgilogo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index 2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index 3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index 4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/NavigationBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/TourGuideList 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/TourGuideList 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/TourGuideList 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/TourGuideList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/UserTables 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/UserTables 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/UserTables 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/common/UserTables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ChangePassword 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ChangePassword 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ChangePassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ChangePassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/ForgotPassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/PasswordReset 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/PasswordReset 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/PasswordReset.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/components/PasswordReset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ApplicationTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/CoordinatorHomepage 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/CoordinatorHomepage 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/CoordinatorHomepage 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/CoordinatorHomepage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/Dashboard 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/Dashboard 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/Dashboard 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/Dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ProtectedRoute 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ProtectedRoute 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ProtectedRoute 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/ProtectedRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/dashboard/UniversityInvitations.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/feedback/ViewFeedback.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/signup/SignUpForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/tailwind.config 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/tailwind.config 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/tailwind.config 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitattributes 2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitattributes 3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitattributes 4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitignore 2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitignore 3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitignore 4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.mvn/wrapper/maven-wrapper 2.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/.gitignore 2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/.gitignore 3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/.gitignore 4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/README 2.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/README 3.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/README 4.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package 3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package 4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package-lock 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package-lock 3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package-lock 4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/public/index 2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/public/manifest 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/App 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/App 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/components/TourApplications.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/components/TourApplications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/index 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/index 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/pages/SchoolTourApplicationFormPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 2.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 3.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 4.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/pom 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/pom 3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/pom 4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/BtoApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/AdvisorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/CoordinatorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/CounselorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/ExecutiveController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FairInvitationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/HighSchoolController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/NotificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/TourApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/TourController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/TourGuideController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserAuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AddIndividualApplicationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AddInvitationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AddSchoolApplicationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/ApproveRejectTour.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AuthResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/BTOMemberRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/CounselorRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/FeedbackRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/HighSchoolRegister.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/NotificationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/TourOperationsForAdvisor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/TourOperationsForGuide.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Advisor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/BTOManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/BTOMember.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Coordinator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Counselor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Executive.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Fair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/FairInvitation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Feedback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/HighSchool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/IndividualTourApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Notification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/OtherActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Payment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/RequestedDateTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/SchoolTourApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/TimeSlot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Tour.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/TourApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/TourEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/TourGuide.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/AdvisorRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/CoordinatorRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/CounselorRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/ExecutiveRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FairInvitationRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FairRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FeedbackRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/HighschoolRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/IndividualTourApplicationRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/NotificationRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/PaymentRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/SchoolTourApplicationRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/SchoolTourRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/TourApplicationRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/TourGuideRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/UserRepos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/AdvisorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CoordinatorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/ExecutiveService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FairInvitationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/HighSchoolService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/IndividualTourApplicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/MailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/NotificationTemplateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/SchoolTourApplicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/TourApplicationProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/TourApplicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/TourGuideService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/TourService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/jwt/JwtFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/java/com/CS319/BTO_Application/jwt/JwtTokenUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/src/test/java/com/CS319/BTO_Application/BtoApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/.gitignore 2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/.gitignore 3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/.gitignore 4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/README 2.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/README 3.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/README 4.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/eslint.config 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/eslint.config 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/eslint.config 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/index 2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/index 3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/index 4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package 3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package 4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package-lock 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package-lock 3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package-lock 4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/public/vite 2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/public/vite 3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/public/vite 4.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/public/vite.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 2.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 3.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 4.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/assets/react 2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/assets/react.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/index 2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/index 3.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/index 4.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/main 2.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/main 3.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/main 4.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/main.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/vite.config 2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/vite.config 3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/vite.config 4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/vite.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_11_2024__20_28__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/319_Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/319_Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/319_Frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Executive.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Executive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Feedback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FeedbackRepos.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FeedbackRepos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/config/WebConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +583,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="damla-frontend" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -78,7 +634,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.BtoManagementApplication.executor": "Run",
-    "git-widget-placeholder": "Implementation",
+    "git-widget-placeholder": "kubra-from-damla",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/damlak/Desktop/AdayBilgi_CS319/BTO_Management",
@@ -104,6 +660,8 @@
       <recent name="com.CS319.BTO_Application.repository" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/319_Frontend/src" />
+      <recent name="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations" />
       <recent name="$PROJECT_DIR$/BTO_Application/frontend/src" />
       <recent name="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity" />
       <recent name="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application" />
@@ -141,6 +699,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BtoApplication" />
         <item itemvalue="Application.BtoApplication" />
       </list>
     </recent_temporary>

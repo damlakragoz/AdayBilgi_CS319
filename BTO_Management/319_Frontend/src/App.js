@@ -20,6 +20,10 @@ import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
 import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import CounselorDashboardContent from './counselorPages/CounselorDashboardContent';
+import React, { useState } from 'react';
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ChangePassword from "./passwordOperations/ChangePassword";
 
 import Sidebar from "./counselorPages/Sidebar";
 import Header from "./counselorPages/Header";
@@ -38,6 +42,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/change-password" element={<ChangePassword />} />
 
             {/* Protected Routes Wrapper */}
             <Route
