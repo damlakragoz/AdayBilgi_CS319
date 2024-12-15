@@ -188,6 +188,14 @@
   font-weight: bold;
 }
 
+/* Yellow for all assigned */
+.react-calendar__tile.highlight-yellow {
+  background-color: #fff3cd; /* Light yellow */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 /* Hover effect */
 .react-calendar__tile.highlight-green:hover,
 .react-calendar__tile.highlight-grey:hover {

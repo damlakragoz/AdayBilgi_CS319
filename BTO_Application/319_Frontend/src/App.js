@@ -6,21 +6,21 @@ import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
+
+// Coordinator Page Imports
+import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
+import ManagerTourSchedule from './coordinatorPages/ManagerTourSchedule';
 import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import OnayBekleyen from './coordinatorPages/OnayBekleyen';
-import CoordinatorLayout from './coordinatorPages/CoordinatorLayout'; // Imported CoordinatorLayout
-import TourSchedule from './tourguidepages/TourSchedule';
+
 import FairSchedule from './common/FairSchedule';
 import TourApplications from './common/TourApplications';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
 import NewNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
-import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
-import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
-import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
-//Counselor Page Imports
+// Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
 import GeriBildirimler from './counselorPages/GeriBildirimler';
 import CounselorDashboardContent from "./counselorPages/CounselorDashboardContent";
@@ -31,91 +31,97 @@ import TourApplicationDetailsPage from "./counselorPages/TourApplicationDetailsP
 import SendFairInvitation from "./counselorPages/SendFairInvitation";
 import FairInvitationsPage from "./counselorPages/FairInvitationsPage";
 import CounselorLayout from "./counselorPages/CounselorLayout";
-//Executive Page Imports
+// Executive Page Imports
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
+// TourGuide Page Imports
+import TourGuideLayout from './tourguidepages/TourGuideLayout';
+import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
+import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
+import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
+import TourSchedule from './tourguidepages/TourSchedule';
 
 import './App.css';
 
 function App() {
   return (
-      <Router>
-        <div className="app-container">
-          <header className="app-header"></header>
+    <Router>
+      <div className="app-container">
+        <header className="app-header"></header>
 
-          <main className="app-main">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<MainPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignUpForm />} />
+        <main className="app-main">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpForm />} />
 
-              {/* Protected Routes Wrapper */}
-              <Route
-                  path="/*"
-                  element={
-                    <ProtectedRoute>
-                      <Routes>
-                        <Route path="/anasayfa" element={<MainPage />} />
-                        <Route path="/notifications" element={<Notifications />} />
-                        <Route path="/tur-takvimi" element={<TourSchedule />} />
-                        <Route path="/tur-basvurulari" element={<TourApplications />} />
-                        <Route path="/fuar-takvimi" element={<FairSchedule />} />
-                        <Route path="/fuar-davetleri" element={<FairInvitations />} />
-                        <Route path="/applications" element={<Dashboard />} />
-                        <Route path="/submit-application" element={<SubmitApplication />} />
+            {/* Protected Routes Wrapper */}
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <Routes>
+                    <Route path="/anasayfa" element={<MainPage />} />
+                    <Route path="/notifications" element={<Notifications />} />
 
-                        {/* Coordinator Routes Wrapped in CoordinatorLayout */}
-                        <Route element={<CoordinatorLayout />}>
-                          <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
-                          <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
-                          <Route path="/onay-bekleyen-islemler" element={<OnayBekleyen />} />
-                        </Route>
+                    <Route path="/applications" element={<Dashboard />} />
+                    <Route path="/submit-application" element={<SubmitApplication />} />
 
-                        {/* Counselor Routes Wrapped in CoordinatorLayout */}
-                        <Route element={<CounselorLayout />}>
-                          <Route path="/" element={<CounselorDashboardContent/>}/>
-                          <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
-                          <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
-                          <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
-                          <Route path="/feedback" element={<FeedbackForm/>}/>
-                          <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
-                          <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
-                          <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
-                          <Route path="/new-notifications" element={<NewNotifications />} />
-                        </Route>
-
-                        {/* Counselor Routes Wrapped in CoordinatorLayout */}
-                        <Route element={<ExecutiveLayout />}>
-                          <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
-
-                        </Route>
-
+                    {/* Coordinator Routes Wrapped in CoordinatorLayout */}
+                    <Route element={<CoordinatorLayout />}>
+                      <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
+                      <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
+                      <Route path="/onay-bekleyen-islemler" element={<OnayBekleyen />} />
+                      <Route path="/coordinator-tour-schedule" element={<ManagerTourSchedule />} />
+                      <Route path="/fuar-takvimi" element={<FairSchedule />} />
+                      <Route path="/tur-basvurulari" element={<TourApplications />} />
+                      <Route path="/fuar-davetleri" element={<FairInvitations />} />
+                    </Route>
+                    {/* Executive Routes Wrapped in ExecutiveLayout */}
+                    <Route element={<ExecutiveLayout />}>
+                        <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
+                        <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
+                    </Route>
+                    {/* Counselor Routes Wrapped in CoordinatorLayout */}
+                    <Route element={<CounselorLayout />}>
+                        <Route path="/" element={<CounselorDashboardContent/>}/>
+                        <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
+                        <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
+                        <Route path="/new-notifications" element={<NewNotifications />} />
+                        <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
+                        <Route path="/feedback" element={<FeedbackForm/>}/>
+                        <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
+                        <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
+                        <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
+                    </Route>
+                    {/* TourGuide Routes Wrapped in TourGuide */}
+                    <Route element={<TourGuideLayout />}>
                         <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
                         <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
-                        <Route path="/geribildirimler" element={<GeriBildirimler />} />
+                        /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
+                    </Route>
 
+                  </Routes>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
 
-                      </Routes>
-                    </ProtectedRoute>
-                  }
-              />
-            </Routes>
-          </main>
-
-          <footer className="app-footer">
-            <p>© 2023 Bilkent University. All rights reserved.</p>
-            <div>
-              <a href="#privacy">Privacy Policy</a> |
-              <a href="#terms">Terms of Service</a> |
-              <a href="#contact">Contact Us</a>
-            </div>
-          </footer>
-        </div>
-      </Router>
+        <footer className="app-footer">
+          <p>© 2023 Bilkent University. All rights reserved.</p>
+          <div>
+            <a href="#privacy">Privacy Policy</a> |
+            <a href="#terms">Terms of Service</a> |
+            <a href="#contact">Contact Us</a>
+          </div>
+        </footer>
+      </div>
+    </Router>
   );
 }
 

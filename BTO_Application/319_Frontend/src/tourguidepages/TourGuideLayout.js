@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
-import CounselorHeader from './CounselorHeader';
-import Sidebar from './CounselorSidebar';
+import TourGuideHeader from './TourGuideHeader';
+import TourGuideSidebar from './TourGuideSidebar';
 
-const CounselorLayout = () => {
+const TourGuideLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
     const location = useLocation(); // Get the current location (URL)
 
@@ -14,17 +14,15 @@ const CounselorLayout = () => {
     }, [location]);
 
     return (
-        <div className="coordinator-layout">
-            <CounselorHeader toggleSidebar={toggleSidebar} />
+        <div className="tour-guide-layout">
+            <TourGuideHeader toggleSidebar={toggleSidebar} />
             <div className="d-flex">
-                <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+                <TourGuideSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
                 <div
                     className={`content-container flex-grow-1 ${
                         sidebarOpen ? 'with-sidebar' : ''
                     }`}
                 >
-                    <br/>
-                    <br/>
                     {/* Dynamic content will be rendered here */}
                     <Outlet />
                 </div>
@@ -33,4 +31,4 @@ const CounselorLayout = () => {
     );
 };
 
-export default CounselorLayout;
+export default TourGuideLayout;

@@ -22,7 +22,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
             <ul className="nav flex-column">
                 {/* Subtitle: Onay Bekleyenler */}
                 <li>
-                    <Link to="/onay-bekleyenler" className="sidebar-subtitle">
+                    <Link to="/onay-bekleyen-islemler" className="sidebar-subtitle">
                         Onay Bekleyenler
                     </Link>
                 </li>
@@ -51,7 +51,8 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/tur-takvimi" className="nav-link text-white">Tour Schedule</Link>
+                    <Link to="/coordinator-tour-schedule" className="nav-link text-white">
+                    Tur Takvimi</Link>
                 </li>
                 <li>
                     <Link to="/fuar-takvimi" className="nav-link text-white">Fuar Takvimi</Link>
