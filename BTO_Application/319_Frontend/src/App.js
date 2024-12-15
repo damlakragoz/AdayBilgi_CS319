@@ -102,8 +102,8 @@ function App() {
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
-                        <Route path="/geribildirimler" element={<GeriBildirimler />} />
-
+                        /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
+                    </Route>
 
                   </Routes>
                 </ProtectedRoute>

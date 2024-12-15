@@ -215,7 +215,7 @@ const ManagerTourSchedule = () => {
                                                     marginTop: "0.5rem",
                                                     padding: "0.4rem 0.8rem",
                                                     border: "none",
-                                                    backgroundColor: "#28a745", // Green for approve
+                                                    backgroundColor: "#fbbc39", // Orangy color for approve
                                                     color: "white",
                                                     borderRadius: "5px",
                                                     cursor: "pointer",
