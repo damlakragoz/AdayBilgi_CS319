@@ -15,6 +15,7 @@ import FairSchedule from './common/FairSchedule';
 import TourApplications from './common/TourApplications';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
+import NewNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
 import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
@@ -81,6 +82,7 @@ function App() {
                           <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
                           <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
                           <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
+                          <Route path="/new-notifications" element={<NewNotifications />} />
                         </Route>
 
                         {/* Counselor Routes Wrapped in CoordinatorLayout */}
