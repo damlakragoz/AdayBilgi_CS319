@@ -18,6 +18,7 @@ import FairSchedule from './common/FairSchedule';
 import TourApplications from './common/TourApplications';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
+import NewNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
 // Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
@@ -87,7 +88,7 @@ function App() {
                         <Route path="/" element={<CounselorDashboardContent/>}/>
                         <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
-
+                        <Route path="/new-notifications" element={<NewNotifications />} />
                         <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
                         <Route path="/feedback" element={<FeedbackForm/>}/>
                         <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
@@ -96,16 +97,12 @@ function App() {
                     </Route>
                     {/* TourGuide Routes Wrapped in TourGuide */}
                     <Route element={<TourGuideLayout />}>
-                        <Route path="/tourguide-homepage" element={<TourGuideHomepage />} />
                         <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
                         <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
-                    </Route>
-
-
-                    <Route path="/geribildirimler" element={<GeriBildirimler />} />
+                        <Route path="/geribildirimler" element={<GeriBildirimler />} />
 
 
                   </Routes>
