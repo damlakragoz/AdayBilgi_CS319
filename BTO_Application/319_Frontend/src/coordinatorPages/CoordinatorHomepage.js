@@ -4,7 +4,7 @@ import CoordinatorHeader from './CoordinatorHeader';
 import Sidebar from './CoordinatorSidebar';
 import OnayBekleyen from './OnayBekleyen';
 import CounselorList from '../common/CounselorList';
-import TourSchedule from '../common/TourSchedule';
+import TourSchedule from '../tourguidepages/TourSchedule';
 import TourApplications from '../common/TourApplications';
 import FairSchedule from '../common/FairSchedule';
 import FairInvitations from '../common/FairInvitations';

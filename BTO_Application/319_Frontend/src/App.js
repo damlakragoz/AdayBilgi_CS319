@@ -10,7 +10,7 @@ import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import OnayBekleyen from './coordinatorPages/OnayBekleyen';
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout'; // Imported CoordinatorLayout
-import TourSchedule from './common/TourSchedule';
+import TourSchedule from './tourguidepages/TourSchedule';
 import FairSchedule from './common/FairSchedule';
 import TourApplications from './common/TourApplications';
 import FairInvitations from './common/FairInvitations';
