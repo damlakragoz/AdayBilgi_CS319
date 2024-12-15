@@ -14,7 +14,7 @@ const ExecutiveLayout = () => {
     }, [location]);
 
     return (
-        <div className="coordinator-layout">
+        <div className="executive-layout">
             <ExecutiveHeader toggleSidebar={toggleSidebar} />
             <div className="d-flex">
                 <ExecutiveSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />

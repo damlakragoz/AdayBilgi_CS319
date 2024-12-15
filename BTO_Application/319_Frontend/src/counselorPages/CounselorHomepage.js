@@ -25,7 +25,7 @@ const CounselorHomepage = () => {
         <div
           className={`content-container flex-grow-1 ${sidebarOpen ? "with-sidebar" : ""}`}
         >
-          fkgllfadj
+          counselor homepage
         </div>
       </div>
     </div>

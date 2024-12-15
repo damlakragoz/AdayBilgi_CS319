@@ -3,14 +3,14 @@ import { useNavigate, Link } from "react-router-dom"; // Import for navigation
 import "../common/Header.css";
 import logo from "../assets/logo.png";
 
-const CoordinatorHeader = ({ toggleSidebar }) => {
+const TourGuideHeader = ({ toggleSidebar }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
         // Clear authentication data (example: localStorage or context)
         localStorage.removeItem("userToken");
         localStorage.removeItem("username");
-        localStorage.removeItem("role");// Adjust this as per your authentication logic
+        localStorage.removeItem("role"); // Adjust this as per your authentication logic
         // Redirect to login page
         navigate("/login");
     };
@@ -19,20 +19,17 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
         <div className="header">
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
-                <Link to="/" className="logo-link">
+                <Link to="/anasayfa" className="logo-link">
                     <img src={logo} alt="Logo" className="logo" />
-                    <h1>BTO AdayBilgi</h1>
+                    <h1>Tour Guide</h1>
                 </Link>
             </div>
             <div className="nav-links">
-                <a href="/executive-homepage" className="nav-link">
-                    Anasayfa
+                <a href="/kullanici-islemleri" className="nav-link">
+                    Kullanıcı İşlemleri
                 </a>
-                <a href="/exec-onay-bekleyen-islemler" className="nav-link">
-                    Onay Bekleyen İşlemler
-                </a>
-                <a href="#" className="nav-link">
-                    Yaklaşan Etkinlikler
+                <a href="/gosterge-paneli" className="nav-link">
+                    Gösterge Paneli
                 </a>
                 <i className="fas fa-bell"></i>
                 <div className="user-dropdown">
@@ -50,7 +47,7 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                     </div>
                     <div className="dropdown-menu">
                         <a href="#">Şifremi Değiştir</a>
-                        <a  onClick={handleLogout}>
+                        <a onClick={handleLogout}>
                             Çıkış Yap
                         </a>
                     </div>
@@ -60,4 +57,4 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
     );
 };
 
-export default CoordinatorHeader;
+export default TourGuideHeader;

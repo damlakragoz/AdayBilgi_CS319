@@ -11,7 +11,7 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
             <ul className="nav flex-column">
                 {/* Subtitle: Onay Bekleyenler */}
                 <li>
-                    <Link to="/onay-bekleyenler" className="sidebar-subtitle">
+                    <Link to="/exec-onay-bekleyen-islemler" className="sidebar-subtitle">
                         Onay Bekleyenler
                     </Link>
                 </li>

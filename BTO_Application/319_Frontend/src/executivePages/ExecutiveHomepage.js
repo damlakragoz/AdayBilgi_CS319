@@ -4,7 +4,7 @@ import CoordinatorHeader from './ExecutiveHeader';
 import Sidebar from './ExecutiveSidebar';
 import OnayBekleyen from '../coordinatorPages/OnayBekleyen';
 import CounselorList from '../common/CounselorList';
-import TourSchedule from '../tourguidepages/TourSchedule';
+import ManagerTourSchedule from '../coordinatorPages/ManagerTourSchedule';
 import TourApplications from '../common/TourApplications';
 import FairSchedule from '../common/FairSchedule';
 import FairInvitations from '../common/FairInvitations';
@@ -18,7 +18,7 @@ const ExecutiveHomepage = () => {
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen); // Toggle sidebar
 
     return (
-        <div className="coordinator-homepage">
+        <div className="executive-homepage">
             <ExecutiveHeader toggleSidebar={toggleSidebar} />
             <div className="d-flex">
                 <ExecutiveSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
