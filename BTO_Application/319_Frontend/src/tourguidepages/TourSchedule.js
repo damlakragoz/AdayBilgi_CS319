@@ -32,18 +32,20 @@ const TourSchedule = () => {
 
 
     const formatISODate = (date) => {
-        if (typeof date === "string") return date; // Use date as-is if it's already a string
-        return date.toISOString().split("T")[0];
-    };
-/*
-    // Normalize date to ignore time zones and return only the date part
-    const formatISODate = (date) => {
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate())
-            .toISOString()
-            .split("T")[0];
+        if (typeof date === "string") return date; // If already a string, return it
+        return date.toLocaleDateString("en-CA"); // Formats as YYYY-MM-DD
     };
 
- */
+
+    /*
+        // Normalize date to ignore time zones and return only the date part
+        const formatISODate = (date) => {
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+                .toISOString()
+                .split("T")[0];
+        };
+
+     */
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -69,11 +71,12 @@ const TourSchedule = () => {
                     const allTours = response.data;
 
                     const toursByDate = allTours.reduce((acc, tour) => {
-                        const tourDate = formatISODate(new Date(tour.chosenDate));
+                        const tourDate = formatISODate(new Date(tour.chosenDate)); // Correct date format
                         if (!acc[tourDate]) acc[tourDate] = [];
                         acc[tourDate].push(tour);
                         return acc;
                     }, {});
+
 
                     const newGreenDates = [];
                     const newGreyDates = [];
@@ -138,8 +141,9 @@ const TourSchedule = () => {
                 if (response.status === 200 ) {
                     const normalizedEnrolledTours = response.data.map((tour) => ({
                         ...tour,
-                        chosenDate: formatISODate(new Date(tour.chosenDate)),
+                        chosenDate: formatISODate(new Date(tour.chosenDate)), // Correct date format
                     }));
+
                     setEnrolledTours(normalizedEnrolledTours);
                     console.log("Normalized Enrolled Tours:", normalizedEnrolledTours);
                 }
@@ -152,19 +156,18 @@ const TourSchedule = () => {
 
 
     const filteredTours = useMemo(() => {
-        return tours.filter(
-            (tour) => tour.chosenDate === formatISODate(selectedDate)
-        );
-    }, [tours, selectedDate]);
-/*
-    const filteredTours = useMemo(() => {
-        return tours.filter(
-            (tour) =>
-                formatISODate(new Date(tour.chosenDate)) === formatISODate(selectedDate)
-        );
+        return tours.filter((tour) => tour.chosenDate === formatISODate(selectedDate));
     }, [tours, selectedDate]);
 
- */
+    /*
+        const filteredTours = useMemo(() => {
+            return tours.filter(
+                (tour) =>
+                    formatISODate(new Date(tour.chosenDate)) === formatISODate(selectedDate)
+            );
+        }, [tours, selectedDate]);
+
+     */
 
     const groupedTours = useMemo(() => {
         return timeSlots.map((slot) => ({
@@ -286,7 +289,7 @@ const TourSchedule = () => {
                     onChange={handleDateChange}
                     value={selectedDate}
                     locale="tr-TR"
-                    tileClassName={({date, view}) => {
+                    tileClassName={({ date, view }) => {
                         if (view === "month") {
                             const dateStr = formatISODate(date);
                             if (greenDates.includes(dateStr)) {
@@ -298,6 +301,7 @@ const TourSchedule = () => {
                         }
                         return null;
                     }}
+
                 />
             </div>
 

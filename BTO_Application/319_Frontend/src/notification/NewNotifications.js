@@ -13,6 +13,7 @@ const NewNotifications = () => {
 
     const filterButtons = ["Hepsi", "Okunmamışlar", "Arşivlenmişler"];
     const receiverName = localStorage.getItem("username");
+    const token = localStorage.getItem("userToken");
 
     // Fetch notifications
     useEffect(() => {
@@ -27,13 +28,19 @@ const NewNotifications = () => {
             }
 
             try {
-                const response = await axios.get(url, { params: { receiverName } });
+                const response = await axios.get(url, {
+                    params: { receiverName },
+                    headers: { Authorization: `Bearer ${token}` },
+                    withCredentials: true
+                });
                 setNotifications(response.data);
                 setCurrentPage(1);
             } catch (error) {
                 console.error("Error fetching notifications:", error);
             }
         };
+
+
 
         fetchNotifications();
     }, [activeFilter, receiverName]);
@@ -60,6 +67,8 @@ const NewNotifications = () => {
         try {
             await axios.put("http://localhost:8081/api/notifications/mark-as-read", null, {
                 params: { notificationId },
+                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true
             });
             setNotifications((prev) =>
                 prev.map((n) =>
@@ -77,7 +86,11 @@ const NewNotifications = () => {
             ? "http://localhost:8081/api/notifications/unflag"
             : "http://localhost:8081/api/notifications/flag";
         try {
-            await axios.put(url, null, { params: { notificationId } });
+            await axios.put(url, null, {
+                params: { notificationId },
+                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true
+            });
             setNotifications((prev) =>
                 prev.map((n) =>
                     n.id === notificationId ? { ...n, isFlagged: !isFlagged } : n
@@ -91,7 +104,11 @@ const NewNotifications = () => {
     // Delete Notification
     const deleteNotification = async (notificationId) => {
         try {
-            await axios.delete("http://localhost:8081/api/notifications/delete", { params: { notificationId } });
+            await axios.delete("http://localhost:8081/api/notifications/delete", {
+                params: { notificationId },
+                headers: { Authorization: `Bearer ${token}` },
+                withCredentials: true
+            });
             setNotifications((prev) => prev.filter((n) => n.id !== notificationId));
         } catch (error) {
             console.error("Error deleting notification:", error);

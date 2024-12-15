@@ -13,6 +13,9 @@ const CreateTourApplication = () => {
     const [isModalOpen, setIsModalOpen] = useState(false); // Confirmation modal state
     const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
 
+    const email = localStorage.getItem("username");
+    const token = localStorage.getItem("userToken");
+
     const timeSlots = [
         "SLOT_9_10",
         "SLOT_10_11",
@@ -27,9 +30,10 @@ const CreateTourApplication = () => {
             alert("Lütfen bir saat aralığı seçin!");
             return;
         }
+        const formattedDate = selectedDate.toLocaleDateString("en-CA"); // Format as YYYY-MM-DD
         setRequestedDates((prev) => [
             ...prev,
-            { date: selectedDate.toISOString().split("T")[0], timeSlot: selectedTimeSlot },
+            { date: formattedDate, timeSlot: selectedTimeSlot },
         ]);
         setSelectedTimeSlot(""); // Reset the time slot
     };
@@ -55,7 +59,7 @@ const CreateTourApplication = () => {
                 requestedDates, // The array of selected dates and time slots
                 visitorCount: parseInt(visitorCount, 10), // Ensure visitor count is an integer
             },
-            counselorUsername: "İlmay", // Replace with actual username
+            counselorUsername: email, // Replace with actual username
         };
         try {
             setIsSubmitting(true); // Show loading spinner
@@ -67,7 +71,7 @@ const CreateTourApplication = () => {
                 payload,
                 {
                     headers: {
-                        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLEsGxtYXkiLCJpYXQiOjE3MzQxODk4NDMsImV4cCI6MTczNDE5MzQ0M30.MCEryzDunwkazGkusAqQHhM3IqKD25eU7YpHwxVXMvs"}`, // Include token in header
+                        Authorization: `Bearer ${token}`, // Include token in header
                     },
                     withCredentials: true,
                 }// Ensures cookies and headers are included
