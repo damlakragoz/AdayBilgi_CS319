@@ -13,9 +13,9 @@ import ManagerTourSchedule from './coordinatorPages/ManagerTourSchedule';
 import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import OnayBekleyen from './coordinatorPages/OnayBekleyen';
-
+import AddTourGuideForm from './common/AddTourGuideForm';
 import FairSchedule from './common/FairSchedule';
-import TourApplications from './common/TourApplications';
+import AllTourApplications from './common/AllTourApplications';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
 import NewNotifications from './notification/NewNotifications';
@@ -75,8 +75,9 @@ function App() {
                       <Route path="/onay-bekleyen-islemler" element={<OnayBekleyen />} />
                       <Route path="/coordinator-tour-schedule" element={<ManagerTourSchedule />} />
                       <Route path="/fuar-takvimi" element={<FairSchedule />} />
-                      <Route path="/tur-basvurulari" element={<TourApplications />} />
+                      <Route path="/tur-basvurulari" element={<AllTourApplications />} />
                       <Route path="/fuar-davetleri" element={<FairInvitations />} />
+                      <Route path="/add-tourguide" element={<AddTourGuideForm />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>

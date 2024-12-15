@@ -1,7 +1,7 @@
 /*COLORS*/
 :root {
   /* Primary Colors */
-    --light-blue: #D4EBF8;   /* Light Blue */
+    --light-blue: #eaedff;   /* Light Blue */
     --dark-blue: #002855;    /* Dark Blue */
     --deep-blue:#142f6b;
     --orange: #E38E49;       /* Orange */
@@ -28,6 +28,7 @@
 }
 h1, h2, h3, h4, h5, h6, p, span, a, button {
     font-family: 'Poppins', sans-serif;
+    border: none;
 }
 /* Header and Navigation */
 .app-header, .main-header {
@@ -115,7 +116,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 40px;
     cursor: pointer;
     width: 100%;
 }

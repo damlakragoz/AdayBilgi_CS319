@@ -1,81 +1,98 @@
 .user-table {
   width: 100%;
-  margin: 20px 0px 50px auto; /* Centers the table */
-  border-collapse: separate; /* Allows for border-radius to take effect */
-  border-spacing: 0; /* Ensures spacing between cells doesn't show gaps */
+  margin: 20px auto; /* Centers the table horizontally */
+  border-collapse: collapse; /* Makes table look seamless */
+  border: 1px solid #ddd; /* Subtle border for table */
   text-align: center;
-  border-radius: 12px; /* Rounds the entire table's edges */
-  overflow: hidden; /* Prevents content from spilling out of the rounded corners */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for better visibility */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  font-family: Arial, sans-serif;
 }
 
 .user-table th,
 .user-table td {
-  border: 0.5px solid var(--dark-gray); /* Adds a border around each cell */
-  padding: 12px 15px; /* Adjust padding for a more balanced look */
-  text-align: left; /* Align text to the left for better readability */
+  padding: 12px 15px; /* Uniform padding */
+  border-bottom: 1px solid #ddd; /* Subtle border between rows */
+  text-align: center; /* Align text center */
 }
 
 .user-table th {
-  background-color: var(--dark-blue); /* Dark blue background for headers */
-  color: white;
+  background-color: var(--background-light); /* Deep blue header background */
+  color: black; /* White text in headers */
   font-weight: bold;
-  text-align: left; /* Align headers to the left */
+  font-size: 14px;
 }
 
-.user-table td {
-  background: white; /* White background for table cells */
+.user-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray for alternate rows */
 }
 
-.user-table tr:nth-child(even) td {
-  background-color: #f9f9f9; /* Light grey background for even rows */
+.user-table tr:hover {
+  background-color: #e6f7ff; /* Light blue on hover for better UX */
+  cursor: pointer;
 }
 
-/* Add rounded corners to the first and last cells of rows */
-.user-table tr:first-child th:first-child {
-  border-top-left-radius: 12px;
+/* Rounded corners for the top row */
+.user-table th:first-child {
+  border-top-left-radius: 8px;
 }
-.user-table tr:first-child th:last-child {
-  border-top-right-radius: 12px;
+.user-table th:last-child {
+  border-top-right-radius: 8px;
 }
+
+/* Rounded corners for the last row */
 .user-table tr:last-child td:first-child {
-  border-bottom-left-radius: 12px;
+  border-bottom-left-radius: 8px;
 }
 .user-table tr:last-child td:last-child {
-  border-bottom-right-radius: 12px;
+  border-bottom-right-radius: 8px;
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
+.user-table {
+  width: 100%;
+  margin: 20px auto; /* Centers the table horizontally */
+  border-collapse: collapse; /* Makes table look seamless */
+  border: 1px solid #ddd; /* Subtle border for table */
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  font-family: Arial, sans-serif;
 }
 
-.tooltip:hover::after {
-  content: attr(data-tooltip); /* Use the custom tooltip text */
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: grey;
-  color: #fff;
-  padding: 5px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-size: 12px;
-  z-index: 1;
+.user-table th,
+.user-table td {
+  padding: 12px 15px; /* Uniform padding */
+  border-bottom: 1px solid #ddd; /* Subtle border between rows */
+  text-align: center; /* Align text center */
 }
 
-/* Add alignment for the parent container */
-.container {
-  max-width: 1200px; /* Limits the maximum width */
-  margin: 0 auto; /* Centers the container */
-  padding: 20px;
-  font-family: Arial, sans-serif; /* Ensures consistent font */
-  color: var(--dark-gray);
+.user-table th {
+  background-color: var(--background-light); /* Deep blue header background */
+  color: black; /* White text in headers */
+  font-weight: bold;
+  font-size: 14px;
 }
 
-h1, p {
-  text-align: center; /* Center-align titles and error messages */
-  margin: 10px 0;
-  color: var(--dark-blue); /* Matches header color with the table */
+.user-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray for alternate rows */
 }
+
+.user-table tr:hover {
+  background-color: #e6f7ff; /* Light blue on hover for better UX */
+  cursor: pointer;
+}
+
+/* Rounded corners for the top row */
+.user-table th:first-child {
+  border-top-left-radius: 8px;
+}
+.user-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* Rounded corners for the last row */
+.user-table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+.user-table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
