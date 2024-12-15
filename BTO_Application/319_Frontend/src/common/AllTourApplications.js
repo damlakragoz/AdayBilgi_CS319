@@ -3,11 +3,11 @@ import axios from 'axios';
 import './FairInvitations.css'; // Import the updated CSS file
 
 const timeSlots = [
-    { id: "SLOT_9_10", displayName: "09:00-10:00" },
-    { id: "SLOT_10_11", displayName: "10:00-11:00" },
-    { id: "SLOT_11_12", displayName: "11:00-12:00" },
-    { id: "SLOT_13_14", displayName: "13:00-14:00" },
-    { id: "SLOT_14_15", displayName: "14:00-15:00" },
+  { id: "SLOT_9_10", displayName: "09:00-10:00" },
+  { id: "SLOT_10_11", displayName: "10:00-11:00" },
+  { id: "SLOT_11_12", displayName: "11:00-12:00" },
+  { id: "SLOT_13_14", displayName: "13:00-14:00" },
+  { id: "SLOT_14_15", displayName: "14:00-15:00" },
 ];
 
 // Mapping of application status in English to Turkish
@@ -20,37 +20,36 @@ const statusMap = {
   "not_specified": "-",
 };
 
-const TourApplications = () => {
+const AllTourApplications = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
 
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const token = localStorage.getItem("userToken");
-              if (!token) {
-                  alert("Authorization token missing. Please log in.");
-                  return;
-              }
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          alert("Authorization token missing. Please log in.");
+          return;
+        }
 
-              const response = await axios.get("http://localhost:8081/api/tour-applications/getAll", {
-                  headers: {
-                      Authorization: `Bearer ${token}`,
-                  },
-                  withCredentials: true,
-              });
+        const response = await axios.get("http://localhost:8081/api/tour-applications/getAll", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        });
 
-              setData(response.data);
-          } catch (error) {
-              console.error('Error fetching data:', error);
-              alert("Failed to fetch tour applications. Please try again later.");
-          }
-      };
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        alert("Failed to fetch tour applications. Please try again later.");
+      }
+    };
 
-      fetchData();
+    fetchData();
   }, []);
-
 
   const totalPages = Math.ceil(data.length / rowsPerPage);
   const currentData = data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
@@ -67,13 +66,19 @@ const TourApplications = () => {
     }
   };
 
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    console.log("Date"+date);
+    console.log("ParsedDate: " +parsedDate.toLocaleString);
+    return isNaN(parsedDate) ? "Geçersiz Tarih" : parsedDate.toLocaleString();
+  };
+
   const getTimeSlotDisplayName = (slotId) => {
     const slot = timeSlots.find((slot) => slot.id === slotId);
     return slot ? slot.displayName : "Belirtilmedi"; // Fallback if no match
   };
 
   const mapStatusToTurkish = (status) => {
-    // Normalize the status to lowercase and trim any extra spaces
     const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
     return statusMap[normalizedStatus] || statusMap["not_specified"]; // Default to "Belirtilmedi" if not found
   };
@@ -93,36 +98,25 @@ const TourApplications = () => {
               <th>İşlenme Zamanı</th>
               <th>Talep Edilen Tarihler</th>
               <th>Katılımcı Sayısı</th>
-              <th></th> {/* New column for actions */}
             </tr>
           </thead>
           <tbody>
             {currentData.map((tourApplication, index) => (
               <tr key={index}>
                 <td>{mapStatusToTurkish(tourApplication.applicationStatus) || "Belirtilmedi"}</td>
-                <td>{tourApplication.applyingHighschool?.schoolName || "Bilinmiyor"}</td>
+                <td>{tourApplication.applyingCounselor.schoolName ? tourApplication.applyingCounselor.schoolName : "Bilinmiyor"}</td>
                 <td>{tourApplication.applyingCounselor ? tourApplication.applyingCounselor.firstName : "Bilinmiyor"}</td>
-                <td>{tourApplication.selectedDate ? new Date(tourApplication.selectedDate).toLocaleString() : "Seçilmedi"}</td>
+                <td>{tourApplication.selectedDate ? formatDate(tourApplication.selectedDate) : "Seçilmedi"}</td>
                 <td>{getTimeSlotDisplayName(tourApplication.selectedTimeSlot)}</td>
-                <td>{tourApplication.transitionTime ? new Date(tourApplication.transitionTime).toLocaleString() : "Yok"}</td>
+                <td>{tourApplication.transitionTime ? formatDate(tourApplication.transitionTime) : "Yok"}</td>
                 <td>
                   {tourApplication.requestedDates?.length
                     ? tourApplication.requestedDates.map((date, idx) => (
-                        <div key={idx}>{new Date(date).toLocaleString()}</div>
+                        <div key={idx}>{formatDate(date)}</div>
                       ))
                     : "Talep Yok"}
                 </td>
                 <td>{tourApplication.visitorCount ? tourApplication.visitorCount : 0}</td>
-                <td>
-                  {/* Conditional Button Render */}
-                  {tourApplication.applicationStatus !== "Onaylandı" ? (
-                    <button className="tour-application-button">Onayla</button>
-                  ) : (
-                    <button className="tour-application-button-approved" disabled>
-                      Onaylandı
-                    </button>
-                  )}
-                </td>
               </tr>
             ))}
           </tbody>
@@ -151,4 +145,4 @@ const TourApplications = () => {
   );
 };
 
-export default TourApplications;
+export default AllTourApplications;

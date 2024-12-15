@@ -5,7 +5,7 @@ import Sidebar from './ExecutiveSidebar';
 import OnayBekleyen from '../coordinatorPages/OnayBekleyen';
 import CounselorList from '../common/CounselorList';
 import ManagerTourSchedule from '../coordinatorPages/ManagerTourSchedule';
-import TourApplications from '../common/TourApplications';
+import TourApplications from '../common/AllTourApplications';
 import FairSchedule from '../common/FairSchedule';
 import FairInvitations from '../common/FairInvitations';
 import BtoKoordinasyonu from '../coordinatorPages/BtoKoordinasyonu';
