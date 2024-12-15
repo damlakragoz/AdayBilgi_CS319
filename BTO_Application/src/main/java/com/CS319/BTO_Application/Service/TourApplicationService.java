@@ -1,5 +1,6 @@
 package com.CS319.BTO_Application.Service;
 
+import com.CS319.BTO_Application.Controller.TourController;
 import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Repos.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,11 +19,12 @@ import java.util.Map;
 @Service
 public class TourApplicationService {
     private final TourApplicationRepos<TourApplication> tourApplicationRepository;
-
+    private final TourController tourController;
 
     @Autowired
-    public TourApplicationService(TourApplicationRepos<TourApplication> tourApplicationRepository) {
+    public TourApplicationService(TourApplicationRepos<TourApplication> tourApplicationRepository, TourController tourController) {
         this.tourApplicationRepository = tourApplicationRepository;
+        this.tourController = tourController;
     }
 
     public List<TourApplication> getAllTourApplications() {
@@ -49,6 +51,9 @@ public class TourApplicationService {
 
             // Güncellenen başvuru durumunu kaydet
             tourApplicationRepository.save(application);
+            if(application.getApplicationStatus().equals("Pending")) {
+                tourController.createTour(application.getId());
+            }
         }
     }
 

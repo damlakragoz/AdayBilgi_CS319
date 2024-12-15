@@ -29,7 +29,7 @@ public class NotificationService {
         Notification notification = new Notification(title, text, receiverName, false, false, LocalDateTime.now()
         );
         notificationRepos.save(notification);
-        mailService.sendMail(receiverName, title, text);
+        //mailService.sendMail(receiverName, title, text);
         return notification;
     }
 
