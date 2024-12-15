@@ -5,7 +5,6 @@ import com.CS319.BTO_Application.Repos.NotificationRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -15,34 +14,22 @@ import java.util.Map;
 public class NotificationService {
 
     private final NotificationRepos notificationRepos;
-    // Map to store notification templates
-    private final Map<String, String> templates = new HashMap<>();
+    private final NotificationTemplateService templateService;
+    private final MailService mailService;
 
     @Autowired
-    public NotificationService(NotificationRepos notificationRepos) {
+    public NotificationService(NotificationRepos notificationRepos, NotificationTemplateService templateService, MailService mailService) {
         this.notificationRepos = notificationRepos;
-        initializeTemplates();
-    }
-
-    // Initialize the templates
-    private void initializeTemplates() {
-        templates.put("Email", "Dear User, You have received an email notification.");
-        templates.put("Payment", "Payment has been successfully processed.");
-        templates.put("Schedule", "A new schedule has been created for you.");
-        templates.put("Reminder", "This is a reminder for your upcoming event.");
-    }
-
-    // Fetch the template based on notification type
-    private String getTemplate(String notificationType) {
-        return templates.getOrDefault(notificationType, "Default notification message.");
+        this.templateService = templateService;
+        this.mailService = mailService;
     }
 
     // Method to create and save a new notification
-    public Notification createNotification(String notificationType, Long receiverID) {
-        String message = getTemplate(notificationType);
-        Notification notification = new Notification(notificationType, message,receiverID, false, false, LocalDate.now()
+    public Notification createNotification(String receiverName, String title, String text) {
+        Notification notification = new Notification(title, text, receiverName, false, false, LocalDateTime.now()
         );
         notificationRepos.save(notification);
+        mailService.sendMail(receiverName, title, text);
         return notification;
     }
 
@@ -74,18 +61,18 @@ public class NotificationService {
     }
 
     // Get flagged notifications for a user
-    public List<Notification> getFlaggedNotifications(Long receiverID) {
-        return notificationRepos.findByReceiverIDAndIsFlagged(receiverID, true);
+    public List<Notification> getFlaggedNotifications(String receiverName) {
+        return notificationRepos.findByReceiverNameAndIsFlaggedOrderByTimestampDesc(receiverName, true);
     }
 
     // Method to retrieve unread notifications for a user
-    public List<Notification> getUnreadNotifications(Long receiverID) {
-        return notificationRepos.findByReceiverIDAndIsRead(receiverID, false);
+    public List<Notification> getUnreadNotifications(String receiverName) {
+        return notificationRepos.findByReceiverNameAndIsReadOrderByTimestampDesc(receiverName, false);
     }
 
     // Method to retrieve all notifications for a user, ordered by timestamp
-    public List<Notification> getAllNotifications(Long receiverID) {
-        return notificationRepos.findByReceiverIDOrderByTimestampDesc(receiverID);
+    public List<Notification> getAllNotifications(String receiverName) {
+        return notificationRepos.findByReceiverNameOrderByTimestampDesc(receiverName);
     }
 
     // Mark a notification as read

@@ -1,7 +1,7 @@
 package com.CS319.BTO_Application.Controller;
 
 import com.CS319.BTO_Application.DTO.NotificationRequest;
-import com.CS319.BTO_Application.Entity.Notification;
+import com.CS319.BTO_Application.Service.MailService;
 import com.CS319.BTO_Application.Service.NotificationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/notifications")
@@ -25,28 +24,31 @@ public class NotificationController {
     // Endpoint to create a notification (e.g., triggered by events)
     @PostMapping("/create")
     public ResponseEntity<?> createNotification(@RequestBody NotificationRequest notificationRequest) {
-        return new ResponseEntity<>(notificationService.createNotification(notificationRequest.getNotificationType(),
-                                                                            notificationRequest.getReceiverId()),
-                                    HttpStatus.CREATED);
+        // Send mail
+
+        return new ResponseEntity<>(notificationService.createNotification(notificationRequest.getReceiverName(),
+                                                                            notificationRequest.getTitle(),
+                                                                            notificationRequest.getText()),
+                HttpStatus.CREATED);
     }
 
     @GetMapping("/flagged")
-    public ResponseEntity<?> getFlaggedNotifications(@RequestParam Long receiverId) {
-        return new ResponseEntity<>(notificationService.getFlaggedNotifications(receiverId), HttpStatus.OK);
+    public ResponseEntity<?> getFlaggedNotifications(@RequestParam String receiverName) {
+        return new ResponseEntity<>(notificationService.getFlaggedNotifications(receiverName), HttpStatus.OK);
     }
 
     // Endpoint to retrieve unread notifications for a user
     @GetMapping("/unread")
-    public ResponseEntity<?> getUnreadNotifications(@RequestParam Long receiverId) {
-        return new ResponseEntity<>(notificationService.getUnreadNotifications(receiverId),
-                                    HttpStatus.ACCEPTED);
+    public ResponseEntity<?> getUnreadNotifications(@RequestParam String receiverName) {
+        return new ResponseEntity<>(notificationService.getUnreadNotifications(receiverName),
+                HttpStatus.ACCEPTED);
     }
 
     // Endpoint to retrieve all notifications for a user
     @GetMapping("/all")
-    public ResponseEntity<?> getAllNotifications(@RequestParam Long receiverId) {
-        return new ResponseEntity<>(notificationService.getAllNotifications(receiverId),
-                                    HttpStatus.ACCEPTED);
+    public ResponseEntity<?> getAllNotifications(@RequestParam String receiverName) {
+        return new ResponseEntity<>(notificationService.getAllNotifications(receiverName),
+                HttpStatus.ACCEPTED);
     }
 
     // Endpoint to delete a notification
