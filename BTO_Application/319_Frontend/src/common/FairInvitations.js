@@ -50,7 +50,6 @@ const FairInvitations = () => {
               <th>Şehir</th>
               <th>Tarih</th>
               <th>Fuar Saatleri</th>
-              <th>Actions</th> {/* New column for actions */}
             </tr>
           </thead>
           <tbody>
@@ -62,14 +61,6 @@ const FairInvitations = () => {
                 <td>{item.sehir}</td>
                 <td>{item.tarih}</td>
                 <td>{item.saat}</td>
-                <td>
-                  {/* Conditional Button Render */}
-                  {item.katilim !== 'Katılınacak' ? (
-                    <button className="fair-tour-lists-bto-button">Fuari Onayla</button>
-                  ) : (
-                    <button className="fair-tour-lists-bto-button-approved">Onaylandi</button>
-                  )}
-                </td>
               </tr>
             ))}
           </tbody>
