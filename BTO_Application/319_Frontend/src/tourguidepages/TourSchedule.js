@@ -30,12 +30,20 @@ const TourSchedule = () => {
         }).format(date);
     };
 
+
+    const formatISODate = (date) => {
+        if (typeof date === "string") return date; // Use date as-is if it's already a string
+        return date.toISOString().split("T")[0];
+    };
+/*
     // Normalize date to ignore time zones and return only the date part
     const formatISODate = (date) => {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate())
             .toISOString()
             .split("T")[0];
     };
+
+ */
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -145,10 +153,18 @@ const TourSchedule = () => {
 
     const filteredTours = useMemo(() => {
         return tours.filter(
+            (tour) => tour.chosenDate === formatISODate(selectedDate)
+        );
+    }, [tours, selectedDate]);
+/*
+    const filteredTours = useMemo(() => {
+        return tours.filter(
             (tour) =>
                 formatISODate(new Date(tour.chosenDate)) === formatISODate(selectedDate)
         );
     }, [tours, selectedDate]);
+
+ */
 
     const groupedTours = useMemo(() => {
         return timeSlots.map((slot) => ({

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import axios from "axios";
 import "react-calendar/dist/Calendar.css";
-import "./TourSchedule.css"; // Reuse the same CSS file
+import "../tourguidepages/TourSchedule.css"; // Reuse the same CSS file
 
 const FairSchedule = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());

@@ -1,5 +1,5 @@
 import React from 'react';
-import TourSchedule from '../common/TourSchedule';
+import TourSchedule from './TourSchedule';
 import TourGuideNavbar from './TourGuideNavbar';
 import CounselorList from '../common/CounselorList';
 
