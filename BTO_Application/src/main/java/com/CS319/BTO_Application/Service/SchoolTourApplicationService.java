@@ -1,22 +1,24 @@
 
 package com.CS319.BTO_Application.Service;
 
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
+import com.CS319.BTO_Application.Controller.TourController;
+import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.SchoolTourApplicationRepos;
 import com.CS319.BTO_Application.Repos.TourApplicationRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SchoolTourApplicationService {
@@ -24,6 +26,7 @@ public class SchoolTourApplicationService {
     private final UserRepos userRepos;
     private final CounselorRepos counselorRepos;
     private final TourApplicationRepos tourApplicationRepos;
+
 
     @Autowired
     public SchoolTourApplicationService(SchoolTourApplicationRepos schoolTourApplicationRepos, UserRepos userRepos, CounselorRepos counselorRepos, @Qualifier("tourApplicationRepos") TourApplicationRepos tourApplicationRepos) {
@@ -48,7 +51,7 @@ public class SchoolTourApplicationService {
         LocalDateTime now = LocalDateTime.now();
 
         // İşlem penceresini 2 dakika sonrası olarak ayarla
-        LocalDateTime batchWindow = now.withSecond(15).withNano(0).plusMinutes(0);
+        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
 
         /*
 
@@ -101,10 +104,6 @@ public class SchoolTourApplicationService {
         schoolTourApplicationRepos.save(tourApplication);
         return tourApplication;
     }
-
-
-
-
 }
 
 

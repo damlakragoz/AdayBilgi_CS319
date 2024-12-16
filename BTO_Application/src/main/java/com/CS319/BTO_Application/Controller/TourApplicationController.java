@@ -107,9 +107,6 @@ public class TourApplicationController {
 
     @DeleteMapping("delete/individual-application")
     public ResponseEntity<?> deleteIndividualApplication(@RequestParam Long tourApplicationId) {
-        if (individualTourApplicationService.getIndividualTourApplicationById(tourApplicationId).isEmpty()) {
-            return ResponseEntity.status(400).body("Ind application With id "+tourApplicationId+" Not Found");
-        }
         individualTourApplicationService.deleteIndividualTourApplicationById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

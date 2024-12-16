@@ -16,12 +16,6 @@ import java.util.Optional;
 public interface TourApplicationRepos<T extends TourApplication> extends JpaRepository<T, Long> {
     Optional<T> findById(Long id);
 
-    @Query("SELECT a FROM TourApplication a WHERE a.applicationStatus = :status AND a.transitionTime <= :time")
-    List<TourApplication> findByStatusAndTransitionTime(@Param("status") String status, @Param("time") LocalDateTime time);
-
-    @Query("SELECT ta FROM TourApplication ta WHERE ta.selectedDate = :selectedDate AND ta.selectedTimeSlot = :selectedTimeSlot")
-    TourApplication findBySelectedDateAndSelectedTimeSlot(@Param("selectedDate") LocalDate selectedDate,
-                                                          @Param("selectedTimeSlot") TimeSlot selectedTimeSlot);
 }
 
 

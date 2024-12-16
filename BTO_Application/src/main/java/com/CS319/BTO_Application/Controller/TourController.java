@@ -30,9 +30,13 @@ public class TourController {
     private final AdvisorService advisorService;
     private final CounselorService counselorService;
     private final PaymentController paymentController;
+    private final IndividualTourApplicationService individualTourApplicationService;
 
     @Autowired
-    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService, AdvisorService advisorService, CounselorService counselorService, PaymentController paymentController){
+    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService,
+                          TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService,
+                          AdvisorService advisorService, CounselorService counselorService, PaymentController paymentController,
+                          IndividualTourApplicationService individualTourApplicationService){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
@@ -40,6 +44,7 @@ public class TourController {
         this.advisorService = advisorService;
         this.counselorService = counselorService;
         this.paymentController = paymentController;
+        this.individualTourApplicationService = individualTourApplicationService;
     }
 
 
@@ -49,7 +54,31 @@ public class TourController {
            +application.applyingCounselor.getSchool = tour.applyingSchool
            not: tourda ve applciationde ayrı ayrı school ve counselor tutulabilir. Şu anda applicationde counselor turda school tutuluyor
      */
-    @PostMapping("/create")
+    @PostMapping("/create/ind")
+    public ResponseEntity<Tour> createIndividualTour(@RequestParam Long tourApplicationId) {
+        IndividualTourApplication tourApplication = individualTourApplicationService.getIndividualTourApplicationById(tourApplicationId);
+
+        if(!tourApplication.getApplicationStatus().equals("Pending")){// if status not pending
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        System.out.println("BURDA ŞU ANDA");
+        // Status = "Pending" which means it passed the scheduling phase and a time and date is assigned
+        //otherwise it would be "Pre-rejected"
+
+        LocalDate selectedDate = tourApplication.getSelectedDate();
+        TimeSlot selectedTimeSlot = tourApplication.getSelectedTimeSlot();
+
+        Integer visitorCount = tourApplication.getVisitorCount();
+        HighSchool applyingSchool = tourApplication.getApplyingHighschool();
+
+        Tour tour = new Tour(visitorCount, selectedTimeSlot, selectedDate,"Pending", applyingSchool, tourApplication);
+
+        return new ResponseEntity<>(tourService.createIndividualTour(tour, tourApplication), HttpStatus.CREATED);
+
+    }
+
+    @PostMapping("/create/school")
     public ResponseEntity<Tour> createTour(@RequestParam Long tourApplicationId) {
         SchoolTourApplication schoolTourApplication = schoolTourApplicationService.getSchoolTourApplicationById(tourApplicationId);
 
@@ -72,6 +101,8 @@ public class TourController {
         return new ResponseEntity<>(tourService.createSchoolTour(tour, schoolTourApplication), HttpStatus.CREATED);
 
     }
+
+
 
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllTours() {

@@ -112,7 +112,7 @@ public class UserController {
         return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
     }
     @PostMapping("/executive/register")
-    private ResponseEntity<?> registerExecutive(BTOMemberRegister btoMemberRegister) {
+    private ResponseEntity<?> registerExecutive(@RequestBody BTOMemberRegister btoMemberRegister) {
         // Check for unique username
         if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
             return ResponseEntity.status(400).body("Username for executive is already taken");

@@ -13,7 +13,11 @@ public class TourApplicationProcessor {
     }
 
     @Scheduled(fixedRate = 10000) // Executes every 10 seconds
-    public void scheduleProcessTourApplications() {
-        tourApplicationService.processTourApplications(); // Delegate logic
+    public void scheduleProcessIndividualTourApplications() {
+        tourApplicationService.processIndividualTourApplications();
+    }
+    @Scheduled(fixedRate = 5000) // Executes every 5 seconds
+    public void scheduleProcessSchoolTourApplications() {
+        tourApplicationService.processSchoolTourApplications(); // Delegate logic
     }
 }

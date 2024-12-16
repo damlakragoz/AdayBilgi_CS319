@@ -27,19 +27,24 @@ public class TourService {
     private final TourGuideRepos tourGuideRepos;
     private final TourApplicationRepos tourApplicationRepos;
     private final AdvisorRepos advisorRepos;
+    private final IndividualTourApplicationRepos individualTourApplicationRepos;
 
     @Autowired
-    public TourService(SchoolTourRepos schoolTourRepos, TourGuideRepos tourGuideRepos, TourApplicationRepos tourApplicationRepos, AdvisorRepos advisorRepos) {
+    public TourService(SchoolTourRepos schoolTourRepos, TourGuideRepos tourGuideRepos, TourApplicationRepos tourApplicationRepos, AdvisorRepos advisorRepos, IndividualTourApplicationRepos individualTourApplicationRepos) {
         this.schoolTourRepos = schoolTourRepos;
         this.tourGuideRepos = tourGuideRepos;
         this.tourApplicationRepos = tourApplicationRepos;
         this.advisorRepos = advisorRepos;
+        this.individualTourApplicationRepos = individualTourApplicationRepos;
     }
 
     /*
         this method changes the status of the schooltourapplication to enrolled
      */
     public Tour createSchoolTour(Tour tour, SchoolTourApplication schoolTourApplication) {
+        return schoolTourRepos.save(tour);
+    }
+    public Tour createIndividualTour(Tour tour, IndividualTourApplication individualTourApplication) {
         return schoolTourRepos.save(tour);
     }
 
