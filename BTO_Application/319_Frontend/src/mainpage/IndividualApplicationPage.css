@@ -1,0 +1,192 @@
+.application-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 80px;
+    background-color: #f5f5f5;
+}
+
+.form-section {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.form-section h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #1c3b8e;
+    text-align: center;
+}
+
+.application-form .form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.application-form .form-group input,
+.application-form .form-group select,
+.application-form .form-group textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+.submit-btn {
+    background-color: #1c3b8e;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #142866;
+}
+
+.info-section {
+    flex: 0;
+    background-color: #ffffff;
+    padding: 180px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.info-section h3 {
+    font-size: 35px;
+    color: #1c3b8e;
+    margin-bottom: 10px;
+}
+
+.info-section p {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-section .highlight {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.info-section .link {
+    color: #1c3b8e;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.info-section .link:hover {
+    color: #142f6b;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #1c3b8e;
+}
+
+.back-button:hover {
+    color: #142f6b;
+}
+
+.combo-box {
+    position: relative;
+}
+
+.combo-box .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 0;
+    list-style: none;
+}
+
+.combo-box .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.combo-box .dropdown-item:hover {
+    background-color: #1c3b8e;
+    color: white;
+}
+
+
+/* Date-Time Styling */
+.date-time-group {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    margin-bottom: 10px;
+}
+
+.date-time-group label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.add-date-time-btn,
+.remove-date-time-btn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.add-date-time-btn:hover,
+.remove-date-time-btn:hover {
+    background-color: #bf0212 ;
+    opacity: 0.9;
+}
+
+.combo-box .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 0;
+    list-style: none;
+}
