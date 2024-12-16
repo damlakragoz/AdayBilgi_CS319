@@ -174,7 +174,7 @@
 
 /* Green for critical statuses */
 .react-calendar__tile.highlight-green {
-  background-color: #d4edda; /* Light green */
+  background-color: var(--my-green); /* Light green */
   color: black;
   border-radius: 5px;
   font-weight: bold;
