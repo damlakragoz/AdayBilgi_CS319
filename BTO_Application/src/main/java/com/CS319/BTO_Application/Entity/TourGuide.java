@@ -1,8 +1,6 @@
 package com.CS319.BTO_Application.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +32,6 @@ public class TourGuide extends BTOMember {
     @Column(name = "iban", nullable = true)
     private String iban;
 
-
     @OneToMany(mappedBy = "assignedGuide", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Tour> enrolledTours;
@@ -44,7 +41,14 @@ public class TourGuide extends BTOMember {
      -currentPayment: Payment
      -tours: List<Tour>
      -otherActivities: List<OtherActivities>
-     */
+      */
+
+    @OneToMany(mappedBy = "tourGuide", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Payment> paymentHistory;
+
+    @OneToMany(mappedBy = "tourGuide", cascade = CascadeType.ALL)
+    private List<OtherActivity> otherActivities;
 
     public TourGuide(String email, String password, String role) {
         this.setEmail(email);

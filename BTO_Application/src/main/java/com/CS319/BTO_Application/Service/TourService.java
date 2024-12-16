@@ -85,7 +85,13 @@ public class TourService {
         schoolTourRepos.save(tour);
     }
 
+    private void setStatusFinished(Tour tour) {
+        tour.setTourStatus("Finished");
+        schoolTourRepos.save(tour);
+    }
+
     public Tour getTourById(Long tourId) {
+        System.out.println("in method");
         return schoolTourRepos.findById(tourId)
                 .orElseThrow(() -> new EntityNotFoundException("Tour not found with id: " + tourId));
     }
@@ -136,4 +142,17 @@ public class TourService {
         schoolTourRepos.save(tour);
     }
 
+    public Tour submitTourActivity(Tour tour, double durationTime) {
+        tour.setDuration(durationTime);
+        setStatusFinished(tour);
+        return tour;
+    }
+
+    public List<Tour> getToursByMonthAndYear(int month, int year) {
+        return schoolTourRepos.findToursByMonthAndYear(month, year);
+    }
+
+    public List<Tour> getFinishedToursByMonthAndYear(int month, int year) {
+        return schoolTourRepos.findFinishedToursByMonthAndYear(month, year);
+    }
 }

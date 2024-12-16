@@ -1,55 +1,54 @@
-/*
 package com.CS319.BTO_Application.Service;
 
-import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.Feedback;
+import com.CS319.BTO_Application.Entity.Tour;
 import com.CS319.BTO_Application.Repos.FeedbackRepos;
+import com.CS319.BTO_Application.Repos.SchoolTourRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FeedbackService {
 
-    @Autowired
-    private FeedbackRepos feedbackRepository;
+    private final FeedbackRepos feedbackRepository;
+    private final SchoolTourRepos schoolTourRepository;
 
     @Autowired
-    private CounselorService counselorService;
+    public FeedbackService(FeedbackRepos feedbackRepository, SchoolTourRepos schoolTourRepository) {
+        this.feedbackRepository = feedbackRepository;
+        this.schoolTourRepository = schoolTourRepository;
+    }
 
-    public void addFeedback(Long counselorId, Feedback feedback) {
-        Counselor counselor = counselorService.getCounselorById(counselorId);
-        feedback.setCounselor(counselor);
+    public Feedback submitFeedback(Long tourId, int rating, String comment, Long counselorId) {
+        Tour tour = schoolTourRepository.findById(tourId)
+                .orElseThrow(() -> new IllegalArgumentException("Tour not found with ID: " + tourId));
 
-        if (feedback.getTour() == null) {
-            throw new IllegalArgumentException("Tour is required for feedback.");
+        if (!"Finished".equals(tour.getTourStatus())) {
+            throw new IllegalArgumentException("Feedback can only be submitted for tours with status 'Finished'.");
         }
-        if (feedback.getRating() < 1 || feedback.getRating() > 5) {
-            throw new IllegalArgumentException("Rating must be between 1 and 5.");
+
+        if (feedbackRepository.existsByTour(tour)) {
+            throw new IllegalArgumentException("Feedback already exists for this Tour.");
         }
-        feedbackRepository.save(feedback);
+
+        Feedback feedback = new Feedback(tour, rating, comment, null); // Set counselor if needed
+        return feedbackRepository.save(feedback);
     }
 
     public List<Feedback> getAllFeedbacks() {
         return feedbackRepository.findAll();
     }
 
-    public Feedback getFeedbackById(Long id) {
-        Optional<Feedback> feedbackOptional = feedbackRepository.findById(id);
-        if (feedbackOptional.isEmpty()) {
-            throw new IllegalArgumentException("Feedback with ID " + id + " does not exist.");
-        }
-        return feedbackOptional.get();
+    public Feedback getFeedbackByTourId(Long tourId) {
+        return feedbackRepository.findByTourId(tourId)
+                .orElseThrow(() -> new IllegalArgumentException("No feedback found for Tour ID: " + tourId));
     }
 
-    public void deleteFeedback(Long id) {
-        if (!feedbackRepository.existsById(id)) {
-            throw new IllegalArgumentException("Feedback with ID " + id + " does not exist.");
-        }
-        feedbackRepository.deleteById(id);
+    public void deleteFeedback(Long feedbackId) {
+        Feedback feedback = feedbackRepository.findById(feedbackId)
+                .orElseThrow(() -> new IllegalArgumentException("Feedback not found with ID: " + feedbackId));
+        feedbackRepository.delete(feedback);
     }
 }
-
- */
