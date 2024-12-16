@@ -133,7 +133,7 @@
 
 /* Approved applications styling */
 .approved-card {
-    background-color: var(--light-blue); /* Highlight approved cards */
+    background-color: var(--my-green); /* Highlight approved cards */
     border: 2px solid var(--dark-blue);
     pointer-events: none;
     opacity: 0.9;

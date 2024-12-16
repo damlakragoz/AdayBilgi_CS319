@@ -1,24 +1,129 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./CounselorTourApplicationsPage.css";
 
-const applications = [
-    { id: 1, status: "Onay bekleniyor", date: "25.08.2024", time: "15:30-16:30", canCancel: true },
-    { id: 2, status: "Onay bekleniyor", date: "24.08.2024", time: "11:30-12:30", canCancel: true },
-    { id: 3, status: "Reddedildi", date: "21.07.2024", time: "10:30-11:30", canCancel: false },
-    { id: 4, status: "Reddedildi", date: "20.07.2024", time: "15:30-16:30", canCancel: false },
-    { id: 5, status: "Onaylandı", date: "14.07.2024", time: "14:30-15:30", canCancel: false },
-    { id: 6, status: "Onaylandı", date: "13.07.2024", time: "14:30-15:20", canCancel: false },
-];
+// Status translations
+const statusTranslations = {
+    Pending: "Onay bekleniyor",
+    Approved: "Onaylandı",
+    Rejected: "Reddedildi",
+    "Pre-rejected": "Reddedildi", // Map Pre-rejected to Reddedildi
+    "Cancelled": "Iptal edildi",
+    default: "Oluşturuldu", // Handle unexpected statuses
+};
 
+// TimeSlot mappings for displaying in a user-friendly format
+const timeSlotDisplayNames = {
+    SLOT_9_10: "09:00-10:00",
+    SLOT_10_11: "10:00-11:00",
+    SLOT_11_12: "11:00-12:00",
+    SLOT_13_14: "13:00-14:00",
+    SLOT_14_15: "14:00-15:00",
+};
 const CounselorTourApplicationsPage = () => {
     const navigate = useNavigate();
+    const [applications, setApplications] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const handleCardClick = (id) => {
-        if (applications.find((app) => app.id === id).status !== "Reddedildi") {
-            navigate(`/tour-application/${id}`);
+    useEffect(() => {
+        const fetchApplications = async () => {
+            try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                    alert("Authorization token missing. Please log in.");
+                    return;
+                }
+
+                const response = await axios.get("http://localhost:8081/api/tour-applications/getAll", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    withCredentials: true,
+                });
+                const counselorEmail = localStorage.getItem("username");
+                const filteredApplications = response.data.filter(
+                    (application) => application.applyingCounselorEmail === counselorEmail
+                );
+                setApplications(filteredApplications);
+                console.log(response.data);
+                console.log(filteredApplications);
+                console.log(response.data[0].applyingCounselorEmail);
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("Failed to fetch tour applications. Please try again later.");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchApplications();
+    }, []);
+
+//    const handleCardClick = (id) => {
+//        const application = applications.find((app) => app.id === id);
+//        if (application && application.status !== "Rejected") {
+//            navigate(`/tour-application/${id}`);
+//        }
+//    };
+
+    // Handle the cancelation of a tour
+    const handleCancelTour = async (applicationId) => {
+        try {
+            const token = localStorage.getItem("userToken");
+            const counselorEmail = localStorage.getItem("username");
+
+
+            console.log(counselorEmail);
+            console.log(applicationId);
+            const response = await axios.post(
+                "http://localhost:8081/api/tour-applications/counselor/cancel",
+                null,
+                {
+                    params: {
+                        counselorEmail: counselorEmail,
+                        tourApplicationId: applicationId,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+            console.log(response);
+
+            if (response.status === 200 || response.status === 201 || response.status === 202) {
+                alert("Başvuru başarıyla iptal edildi.");
+                setApplications((prevApplications) =>
+                    prevApplications.filter((app) => app.id !== applicationId)
+                );
+            }
+        } catch (error) {
+            console.error("Error canceling application:", error);
+            alert("Başvuru iptal edilirken bir hata oluştu.");
         }
     };
+
+    // Function to format LocalDate
+    const formatDate = (date) => {
+        return new Date(date).toLocaleDateString("tr-TR");  // Format in Turkish locale (dd.MM.yyyy)
+    };
+
+    // Function to format TimeSlot enum
+    const formatTimeSlot = (timeSlot) => {
+        return timeSlotDisplayNames[timeSlot] || timeSlot;  // Default to enum value if not found
+    };
+
+    if (isLoading) {
+        return <div className="loading">Loading applications...</div>;
+    }
+
+    if (error) {
+        return <div className="error">Error: {error}</div>;
+    }
 
     return (
         <div className="applications-container">
@@ -28,40 +133,61 @@ const CounselorTourApplicationsPage = () => {
                     <div
                         key={application.id}
                         className={`application-card ${
-                            application.status === "Onay bekleniyor"
+                            application.applicationStatus === "Pending"
                                 ? "pending-card"
-                                : application.status === "Onaylandı"
-                                    ? "approved-card"
-                                    : "rejected-card"
+                                : application.applicationStatus === "Approved"
+                                ? "approved-card"
+                                : "rejected-card"
                         }`}
-                        onClick={() => handleCardClick(application.id)}
                     >
                         <div className="card-status">
                             <span
                                 className={`status-badge ${
-                                    application.status === "Onay bekleniyor"
+                                    application.applicationStatus === "Pending"
                                         ? "pending"
-                                        : application.status === "Onaylandı"
-                                            ? "approved"
-                                            : "rejected"
+                                        : application.applicationStatus === "Approved"
+                                        ? "approved"
+                                        : "rejected"
                                 }`}
                             >
-                                {application.status}
+                                {/* Translate the status */}
+                                {statusTranslations[application.applicationStatus] || statusTranslations.default}
                             </span>
                         </div>
                         <div className="card-details">
                             <p>
-                                <strong>Tarih:</strong> {application.date}
+                                <strong>Başvuru No:</strong> {application.applicationId}
                             </p>
                             <p>
-                                <strong>Saat:</strong> {application.time}
+                                <strong>
+                                    {application.applicationStatus === "Approved" || application.applicationStatus === "Pending"
+                                        ? "Tarih:"  // Show "Tarih" if Approved
+                                        : "Başvurulan Tarihler:"}  {/* Show "Başvurulan Tarihler" if Rejected or Pre-rejected */}
+                                </strong>
+                                {application.applicationStatus === "Pre-rejected" || application.applicationStatus === "Rejected"  || application.applicationStatus === "Created"
+                                    ? Array.isArray(application.requestedDates)
+                                        ? application.requestedDates
+                                            .map((requestedDate) => `${formatDate(requestedDate.date)} ${formatTimeSlot(requestedDate.timeSlot)}`)
+                                            .join(", ")
+                                        : `${formatDate(application.requestedDates.date)} ${formatTimeSlot(application.requestedDates.timeSlot)}`
+                                    : formatDate(application.selectedDate)}
+                            </p>
+                            <p>
+                                <strong> {application.applicationStatus === "Pre-rejected" || application.applicationStatus === "Rejected" || application.applicationStatus === "Created"
+                                        ?  "": "Saat:"}</strong> {formatTimeSlot(application.selectedTimeSlot)}
+                            </p>
+                            <p>
+                                <strong>Ziyaretçi Sayısı:</strong> {application.visitorCount}
                             </p>
                         </div>
+
                         <div className="card-actions">
-                            {application.canCancel ? (
-                                <button className="cancel-button active">İptal Et</button>
-                            ) : (
-                                <button className="cancel-button disabled" disabled>
+                            {/* Conditionally render the Cancel button based on application status */}
+                            {application.applicationStatus == "Pending" && application.applicationStatus == "Approved" && (
+                                <button
+                                    className="cancel-button"
+                                    onClick={(event) => handleCancelTour(application.id, event)}
+                                >
                                     İptal Et
                                 </button>
                             )}
@@ -70,7 +196,6 @@ const CounselorTourApplicationsPage = () => {
                 ))}
             </div>
 
-            {/* Pagination moved below the cards */}
             <div className="pagination-container">
                 <button className="pagination-button">&laquo;</button>
                 <button className="pagination-button">&lsaquo;</button>
