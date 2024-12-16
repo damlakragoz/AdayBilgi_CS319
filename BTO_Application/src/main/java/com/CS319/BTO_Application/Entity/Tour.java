@@ -64,6 +64,12 @@ public class Tour extends TourEvent{
         }
         return assignedGuide.getEmail();
     }
+    public String getApplyingHighschoolName() {
+        if (applyingHighschool == null) {
+            return null; // Or return an empty string "" depending on your requirements
+        }
+        return applyingHighschool.getSchoolName();
+    }
 
 }
     /*

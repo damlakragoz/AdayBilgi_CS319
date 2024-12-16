@@ -20,6 +20,13 @@ public class SchoolTourApplication extends TourApplication {
     @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
+    public String getApplyingCounselorEmail() {
+        if (applyingCounselor == null) {
+            return null; // Or return an empty string "" depending on your requirements
+        }
+        return applyingCounselor.getEmail();
+    }
+
 }
 
 
