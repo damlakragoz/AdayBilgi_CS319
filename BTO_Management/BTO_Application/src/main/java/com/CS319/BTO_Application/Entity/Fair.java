@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Fair", schema = "bto_database")
+@Table(name = "Fair", schema = "kubra_db")
 
 public class Fair {
     @Id
@@ -28,21 +28,11 @@ public class Fair {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @OneToOne
-    @JsonBackReference
-    @JoinColumn(name = "feedback", referencedColumnName = "id", nullable = true)
-    private Feedback feedback;
-
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "assigned_guide_id", referencedColumnName = "id", nullable = true)
-    private TourGuide assignedGuide;
+    @JoinColumn(name = "assigned_bto_member", referencedColumnName = "id", nullable = true)
+    private BTOMember assignedBTOMember;
 
-
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "assigned_executive_id", referencedColumnName = "id", nullable = true)
-    private Executive assignedExecutive;
 
     @ManyToOne
     @JsonBackReference
@@ -57,15 +47,13 @@ public class Fair {
     @Column(name = "fair_status", nullable = true)
     private String fairStatus;
 
-    public Fair(Date startDate, Date endDate, TourGuide assignedGuide, Executive assignedExecutive, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation, Feedback feedback) {
+    public Fair(Date startDate, Date endDate, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation, BTOMember assignedBTOMember) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.assignedGuide = assignedGuide;
-        this.assignedExecutive = assignedExecutive;
+        this.assignedBTOMember = assignedBTOMember;
         this.fairStatus = fairStatus;
         this.applyingHighschool = applyingHighschool;
         this.fairInvitation = fairInvitation;
-        this.feedback = feedback;
     }
 
     public FairInvitation getFairInvitation() {

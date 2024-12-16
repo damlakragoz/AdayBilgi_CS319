@@ -5,24 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="application.properties">
-      <change afterPath="$PROJECT_DIR$/../.idea/AdayBilgi_CS319.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FairInvitationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/AddInvitationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/FairInvitation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FairInvitationRepos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FairInvitationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_11_2024__20_28__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/CounselorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/FairOperationsForExecutive.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/FairOperationsForExecutive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/FairOperationsForGuide.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/FairOperationsForGuide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Fair.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Fair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Entity/Feedback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FeedbackRepos.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Repos/FeedbackRepos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/config/WebConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +70,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.BtoManagementApplication.executor": "Run",
-    "git-widget-placeholder": "Implementation",
+    "git-widget-placeholder": "kubra__frontend",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/damlak/Desktop/AdayBilgi_CS319/BTO_Management",
