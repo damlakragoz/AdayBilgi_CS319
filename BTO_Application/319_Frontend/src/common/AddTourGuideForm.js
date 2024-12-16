@@ -8,6 +8,9 @@ const AddTourGuideForm = () => {
     firstName: "",
     lastName: "",
     phoneNumber: "",
+    department: "",
+    grade: "",
+    iban: "",
   });
 
   // Handle input changes
@@ -23,16 +26,19 @@ const AddTourGuideForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { BilkentID, firstName, lastName, phoneNumber } = formData;
+    const { BilkentID, firstName, lastName, phoneNumber, department, grade, iban } = formData;
 
     try {
       // Define the request body
       const body = {
-        email: BilkentID,
+        email: BilkentID, // Assuming BilkentID is used as the email
         password: BilkentID, // Assuming the password is the same as BilkentID
         firstName,
         lastName,
         phoneNumber,
+        department,
+        grade: parseInt(grade), // Convert grade to integer
+        iban,
         role: "TourGuide",
       };
 
@@ -46,7 +52,7 @@ const AddTourGuideForm = () => {
 
       // Send the POST request
       const response = await axios.post(
-        "http://localhost:8081/api/BTOMember/register",
+        "http://localhost:8081/api/tourguide/register",
         body,
         {
           headers: {
@@ -57,7 +63,7 @@ const AddTourGuideForm = () => {
       );
 
       console.log("Success:", response.data); // Log the response on success
-      alert("User registered successfully!");
+      alert("Tur rehberi başarıyla eklendi!");
 
       // Reset form on success
       setFormData({
@@ -65,6 +71,9 @@ const AddTourGuideForm = () => {
         firstName: "",
         lastName: "",
         phoneNumber: "",
+        department: "",
+        grade: "",
+        iban: "",
       });
     } catch (error) {
       console.error(
@@ -82,6 +91,9 @@ const AddTourGuideForm = () => {
       firstName: "",
       lastName: "",
       phoneNumber: "",
+      department: "",
+      grade: "",
+      iban: "",
     });
     console.log("Form reset");
   };
@@ -127,6 +139,36 @@ const AddTourGuideForm = () => {
           name="phoneNumber"
           placeholder="Telefon numarası"
           value={formData.phoneNumber}
+          onChange={handleInputChange}
+        />
+
+        {/* Department */}
+        <label>Bölüm</label>
+        <input
+          type="text"
+          name="department"
+          placeholder="Bölüm"
+          value={formData.department}
+          onChange={handleInputChange}
+        />
+
+        {/* Grade */}
+        <label>Sınıf</label>
+        <input
+          type="number"
+          name="grade"
+          placeholder="Sınıf"
+          value={formData.grade}
+          onChange={handleInputChange}
+        />
+
+        {/* IBAN */}
+        <label>IBAN</label>
+        <input
+          type="text"
+          name="iban"
+          placeholder="IBAN"
+          value={formData.iban}
           onChange={handleInputChange}
         />
 
