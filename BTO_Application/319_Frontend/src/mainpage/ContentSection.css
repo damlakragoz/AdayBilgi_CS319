@@ -1,0 +1,25 @@
+.content-section {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.content-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.content-card h3 {
+    color: #1c3b8e;
+    margin-bottom: 10px;
+}
+
+.content-card p {
+    color: #555;
+}

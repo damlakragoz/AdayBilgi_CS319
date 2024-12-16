@@ -1,0 +1,158 @@
+/* Header Top Bar */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    font-size: 14px;
+}
+
+.header-top a {
+    text-decoration: none;
+    color: var(--white);
+    margin-right: 15px;
+}
+
+.header-top a:hover {
+    color: var(--light-blue);
+}
+
+.social-icons i {
+    margin-left: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.social-icons i:hover {
+    color: var(--light-blue);
+}
+
+/* Main Header */
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: var(--background-light);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 60px;
+    border-radius: 50%;
+}
+
+.logo-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--dark-blue);
+}
+
+.logo-subtitle {
+    font-size: 16px;
+    color: var(--dark-gray);
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Button Section */
+.button-section {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-btn {
+    background-color: #1C3B8E; /* Blue Button */
+    color: white;
+}
+
+.signup-btn {
+    background-color: #ED2939; /* Red Button */
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.signup-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #ED2939 !important; /* Force red background */
+    color: white !important; /* Force white text */
+    transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+    background-color: #bf0212 !important; /* Force darker red on hover */
+    opacity: 0.9;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--dark-blue) !important;
+    color: white !important; /* Force white text */
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: var(--deep-blue) !important;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .header-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .logo-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar {
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
