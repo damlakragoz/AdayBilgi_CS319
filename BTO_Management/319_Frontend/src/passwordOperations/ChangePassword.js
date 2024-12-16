@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import "./ChangePassword.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8081/";
+
 const ChangePassword = () => {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -12,7 +14,7 @@ const ChangePassword = () => {
         confirmPassword: false,
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
             setErrorMessage("Parolalar eşleşmiyor!");
@@ -24,8 +26,35 @@ const ChangePassword = () => {
             );
             return;
         }
-        setErrorMessage("");
-        alert("Şifre başarıyla değiştirildi.");
+
+        try {
+            const loggedInUsername = localStorage.getItem("username"); // Assuming 'username' is the key
+            //
+            const response = await fetch(`${API_BASE_URL}/api/user/changePassword?username=${loggedInUsername}`, {
+            //const response = await fetch(`/api/user/changePassword?username=${loggedInUsername}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    currentPassword,
+                    newPassword,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.text();
+                setErrorMessage(`Hata: ${errorData}`);
+                return;
+            }
+
+            alert("Şifre başarıyla değiştirildi.");
+            setCurrentPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+        } catch (error) {
+            setErrorMessage("Bir hata oluştu. Lütfen tekrar deneyiniz.");
+        }
     };
 
     const togglePasswordVisibility = (field) => {
