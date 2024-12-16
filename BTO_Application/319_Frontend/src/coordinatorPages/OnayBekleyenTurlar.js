@@ -3,7 +3,6 @@ import axios from 'axios';
 import './OnayBekleyen.css';
 
 const OnayBekleyenTurlar = () => {
-
     const [tours, setTours] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -78,6 +77,43 @@ const OnayBekleyenTurlar = () => {
         }
     };
 
+    // Function to handle tour rejection
+    const handleReject = async (tourId) => {
+        try {
+            const token = localStorage.getItem("userToken");
+            if (!token) {
+                alert("Authorization token missing. Please log in.");
+                return;
+            }
+
+            const coordinatorEmail = localStorage.getItem("username");
+            const response = await axios.put(
+                "http://localhost:8081/api/tour/reject",
+                { coordinatorEmail, tourId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (response.status === 200 || response.status === 201 || response.status === 202) {
+                alert("Tour rejected successfully!");
+                setTours((prevTours) =>
+                    prevTours.map((tour) =>
+                        tour.id === tourId ? { ...tour, tourStatus: "Rejected" } : tour
+                    )
+                );
+                // Toggle to trigger the rerender
+                setToggleState((prev) => !prev);
+            }
+        } catch (error) {
+            console.error("Error rejecting tour:", error.message);
+            alert("Failed to reject the tour. Please try again.");
+        }
+    };
+
     // Fetch tours on component load and when toggleState changes
     useEffect(() => {
         fetchTours();
@@ -97,8 +133,9 @@ const OnayBekleyenTurlar = () => {
             <table className="onay-bekleyen-activity-table">
                 <thead>
                     <tr>
-                        <th>Tur Açıklaması</th>
+                        <th>Tur Onay Durumu</th>
                         <th>Tur Tarihi</th>
+                        <th>Lise</th>
                         <th>Tercihler</th>
                     </tr>
                 </thead>
@@ -113,6 +150,7 @@ const OnayBekleyenTurlar = () => {
                                     year: 'numeric',
                                 })}
                             </td>
+                            <td>{tour.applyingHighschoolName}</td>
 
                             <td className="onay-bekleyen-buttons">
                                 {tour.tourStatus === 'Pending' && (
@@ -123,7 +161,12 @@ const OnayBekleyenTurlar = () => {
                                         >
                                             Onayla
                                         </button>
-                                        <button className="onay-bekleyen-reject-btn">Reddet</button>
+                                        <button
+                                            className="onay-bekleyen-reject-btn"
+                                            onClick={() => handleReject(tour.id)}
+                                        >
+                                            Reddet
+                                        </button>
                                     </>
                                 )}
                             </td>
