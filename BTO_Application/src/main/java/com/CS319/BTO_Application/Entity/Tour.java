@@ -46,6 +46,8 @@ public class Tour extends TourEvent{
     @Column(name = "tour_status", nullable = true)
     private String tourStatus;
 
+    @Column(name = "duration", nullable = true)
+    private Double duration; // Duration in hours
 
     public Tour(Integer visitorCount, TimeSlot timeSlot, LocalDate chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
         this.setVisitorCount(visitorCount);

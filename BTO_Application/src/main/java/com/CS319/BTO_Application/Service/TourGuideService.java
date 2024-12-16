@@ -2,6 +2,7 @@ package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Repos.TourGuideRepos;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,5 +54,8 @@ public class TourGuideService {
         tourGuideRepos.delete(tourGuide);
     }
 
-
+    public TourGuide getTourGuideById(Long tourGuideId) {
+        return tourGuideRepos.findById(tourGuideId)
+                .orElseThrow(() -> new EntityNotFoundException("Tour Guide not found with ID: " + tourGuideId));
+    }
 }
