@@ -27,10 +27,12 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepos<User> userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepos<User> userRepository) {
+    public UserService(UserRepos<User> userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -48,6 +50,15 @@ public class UserService implements UserDetailsService {
 
     public User getUserByUsername(String username) {
         return userRepository.findByEmail(username);
+    }
+
+    public boolean checkPassword(User user, String rawPassword) {
+        return passwordEncoder.matches(rawPassword, user.getPassword());
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 
     public List<User> getAllUsers() {

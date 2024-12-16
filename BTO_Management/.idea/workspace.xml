@@ -4,96 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="updates">
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Notifications 4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/Notifications 4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/feedback/ViewFeedback 4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/feedback/ViewFeedback 4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/tailwind.config 4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/pages/ChangePassword 2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations/ChangePassword.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations/ChangePassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations/ForgotPassword.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations/ForgotPassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations/PasswordReset.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/passwordOperations/PasswordReset.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/static/index 2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/BTO_Management 4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources 4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/7df31d70-6721-40b9-9bc6-868367a51f11 3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/dataSources/bd87ef5c-3e83-4d8c-9fce-9afdcef50430 3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/jarRepositories 4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/uiDesigner 5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/.idea/uiDesigner 6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package 5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package-lock 5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/package-lock 6.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index 5.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index 6.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/public/index 7.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/App 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 6.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Header 6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/Notifications 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/index 6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 6.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/mainpage/MainPage 6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/src/submitapplication/SubmitApplication 6.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/319_Frontend/tailwind.config 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitattributes 5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.gitignore 5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.mvn/wrapper/maven-wrapper 3.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/.mvn/wrapper/maven-wrapper 4.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/.gitignore 5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/.gitignore 6" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package 5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package-lock 5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/package-lock 6.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/App 3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/index 3.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/frontend/src/index 3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 5.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/mvnw 6" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/BTO_Application/pom 5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 7.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/input 8.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/.gitignore 5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/README 5.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/eslint.config 5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/eslint.config 6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/index 5.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package 5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/package-lock 5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/App 5.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/assets/react 3.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/index 5.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/main 5.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/src/main 6.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../BTO_Management_Copy/vite-project/vite.config 5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ChangePassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ChangePassword.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ChangePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ChangePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ForgotPassword.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/ForgotPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/PasswordReset.css" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/PasswordReset.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/PasswordReset.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/passwordOperations/PasswordReset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/Counselor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/HighSchool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/SchoolTourApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/entity/SchoolTourApplication.java" afterDir="false" />
+    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="updates on frontend">
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/ChangePassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/ChangePassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734207088624</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="updates on frontend">
+      <option name="closed" value="true" />
+      <created>1734214166488</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1734214166488</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,6 +222,7 @@
     <MESSAGE value="basic user API and damla AWS connection" />
     <MESSAGE value="application.properties" />
     <MESSAGE value="updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="updates" />
+    <MESSAGE value="updates on frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="updates on frontend" />
   </component>
 </project>
