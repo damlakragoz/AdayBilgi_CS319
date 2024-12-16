@@ -6,11 +6,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BTOMemberRegister {
+public class TourGuideRegister {
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private String assignedDay;
+    String department;
+    int grade;
+    String iban;
+
 }
