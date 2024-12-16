@@ -22,17 +22,19 @@ public class UserController {
     private final TourGuideService tourGuideService;
     private final HighSchoolService highschoolService;
     private final AdvisorService advisorService;
+    private final ExecutiveService executiveService;
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
                           CoordinatorService coordinatorService, TourGuideService tourGuideService,
-                          HighSchoolService highschoolService, AdvisorService advisorService) {
+                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
         this.highschoolService = highschoolService;
         this.advisorService = advisorService;
+        this.executiveService = executiveService;
     }
 
 
@@ -91,57 +93,43 @@ public class UserController {
 
     // Counselor Methods END
 ////////////////////////////
-// BTO Member Methods START
-    @PostMapping("/BTOMember/register")
-    public ResponseEntity<?> registerBTOMember(@RequestBody BTOMemberRegister btoMemberRegister) {
-        // Username is user's Bilkent ID
-        if(btoMemberRegister.getRole().equals("TourGuide")) {
-            // check for unique username
-            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
-                return ResponseEntity.status(400).body("Username for tour guide is already taken");
-            }
-            TourGuide tourGuide = new TourGuide(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
-                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
-                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getRole());
-
-            // Save the tour guide to the database
-            return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
-
-        }
-        else if (btoMemberRegister.getRole().equals("Coordinator")) {
-            // check for unique username
-            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
-                return ResponseEntity.status(400).body("Username for coordinator is already taken");
-            }
-            Coordinator coordinator = new Coordinator(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
-                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
-                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getRole());
-
-            // Save the Coordinator to the database
-            return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
-
-        }
-        else if (btoMemberRegister.getRole().equals("Advisor")) {
-            // check for unique username
-            if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
-                return ResponseEntity.status(400).body("Username for advisor is already taken");
-            }
-            Advisor advisor = new Advisor(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
-                    btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
-                    btoMemberRegister.getPhoneNumber(), btoMemberRegister.getAssignedDay(), btoMemberRegister.getRole());
-
-            // Save the Coordinator to the database
-            return new ResponseEntity<>(advisorService.saveAdvisor(advisor), HttpStatus.CREATED);
-
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid role specified. Accepted roles are: TourGuide, Coordinator, Advisor");
-        }
-
-    }
-    // BTO Member Methods END
-////////////////////////////
 // Coordinator Methods START
+    @PostMapping("/coordinator/register")
+    public ResponseEntity<?> registerCoordinator(@RequestBody BTOMemberRegister btoMemberRegister) {
+        if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
+            return ResponseEntity.status(400).body("Username for coordinator is already taken");
+        }
+
+        Coordinator coordinator = new Coordinator(
+                btoMemberRegister.getEmail(),
+                btoMemberRegister.getPassword(),
+                btoMemberRegister.getFirstName(),
+                btoMemberRegister.getLastName(),
+                btoMemberRegister.getPhoneNumber(),
+                "Coordinator"
+        );
+
+        return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+    }
+    @PostMapping("/executive/register")
+    private ResponseEntity<?> registerExecutive(BTOMemberRegister btoMemberRegister) {
+        // Check for unique username
+        if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
+            return ResponseEntity.status(400).body("Username for executive is already taken");
+        }
+
+        Executive executive = new Executive(
+                btoMemberRegister.getEmail(),
+                btoMemberRegister.getPassword(),
+                btoMemberRegister.getFirstName(),
+                btoMemberRegister.getLastName(),
+                btoMemberRegister.getPhoneNumber(),
+                "Executive"
+        );
+
+        // Save the Executive to the database
+        return new ResponseEntity<>(executiveService.saveExecutive(executive), HttpStatus.CREATED);
+    }
     @GetMapping("/coordinator/getAll")
     public ResponseEntity<?> getAllCoordinators() {
         try {
@@ -167,6 +155,25 @@ public class UserController {
     // Coordinator Methods END
 ////////////////////////
 // TourGuide Methods START
+    @PostMapping("/tourguide/register")
+    public ResponseEntity<?> registerTourGuide(@RequestBody TourGuideRegister tourGuideRegister) {
+        if (userService.getUserByUsername(tourGuideRegister.getEmail()) != null) {
+            return ResponseEntity.status(400).body("Username for tour guide is already taken");
+        }
+
+        TourGuide tourGuide = new TourGuide(
+                tourGuideRegister.getEmail(),
+                tourGuideRegister.getPassword(),
+                tourGuideRegister.getFirstName(),
+                tourGuideRegister.getLastName(),
+                tourGuideRegister.getPhoneNumber(),
+                tourGuideRegister.getDepartment(),
+                tourGuideRegister.getGrade(),
+                tourGuideRegister.getIban()
+        );
+
+        return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
+    }
     @GetMapping("/tourguide/getAll")
     public ResponseEntity<?> getAllTourGuides() {
         try {
@@ -193,8 +200,28 @@ public class UserController {
 
 // TourGuide Methods END
 ////////////////
+// Advisor Methods START
 
-    // Advisor Methods START
+    @PostMapping("/advisor/register")
+    public ResponseEntity<?> registerAdvisor(@RequestBody AdvisorRegister advisorRegister) {
+        if (userService.getUserByUsername(advisorRegister.getEmail()) != null) {
+            return ResponseEntity.status(400).body("Username for advisor is already taken");
+        }
+
+        Advisor advisor = new Advisor(
+                advisorRegister.getEmail(),
+                advisorRegister.getPassword(),
+                advisorRegister.getFirstName(),
+                advisorRegister.getLastName(),
+                advisorRegister.getPhoneNumber(),
+                advisorRegister.getDepartment(),
+                advisorRegister.getGrade(),
+                advisorRegister.getIban(),
+                advisorRegister.getAssignedDay()
+        );
+
+        return new ResponseEntity<>(advisorService.saveAdvisor(advisor), HttpStatus.CREATED);
+    }
     @GetMapping("/advisor/getAll")
     public ResponseEntity<?> getAllAdvisors() {
         try {
@@ -218,6 +245,4 @@ public class UserController {
 
 // Advisor Methods END
 ////////////////
-
-
 }

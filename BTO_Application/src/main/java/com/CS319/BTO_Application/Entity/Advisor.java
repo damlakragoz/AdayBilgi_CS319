@@ -28,4 +28,18 @@ public class Advisor extends TourGuide{
         this.setAssignedDay(assignedDay);
         this.setRole(role);
     }
+
+    public Advisor(String email, String password, String firstName, String lastName, String phoneNumber,
+                   String department, int grade, String iban, String assignedDay) {
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setPhoneNumber(phoneNumber);
+        this.setDepartment(department);
+        this.setGrade(grade);
+        this.setIban(iban);
+        this.setAssignedDay(assignedDay);
+        this.setRole("Advisor");
+    }
 }

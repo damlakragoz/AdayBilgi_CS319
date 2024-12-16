@@ -65,4 +65,17 @@ public class TourGuide extends BTOMember {
         this.setRole(role);
     }
 
+    public TourGuide(String email, String password, String firstName, String lastName,
+                     String phoneNumber, String department, Integer grade, String iban) {
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setPhoneNumber(phoneNumber);
+        this.setDepartment(department);
+        this.setGrade(grade);
+        this.setIban(iban);
+        this.setRole("TourGuide");
+    }
+
 }
