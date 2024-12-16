@@ -22,16 +22,18 @@ public class TourApplicationController {
     private final CounselorService counselorService;
     private final HighSchoolService highSchoolService;
     private final TourApplicationService tourApplicationService;
+    private final TourService tourService;
     //there will be logic for individual tourapplciation also
 
     @Autowired
     public TourApplicationController(SchoolTourApplicationService schoolTourApplicationService, IndividualTourApplicationService individualTourApplicationService,
-                                     CounselorService counselorService, HighSchoolService highSchoolService, TourApplicationService tourApplicationService) {
+                                     CounselorService counselorService, HighSchoolService highSchoolService, TourApplicationService tourApplicationService, TourService tourService) {
         this.schoolTourApplicationService = schoolTourApplicationService;
         this.individualTourApplicationService = individualTourApplicationService;
         this.counselorService = counselorService;
         this.highSchoolService = highSchoolService;
         this.tourApplicationService = tourApplicationService;
+        this.tourService = tourService;
     }
 
 
@@ -70,7 +72,7 @@ public class TourApplicationController {
         return new ResponseEntity<>(schoolTourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselorUsername()), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("delete/school-application")
+    @DeleteMapping("/delete/school-application")
     public ResponseEntity<SchoolTourApplication> deleteSchoolApplication(@RequestParam Long tourApplicationId) {
         schoolTourApplicationService.deleteSchoolTourApplicationById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -110,6 +112,22 @@ public class TourApplicationController {
         }
         individualTourApplicationService.deleteIndividualTourApplicationById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/counselor/cancel")
+    public ResponseEntity<SchoolTourApplication> cancelSchoolTourApplication(@RequestParam String counselorEmail,@RequestParam Long tourApplicationId) {
+        SchoolTourApplication schoolTourApplication = schoolTourApplicationService.getSchoolTourApplicationById(tourApplicationId);
+        if(counselorService.getCounselorByUsername(counselorEmail) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }// not found when searched by email
+        Counselor counselor = counselorService.getCounselorByUsername(counselorEmail);
+        if(schoolTourApplication.getApplyingCounselor().equals(counselor)){
+            tourService.cancelTourByCounselor(tourApplicationId);
+            return new ResponseEntity<>(schoolTourApplicationService.cancelSchoolTourApplication(counselorEmail, tourApplicationId), HttpStatus.ACCEPTED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     ////////////////////////////

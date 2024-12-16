@@ -4,70 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="application.properties">
-      <change afterPath="$PROJECT_DIR$/../.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/0321a6ee4f1972903cf45041bf11fc513e5b7d947c08c060da7adcc42a252ac0.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/1043cfecd4d875190f7dcf5dd1268dded9092f8d1d35ae0c408c2b9f9b563e17.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/1121bb4bde3d94630eed913a5759bdb03e1deac6703dcfefe67c238c50e8069d.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/11d69a7edd788e2bac482f3bda86526e54d0b5582d9f5f504e0466420d7751df.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/248b4815c1c0ca55df7858d3a46202699c22583cd38dd4f7c84e3a235732955c.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/27b0593cbf7580972be814df989b6d390126b5930e76676c7a06078f0a5d0bf3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/2a2766647b5d41b8cf619028a14e704e423c5efeae58b0a707d2a58a2b2a9b2a.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/386249d55c87109675d3e6d2a4b6cc474683fe41063ad1d961966ca7351a63bb.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/4dfa4a626c53606f0db35c6b4c929de26e26791c36742d14edb7d0220d321441.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/5269076c9e4af144928e4a294a279c38740e641639ca166079efced222f95f52.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/545daf4e5aa44a34acd1e0007eaa8c880f38962065d4161cec75987e92c73085.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/601b972d81374209a65c2e08616a1ce947268aab0fe54ca9793645d56cea761f.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/61a2d2bae8af944236cdcc528bf6eecff218148ba4eba420f7162fa943eb6327.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/6a4ae0a3e8c1b43e9eb302a2d2a583882d096d6febd16e8c986ea4ec4bec193b.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/6bfd4f42f02fee177e8ac06b9a31115827dd2d692b9d10a059deb9c8ea3badca.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/6d5687aca7bf3c7e7e1aed4748d8dcb2164d88398a4a126a95908b9d8ae4c642.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/7256c0e014281b9873d3fb7097aab33eb4c1ce1fd5d1fbac3d667f52ebb8997b.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/8be3c8e94e4d688058a2f2836d25c63e0c04173cccc74dc72e3a96fa50f6b070.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/8f674413007b540de834704418d99194a195a3f06f5bbf93d42bde7974daee7d.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/943688d8314cf44daa9c689b9320d0e0ef27d7f4ee2cee689a3de68a414f4d90.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/a1e83eca24530c3ba22543199c11e8dd4ea587a44dcf929d2421ebb586489777.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/ab503e4c5e1d948fd0a37dfdc6a319fcdde42be8c35438e1c694baf8e9c06118.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/b38c11e693186b3e3a88df3970cded468ae1bde863511567ff4ef30ebf81b65e.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/c2987b2c48acf7bccfadfaa4d6d49e3643f102d12b9b1ff985b03051c87282a8.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/c2b7f9578191fc40058d1450f0ebf50fd851ac5ae310f5ae801c7eac90525c6f.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/f580348efd9eb64e5883d998a1b90e5eeffd7a31761195e046b0b2fb0c939bc1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/default-development/15.pack" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/build/cjs/index.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/build/cjs/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/build/cjs/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/build/esm/index.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/build/esm/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/jwt-decode/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/advisorpages/AdvisorHomepage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/advisorpages/AdvisorHomepage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/advisorpages/AdvisorNavbar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/advisorpages/AdvisorNavbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/common/Payments.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/319_Frontend/src/common/Payments.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/DTO/UpdateWorkHoursRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/AdayBilgi_CS319_3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/AdayBilgi_CS319_3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15_11_2024__20_28__Changes_.xml" beforeDir="false" />
+    <list default="true" id="e0837cfd-e1b8-4b00-966d-1a568c8582c4" name="Changes" comment="TourGuidePuantage page finished mostly but there are some issues related to the date and activity type. Backend should be revised.">
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/1919eef972f82f3ec858186883914e1b108fac16e23d47e5bb57667cc54b11ae.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/28e32a9431682a909a6fa3420f869794482321a1f153b2454491050fdd4405f7.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/2df25304d96e4aa1ad5b2214adeef0c4be75be3a6819d65cad38f31ebfc87b92.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/41c3b3259d3e93fd7f433051d1e5071d0c99f16bddebb40311c7abd414f7e5ad.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/b0a3ffa3b006a2670146c0429f6cbf82b9aca6faf993706febfa780ec1aa0c23.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/dfd90cd76eee7ed22cbae02aa0e28db6565de30f2e78ca980396ab92280b44ef.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/319_Frontend/node_modules/.cache/babel-loader/f00306f7dee216cf1a0d1f9f0d60f24c45505d1dae261551606d4e67c3bd80a5.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/common/PuantageTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/common/PuantageTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/mainpage/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/mainpage/MainPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/319_Frontend/src/tourguidepages/TourGuidePuantage.js" beforeDir="false" afterPath="$PROJECT_DIR$/319_Frontend/src/tourguidepages/TourGuidePuantage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/FeedbackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/TourGuideController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/TourGuideController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserAuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/FeedbackService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/TourGuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/java/com/CS319/BTO_Application/Service/TourGuideService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BTO_Application/src/test/java/com/CS319/BTO_Application/BtoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/BTO_Application/src/test/java/com/CS319/BTO_Application/BtoApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,39 +58,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.BtoApplication.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BtoManagementApplication.executor": "Run",
-    "git-widget-placeholder": "Implementation",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/yigit/IdeaProjects/AdayBilgi_CS319_3/BTO_Management",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.BtoApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BtoManagementApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Implementation&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yigit/IdeaProjects/AdayBilgi_CS319_3/BTO_Management&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.CS319.BTO_Application.repository" />
@@ -234,17 +181,53 @@
       <option name="project" value="LOCAL" />
       <updated>1731658638552</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="TourGuidePuantage page finished mostly but there are some issues related to the date and activity type. Backend should be revised.">
+      <created>1734209892682</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1734209892682</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Implementation" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="trial2" />
     <MESSAGE value="application.properties" />
     <MESSAGE value="basic user API and damla AWS connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="basic user API and damla AWS connection" />
+    <MESSAGE value="TourGuidePuantage page finished mostly but there are some issues related to the date and activity type. Backend should be revised." />
+    <option name="LAST_COMMIT_MESSAGE" value="TourGuidePuantage page finished mostly but there are some issues related to the date and activity type. Backend should be revised." />
   </component>
 </project>

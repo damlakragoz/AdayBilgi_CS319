@@ -1,0 +1,47 @@
+.add-tour-guide-form {
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: var(--white);
+}
+
+.add-tour-guide-form h2 {
+  text-align: center;
+}
+
+.add-tour-guide-form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.add-tour-guide-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  margin-top: 20px;
+  gap: 10px; /* Add spacing between buttons */
+}
+
+.submit-button {
+  background-color: var(--dark-blue);;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.cancel-button:hover,
+.submit-button:hover {
+  opacity: 0.9;
+}

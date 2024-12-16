@@ -7,15 +7,24 @@ import "./UserTables.css";
 const CounselorList = () => {
   const [counselors, setCounselors] = useState([]);
   const [error, setError] = useState(null);
-  const [showMinusIcons, setShowMinusIcons] = useState(false);
-
   // Function to fetch counselors
   const fetchCounselors = async () => {
     try {
-      const response = await axios.get(
+        const token = localStorage.getItem("userToken"); // Retrieve the auth token (adjust as needed)
+        if (!token) {
+          alert("Authorization token missing. Please log in.");
+          // Redirect to login page, e.g., window.location.href = '/login';
+          return;
+        }
+        console.log("Retrieved Token:", token);
+
+        const response = await axios.get(
         "http://localhost:8081/api/counselors/getAll",
         {
-          withCredentials: true, // Include credentials like cookies
+            headers: {
+                          Authorization: `Bearer ${token}`, // Add the authorization header
+                        },
+            withCredentials: true, // Include credentials like cookies
         }
       );
       console.log(response.data);
@@ -32,10 +41,6 @@ const CounselorList = () => {
     fetchCounselors();
   }, []);
 
-  // Toggle minus icons visibility
-  const toggleMinusIcons = () => {
-    setShowMinusIcons((prev) => !prev);
-  };
 
   // Remove a specific row with confirmation
   const removeRow = async (email) => {
@@ -86,15 +91,7 @@ const CounselorList = () => {
         <table className="user-table">
           <thead>
             <tr>
-              <th>First Name <FontAwesomeIcon
-                   icon={faPen}
-                   onClick={toggleMinusIcons}
-                   style={{
-                     cursor: "pointer",
-                     marginLeft: "10px",
-                     color: "grey",
-                   }}
-                 /></th>
+              <th>First Name </th>
               <th>Last Name</th>
               <th>Phone Number</th>
               <th>Role</th>
@@ -114,22 +111,7 @@ const CounselorList = () => {
                 <td>{counselor.role}</td>
                 <td>{counselor.schoolName}</td>
                 <td>{counselor.email}</td>
-                <td>
-                  {showMinusIcons && (
-                    <span className="tooltip"
-                    data-tooltip="Rehber öğretmeni sistemden sil">
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      onClick={() => removeRow(counselor.email)} // Pass the username directly here
-                      style={{
-                        cursor: "pointer",
-                        marginRight: "10px",
-                        color: "grey",
-                      }}
-                    />
-                    </span>
-                  )}
-                </td>
+
               </tr>
             ))}
           </tbody>

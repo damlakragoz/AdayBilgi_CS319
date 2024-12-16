@@ -1,7 +1,7 @@
 
 package com.CS319.BTO_Application.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +18,7 @@ import java.util.Date;
 public class Tour extends TourEvent{
 
     @Column(name = "chosen_date", nullable = false)
-    private LocalDateTime chosenDate;
+    private LocalDate chosenDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "chosen_time_slot", nullable = false)
@@ -46,8 +46,10 @@ public class Tour extends TourEvent{
     @Column(name = "tour_status", nullable = true)
     private String tourStatus;
 
+    @Column(name = "duration", nullable = true)
+    private Double duration; // Duration in hours
 
-    public Tour(Integer visitorCount, TimeSlot timeSlot, LocalDateTime chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
+    public Tour(Integer visitorCount, TimeSlot timeSlot, LocalDate chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
         this.setVisitorCount(visitorCount);
         this.setChosenTimeSlot(timeSlot);
         this.setChosenDate(chosenDate);
@@ -56,9 +58,13 @@ public class Tour extends TourEvent{
         this.setTourApplication(tourApplication);
     }
 
-    public TourApplication getTourApplication() {
-        return tourApplication;
+    public String getAssignedGuideEmail() {
+        if (assignedGuide == null) {
+            return null; // Or return an empty string "" depending on your requirements
+        }
+        return assignedGuide.getEmail();
     }
+
 }
     /*
     TODO:

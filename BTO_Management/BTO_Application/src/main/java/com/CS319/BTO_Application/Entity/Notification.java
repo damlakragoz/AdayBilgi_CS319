@@ -24,29 +24,29 @@ public class Notification {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "notification_type", nullable = true, length = 50)
-    private String notificationType; // Type of notification (e.g., "Email", "Payment", "Schedule")
+    @Column(name = "title", nullable = true, length = 100)
+    private String title; // Title of the notification
 
-    @Column(name = "message", nullable = true, columnDefinition = "TEXT")
-    private String message;          // The message of the notification
+    @Column(name = "text", nullable = true, columnDefinition = "TEXT")
+    private String text; // Detailed text of the notification
 
-    @Column(name = "receiver_id", nullable = true)
-    private Long receiverID;       // The ID of the user receiving the notification
+    @Column(name = "receiver_name", nullable = true)
+    private String receiverName; // Name of the user receiving the notification
 
     @Column(name = "is_read", nullable = true)
-    private Boolean isRead;          // Status of the notification (read or unread)
+    private Boolean isRead; // Status of the notification (read or unread)
 
     @Column(name = "is_flagged", nullable = true)
-    private Boolean isFlagged;          // Status of the notification (flagged or unflagged)
+    private Boolean isFlagged; // Status of the notification (flagged or unflagged)
 
     @Column(name = "timestamp", nullable = true)
     private LocalDateTime timestamp; // When the notification was created
 
     // Constructor
-    public Notification(String notificationType, String message, Long receiverID, Boolean isRead, Boolean isFlagged , LocalDateTime timestamp) {
-        this.notificationType = notificationType;
-        this.message = message;
-        this.receiverID = receiverID;
+    public Notification(String title, String text, String receiverName, Boolean isRead, Boolean isFlagged, LocalDateTime timestamp) {
+        this.title = title;
+        this.text = text;
+        this.receiverName = receiverName;
         this.isRead = isRead;
         this.isFlagged = isFlagged;
         this.timestamp = timestamp;
@@ -57,9 +57,9 @@ public class Notification {
     public String toString() {
         return "Notification{" +
                 "id=" + id +
-                ", notificationType='" + notificationType + '\'' +
-                ", message='" + message + '\'' +
-                ", receiverID=" + receiverID +
+                ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", receiverName='" + receiverName + '\'' +
                 ", isRead=" + isRead +
                 ", isFlagged=" + isFlagged +
                 ", timestamp=" + timestamp +

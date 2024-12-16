@@ -11,12 +11,12 @@ import java.util.List;
 /*
     The States are:
     +Pending
-    +Approved
+    +Approved *
     +Rejected
-    +GuideAssigned
-    +WithdrawRequested
-    +AdvisorAssigned
-    +Withdrawn
+    +GuideAssigned -
+    +WithdrawRequested *
+    +AdvisorAssigned -
+    +Withdrawn *
 
     note: After the tour is accepted by coordinator the "application_status"
      will be changed to "Approved" and will not change after that.
@@ -85,7 +85,13 @@ public class TourService {
         schoolTourRepos.save(tour);
     }
 
+    private void setStatusFinished(Tour tour) {
+        tour.setTourStatus("Finished");
+        schoolTourRepos.save(tour);
+    }
+
     public Tour getTourById(Long tourId) {
+        System.out.println("in method");
         return schoolTourRepos.findById(tourId)
                 .orElseThrow(() -> new EntityNotFoundException("Tour not found with id: " + tourId));
     }
@@ -126,10 +132,27 @@ public class TourService {
     }
 
     public List<Tour> getAllTours() {
+        System.out.println("GETALLTOURS IS CALLED");
         return schoolTourRepos.findAll();
     }
 
+    public void cancelTourByCounselor(Long tourApplicationId) {
+        Tour tour = schoolTourRepos.findByTourApplicationId(tourApplicationId);
+        setStatusRejected(tour);
+        schoolTourRepos.save(tour);
+    }
 
+    public Tour submitTourActivity(Tour tour, double durationTime) {
+        tour.setDuration(durationTime);
+        setStatusFinished(tour);
+        return tour;
+    }
 
+    public List<Tour> getToursByMonthAndYear(int month, int year) {
+        return schoolTourRepos.findToursByMonthAndYear(month, year);
+    }
 
+    public List<Tour> getFinishedToursByMonthAndYear(int month, int year) {
+        return schoolTourRepos.findFinishedToursByMonthAndYear(month, year);
+    }
 }

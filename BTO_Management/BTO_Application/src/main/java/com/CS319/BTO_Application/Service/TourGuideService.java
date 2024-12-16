@@ -1,7 +1,8 @@
 package com.CS319.BTO_Application.Service;
 
-import com.CS319.BTO_Application.Entity.TourGuide;
+import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Repos.TourGuideRepos;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +13,6 @@ import java.util.List;
 
 @Service
 public class TourGuideService {
-
     private final TourGuideRepos tourGuideRepos;
     private final PasswordEncoder passwordEncoder;
 
@@ -22,7 +22,6 @@ public class TourGuideService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Get tour guide by email
     public TourGuide getTourGuideByEmail(String email) {
         if (!tourGuideRepos.existsByEmail(email)) {
             System.out.println("TourGuide Not Found with username " + email);
@@ -31,18 +30,21 @@ public class TourGuideService {
         return tourGuideRepos.findByEmail(email);
     }
 
-    // Get all tour guides
     public List<TourGuide> getAllTourGuides() {
         return tourGuideRepos.findAllTourGuides();
     }
 
-    // Save tour guide (with password encoding)
+    public List<Tour> getAssignedTours(String email) {
+        return tourGuideRepos.findByEmail(email).getEnrolledTours();
+    }
+
     public TourGuide saveTourGuide(TourGuide tourGuide) {
-        tourGuide.setPassword(passwordEncoder.encode(tourGuide.getPassword())); // Encrypt password before saving
+        tourGuide.setPassword(passwordEncoder.encode(tourGuide.getPassword())); //setPassword is new for this one
         return tourGuideRepos.save(tourGuide);
     }
 
-    // Delete tour guide by username
+
+
     @Transactional
     public void deleteTourGuideByUsername(String email) {
         TourGuide tourGuide = tourGuideRepos.findByEmail(email);
@@ -52,20 +54,8 @@ public class TourGuideService {
         tourGuideRepos.delete(tourGuide);
     }
 
-    // Update work hours for a tour guide
-    @Transactional
-    public TourGuide updateWorkHours(String email, float hoursWorked) {
-        // Find the tour guide by email
-        TourGuide tourGuide = tourGuideRepos.findByEmail(email);
-        if (tourGuide == null) {
-            throw new UsernameNotFoundException("Tour Guide not found: " + email);
-        }
-
-        // Update the work hours by adding the new hours
-        float updatedWorkHours = tourGuide.getWorkHours() + hoursWorked;
-        tourGuide.setWorkHours(updatedWorkHours);
-
-        // Save the updated tour guide
-        return tourGuideRepos.save(tourGuide);
+    public TourGuide getTourGuideById(Long tourGuideId) {
+        return tourGuideRepos.findById(tourGuideId)
+                .orElseThrow(() -> new EntityNotFoundException("Tour Guide not found with ID: " + tourGuideId));
     }
 }

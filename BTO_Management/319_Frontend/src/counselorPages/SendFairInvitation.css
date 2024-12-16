@@ -1,0 +1,134 @@
+/* Main Container */
+.send-fair-invitation-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.send-fair-invitation-header {
+    font-size: 24px;
+    color: var(--dark-blue);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.invitation-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.calendar-section,
+.time-selection-section {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+}
+
+.react-calendar {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__tile {
+    background: var(--white);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.react-calendar__tile--now {
+    background-color: var(--orange);
+    color: var(--white);
+}
+
+.react-calendar__tile--active {
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.time-selection-dropdown {
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid var(--dark-blue);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.select-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--dark-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.select-button:hover {
+    background-color: var(--orange);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+}
+
+/* Modal Content */
+.modal-content {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-confirm-button {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-confirm-button:hover {
+    background-color: var(--orange);
+}
+
+.modal-cancel-button {
+    background-color: var(--gray);
+    color: var(--dark-gray);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+}
+
+.modal-cancel-button:hover {
+    background-color: var(--dark-gray);
+    color: var(--white);
+}

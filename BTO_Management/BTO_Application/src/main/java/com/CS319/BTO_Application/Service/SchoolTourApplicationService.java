@@ -3,10 +3,15 @@ package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.SchoolTourApplication;
+import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.SchoolTourApplicationRepos;
+import com.CS319.BTO_Application.Repos.TourApplicationRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,11 +22,15 @@ import java.util.List;
 public class SchoolTourApplicationService {
     private final SchoolTourApplicationRepos schoolTourApplicationRepos;
     private final UserRepos userRepos;
+    private final CounselorRepos counselorRepos;
+    private final TourApplicationRepos tourApplicationRepos;
 
     @Autowired
-    public SchoolTourApplicationService(SchoolTourApplicationRepos schoolTourApplicationRepos, UserRepos userRepos) {
+    public SchoolTourApplicationService(SchoolTourApplicationRepos schoolTourApplicationRepos, UserRepos userRepos, CounselorRepos counselorRepos, @Qualifier("tourApplicationRepos") TourApplicationRepos tourApplicationRepos) {
         this.schoolTourApplicationRepos = schoolTourApplicationRepos;
         this.userRepos = userRepos;
+        this.counselorRepos = counselorRepos;
+        this.tourApplicationRepos = tourApplicationRepos;
     }
 
     /*
@@ -39,7 +48,7 @@ public class SchoolTourApplicationService {
         LocalDateTime now = LocalDateTime.now();
 
         // İşlem penceresini 2 dakika sonrası olarak ayarla
-        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(2);
+        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
 
         /*
 
@@ -78,6 +87,19 @@ public class SchoolTourApplicationService {
         else{
             System.out.println("School Tour Application Not Found");
         }
+    }
+
+    public SchoolTourApplication cancelSchoolTourApplication(String counselorEmail, Long schoolTourApplicationId) {
+        if(!counselorRepos.existsByEmail(counselorEmail)){
+            throw new EntityNotFoundException("Counselor not found with email: " + counselorEmail);
+        }
+        if(!schoolTourApplicationRepos.existsById(schoolTourApplicationId)) {
+            System.out.println("School Tour Application Not Found");
+        }
+        SchoolTourApplication tourApplication = getSchoolTourApplicationById(schoolTourApplicationId);
+        tourApplication.setApplicationStatus("Cancelled");
+        schoolTourApplicationRepos.save(tourApplication);
+        return tourApplication;
     }
 
 

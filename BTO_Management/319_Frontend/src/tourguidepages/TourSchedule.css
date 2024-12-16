@@ -1,0 +1,205 @@
+.tour-schedule-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--background-light);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Calendar Container Styling */
+.calendar-container {
+  flex: 1;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure it takes up full width */
+  max-width: 100%; /* Avoid any width restrictions */
+}
+
+.react-calendar {
+  width: 100%;
+  border: none;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.react-calendar__navigation button {
+  background: none;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.react-calendar__tile {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0; /* Adjust padding for vertical alignment */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.react-calendar__month-view__days__day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-calendar {
+  margin: 0;
+  padding: 0;
+}
+
+.react-calendar__navigation button:hover {
+  transform: scale(1.1);
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+  color: var(--dark-gray);
+}
+
+.react-calendar__month-view__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);  /* Ensures 7 columns */
+  gap: 0px;
+  width: 100%; /* Ensure the grid takes full width */
+  max-width: 100%; /* Avoid any width restrictions */
+  padding: 0;
+}
+
+.react-calendar__tile {
+  background: var(--white);
+  border-radius: 5px;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  box-sizing: border-box; /* Ensures padding doesn't affect the tile width */
+}
+
+.react-calendar__tile--now {
+  background-color: var(--orange);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.react-calendar__tile--active {
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.react-calendar__tile:hover {
+  background-color: var(--gray);
+  color: var(--dark-blue);
+}
+
+/* Tour List Container */
+.tour-list-container {
+  flex: 1;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tour-list-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--charcoal);
+  margin-bottom: 15px;
+}
+
+.tour-list-placeholder {
+  color: var(--dark-gray);
+  font-size: 16px;
+  text-align: center;
+}
+
+.time-slot ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.time-slot li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.time-slot li strong {
+  color: #333;
+}
+
+.time-slot ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.time-slot li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Light gray background */
+}
+
+.time-slot li:hover {
+  background-color: #e0e0e0; /* Slightly darker gray on hover */
+}
+
+.time-slot p {
+  color: gray;
+  font-style: italic;
+}
+
+/* Green for critical statuses */
+.react-calendar__tile.highlight-green {
+  background-color: #d4edda; /* Light green */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Grey for all assigned */
+.react-calendar__tile.highlight-grey {
+  background-color: #e9ecef; /* Light grey */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Yellow for all assigned */
+.react-calendar__tile.highlight-yellow {
+  background-color: #fff3cd; /* Light yellow */
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Hover effect */
+.react-calendar__tile.highlight-green:hover,
+.react-calendar__tile.highlight-grey:hover {
+  background-color: #c3e6cb; /* Darker green for hover */
+}
+
+

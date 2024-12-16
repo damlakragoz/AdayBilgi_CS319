@@ -1,5 +1,6 @@
 
 package com.CS319.BTO_Application.Entity;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public abstract class TourApplication extends TourEvent{
     private LocalDateTime transitionTime;
 
     @Column(name = "selected_date", nullable = true)
-    private LocalDateTime selectedDate;
+    private LocalDate selectedDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "selected_time_slot", nullable = true)

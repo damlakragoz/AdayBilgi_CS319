@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
 @Embeddable
 public class RequestedDateTime {
     @Column(name = "requested_date", nullable = false)
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "requested_time_slot", nullable = false)

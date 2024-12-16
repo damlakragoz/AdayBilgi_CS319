@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './FairInvitations.css'; // Import the updated CSS file
 
-
 const FairInvitations = () => {
   const data = [
     { bto: '/', katilim: 'Onay bekliyor', lise: 'Atatürk Fen Lisesi', sehir: 'İzmir', tarih: '13.10.2025', saat: '9.00-17.00' },
@@ -39,10 +38,10 @@ const FairInvitations = () => {
   };
 
   return (
-    <div className="outer-container">
-      <h1 className="title">Fuar Davetleri</h1>
-      <div className="table-container">
-        <table className="table">
+    <div className="fair-tour-lists-outer-container">
+      <h1 className="fair-tour-lists-title">Fuar Davetleri</h1>
+      <div className="fair-tour-lists-table-container">
+        <table className="fair-tour-lists-table">
           <thead>
             <tr>
               <th>BTO'ya bildirildi</th>
@@ -67,19 +66,19 @@ const FairInvitations = () => {
           </tbody>
         </table>
       </div>
-      <div className="footer">
-        <div className="pagination-info">
+      <div className="fair-tour-lists-footer">
+        <div className="fair-tour-lists-pagination-info">
           {`Page ${currentPage} of ${totalPages}`}
         </div>
-        <div className="arrow-navigation">
+        <div className="fair-tour-lists-arrow-navigation">
           <span
-            className={`arrow ${currentPage === 1 ? 'disabled' : ''}`}
+            className={`fair-tour-lists-arrow ${currentPage === 1 ? 'disabled' : ''}`}
             onClick={handlePreviousPage}
           >
             {'<'}
           </span>
           <span
-            className={`arrow ${currentPage === totalPages ? 'disabled' : ''}`}
+            className={`fair-tour-lists-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
             onClick={handleNextPage}
           >
             {'>'}

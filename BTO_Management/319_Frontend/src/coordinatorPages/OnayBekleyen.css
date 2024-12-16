@@ -1,0 +1,116 @@
+:root {
+    /* Primary Colors */
+    --light-blue: #d4ebf8; /* Light Blue */
+    --dark-blue: #0a3981; /* Dark Blue */
+    --orange: #e38e49; /* Orange */
+
+    /* Accent Colors */
+    --dark-gray: #5a5a5a; /* Dark Gray */
+    --charcoal: #2b2b2b; /* Charcoal */
+    --white: #ffffff; /* White */
+    --black: #000000; /* Black */
+    --gray: #d9d9d9; /* Neutral Gray */
+
+    /* Background Colors */
+    --background-light: #f7fafc; /* Light Background */
+    --background-dark: #1a1a1a; /* Dark Background */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-light);
+    color: var(--charcoal);
+    margin: 0;
+    padding: 0;
+}
+
+.onay-bekleyen-container {
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.onay-bekleyen-header {
+    color: var(--dark-blue);  /* Title color */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.onay-bekleyen-activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.onay-bekleyen-activity-table th,
+.onay-bekleyen-activity-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--gray);  /* Light border for separation */
+}
+
+.onay-bekleyen-activity-table th {
+    background-color: var(--light-blue); /* Soft background for header */
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+.onay-bekleyen-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.onay-bekleyen-button {
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.onay-bekleyen-approve-btn {
+    background-color: #28a745; /* Use a more vibrant green */
+    color: var(--white);
+    border-radius: 30px;
+}
+
+.onay-bekleyen-reject-btn {
+    background-color: var(--my-red); /* Use a more vibrant red */
+    color: var(--white);
+    border-radius: 30px;
+}
+
+.onay-bekleyen-approve-btn:hover {
+    background-color: #218838; /* Darker green for hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.onay-bekleyen-reject-btn:hover {
+    background-color: #c82333; /* Darker red for hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.onay-bekleyen-button:focus {
+    outline: none;
+}
+
+.onay-bekleyen-button:active {
+    transform: scale(0.98); /* Slight button scale on click */
+}
+
+.onay-bekleyen-approve-btn:active {
+    background-color: #1e7e34; /* Even darker green on click */
+}
+
+.onay-bekleyen-reject-btn:active {
+    background-color: #bd2130; /* Even darker red on click */
+}

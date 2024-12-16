@@ -1,0 +1,139 @@
+/* General Container */
+.bto-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.bto-container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--dark-blue);
+  margin-bottom: 20px;
+}
+
+/* Page Navigation */
+.page-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.page-navigation button {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  background-color: var(--gray);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.page-navigation button:hover {
+  background-color:var(--dark-blue);
+}
+
+.page-navigation button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Sections */
+.bto-container h2 {
+  font-size: 2rem;
+  color: var(--dark-blue);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Specific Section Containers */
+.bto-container div {
+  margin-bottom: 30px;
+}
+
+/* Conditional Lists */
+.TourGuideList,
+.CounselorList {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.TourGuideList ul, .CounselorList ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.TourGuideList li, .CounselorList li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.TourGuideList li:last-child, .CounselorList li:last-child {
+  border-bottom: none;
+}
+
+/* New Accounts Section */
+.new-accounts {
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.new-accounts h3 {
+  font-size: 1.6rem;
+  color: var(--dark-blue);
+  margin-bottom: 10px;
+}
+
+.new-accounts p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Pagination Controls (if necessary) */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #303f9f;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-content {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.page-content-exit {
+  opacity: 0;
+}

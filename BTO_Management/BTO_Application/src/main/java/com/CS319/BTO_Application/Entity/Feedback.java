@@ -8,7 +8,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "Feedback", schema = "bto_database")
+@Table(name = "Feedback", schema = "bto_database",
+        uniqueConstraints = @UniqueConstraint(columnNames = "tour_id"))
 public class Feedback {
 
     @Id
@@ -16,8 +17,8 @@ public class Feedback {
     @Column(name = "feedback_id", unique = true, nullable = false)
     private Long feedbackId;
 
-    @ManyToOne
-    @JoinColumn(name = "tour_id", referencedColumnName = "id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "tour_id", referencedColumnName = "id", nullable = false, unique = true)
     private Tour tour; // Associated Tour
 
     @Column(name = "rating", nullable = false)
@@ -29,7 +30,7 @@ public class Feedback {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "counselor_id", referencedColumnName = "id")
-    private Counselor counselor;
+    private Counselor counselor; // Counselor who provided the feedback
 
     public Feedback() {}
 
@@ -40,4 +41,3 @@ public class Feedback {
         this.counselor = counselor;
     }
 }
-

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import '../authorization/LoginPage.css';
- // Import your protected page
+// Import your protected page
 
 const LoginPage = () => {
     const [loginData, setLoginData] = useState({
@@ -13,7 +13,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-       // localStorage.removeItem('userToken');
+        // localStorage.removeItem('userToken');
         //sessionStorage.removeItem('userToken');
 
         //console.log("use effect called");
@@ -66,17 +66,20 @@ const LoginPage = () => {
                 console.log('Username stored in localStorage:', loginData.username);
                 console.log('Role:', role);
 
-                 // Navigate based on the user's role
+                // Navigate based on the user's role
                 switch (role) {
                     case 'Coordinator':
                         navigate('/coordinator-homepage');
                         console.log('COORDINATOR to applications page');
                         break;
                     case 'Counselor':
-                        //navigate('/counselor-dashboard');
+                        navigate('/counselor-homepage');
                         break;
                     case 'TourGuide':
                         navigate('/tur-rehberi-anasayfa');
+                        break;
+                    case 'Executive':
+                        navigate('/executive-homepage');
                         break;
                     default:
                         navigate('/applications'); // Fallback if the role is unknown
