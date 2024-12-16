@@ -29,15 +29,17 @@ public class TourController {
     private final SchoolTourApplicationService schoolTourApplicationService;
     private final AdvisorService advisorService;
     private final CounselorService counselorService;
+    private final PaymentController paymentController;
 
     @Autowired
-    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService, AdvisorService advisorService, CounselorService counselorService){
+    public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService, TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService, AdvisorService advisorService, CounselorService counselorService, PaymentController paymentController){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
         this.schoolTourApplicationService = schoolTourApplicationService;
         this.advisorService = advisorService;
         this.counselorService = counselorService;
+        this.paymentController = paymentController;
     }
 
 
@@ -222,6 +224,7 @@ public class TourController {
             }
 
             Tour updatedTour = tourService.submitTourActivity(tour, duration);
+            paymentController.createPayment(tourGuideEmail, tourId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedTour);
