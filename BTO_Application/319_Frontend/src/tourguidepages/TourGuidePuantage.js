@@ -115,6 +115,14 @@ const TourGuidePuantage = () => {
     }
   };
 
+  // Check if the date and hour of the selected tour have passed
+  const isDateTimePassed = (tour) => {
+    const currentDate = new Date();
+    const tourDate = new Date(tour.chosenDate);
+
+    return currentDate > tourDate; // True if the current date and time are after the chosen date
+  };
+
   return (
     <div className="puantage-container">
       <div className="calendar-container">
@@ -177,11 +185,28 @@ const TourGuidePuantage = () => {
               step="0.5"
             />
           </label>
-          <button onClick={handleSubmitDuration}>
-            {selectedTour.tourStatus === "Finished"
-              ? "Update Duration"
-              : "Submit Duration"}
+          <button
+            onClick={handleSubmitDuration}
+            disabled={!isDateTimePassed(selectedTour)} // Disable button conditionally
+            style={{
+              backgroundColor: !isDateTimePassed(selectedTour) ? "#d3d3d3" : "#28a745", // Gray when disabled, Green when enabled
+              color: "#fff",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              cursor: !isDateTimePassed(selectedTour) ? "not-allowed" : "pointer", // Change cursor to 'not-allowed' when disabled
+              opacity: !isDateTimePassed(selectedTour) ? 0.6 : 1, // Slight transparency for disabled look
+              transition: "background-color 0.3s, opacity 0.3s",
+            }}
+          >
+            {selectedTour.tourStatus === "Finished" ? "Update Duration" : "Submit Duration"}
           </button>
+
+          {!isDateTimePassed(selectedTour) && (
+            <p style={{ color: "red", marginTop: "10px" }}>
+              You can only submit work hours after the scheduled time.
+            </p>
+          )}
         </div>
       )}
 
