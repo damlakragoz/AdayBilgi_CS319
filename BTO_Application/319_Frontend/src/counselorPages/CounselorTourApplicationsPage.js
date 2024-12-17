@@ -48,7 +48,7 @@ const CounselorTourApplicationsPage = () => {
                     },
                     withCredentials: true,
                 });
-                const counselorEmail = localStorage.getItem("username");
+                const counselorEmail = localStorage.getItem("username").toLowerCase();
                 const filteredApplications = response.data.filter(
                     (application) => application.applyingCounselorEmail === counselorEmail
                 );
