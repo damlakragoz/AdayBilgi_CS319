@@ -52,6 +52,21 @@ public class UserController {
                     .body("An error occurred while retrieving users.");
         }
     }
+
+    @PutMapping("/user/changePassword")
+    public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, @RequestParam String username) {
+        try {
+            User user = userService.getUserByUsername(username);
+            if (!userService.checkPassword(user, currentPassword)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password is incorrect");
+            }
+            userService.updatePassword(user, newPassword);
+            return ResponseEntity.ok("Password changed successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while changing the password");
+        }
+    }
+
     // Counselor Methods
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
