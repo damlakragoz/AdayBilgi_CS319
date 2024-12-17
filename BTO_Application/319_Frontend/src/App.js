@@ -8,6 +8,8 @@ import CounselorDashboard from './dashboard/CounselorDashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
 import PuantageTable from './common/PuantageTable';
+import ChangePassword from "./passwordPages/ChangePassword";
+import ForgotPassword from './passwordPages/ForgotPassword';
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -70,6 +72,7 @@ function App() {
             <Route path="/individual-application" element={<IndividualApplicationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
             {/* Protected Routes Wrapper */}
             <Route
