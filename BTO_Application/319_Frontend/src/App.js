@@ -118,9 +118,11 @@ function App() {
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+                        <Route path="/puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
+
                     {/* Advisor Routes Wrapped in AdvisorLayout */}
                     <Route element={<AdvisorLayout />}>
                         <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
