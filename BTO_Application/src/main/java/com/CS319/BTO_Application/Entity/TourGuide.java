@@ -32,7 +32,7 @@ public class TourGuide extends BTOMember {
     @Column(name = "iban", nullable = true)
     private String iban;
 
-    @OneToMany(mappedBy = "assignedGuide", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "assignedGuide",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Tour> enrolledTours;
     /*
@@ -43,11 +43,11 @@ public class TourGuide extends BTOMember {
      -otherActivities: List<OtherActivities>
       */
 
-    @OneToMany(mappedBy = "tourGuide", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tourGuide", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Payment> paymentHistory;
 
-    @OneToMany(mappedBy = "tourGuide", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tourGuide", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<OtherActivity> otherActivities;
 
     public TourGuide(String email, String password, String role) {
