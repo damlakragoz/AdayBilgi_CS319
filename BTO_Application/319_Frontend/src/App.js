@@ -7,6 +7,7 @@ import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
+import PuantageTable from './common/PuantageTable';
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -44,6 +45,13 @@ import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
 import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import TourSchedule from './tourguidepages/TourSchedule';
 import TourGuideNotifications from './notification/NewNotifications';
+
+// Advisor Page Imports
+import AdvisorLayout from './advisorpages/AdvisorLayout';
+import AdvisorHomepage from './advisorpages/AdvisorHomepage';
+import AdvisorEnrollmentPage from './advisorpages/AdvisorEnrollmentPage';
+import AdvisorTourSchedule from './advisorpages/AdvisorSchedule';
+
 
 import './App.css';
 
@@ -113,7 +121,12 @@ function App() {
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
-
+                    {/* Advisor Routes Wrapped in AdvisorLayout */}
+                    <Route element={<AdvisorLayout />}>
+                        <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
+                        <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
+                        <Route path="/advisor-tourenrollment" element={<AdvisorEnrollmentPage />} />
+                    </Route>
                   </Routes>
                 </ProtectedRoute>
               }

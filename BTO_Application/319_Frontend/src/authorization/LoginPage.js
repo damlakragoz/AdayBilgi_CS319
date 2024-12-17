@@ -81,6 +81,9 @@ const LoginPage = () => {
                     case 'Executive':
                         navigate('/executive-homepage');
                         break;
+                    case 'Advisor':
+                        navigate('/advisor-homepage');
+                        break;
                     default:
                         navigate('/applications'); // Fallback if the role is unknown
                         break;

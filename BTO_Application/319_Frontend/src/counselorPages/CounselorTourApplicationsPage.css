@@ -82,6 +82,19 @@
     border-left: 5px solid var(--dark-gray);
 }
 
+/* Created card styling (Yellow) */
+.created-card {
+    border-left: 5px solid #f39c12; /* Orange-yellow border */
+    background-color: #fef9e7; /* Light yellow background */
+}
+/* Finished card styling (Teal) */
+.finished-card {
+    border-left: 5px solid #2c7a7b; /* Teal border */
+    background-color: #e6fffa; /* Light teal background */
+    color: #2c7a7b; /* Text color */
+}
+
+
 .card-status {
     margin-bottom: 10px;
 }
@@ -99,6 +112,12 @@
 
 .status-badge.rejected {
     background-color: var(--dark-gray);
+}
+
+/* Finished badge */
+.status-badge.finished {
+    background-color: #319795; /* Darker teal */
+    color: white;
 }
 
 .card-details p {
@@ -135,7 +154,6 @@
 .approved-card {
     background-color: var(--my-green); /* Highlight approved cards */
     border: 2px solid var(--dark-green);
-    pointer-events: none;
     opacity: 0.9;
 }
 
