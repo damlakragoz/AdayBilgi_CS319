@@ -9,12 +9,18 @@
 
 .add-tour-guide-form h2 {
   text-align: center;
+  font-weight: bold;
 }
 
 .add-tour-guide-form label {
   display: block;
   margin-top: 10px;
   font-weight: bold;
+}
+
+.add-tour-guide-form input {
+  display: block;
+  margin-top: 10px;
 }
 
 .add-tour-guide-form input {
@@ -44,4 +50,45 @@
 .cancel-button:hover,
 .submit-button:hover {
   opacity: 0.9;
+}
+
+
+/* Style the select element to look like a text input */
+select {
+  appearance: none; /* Removes default OS-specific styling */
+  -webkit-appearance: none; /* For Safari/Chrome */
+  -moz-appearance: none; /* For Firefox */
+  background-color: #fff; /* White background */
+  border: 1px solid #ccc; /* Match input border */
+  border-radius: 4px; /* Match input border radius */
+  padding: 10px; /* Match input padding */
+  font-size: 14px; /* Match font size */
+  color: #555; /* Text color */
+  outline: none; /* Remove outline */
+  width: 100%; /* Take up full width like input boxes */
+  cursor: pointer; /* Pointer cursor */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight inner shadow */
+}
+
+/* Add a caret to mimic a dropdown */
+select::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* On hover and focus */
+select:hover,
+select:focus {
+  border-color: #888;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Disable option styling */
+select option {
+  font-size: 14px;
+  color: #333;
 }
