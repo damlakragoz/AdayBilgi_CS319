@@ -4,6 +4,7 @@ package com.CS319.BTO_Application.Controller;
 import com.CS319.BTO_Application.DTO.HighSchoolRegister;
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.HighSchool;
+import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Service.HighSchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,17 @@ public class HighSchoolController {
         } catch (Exception ex) {
             // Handle any unexpected exceptions
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllHighschools() {
+        try {
+            List<HighSchool> schoolTourApplications = highschoolService.getAll();
+            return ResponseEntity.ok(schoolTourApplications); // return the list of schoolApplications
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving all high schools");
         }
     }
 }
