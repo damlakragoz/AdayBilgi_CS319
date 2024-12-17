@@ -142,8 +142,12 @@ const NewNotifications = () => {
                                 <h2 className="notification-title">{notification.title}</h2>
                                 {/* See More Link */}
                                 {expandedNotifications.has(notification.id) && (
-                                    <p className="notification-details">{notification.text}</p>
+                                    <p
+                                        className="notification-details"
+                                        dangerouslySetInnerHTML={{ __html: notification.text }}
+                                    ></p>
                                 )}
+
                                 <button
                                     className="see-more-button"
                                     onClick={() => toggleExpand(notification.id)}
