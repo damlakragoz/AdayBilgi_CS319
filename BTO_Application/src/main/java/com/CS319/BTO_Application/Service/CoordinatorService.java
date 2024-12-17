@@ -1,7 +1,9 @@
 package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Coordinator;
+import com.CS319.BTO_Application.Entity.Payment;
 import com.CS319.BTO_Application.Repos.CoordinatorRepos;
+import com.CS319.BTO_Application.Repos.PaymentRepos;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +16,12 @@ import java.util.List;
 public class CoordinatorService {
     private final CoordinatorRepos coordinatorRepos;
     private final PasswordEncoder passwordEncoder;
+    private final PaymentRepos paymentRepos;
     @Autowired
-    public CoordinatorService(CoordinatorRepos coordinatorRepos, PasswordEncoder passwordEncoder) {
+    public CoordinatorService(CoordinatorRepos coordinatorRepos, PasswordEncoder passwordEncoder, PaymentRepos paymentRepos) {
         this.coordinatorRepos = coordinatorRepos;
         this.passwordEncoder = passwordEncoder;
+        this.paymentRepos = paymentRepos;
     }
 
     public List<Coordinator> getAllCoordinators() {
@@ -47,4 +51,20 @@ public class CoordinatorService {
         coordinatorRepos.delete(coordinator);
     }
 
+    //@Transactional
+    public Payment approvePayment(Long paymentId, String coordinatorEmail) {
+        Coordinator coordinator = coordinatorRepos.findByEmail(coordinatorEmail);
+        if (coordinator == null) {
+            throw new UsernameNotFoundException("Coordinator not found: " + coordinatorEmail);
+        }
+
+        Payment payment = paymentRepos.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found with id: " + paymentId));
+
+        payment.setApprovedBy(coordinatorEmail);
+        payment.setApprovalDate(new java.util.Date());
+            payment.setStatus("APPROVED");
+
+        return paymentRepos.save(payment);
+    }
 }

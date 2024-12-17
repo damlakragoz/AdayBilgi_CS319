@@ -55,7 +55,7 @@ public class PaymentService {
         if (existingPayment != null) {
             // Update the existing payment
             existingPayment.setAmount(tour.getDuration() * HOURLY_RATE);
-            existingPayment.setPaymentDate(new Date()); // Update payment date
+            existingPayment.setActivitySubmittionDate(new Date()); // Update payment date
             existingPayment.setStatus("UPDATED");
             return paymentRepos.save(existingPayment);
         } else {
@@ -64,7 +64,7 @@ public class PaymentService {
             Payment newPayment = new Payment();
             newPayment.setTourGuide(tourGuide);
             newPayment.setAmount(amount);
-            newPayment.setPaymentDate(new Date());
+            newPayment.setActivitySubmittionDate(new Date());
             newPayment.setStatus("PENDING");
             newPayment.setTourId(tourId);
 
