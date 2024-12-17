@@ -10,6 +10,7 @@ const statusTranslations = {
     Rejected: "Reddedildi",
     "Pre-rejected": "Reddedildi", // Map Pre-rejected to Reddedildi
     "Cancelled": "Iptal edildi",
+    Finished: "Tamamlandı", // Added Finished state
     default: "Oluşturuldu", // Handle unexpected statuses
 };
 
@@ -165,12 +166,14 @@ const CounselorTourApplicationsPage = () => {
                             application.applicationStatus === "Pending"
                                 ? "pending-card"
                                 : application.applicationStatus === "Approved"
-                                ? "approved-card"
-                                : application.applicationStatus === "Rejected" || application.applicationStatus === "Pre-rejected"
-                                ? "rejected-card"
-                                : application.applicationStatus === "Cancelled"
-                                ? "cancelled-card"
-                                : ""
+                                    ? "approved-card"
+                                    : application.applicationStatus === "Rejected" || application.applicationStatus === "Pre-rejected"
+                                        ? "rejected-card"
+                                        : application.applicationStatus === "Cancelled"
+                                            ? "cancelled-card"
+                                            : application.applicationStatus === "Finished"
+                                                ? "finished-card"
+                                            : "Created"
                         }`}
                     >
                         <div className="card-status">
@@ -179,12 +182,14 @@ const CounselorTourApplicationsPage = () => {
                                     application.applicationStatus === "Pending"
                                         ? "pending"
                                         : application.applicationStatus === "Approved"
-                                        ? "approved"
-                                        : application.applicationStatus === "Rejected" || application.applicationStatus === "Pre-rejected"
-                                        ? "rejected"
-                                        : application.applicationStatus === "Cancelled"
-                                        ? "cancelled"
-                                        : ""
+                                            ? "approved"
+                                            : application.applicationStatus === "Rejected" || application.applicationStatus === "Pre-rejected"
+                                                ? "rejected"
+                                                : application.applicationStatus === "Cancelled"
+                                                    ? "cancelled"
+                                                    : application.applicationStatus === "Finished"
+                                                        ? "finished-card"
+                                                    : "Created"
                                 }`}
                             >
                                 {statusTranslations[application.applicationStatus] || statusTranslations.default}
@@ -210,7 +215,7 @@ const CounselorTourApplicationsPage = () => {
                             </p>
                             <p>
                                 <strong> {application.applicationStatus === "Pre-rejected" || application.applicationStatus === "Rejected" || application.applicationStatus === "Created"
-                                        ?  "": "Saat: "}</strong> {formatTimeSlot(application.selectedTimeSlot)}
+                                    ?  "": "Saat: "}</strong> {formatTimeSlot(application.selectedTimeSlot)}
                             </p>
                             <p>
                                 <strong>Ziyaretçi Sayısı: </strong> {application.visitorCount}
@@ -218,8 +223,8 @@ const CounselorTourApplicationsPage = () => {
                         </div>
 
                         <div className="card-actions">
-                            {application.applicationStatus !== "Rejected" && application.applicationStatus !== "Pre-rejected"
-                                                         && application.applicationStatus !== "Cancelled" && (
+                            {/* Conditionally render the Cancel button based on application status */}
+                            {(application.applicationStatus === "Pending" || application.applicationStatus === "Approved" || application.applicationStatus === "Created") &&(
                                 <button
                                     className="cancel-button"
                                     onClick={(event) => handleCancelTour(application.id, event)}
