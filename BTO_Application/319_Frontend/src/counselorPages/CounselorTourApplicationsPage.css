@@ -134,18 +134,18 @@
 /* Approved applications styling */
 .approved-card {
     background-color: var(--my-green); /* Highlight approved cards */
-    border: 2px solid var(--dark-blue);
+    border: 2px solid var(--dark-green);
     pointer-events: none;
     opacity: 0.9;
 }
 
 .status-badge.approved {
-    background-color: var(--dark-blue);
+    background-color: var(--dark-green);
     color: var(--white);
 }
 
 .cancel-button.approved-disabled {
-    background-color: var(--gray);
+    background-color: var(--dark-gray);
     color: var(--dark-gray);
     cursor: not-allowed;
 }
@@ -155,4 +155,30 @@
     pointer-events: none;
     opacity: 0.6;
 }
+
+/* Card styles */
+.rejected-card {
+    border-left: 5px solid var(--my-red);
+    background-color: #ffe6e6; /* Light red background */
+}
+
+.cancelled-card {
+    border-left: 5px solid brown;
+}
+
+/* Badge styles */
+.status-badge.rejected {
+    background-color: var(--my-red);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status-badge.cancelled {
+    background-color: brown;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
 
