@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './mainpage/MainPage';
+import IndividualApplicationPage from './mainpage/IndividualApplicationPage';
 import LoginPage from './authorization/LoginPage';
 import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
@@ -56,6 +57,7 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<MainPage />} />
+            <Route path="/individual-application" element={<IndividualApplicationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
 
