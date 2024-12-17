@@ -31,12 +31,13 @@ public class TourController {
     private final CounselorService counselorService;
     private final PaymentController paymentController;
     private final IndividualTourApplicationService individualTourApplicationService;
+    private final NotificationService notificationService;
 
     @Autowired
     public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService,
                           TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService,
                           AdvisorService advisorService, CounselorService counselorService, PaymentController paymentController,
-                          IndividualTourApplicationService individualTourApplicationService){
+                          IndividualTourApplicationService individualTourApplicationService, NotificationService notificationService){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
@@ -45,6 +46,7 @@ public class TourController {
         this.counselorService = counselorService;
         this.paymentController = paymentController;
         this.individualTourApplicationService = individualTourApplicationService;
+        this.notificationService = notificationService;
     }
 
 
@@ -147,6 +149,12 @@ public class TourController {
         if(!tour.getTourStatus().equals("Pending")){
             return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
+
+        // Notification Logic
+        for (TourGuide guide: tourGuideService.getAllTourGuides()) {
+            notifyForTour(tour, guide.getEmail(), "Guide Tour Addition");
+        }
+
         return new ResponseEntity<>(tourService.setStatusApproved(tour), HttpStatus.ACCEPTED);
     }
 
@@ -160,6 +168,15 @@ public class TourController {
         if(!tour.getTourStatus().equals("Pending")){
             return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
+
+        // Notification Logic
+        if (tour.getTourApplication() instanceof SchoolTourApplication schoolTourApplication) {
+            notifyForTour(tour, schoolTourApplication.getApplyingCounselor().getEmail(), "Counselor Tour Rejected");
+        }
+        else if (tour.getTourApplication() instanceof IndividualTourApplication individualTourApplication) {
+            notifyForTour(tour, individualTourApplication.getEmail(), "Individual Tour Rejected");
+        }
+
         return new ResponseEntity<>(tourService.setStatusRejected(tour), HttpStatus.ACCEPTED);
     }
 
@@ -171,6 +188,26 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
         if(tour.getTourStatus().equals("Approved") || tour.getTourStatus().equals("Withdrawn") || tour.getTourStatus().equals("WithdrawRequested")){
+
+            // Notification Logic
+            // Notify applying tour guide
+            notifyForTour(tour, tourOperationsForGuide.getApplyingGuideEmail(), "Guide Toure Approved");
+            // Notify visitors
+            if (tour.getTourStatus().equals("Approved")) {
+                TourGuide tourGuide = tourGuideService.getTourGuideByEmail( tourOperationsForGuide.getApplyingGuideEmail() );
+                if (tour.getTourApplication() instanceof SchoolTourApplication schoolTourApplication){
+                    notifyForTour(tour, schoolTourApplication.getApplyingCounselor().getEmail(),"Counselor Tour Accepted");
+                }
+                else if (tour.getTourApplication() instanceof IndividualTourApplication individualTourApplication) {
+                    notifyForTour(tour, individualTourApplication.getEmail(), "Individual Tour Accepted");
+                }
+            }
+            // Notify Tour Guide Who Withdrew
+            else if (tour.getTourStatus().equals("Withdrawn") || tour.getTourStatus().equals("WithdrawRequested")) {
+                notifyForTour(tour, tour.getAssignedGuideEmail(), "Guide Withdrawn Tour Accepted");
+            }
+            // Notification Logic End
+
             return new ResponseEntity<>(tourService.assignTour(tour,
                     tourOperationsForGuide.getApplyingGuideEmail()), HttpStatus.CREATED);
         }
@@ -186,6 +223,12 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
         if(Objects.equals(tour.getAssignedGuide().getId(), tourGuideService.getTourGuideByEmail(tourOperationsForGuide.getApplyingGuideEmail()).getId())){
+
+            // Notification Logic
+            for (Advisor advisor: advisorService.getAllAdvisors()) {
+                notifyForTour(tour, advisor.getEmail(), "Advisor Tour Withdraw Request");
+            }
+
             return new ResponseEntity<>(tourService.requestWithdraw(tour), HttpStatus.CREATED);
         }
         else{
@@ -200,6 +243,9 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
         if(tour.getTourStatus().equals("WithdrawRequested")){
+            // Notification Logic
+            notifyForTour(tour, tour.getAssignedGuide().getEmail(), "Guide Withdraw Request Rejected");
+
             return new ResponseEntity<>(tourService.rejectWithdrawRequest(tour, tourOperationsForAdvisor.getAdvisorEmail()), HttpStatus.CREATED);
         }
         else{
@@ -214,6 +260,9 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
         if(tour.getTourStatus().equals("WithdrawRequested")){
+            // Notification Logic
+            notifyForTour(tour, tour.getAssignedGuide().getEmail(), "Guide Withdraw Request Accepted");
+
             return new ResponseEntity<>(tourService.acceptWithdrawRequest(tour, tourOperationsForAdvisor.getAdvisorEmail()), HttpStatus.CREATED);
         }
         else{
@@ -294,4 +343,57 @@ public class TourController {
         return ResponseEntity.ok(finishedTours);
     }
 
+    private void notifyForTour(Tour tour, String email, String situation) {
+        String title = null;
+        String text = null;
+        String textForBTOMember = "Tarih: " + tour.getChosenDate() +"<br>" +
+                                "Saat: " + tour.getChosenTimeSlot().getDisplayName() +"<br>" +
+                                "Lise: " + tour.getApplyingHighschool().getSchoolName() +"<br>" +
+                                "Ziyaretçi Sayısı: " + tour.getVisitorCount();
+
+        String textForVisitor = "Tarih: " + tour.getChosenDate() +"<br>" +
+                                "Saat: " + tour.getChosenTimeSlot().getDisplayName();
+
+        if (situation.equals("Guide Tour Addition")) {
+            title = "Bir Tur Daha Takvime Eklendi.";
+            text = "Takvime Eklenen Turun Bilgisi: <br>" + textForBTOMember;
+        }
+        else if (situation.equals("Counselor Tour Rejected")) {
+            title = "Ne yazık ki  zaman yetersizliğinden dolayı tur isteğiniz kabul edilememiştir.";
+            SchoolTourApplication schoolTourApplication = (SchoolTourApplication) tour.getTourApplication();
+            text = "Reddedilen Turun Bilgisi: <br>" + textForVisitor;
+        }
+        else if (situation.equals("Individual Tour Rejected")) {
+            title = "Ne yazık ki  zaman yetersizliğinden dolayı tur isteğiniz kabul edilememiştir.";
+            text = "Reddedilen Turun Bilgisi: <br>" + textForVisitor;
+        }
+        else if (situation.equals("Counselor Tour Accepted")) {
+            title = "Üniversite Turu İsteğiniz Onaylandı";
+            text = "Tur Bilgisi: <br>" + textForVisitor;
+        }
+        else if (situation.equals("Individual Tour Accepted")) {
+            title = "Üniversite Turu İsteğiniz Onaylandı";
+            text = "Tur Bilgisi: <br>" + textForVisitor;
+        }
+        else if (situation.equals("Guide Withdrawn Tour Accepted")) {
+            title = "Turdan Çekilme İsteğiniz Kabul Edildi";
+            text = "Çekildiğiniz Turun Bilgisi: <br>" + textForBTOMember;
+        }
+        else if (situation.equals("Advisor Tour Withdraw Request")) {
+            title = "Bir Rehber Turdan Çekilmek İstiyor";
+            text = "Tur Bilgisi: <br>" + textForBTOMember;
+        }
+        else if (situation.equals("Guide Withdraw Request Rejected")) {
+            title = "Turdan Çekilme İsteğiniz Danışman Tarafından Reddedildi";
+            text = "Tur Bilgisi: <br>" + textForBTOMember;
+        }
+        else if (situation.equals("Guide Withdraw Request Accepted")) {
+            title = "Turdan Çekilme İsteğiniz Danışman Tarafından Kabul Edildi";
+            text = "Çekildiğiniz Turun Bilgisi: <br>" + textForBTOMember;
+        }
+
+        if (title != null || text != null) {
+            notificationService.createNotification(email, title, text);
+        }
+    }
 }
