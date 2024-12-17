@@ -51,7 +51,7 @@ public class SchoolTourApplicationService {
         LocalDateTime now = LocalDateTime.now();
 
         // İşlem penceresini 2 dakika sonrası olarak ayarla
-        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
+        LocalDateTime batchWindow = now.withSecond(20).withNano(0).plusMinutes(0);
 
         /*
 
