@@ -1,0 +1,144 @@
+/* General Container and Table Styles */
+.calendar-container {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 30px auto;
+  overflow: visible; /* Ensure tooltips are not clipped */
+}
+
+.table-wrapper {
+  overflow-x: auto; /* Allow horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+  margin-top: 20px;
+  position: relative; /* Ensure tooltips can stack properly */
+  z-index: 1; /* Ensure table wrapper isn't interfering */
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  position: relative; /* Prevent stacking context issues */
+}
+
+.calendar-table th, .calendar-table td {
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  color: #444;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.calendar-table th {
+  background-color: #3498db; /* Vibrant blue header */
+  color: #fff;
+  font-weight: 600;
+}
+
+.calendar-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray for alternate rows */
+}
+
+.calendar-table td {
+  vertical-align: top;
+  position: relative; /* Allow tooltip to position itself */
+  background-color: #f4f6f9;
+  color: #444;
+  overflow: visible; /* Ensure tooltips are not clipped */
+}
+
+.calendar-table td:hover {
+  background-color: #ecf0f1; /* Slight hover effect */
+  color: #3498db;
+}
+
+/* Month Selector */
+.month-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.month-selector button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.month-selector button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Activity Box Styles */
+.activity-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 4px 0;
+  position: relative; /* Tooltip will position relative to this */
+  z-index: 2; /* Ensure activity box is above other table content */
+}
+
+.activity-box.fair {
+  background-color: #ff4d4d; /* Vibrant red for Fair */
+  color: #fff;
+}
+
+.activity-box.tour {
+  background-color: #f9c74f; /* Vibrant yellow for Tour */
+  color: #fff;
+}
+
+.activity-box:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  opacity: 0.9;
+}
+
+/* Tooltip Styles */
+.activity-box .tooltip {
+  display: none;
+  position: absolute;
+  top: 100%; /* Position below the activity box */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999; /* Ensure tooltip is on top of everything */
+}
+
+.activity-box:hover .tooltip {
+  display: block;
+}
+
+.activity-box span {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.activity-box.fair:hover {
+  background-color: #e63946; /* Slightly darker red for hover */
+}
+
+.activity-box.tour:hover {
+  background-color: #f1c40f; /* Slightly darker yellow for hover */
+}
