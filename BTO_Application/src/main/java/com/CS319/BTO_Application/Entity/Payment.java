@@ -28,9 +28,15 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @Column(name = "payment_date", nullable = false)
-    private Date paymentDate;
+    @Column(name = "activity_submittion_date", nullable = false)
+    private Date activitySubmittionDate;
 
     @Column(name = "status", nullable = false)
     private String status; // PENDING, PAID, etc.
+
+    @Column(name = "approved_by")
+    private String approvedBy;
+
+    @Column(name = "approval_date")
+    private Date approvalDate;
 }
