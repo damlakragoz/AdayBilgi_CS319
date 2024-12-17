@@ -4,7 +4,7 @@ import MainPage from './mainpage/MainPage';
 import IndividualApplicationPage from './mainpage/IndividualApplicationPage';
 import LoginPage from './authorization/LoginPage';
 import SignUpForm from './authorization/SignUpForm';
-import Dashboard from './dashboard/Dashboard';
+import CounselorDashboard from './dashboard/CounselorDashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
 import PuantageTable from './common/PuantageTable';
@@ -79,7 +79,6 @@ function App() {
                     <Route path="/anasayfa" element={<MainPage />} />
                     <Route path="/notifications" element={<Notifications />} />
 
-                    <Route path="/applications" element={<Dashboard />} />
                     <Route path="/submit-application" element={<SubmitApplication />} />
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
@@ -102,6 +101,7 @@ function App() {
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
+                        <Route path="/applications" element={<CounselorDashboard />} />
                         <Route path="/" element={<CounselorDashboardContent/>}/>
                         <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
