@@ -51,6 +51,16 @@ public class TourGuideService {
         if (tourGuide == null) {
             throw new UsernameNotFoundException("Tour Guide not found: " + email);
         }
+
+        // Set related Payments and Tours' references to null
+        for (Payment payment : tourGuide.getPaymentHistory()) {
+            payment.setTourGuide(null);
+        }
+
+        for (Tour tour : tourGuide.getEnrolledTours()) {
+            tour.setAssignedGuide(null);
+        }
+
         tourGuideRepos.delete(tourGuide);
     }
 

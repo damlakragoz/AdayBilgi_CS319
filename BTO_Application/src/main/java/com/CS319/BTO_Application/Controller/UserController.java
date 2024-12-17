@@ -194,6 +194,13 @@ public class UserController {
         if (tourGuideService.getTourGuideByEmail(username) == null) {
             return ResponseEntity.status(400).body("TourGuide With Username " + username + " Not Found");
         }
+        if(tourGuideService.getTourGuideByEmail(username).getEnrolledTours() != null){
+            for(Tour tour: tourGuideService.getTourGuideByEmail(username).getEnrolledTours()){
+                if(tour.getTourStatus().equals("GuideAssigned")){
+                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has enrolled active tours!");
+                }
+            }
+        }
         tourGuideService.deleteTourGuideByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
