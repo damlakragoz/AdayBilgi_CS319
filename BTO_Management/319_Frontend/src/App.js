@@ -6,7 +6,7 @@ import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
-import PuantageTable from './common/PuantageTable'
+import PuantageTable from './common/PuantageTable';
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -21,6 +21,7 @@ import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
 import NewNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
+
 // Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
 import GeriBildirimler from './counselorPages/GeriBildirimler';
@@ -32,15 +33,23 @@ import TourApplicationDetailsPage from "./counselorPages/TourApplicationDetailsP
 import SendFairInvitation from "./counselorPages/SendFairInvitation";
 import FairInvitationsPage from "./counselorPages/FairInvitationsPage";
 import CounselorLayout from "./counselorPages/CounselorLayout";
+
 // Executive Page Imports
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
+
 // TourGuide Page Imports
 import TourGuideLayout from './tourguidepages/TourGuideLayout';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
 import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
 import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import TourSchedule from './tourguidepages/TourSchedule';
+
+// Advisor Page Imports
+import AdvisorLayout from './advisorpages/AdvisorLayout';
+import AdvisorHomepage from './advisorpages/AdvisorHomepage';
+import AdvisorEnrollmentPage from './advisorpages/AdvisorEnrollmentPage';
+import AdvisorTourSchedule from './advisorpages/AdvisorSchedule';
 
 import './App.css';
 
@@ -80,34 +89,42 @@ function App() {
                       <Route path="/fuar-davetleri" element={<FairInvitations />} />
                       <Route path="/add-tourguide" element={<AddTourGuideForm />} />
                     </Route>
+
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
-                        <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
-                        <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
-                    </Route>
-                    {/* Counselor Routes Wrapped in CoordinatorLayout */}
-                    <Route element={<CounselorLayout />}>
-                        <Route path="/" element={<CounselorDashboardContent/>}/>
-                        <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
-                        <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
-                        <Route path="/new-notifications" element={<NewNotifications />} />
-                        <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
-                        <Route path="/feedback" element={<FeedbackForm/>}/>
-                        <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
-                        <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
-                        <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
-                    </Route>
-                    {/* TourGuide Routes Wrapped in TourGuide */}
-                    <Route element={<TourGuideLayout />}>
-                        <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
-                        <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
-                        <Route path="/puantage-table" element={<PuantageTable />} />
-                        <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
-                        <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
-                        <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
-                        /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
+                      <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
+                      <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
                     </Route>
 
+                    {/* Counselor Routes Wrapped in CounselorLayout */}
+                    <Route element={<CounselorLayout />}>
+                      <Route path="/" element={<CounselorDashboardContent />} />
+                      <Route path="/counselor-homepage" element={<CounselorHomepage />} />
+                      <Route path="/create-tour-application" element={<CreateTourApplication />} />
+                      <Route path="/new-notifications" element={<NewNotifications />} />
+                      <Route path="/tour-applications" element={<CounselorTourApplicationsPage />} />
+                      <Route path="/feedback" element={<FeedbackForm />} />
+                      <Route path="/tour-application/:id" element={<TourApplicationDetailsPage />} />
+                      <Route path="/send-fair-invitation" element={<SendFairInvitation />} />
+                      <Route path="/fair-invitations" element={<FairInvitationsPage />} />
+                    </Route>
+
+                    {/* TourGuide Routes Wrapped in TourGuideLayout */}
+                    <Route element={<TourGuideLayout />}>
+                      <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
+                      <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
+                      <Route path="/puantage-table" element={<PuantageTable />} />
+                      <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
+                      <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
+                      <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+                    </Route>
+
+                    {/* Advisor Routes Wrapped in AdvisorLayout */}
+                    <Route element={<AdvisorLayout />}>
+                      <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
+                      <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
+                      <Route path="/advisor-tourenrollment" element={<AdvisorEnrollmentPage />} />
+                    </Route>
                   </Routes>
                 </ProtectedRoute>
               }

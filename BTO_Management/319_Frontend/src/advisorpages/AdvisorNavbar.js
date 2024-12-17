@@ -12,7 +12,6 @@ const AdvisorNavbar = () => {
 
     const navigate = useNavigate();
 
-    // Close dropdown if click is outside the dropdown
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef1.current && !dropdownRef1.current.contains(event.target)) {
@@ -24,19 +23,11 @@ const AdvisorNavbar = () => {
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const toggleDropdown1 = () => {
-        setDropdown1Open(!isDropdown1Open);
-    };
-
-    const toggleDropdown2 = () => {
-        setDropdown2Open(!isDropdown2Open);
-    };
+    const toggleDropdown1 = () => setDropdown1Open(!isDropdown1Open);
+    const toggleDropdown2 = () => setDropdown2Open(!isDropdown2Open);
 
     return (
         <div className="dashboard-container">
@@ -50,7 +41,6 @@ const AdvisorNavbar = () => {
                             {isDropdown1Open && (
                                 <ul className="dropdown-menu">
                                     <li><Link to="/advisor-tourenrollment">Başvur-Tur Takvimi</Link></li>
-                                    <li><Link to="/basvur-fuar">Başvur-Fuar</Link></li>
                                     <li><Link to="/advisor-puantage">Puantaj-Aktivite Giriş</Link></li>
                                 </ul>
                             )}

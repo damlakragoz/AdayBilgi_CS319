@@ -1,3 +1,4 @@
+/* Container for the entire Puantage Page */
 .puantage-container {
   display: flex;
   flex-direction: column;
@@ -10,10 +11,41 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Calendar container styling */
 .calendar-container {
   margin-bottom: 20px;
 }
 
+/* Calendar tile styles for finished and unfinished days */
+.calendar-finished {
+  background-color: #28a745 !important; /* Green background */
+  color: white !important; /* White text */
+  border-radius: 50%; /* Make the tile round */
+}
+
+.calendar-unfinished {
+  background-color: #dc3545 !important; /* Red background */
+  color: white !important; /* White text */
+  border-radius: 50%; /* Make the tile round */
+}
+
+/* Default calendar tile */
+.react-calendar__tile {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  border-radius: 5px; /* Default rounded corners */
+}
+
+/* Hover effect for calendar tiles */
+.react-calendar__tile:hover {
+  background-color: #e2e6ea;
+  color: #495057;
+}
+
+/* Tour list container */
 .tour-list-container ul {
   list-style-type: none;
   padding: 0;
@@ -32,6 +64,7 @@
   background-color: #e2e6ea;
 }
 
+/* Input container for activity submission */
 .activity-input-container {
   display: flex;
   flex-direction: column;
@@ -48,7 +81,7 @@
 .activity-input-container button {
   padding: 8px 12px;
   border: none;
-  background-color: #28a745;
+  background-color: #28a745; /* Green button */
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -56,5 +89,21 @@
 }
 
 .activity-input-container button:hover {
-  background-color: #218838;
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Button to navigate to Puantage Table */
+.puantage-table-button button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff; /* Blue button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.puantage-table-button button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }

@@ -55,6 +55,24 @@ const TourGuidePuantage = () => {
     setFilteredTours(toursForDay);
   }, [selectedDate, guideTours]);
 
+  // Check tour statuses for the calendar
+  const getTileClassName = ({ date, view }) => {
+    if (view !== "month") return null;
+
+    const dateStr = formatISODate(date);
+    const toursForDay = guideTours.filter((tour) => tour.chosenDate === dateStr);
+
+    if (toursForDay.length > 0) {
+      const allFinished = toursForDay.every((tour) => tour.tourStatus === "Finished");
+      const hasUnfinished = toursForDay.some((tour) => tour.tourStatus !== "Finished");
+
+      if (allFinished) return "calendar-finished"; // Green background
+      if (hasUnfinished) return "calendar-unfinished"; // Red background
+    }
+
+    return null; // Default background
+  };
+
   // Submit or Update activity duration
   const handleSubmitDuration = async () => {
     if (!selectedTour || !activityDuration || activityDuration <= 0) {
@@ -104,6 +122,7 @@ const TourGuidePuantage = () => {
           onChange={setSelectedDate}
           value={selectedDate}
           locale="tr-TR"
+          tileClassName={getTileClassName} // Apply custom classes
         />
       </div>
 
