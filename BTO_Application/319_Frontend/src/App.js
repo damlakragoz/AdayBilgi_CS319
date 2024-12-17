@@ -51,6 +51,7 @@ import AdvisorLayout from './advisorpages/AdvisorLayout';
 import AdvisorHomepage from './advisorpages/AdvisorHomepage';
 import AdvisorEnrollmentPage from './advisorpages/AdvisorEnrollmentPage';
 import AdvisorTourSchedule from './advisorpages/AdvisorSchedule';
+import TourWithdrawRequests from "./advisorpages/TourWithdrawRequests";
 
 
 import './App.css';
@@ -128,6 +129,7 @@ function App() {
                         <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
                         <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
                         <Route path="/advisor-tourenrollment" element={<AdvisorEnrollmentPage />} />
+                        <Route path="/withdraw-requests" element={<TourWithdrawRequests />} />
                     </Route>
                   </Routes>
                 </ProtectedRoute>
