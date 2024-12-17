@@ -18,7 +18,7 @@ import FairSchedule from './common/FairSchedule';
 import AllTourApplications from './common/AllTourApplications';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
-import NewNotifications from './notification/NewNotifications';
+import CoordinatorNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
 // Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
@@ -31,15 +31,18 @@ import TourApplicationDetailsPage from "./counselorPages/TourApplicationDetailsP
 import SendFairInvitation from "./counselorPages/SendFairInvitation";
 import FairInvitationsPage from "./counselorPages/FairInvitationsPage";
 import CounselorLayout from "./counselorPages/CounselorLayout";
+import CounselorNotifications from './notification/NewNotifications';
 // Executive Page Imports
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
+import ExecutiveNotifications from './notification/NewNotifications';
 // TourGuide Page Imports
 import TourGuideLayout from './tourguidepages/TourGuideLayout';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
 import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
 import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import TourSchedule from './tourguidepages/TourSchedule';
+import TourGuideNotifications from './notification/NewNotifications';
 
 import './App.css';
 
@@ -78,23 +81,25 @@ function App() {
                       <Route path="/tur-basvurulari" element={<AllTourApplications />} />
                       <Route path="/fuar-davetleri" element={<FairInvitations />} />
                       <Route path="/add-tourguide" element={<AddTourGuideForm />} />
+                        <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
                         <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
+                        <Route path="/executive-notifications" element={<ExecutiveNotifications />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
                         <Route path="/" element={<CounselorDashboardContent/>}/>
                         <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
-                        <Route path="/new-notifications" element={<NewNotifications />} />
                         <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
                         <Route path="/feedback" element={<FeedbackForm/>}/>
                         <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
                         <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
                         <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
+                        <Route path="/counselor-notifications" element={<CounselorNotifications />} />
                     </Route>
                     {/* TourGuide Routes Wrapped in TourGuide */}
                     <Route element={<TourGuideLayout />}>
@@ -103,6 +108,7 @@ function App() {
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+                        <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
 
