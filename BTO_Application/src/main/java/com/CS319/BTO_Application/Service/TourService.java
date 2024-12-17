@@ -150,6 +150,7 @@ public class TourService {
     public Tour submitTourActivity(Tour tour, double durationTime) {
         tour.setDuration(durationTime);
         setStatusFinished(tour);
+        tour.getTourApplication().setApplicationStatus("Finished");
         return tour;
     }
 

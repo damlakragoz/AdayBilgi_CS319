@@ -26,6 +26,18 @@ public class SchoolTourApplication extends TourApplication {
         }
         return applyingCounselor.getEmail();
     }
+    public String getSchoolName() {
+        if (applyingCounselor == null) {
+            return null;
+        }
+        return applyingCounselor.getSchoolName();
+    }
+    public Counselor getApplyingCounselor() {
+        if (applyingCounselor == null) {
+            return null; // Or return an empty string "" depending on your requirements
+        }
+        return applyingCounselor;
+    }
 
 }
 
