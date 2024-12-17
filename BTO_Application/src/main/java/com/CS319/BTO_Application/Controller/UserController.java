@@ -245,4 +245,36 @@ public class UserController {
 
 // Advisor Methods END
 ////////////////
+
+    @PostMapping("/promoteTourGuide")
+    public ResponseEntity<?> getAssignedTours(@RequestParam String guideEmail, @RequestParam String assignedDay){
+        try {
+            // Retrieve the Tour Guide by email
+            TourGuide tourGuideToBePromoted = tourGuideService.getTourGuideByEmail(guideEmail);
+            if (tourGuideToBePromoted==null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour Guide with email " + guideEmail + " not found.");
+            }
+            tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
+
+            // Create a new Advisor with Tour Guide's attributes
+            Advisor advisor = new Advisor(
+                    tourGuideToBePromoted.getEmail(),
+                    tourGuideToBePromoted.getPassword(),
+                    tourGuideToBePromoted.getFirstName(),
+                    tourGuideToBePromoted.getLastName(),
+                    tourGuideToBePromoted.getPhoneNumber(),
+                    tourGuideToBePromoted.getDepartment(),
+                    tourGuideToBePromoted.getGrade(),
+                    tourGuideToBePromoted.getIban(),
+                    null //assigned day null
+            );
+
+            advisorService.saveAdvisor(advisor);
+            return ResponseEntity.ok("Tour Guide promoted to Advisor successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while promoting the Tour Guide: " + e.getMessage());
+        }
+    }
 }
