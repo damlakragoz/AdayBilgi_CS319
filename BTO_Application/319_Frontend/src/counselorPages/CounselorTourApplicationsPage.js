@@ -161,11 +161,11 @@ console.log(sortedApplications);
 
             {/* Filter Buttons */}
             <div className="filter-buttons">
-                <button onClick={() => setStatusFilter("All")}>Tüm Başvurular</button>
-                <button onClick={() => setStatusFilter("Pending")}>Onay Bekleyenler</button>
-                <button onClick={() => setStatusFilter("Approved")}>Onaylananlar</button>
-                <button onClick={() => setStatusFilter("Rejected")}>Reddedilenler</button>
-                <button onClick={() => setStatusFilter("Cancelled")}>İptal Edilenler</button>
+                <button className="filter-button" onClick={() => setStatusFilter("All")}>Tüm Başvurular</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Pending")}>Onay Bekleyenler</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Approved")}>Onaylananlar</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Rejected")}>Reddedilenler</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Cancelled")}>İptal Edilenler</button>
             </div>
 
             <div className="applications-grid">
@@ -200,7 +200,7 @@ console.log(sortedApplications);
                                                 : application.applicationStatus === "Cancelled"
                                                     ? "cancelled"
                                                     : application.applicationStatus === "Finished"
-                                                        ? "finished-card"
+                                                        ? "finished"
                                                         : application.applicationStatus === "Created"
                                                             ? "created"
                                                             : ""
