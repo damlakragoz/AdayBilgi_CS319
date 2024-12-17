@@ -33,6 +33,7 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>
                     <div className="dropdown-menu">
+                        <a href="/advisor-change-password">Şifremi Değiştir</a>
                         <a onClick={handleLogout}>Çıkış Yap</a>
                     </div>
                 </div>
