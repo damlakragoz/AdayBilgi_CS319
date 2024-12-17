@@ -82,10 +82,9 @@
     border-left: 5px solid var(--dark-gray);
 }
 
-/* Created card styling (Yellow) */
+/* Created card styling (Grey) */
 .created-card {
-    border-left: 5px solid #f39c12; /* Orange-yellow border */
-    background-color: #fef9e7; /* Light yellow background */
+    border-left: 5px solid #9e9e9e; /* Grey border */
 }
 /* Finished card styling (Teal) */
 .finished-card {
@@ -112,6 +111,12 @@
 
 .status-badge.rejected {
     background-color: var(--dark-gray);
+}
+
+/* Badge for "Created" status */
+.status-badge.created {
+    background-color: #9e9e9e; /* Gray badge */
+    color: white;
 }
 
 /* Finished badge */
