@@ -113,8 +113,9 @@ public class TourApplicationService {
             LocalDate requestedDate = requestedDateTime.getDate();
             TimeSlot requestedSlot = requestedDateTime.getTimeSlot();
 
-            // Aynı tarih ve zaman diliminde başka bir başvuru var mı kontrol et
-            SchoolTourApplication conflictingApplication = schoolTourApplicationRepos.findBySelectedDateAndSelectedTimeSlot(requestedDate, requestedSlot);
+            // Aynı tarih ve zaman diliminde başka bir "Created" başvuru var mı kontrol et
+            SchoolTourApplication conflictingApplication = schoolTourApplicationRepos.findBySelectedDateAndSelectedTimeSlot
+                    (requestedDate, requestedSlot);
 
             if (conflictingApplication == null) {
                 // Eğer çatışma yoksa, slot'u atayın
@@ -124,10 +125,19 @@ public class TourApplicationService {
                 return true; // Başarılı bir şekilde atandı
             }
             // Çakışma var ama "Pending" durumda ise, bu başvuruyu es geç
-            else if (conflictingApplication.getApplicationStatus().equals("Pending")) {
-                continue; // "Pending" durumundaki başvuruyu değiştirme
+            else if (conflictingApplication.getApplicationStatus().equals("Pending") || conflictingApplication.getApplicationStatus().equals("Approved")) {
+                continue; // "Pending" ve "Approved" durumundaki başvuruyu değiştirme
             }
-            // Çakışma var ve "Pending" değilse, önceliklendirme yap
+            // Çakışma var ama "Bitmiş durumda veya reddedilmiş bir application ise" ise, önceliklendirme yapmadan ata
+            else if(conflictingApplication.getApplicationStatus().equals("Rejected") || conflictingApplication.getApplicationStatus().equals("Pre-rejected") ||
+            conflictingApplication.getApplicationStatus().equals("Finished") || conflictingApplication.getApplicationStatus().equals("Cancelled")) {
+                // Slot'u mevcut uygulamaya ata
+                application.setSelectedDate(requestedDate);
+                application.setSelectedTimeSlot(requestedSlot);
+                application.setApplicationStatus("Pending");
+                return true;
+            }
+            // Çakışma var ve "Created" ise, önceliklendirme yap
             else {
                 // Çatışma varsa, önceliklendirme yap
                 SchoolTourApplication prioritizedApplication = prioritizeSchool(application, conflictingApplication);
