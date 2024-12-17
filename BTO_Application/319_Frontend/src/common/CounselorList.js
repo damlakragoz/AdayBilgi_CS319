@@ -97,9 +97,6 @@ const CounselorList = () => {
               <th>Role</th>
               <th>School Name</th>
               <th>Email</th>
-              <th>
-                Actions
-              </th>
             </tr>
           </thead>
           <tbody>

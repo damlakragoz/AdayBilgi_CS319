@@ -91,42 +91,6 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
     margin-top: 20px;
 }
 
-.login-form {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-}
-
-.login-form label {
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
-.login-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.login-button {
-    background-color: #1c3b8e;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.login-button:hover {
-    background-color: var(--deep-blue) ;
-}
-
 /* Application Table Styles */
 .application-section {
     background-color: white;
