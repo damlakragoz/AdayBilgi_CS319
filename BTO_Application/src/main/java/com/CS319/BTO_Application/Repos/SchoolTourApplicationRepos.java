@@ -18,7 +18,13 @@ public interface SchoolTourApplicationRepos extends TourApplicationRepos<SchoolT
     @Query("SELECT a FROM SchoolTourApplication a WHERE a.applicationStatus = :status AND a.transitionTime <= :time")
     List<SchoolTourApplication> findByStatusAndTransitionTime(@Param("status") String status, @Param("time") LocalDateTime time);
 
-    @Query("SELECT ta FROM SchoolTourApplication ta WHERE ta.selectedDate = :selectedDate AND ta.selectedTimeSlot = :selectedTimeSlot")
-    SchoolTourApplication findBySelectedDateAndSelectedTimeSlot(@Param("selectedDate") LocalDate selectedDate,
-                                                          @Param("selectedTimeSlot") TimeSlot selectedTimeSlot);
+    @Query("SELECT ta FROM SchoolTourApplication ta " +
+            "WHERE ta.selectedDate = :selectedDate " +
+            "AND ta.selectedTimeSlot = :selectedTimeSlot " +
+            "AND ta.applicationStatus = :applicationStatus")
+    SchoolTourApplication findBySelectedDateAndSelectedTimeSlotAndStatus(
+            @Param("selectedDate") LocalDate selectedDate,
+            @Param("selectedTimeSlot") TimeSlot selectedTimeSlot,
+            @Param("applicationStatus") String applicationStatus);
+
 }
