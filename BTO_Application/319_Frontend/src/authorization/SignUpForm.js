@@ -57,7 +57,7 @@ const SignUpForm = () => {
             phoneNumber,
             email,
             password,
-            role: 'Rehber Öğretmen', // Changed role to Turkish
+            role: 'Counselor', // Changed role to Turkish
         };
 
         try {
