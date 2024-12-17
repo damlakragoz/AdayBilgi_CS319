@@ -25,6 +25,9 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/advisor-puantage" className="nav-link text-white">Puantaj-Aktivite Giriş</Link>
                 </li>
                 <li>
+                    <Link to="/withdraw-requests" className="nav-link text-white">Tour Withdraw Requests</Link>
+                </li>
+                <li>
                     <a onClick={handleLogout} className="nav-link text-white">Çıkış Yap</a>
                 </li>
             </ul>

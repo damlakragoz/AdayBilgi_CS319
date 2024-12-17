@@ -40,7 +40,8 @@ const TourSchedule = () => {
 
                     allTours.forEach((tour) => {
                         const dateStr = formatISODate(new Date(tour.chosenDate));
-                        if (tour.tourStatus === "WithdrawRequested") newGreenDates.push(dateStr);
+                        if (tour.tourStatus === "WithdrawRequested") //acceptlenirse withdrawn status rejectlenirse withdraw
+                        newGreenDates.push(dateStr);
                         else if (tour.tourStatus === "AdvisorAssigned") newGreyDates.push(dateStr);
                     });
 

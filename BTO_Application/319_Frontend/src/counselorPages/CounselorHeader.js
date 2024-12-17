@@ -27,8 +27,8 @@ const CounselorHeader = ({ toggleSidebar }) => {
                 <a href="#" className="nav-link">
                     Anasayfa
                 </a>
-                <a href="#" className="nav-link">
-                    Onay Beklenen İşlemler
+                <a href="/applications" className="nav-link">
+                    Başvurularım
                 </a>
                 <a href="#" className="nav-link">
                     Yaklaşan Etkinlikler

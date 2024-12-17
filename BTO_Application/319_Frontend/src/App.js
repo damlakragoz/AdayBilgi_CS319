@@ -4,10 +4,9 @@ import MainPage from './mainpage/MainPage';
 import IndividualApplicationPage from './mainpage/IndividualApplicationPage';
 import LoginPage from './authorization/LoginPage';
 import SignUpForm from './authorization/SignUpForm';
-import Dashboard from './dashboard/Dashboard';
+import CounselorDashboard from './dashboard/CounselorDashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
-import ChangePassword from "./passwordPages/ChangePassword";
 import PuantageTable from './common/PuantageTable';
 
 // Coordinator Page Imports
@@ -53,6 +52,7 @@ import AdvisorHomepage from './advisorpages/AdvisorHomepage';
 import AdvisorEnrollmentPage from './advisorpages/AdvisorEnrollmentPage';
 import AdvisorTourSchedule from './advisorpages/AdvisorSchedule';
 import AdvisorNotifications from './notification/NewNotifications';
+import TourWithdrawRequests from "./advisorpages/TourWithdrawRequests";
 
 
 import './App.css';
@@ -80,7 +80,6 @@ function App() {
                     <Route path="/anasayfa" element={<MainPage />} />
                     <Route path="/notifications" element={<Notifications />} />
 
-                    <Route path="/applications" element={<Dashboard />} />
                     <Route path="/submit-application" element={<SubmitApplication />} />
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
@@ -105,6 +104,7 @@ function App() {
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
+                        <Route path="/applications" element={<CounselorDashboard />} />
                         <Route path="/" element={<CounselorDashboardContent/>}/>
                         <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
@@ -123,15 +123,18 @@ function App() {
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+                        <Route path="/puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
                         <Route path="/tourguide-change-password" element={<ChangePassword />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
+
                     {/* Advisor Routes Wrapped in AdvisorLayout */}
                     <Route element={<AdvisorLayout />}>
                         <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
                         <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
                         <Route path="/advisor-tourenrollment" element={<AdvisorEnrollmentPage />} />
+                        <Route path="/withdraw-requests" element={<TourWithdrawRequests />} />
                         <Route path="/advisor-notifications" element={<AdvisorNotifications />} />
                         <Route path="/advisor-change-password" element={<ChangePassword />} />
 

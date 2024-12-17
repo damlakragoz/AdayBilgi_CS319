@@ -5,6 +5,7 @@ import "./CounselorTourApplicationsPage.css";
 
 // Status translations
 const statusTranslations = {
+    Created: "Oluşturuldu",
     Pending: "Onay bekleniyor",
     Approved: "Onaylandı",
     Rejected: "Reddedildi",
@@ -16,7 +17,7 @@ const statusTranslations = {
 
 // TimeSlot mappings for displaying in a user-friendly format
 const timeSlotDisplayNames = {
-    SLOT_9_10: "09:00-10:00",
+    SLOT_9_10:  "09:00-10:00",
     SLOT_10_11: "10:00-11:00",
     SLOT_11_12: "11:00-12:00",
     SLOT_13_14: "13:00-14:00",
@@ -51,8 +52,12 @@ const CounselorTourApplicationsPage = () => {
                 });
                 const counselorEmail = localStorage.getItem("username").toLowerCase();
                 const filteredApplications = response.data.filter(
-                    (application) => application.applyingCounselorEmail === counselorEmail
+                    (application) => application.applyingCounselorEmail.toLowerCase() === counselorEmail
                 );
+
+                console.log(response.data);
+                console.log(counselorEmail);
+                console.log(filteredApplications);
 
                 // Sort tour applications based on assignedDate or requestedDates
                 const sortedApplications = filteredApplications.sort((a, b) => {
@@ -64,6 +69,9 @@ const CounselorTourApplicationsPage = () => {
                         : new Date(Math.min(...b.requestedDates.map((d) => new Date(d.date).getTime())));
                     return dateB - dateA; // Descending order
                 });
+
+
+console.log(sortedApplications);
 
                 setApplications(sortedApplications);
             } catch (error) {
@@ -81,7 +89,7 @@ const CounselorTourApplicationsPage = () => {
     const handleCancelTour = async (applicationId) => {
         try {
             const token = localStorage.getItem("userToken");
-            const counselorEmail = localStorage.getItem("username");
+            const counselorEmail = localStorage.getItem("username").toLowerCase();;
 
             console.log(counselorEmail);
             console.log(applicationId);
@@ -117,15 +125,17 @@ const CounselorTourApplicationsPage = () => {
     // Function to handle pagination
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    // Slice the applications based on the current page and applications per page
+    // Apply the status filter first
+    const filteredApplications =
+        statusFilter === "All"
+            ? applications
+            : applications.filter((application) => application.applicationStatus === statusFilter);
+
+    // Pagination logic
     const indexOfLastApplication = currentPage * applicationsPerPage;
     const indexOfFirstApplication = indexOfLastApplication - applicationsPerPage;
-    let currentApplications = applications.slice(indexOfFirstApplication, indexOfLastApplication);
+    const currentApplications = filteredApplications.slice(indexOfFirstApplication, indexOfLastApplication);
 
-    // Filter applications based on the selected status filter
-    if (statusFilter !== "All") {
-        currentApplications = currentApplications.filter((application) => application.applicationStatus === statusFilter);
-    }
 
     // Function to format LocalDate
     const formatDate = (date) => {
@@ -151,11 +161,11 @@ const CounselorTourApplicationsPage = () => {
 
             {/* Filter Buttons */}
             <div className="filter-buttons">
-                <button onClick={() => setStatusFilter("All")}>Tüm Başvurular</button>
-                <button onClick={() => setStatusFilter("Pending")}>Onay Bekleyenler</button>
-                <button onClick={() => setStatusFilter("Approved")}>Onaylananlar</button>
-                <button onClick={() => setStatusFilter("Rejected")}>Reddedilenler</button>
-                <button onClick={() => setStatusFilter("Cancelled")}>İptal Edilenler</button>
+                <button className="filter-button" onClick={() => setStatusFilter("All")}>Tüm Başvurular</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Pending")}>Onay Bekleyenler</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Approved")}>Onaylananlar</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Rejected")}>Reddedilenler</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Cancelled")}>İptal Edilenler</button>
             </div>
 
             <div className="applications-grid">
@@ -173,7 +183,9 @@ const CounselorTourApplicationsPage = () => {
                                             ? "cancelled-card"
                                             : application.applicationStatus === "Finished"
                                                 ? "finished-card"
-                                            : "Created"
+                                                : application.applicationStatus === "Created"
+                                                    ? "created-card"
+                                                    : ""
                         }`}
                     >
                         <div className="card-status">
@@ -188,8 +200,10 @@ const CounselorTourApplicationsPage = () => {
                                                 : application.applicationStatus === "Cancelled"
                                                     ? "cancelled"
                                                     : application.applicationStatus === "Finished"
-                                                        ? "finished-card"
-                                                    : "Created"
+                                                        ? "finished"
+                                                        : application.applicationStatus === "Created"
+                                                            ? "created"
+                                                            : ""
                                 }`}
                             >
                                 {statusTranslations[application.applicationStatus] || statusTranslations.default}
@@ -257,14 +271,14 @@ const CounselorTourApplicationsPage = () => {
                 <button
                     className="pagination-button"
                     onClick={() => paginate(currentPage + 1)}
-                    disabled={currentPage * applicationsPerPage >= applications.length}
+                    disabled={currentPage * applicationsPerPage >= filteredApplications.length}
                 >
                     &rsaquo;
                 </button>
                 <button
                     className="pagination-button"
                     onClick={() => paginate(Math.ceil(applications.length / applicationsPerPage))}
-                    disabled={currentPage * applicationsPerPage >= applications.length}
+                    disabled={currentPage * applicationsPerPage >= filteredApplications.length}
                 >
                     &raquo;
                 </button>
