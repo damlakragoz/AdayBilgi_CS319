@@ -1,33 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { format, getDaysInMonth } from "date-fns";
-import { tr } from "date-fns/locale"; // Import Turkish locale
-import "./PuantageTable.css"; // Add custom styles
+import { tr } from "date-fns/locale";
+import "./PuantageTable.css";
 
-const PuantageTable = ({ activities, users }) => {
-  const [selectedMonth, setSelectedMonth] = React.useState(new Date()); // Current month
+const PuantageTable = () => {
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [users, setUsers] = useState([]); // Dynamically fetched tour guides
+  const [activities, setActivities] = useState([]); // Finished tours
+  const [loading, setLoading] = useState(false);
 
-  const daysInMonth = getDaysInMonth(selectedMonth); // Get total days in the month
-  const formatDate = (date) => format(date, "yyyy-MM-dd"); // Format date to compare
+  const token = localStorage.getItem("userToken");
 
-  // Function to group activities by date and sum hours worked
+  const daysInMonth = getDaysInMonth(selectedMonth);
+  const formatDate = (date) => format(date, "yyyy-MM-dd");
+
+  // Fetch users and activities
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+
+      // Fetch all active tour guides
+      const usersResponse = await axios.get(
+        "http://localhost:8081/api/tourguide/getAll",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      // Fetch finished tours
+      const toursResponse = await axios.get(
+        "http://localhost:8081/api/tour/by-month/finished",
+        {
+          params: {
+            month: selectedMonth.getMonth() + 1,
+            year: selectedMonth.getFullYear(),
+          },
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Filter tours with duration > 0
+      const finishedTours = toursResponse.data.filter(
+        (tour) => tour.duration > 0
+      );
+
+      const validUsers = usersResponse.data || []; // Ensure no null users
+      const validUserEmails = validUsers.map((user) => user.email);
+
+      // Filter activities to exclude tours with invalid users
+      const validActivities = finishedTours.filter((tour) =>
+        validUserEmails.includes(tour.assignedGuideEmail)
+      );
+
+      setUsers(validUsers);
+      setActivities(
+        validActivities.map((tour) => ({
+          id: tour.id,
+          userEmail: tour.assignedGuideEmail,
+          date: tour.chosenDate,
+          hoursWorked: tour.duration,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch data on mount or month change
+  useEffect(() => {
+    fetchData();
+  }, [selectedMonth]);
+
+  // Group activities by date and user email
   const groupActivitiesByDate = (activities) => {
     return activities.reduce((grouped, activity) => {
-      const date = activity.date;
-      const hoursWorked = parseFloat(activity.activity); // Assume activity contains hours worked
+      const { date, userEmail, hoursWorked } = activity;
 
       if (!grouped[date]) grouped[date] = {};
+      if (!grouped[date][userEmail]) grouped[date][userEmail] = 0;
 
-      // Aggregate total hours worked per user per date
-      if (!grouped[date][activity.user]) {
-        grouped[date][activity.user] = 0;
-      }
-      grouped[date][activity.user] += hoursWorked;
-
+      grouped[date][userEmail] += hoursWorked;
       return grouped;
     }, {});
   };
 
-  const groupedActivities = groupActivitiesByDate(activities); // Group the activities by date
+  const groupedActivities = groupActivitiesByDate(activities);
 
   return (
     <div className="calendar-container">
@@ -54,62 +112,65 @@ const PuantageTable = ({ activities, users }) => {
         </button>
       </div>
 
-      {/* Table Wrapper with Horizontal Scroll */}
-      <div className="table-wrapper">
-        <table className="calendar-table">
-          <thead>
-            <tr>
-              <th>İsim/Gün</th>
-              {Array.from({ length: daysInMonth }, (_, i) => (
-                <th key={i + 1}>{i + 1}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id}> {/* Ensure user has an 'id' */}
-                <td>{user.firstName} {user.lastName}</td> {/* Display full name */}
-                {Array.from({ length: daysInMonth }, (_, i) => {
-                  const day = formatDate(
-                    new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), i + 1)
-                  );
-                  const userActivities = groupedActivities[day]
-                    ? groupedActivities[day][user.id] || 0 // Assuming user.id is unique
-                    : 0; // Get total hours worked for this day and user
+      {/* Loading Indicator */}
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="table-wrapper">
+          <table className="calendar-table">
+            <thead>
+              <tr>
+                <th>İsim/Gün</th>
+                {Array.from({ length: daysInMonth }, (_, i) => (
+                  <th key={i + 1}>{i + 1}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {users.length > 0 ? (
+                users.map((user) => {
+                  const userEmail = user.email;
 
                   return (
-                    <td key={i}>
-                      <div>
-                        {/* Display the total hours worked for the day */}
-                        {userActivities > 0 ? (
-                          <div className="activity-box">
-                            <span>{userActivities} saat</span>
-                            <div className="tooltip">
-                              {/* Add more details about the activity if needed */}
-                              {activities
-                                .filter(
-                                  (activity) =>
-                                    activity.user === user.id && activity.date === day
-                                )
-                                .map((activity, idx) => (
-                                  <div key={idx}>
-                                    {activity.activity} saat - {activity.date}
-                                  </div>
-                                ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <span>–</span> // No activity for this day
-                        )}
-                      </div>
-                    </td>
+                    <tr key={userEmail}>
+                      <td>
+                        {user.firstName} {user.lastName}
+                      </td>
+                      {Array.from({ length: daysInMonth }, (_, i) => {
+                        const day = formatDate(
+                          new Date(
+                            selectedMonth.getFullYear(),
+                            selectedMonth.getMonth(),
+                            i + 1
+                          )
+                        );
+                        const userHours =
+                          groupedActivities[day]?.[userEmail] || 0;
+
+                        return (
+                          <td key={i}>
+                            {userHours > 0 ? (
+                              <div className="activity-box">
+                                <span>{userHours} saat</span>
+                              </div>
+                            ) : (
+                              <span>–</span>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
                   );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                })
+              ) : (
+                <tr>
+                  <td colSpan={daysInMonth + 1}>No users found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

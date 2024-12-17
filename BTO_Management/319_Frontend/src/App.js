@@ -6,6 +6,7 @@ import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
+import PuantageTable from './common/PuantageTable'
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -100,6 +101,7 @@ function App() {
                     <Route element={<TourGuideLayout />}>
                         <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
                         <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
+                        <Route path="/puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
