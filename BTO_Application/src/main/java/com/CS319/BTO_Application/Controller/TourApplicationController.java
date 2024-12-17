@@ -23,17 +23,20 @@ public class TourApplicationController {
     private final HighSchoolService highSchoolService;
     private final TourApplicationService tourApplicationService;
     private final TourService tourService;
+    private final NotificationService notificationService;
     //there will be logic for individual tourapplciation also
 
     @Autowired
     public TourApplicationController(SchoolTourApplicationService schoolTourApplicationService, IndividualTourApplicationService individualTourApplicationService,
-                                     CounselorService counselorService, HighSchoolService highSchoolService, TourApplicationService tourApplicationService, TourService tourService) {
+                                     CounselorService counselorService, HighSchoolService highSchoolService, TourApplicationService tourApplicationService,
+                                     TourService tourService, NotificationService notificationService) {
         this.schoolTourApplicationService = schoolTourApplicationService;
         this.individualTourApplicationService = individualTourApplicationService;
         this.counselorService = counselorService;
         this.highSchoolService = highSchoolService;
         this.tourApplicationService = tourApplicationService;
         this.tourService = tourService;
+        this.notificationService = notificationService;
     }
 
 
@@ -119,6 +122,11 @@ public class TourApplicationController {
         }// not found when searched by email
         Counselor counselor = counselorService.getCounselorByUsername(counselorEmail);
         if(schoolTourApplication.getApplyingCounselor().equals(counselor)){
+            // Notification Logic
+            Tour tour = tourService.getTourById(tourApplicationId);
+            notifyForTourApplication(tour, counselorEmail, "Counselor Cancellation");
+            notifyForTourApplication(tour, tour.getAssignedGuideEmail(), "Guide Cancellation");
+
             tourService.cancelTourByCounselor(tourApplicationId);
             return new ResponseEntity<>(schoolTourApplicationService.cancelSchoolTourApplication(counselorEmail, tourApplicationId), HttpStatus.ACCEPTED);
         }
@@ -127,6 +135,28 @@ public class TourApplicationController {
         }
     }
 
+    private void notifyForTourApplication(Tour tour, String email, String situation) {
+        String title = null;
+        String text = null;
+        if (situation.equals("Counselor Cancellation")) {
+            title = "Onaylanan Üniversite Turunuzu İptal Ettiniz";
+            text = "İptal Edilen Turun Bilgisi: <br>" +
+                    "Tarih: " + tour.getChosenDate() +"<br>" +
+                    "Saat: " + tour.getChosenTimeSlot().getDisplayName();
+        }
+        else if (situation.equals("Guide Cancellation")) {
+            title = "Onaylanan Turunuz Lise Tarafından İptal Edildi";
+            text = "Tur Bilgisi: <br>" +
+                    "Tarih: " + tour.getChosenDate() +"<br>" +
+                    "Saat: " + tour.getChosenTimeSlot().getDisplayName() +"<br>" +
+                    "Lise: " + tour.getApplyingHighschool().getSchoolName() +"<br>" +
+                    "Ziyaretçi Sayısı: " + tour.getVisitorCount();
+        }
+
+        if (title != null || text != null) {
+            notificationService.createNotification(email, title, text);
+        }
+    }
     ////////////////////////////
 // IndividualTourApplication Methods END
 
