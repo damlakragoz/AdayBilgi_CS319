@@ -140,7 +140,7 @@ const LoginPage = () => {
 
                 {/* Add the Sign Up button here */}
                 <div>
-                    <p>Don't have an account?</p>
+                    <p>Do not have an account? </p>
                     <button className="signup-button" onClick={() => navigate('/signup')}>
                         Sign Up
                     </button>
