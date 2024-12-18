@@ -6,6 +6,10 @@ import SignUpForm from './authorization/SignUpForm';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
+import IndividualApplicationPage from "./mainpage/IndividualApplicationPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -47,6 +51,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+          <ToastContainer position="top-right" autoClose={3000} />
         <header className="app-header"></header>
 
         <main className="app-main">
@@ -55,8 +60,8 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
-
-            {/* Protected Routes Wrapper */}
+              <Route path="/individual-application" element={<IndividualApplicationPage />} />
+              {/* Protected Routes Wrapper */}
             <Route
               path="/*"
               element={

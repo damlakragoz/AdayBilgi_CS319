@@ -1,0 +1,26 @@
+/* Unique prefix added for NavbarMainPage */
+.navbar-unique {
+    display: flex;
+    justify-content: center;
+    background-color: #b8bacf;
+    padding: 10px 0;
+}
+
+.navbar-links-unique {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-links-unique li a {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.navbar-links-unique li a:hover {
+    text-decoration: underline;
+}

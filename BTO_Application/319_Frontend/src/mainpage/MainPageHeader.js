@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './MainPageHeader.css';
+import Navbar from './NavbarMainPage';
 import logo from '../assets/logo.png';
 
 const MainPageHeader = () => {
     const navigate = useNavigate(); // Initialize useNavigate
 
     return (
-        <header className="mainpage-header">
+        <header className="main-page__header">
             <div className="header-top">
                 <nav className="header-nav">
                     <a href="#contact" className="header-link">İletişim</a>
@@ -25,8 +26,10 @@ const MainPageHeader = () => {
             <div className="header-main">
                 <div className="logo-section">
                     <img src={logo} alt="Bilkent Üniversitesi Logo" className="logo"/>
-                    <h1 className="logo-title">Bilkent Üniversitesi</h1>
-                    <h2 className="logo-subtitle">Üniversite Adaylarına Bilgi</h2>
+                    <div className="logo-text">
+                        <h1 className="logo-title">Bilkent Üniversitesi</h1>
+                        <h2 className="logo-subtitle">Üniversite Adaylarına Bilgi</h2>
+                    </div>
                 </div>
                 <input
                     type="text"
@@ -50,6 +53,7 @@ const MainPageHeader = () => {
 
             </div>
 
+            <Navbar/>
         </header>
     );
 };

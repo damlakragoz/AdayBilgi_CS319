@@ -64,7 +64,7 @@ textarea {
 .info-section {
     flex: 0;
     background-color: #ffffff;
-    padding: 180px;
+    padding: 194px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -157,7 +157,6 @@ textarea {
     font-weight: bold;
 }
 
-
 .add-date-time-btn,
 .remove-date-time-btn {
     background-color: red;
@@ -167,6 +166,7 @@ textarea {
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
+    margin-bottom: 15px;
 }
 
 .add-date-time-btn:hover,
@@ -175,18 +175,23 @@ textarea {
     opacity: 0.9;
 }
 
-.combo-box .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 1000;
-    margin-top: 5px;
-    padding: 0;
-    list-style: none;
+/* Parent container of the date and time inputs */
+.tour-preference-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.date-time-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between rows */
+    margin-bottom: 10px;
+}
+
+.date-time-row {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Space between inputs and buttons */
 }
