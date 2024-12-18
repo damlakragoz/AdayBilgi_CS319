@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './FairInvitations.css'; // Import the updated CSS file
+import './FairInvitations.css';
+import {toast} from "react-toastify"; // Import the updated CSS file
 
 const timeSlots = [
   { id: "SLOT_9_10", displayName: "09:00-10:00" },
@@ -26,11 +27,13 @@ const AllTourApplications = () => {
   const rowsPerPage = 8;
 
   useEffect(() => {
+    let shownError = false;
+
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("userToken");
         if (!token) {
-          alert("Authorization token missing. Please log in.");
+          toast.error("Authorization token missing. Lütfen giriş yapın.", { autoClose: 3000 });
           return;
         }
 
@@ -43,8 +46,11 @@ const AllTourApplications = () => {
 
         setData(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        alert("Failed to fetch tour applications. Please try again later.");
+        if (!shownError) {
+          console.error('Error fetching data:', error);
+          toast.error("Tur başvuruları veri tabanından alınamadı. Lütfen daha sonra tekrar deneyin.", { autoClose: 3000 });
+          shownError = true;
+        }
       }
     };
 
@@ -89,37 +95,48 @@ const AllTourApplications = () => {
       <div className="fair-tour-lists-table-container">
         <table className="fair-tour-lists-table">
           <thead>
-            <tr>
-              <th>Başvuru Durumu</th>
-              <th>Lise Adı</th>
-              <th>Başvuran Rehber Öğretmen</th>
-              <th>Atanan Tur Tarihi</th>
-              <th>Seçilen Zaman Dilimi</th>
-              <th>İşlenme Zamanı</th>
-              <th>Talep Edilen Tarihler</th>
-              <th>Katılımcı Sayısı</th>
-            </tr>
+          <tr>
+            <th>Başvuru Türü</th>
+            <th>Başvuru Durumu</th>
+            <th>Lise Adı</th>
+            <th>Başvuran Rehber Öğretmen</th>
+            <th>Atanan Tur Tarihi</th>
+            <th>Seçilen Zaman Dilimi</th>
+            <th>İşlenme Zamanı</th>
+            <th>Talep Edilen Tarihler</th>
+            <th>Katılımcı Sayısı</th>
+          </tr>
           </thead>
           <tbody>
-            {currentData.map((tourApplication, index) => (
+          {currentData.map((tour, index) => (
               <tr key={index}>
-                <td>{mapStatusToTurkish(tourApplication.applicationStatus) || "Belirtilmedi"}</td>
-                <td>{tourApplication.applyingCounselor.schoolName ? tourApplication.applyingCounselor.schoolName : "Bilinmiyor"}</td>
-                <td>{tourApplication.applyingCounselor ? tourApplication.applyingCounselor.firstName : "Bilinmiyor"}</td>
-                <td>{tourApplication.selectedDate ? formatDate(tourApplication.selectedDate) : "Seçilmedi"}</td>
-                <td>{getTimeSlotDisplayName(tourApplication.selectedTimeSlot)}</td>
-                <td>{tourApplication.transitionTime ? formatDate(tourApplication.transitionTime) : "Yok"}</td>
                 <td>
-                  {tourApplication.requestedDates?.length
-                    ? tourApplication.requestedDates.map((date, idx) => (
-                        <div key={idx}>{formatDate(date)}</div>
-                      ))
-                    : "Talep Yok"}
+                  {tour.applicationType === "School"
+                      ? "Okul Başvurusu"
+                      : "Bireysel Başvuru"}
                 </td>
-                <td>{tourApplication.visitorCount ? tourApplication.visitorCount : 0}</td>
+                <td>{mapStatusToTurkish(tour.applicationStatus) || "Belirtilmedi"}</td>
+                <td>{tour.schoolName || "Bilinmiyor"}</td>
+                <td>
+                  {tour.applicationType === "School"
+                      ? tour.counselorName || "-"
+                      : "-"}
+                </td>
+                <td>{tour.selectedDate ? formatDate(tour.selectedDate) : "Seçilmedi"}</td>
+                <td>{getTimeSlotDisplayName(tour.selectedTimeSlot)}</td>
+                <td>{tour.transitionTime ? formatDate(tour.transitionTime) : "Yok"}</td>
+                <td>
+                  {tour.requestedDates?.length
+                      ? tour.requestedDates.map((date, idx) => (
+                          <div key={idx}>{formatDate(date)}</div>
+                      ))
+                      : "Talep Yok"}
+                </td>
+                <td>{tour.visitorCount || 0}</td>
               </tr>
-            ))}
+          ))}
           </tbody>
+
         </table>
       </div>
       <div className="fair-tour-lists-footer">
@@ -128,14 +145,14 @@ const AllTourApplications = () => {
         </div>
         <div className="fair-tour-lists-arrow-navigation">
           <span
-            className={`fair-tour-lists-arrow ${currentPage === 1 ? 'disabled' : ''}`}
-            onClick={handlePreviousPage}
+              className={`fair-tour-lists-arrow ${currentPage === 1 ? 'disabled' : ''}`}
+              onClick={handlePreviousPage}
           >
             {'<'}
           </span>
           <span
-            className={`fair-tour-lists-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
-            onClick={handleNextPage}
+              className={`fair-tour-lists-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
+              onClick={handleNextPage}
           >
             {'>'}
           </span>
