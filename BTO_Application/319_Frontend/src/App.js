@@ -10,6 +10,7 @@ import SubmitApplication from './submitapplication/SubmitApplication';
 import PuantageTable from './common/PuantageTable';
 import ChangePassword from "./passwordPages/ChangePassword";
 import ForgotPassword from './passwordPages/ForgotPassword';
+import ResetPassword from './passwordPages/ResetPassword';
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -73,6 +74,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
             {/* Protected Routes Wrapper */}
             <Route
