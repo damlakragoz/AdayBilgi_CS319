@@ -46,7 +46,7 @@ const CounselorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/new-notifications" className="nav-link text-white">
+                    <Link to="/counselor-notifications" className="nav-link text-white">
                         Bildirimlerim
                     </Link>
                 </li>

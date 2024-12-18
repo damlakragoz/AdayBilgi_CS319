@@ -1,0 +1,88 @@
+/* General Container and Table Styles */
+.calendar-container {
+  background: #fff;
+  padding: 16px; /* Reduced padding for smaller screens */
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  max-width: 100%; /* Ensure it doesn't overflow the viewport */
+  margin: 20px auto;
+  overflow-x: auto; /* Scroll horizontally when content exceeds container */
+  -webkit-overflow-scrolling: touch; /* Smooth scroll for mobile */
+}
+
+.table-wrapper {
+  overflow-x: auto; /* Horizontal scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+.calendar-table {
+  width: 100%; /* Ensure table takes up full width */
+  border-collapse: collapse;
+  min-width: 800px; /* Minimum width to ensure structure */
+}
+
+.calendar-table th,
+.calendar-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  color: #444;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.calendar-table th {
+  background-color: #3498db;
+  color: #fff;
+  font-weight: 600;
+}
+
+.calendar-table td {
+  white-space: nowrap; /* Prevent content from wrapping */
+  background-color: #f4f6f9;
+  color: #444;
+}
+
+.calendar-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Month Selector */
+.month-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.month-selector button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.month-selector button:hover {
+  background-color: #2980b9;
+}
+
+/* Activity Box Styles */
+.activity-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.activity-box span {
+  margin-right: 4px;
+  font-weight: bold;
+}

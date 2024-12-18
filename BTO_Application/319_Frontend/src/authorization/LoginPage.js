@@ -81,6 +81,9 @@ const LoginPage = () => {
                     case 'Executive':
                         navigate('/executive-homepage');
                         break;
+                    case 'Advisor':
+                        navigate('/advisor-homepage');
+                        break;
                     default:
                         navigate('/applications'); // Fallback if the role is unknown
                         break;
@@ -138,9 +141,10 @@ const LoginPage = () => {
                     </button>
                 </form>
 
+                <a href="/forgot-password">Forgot Password?</a>
                 {/* Add the Sign Up button here */}
                 <div>
-                    <p>Don't have an account?</p>
+                    <div> Do not have an account?</div>
                     <button className="signup-button" onClick={() => navigate('/signup')}>
                         Sign Up
                     </button>

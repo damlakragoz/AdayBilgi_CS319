@@ -1,0 +1,48 @@
+.tour-schedule-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.calendar-container {
+    flex: 1;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.tour-list-container {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.highlight-green {
+    background-color: #d4edda;
+}
+
+.highlight-grey {
+    background-color: #e9ecef;
+}
+
+.tour-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.tour-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tour-item button:hover {
+    background-color: #0056b3;
+}

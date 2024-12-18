@@ -1,76 +1,104 @@
+/* Main container for centering the form */
 .signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background-color: #f7f7f7;
+    padding: 20px;
 }
 
+/* Signup form container styling */
 .signup-form {
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;  /* Maximum width for better responsiveness */
     text-align: center;
 }
 
+/* Heading style */
 .signup-form h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 28px;
+    margin-bottom: 15px;
     color: #1c3b8e;
 }
 
+/* Paragraph under heading */
 .signup-form p {
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     color: #777;
 }
+
+/* Form group styling (for inputs, selects, and labels) */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: start;
+     justify-content: flex-start;
 }
 
-.form-group input {
-    width: calc(50% - 10px);
-    padding: 10px;
-    margin-right: 10px;
+/* Styling input fields */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"] {
-    width: 100%;
+/* Styling the dropdown (select) */
+.form-group select {
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 30px;  /* Space for the arrow */
 }
 
+/* Label style */
+.signup-form .form-group label {
+    font-size: 12px;
+    display: inline-flex;
+    color: #666;
+    text-align: left;  /* Align text to the left */
+    width: 100%;  /* Ensure the label takes up the full width */
+    display: block;  /* Make sure it behaves like a block element */
+    margin-bottom: 5px; /* Space below the label */
+    padding-left: 5px; /* Optional: small padding for alignment */
+}
+
+
+/* Styling for the checkbox input */
 .form-group input[type="checkbox"] {
     margin-right: 10px;
+    margin-left: 0;
 }
 
+/* Submit button styling */
 .submit-btn {
     background-color: #1c3b8e;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
     background-color: #142866;
 }
 
-.signup-form .form-group label {
-    font-size: 12px;
-    color: #666;
-}
-
-/* SignUpForm.css */
+/* Back button styling */
 .back-button {
     background-color: #1c3b8e;
     color: white;
@@ -79,9 +107,14 @@
     border-radius: 5px;
     margin-bottom: 20px;
     cursor: pointer;
+    display: block;
+    width: 100%;
+    max-width: 200px; /* Max width for responsiveness */
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
     background-color: #142f6b;
 }
-

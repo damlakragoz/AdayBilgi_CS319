@@ -1,0 +1,65 @@
+/* General Layout */
+.advisor-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content-container {
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.content-container.with-sidebar {
+    margin-left: 250px;
+}
+
+/* Header */
+.header {
+    background-color: #002855;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #002855;
+    color: white;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px 0;
+    font-size: 1rem;
+}
+
+.sidebar a:hover {
+    color: #00f0ff;
+}

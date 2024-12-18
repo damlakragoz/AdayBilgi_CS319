@@ -55,7 +55,7 @@ body {
 }
 
 .onay-bekleyen-activity-table th {
-    background-color: var(--light-blue); /* Soft background for header */
+    background-color: var(--background-light);  /* Soft background for header */
     color: var(--dark-blue);
     font-weight: 600;
 }

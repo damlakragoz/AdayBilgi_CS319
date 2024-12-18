@@ -73,6 +73,49 @@ const TourGuideList = () => {
     }
   };
 
+  const promoteToExpert = async (email) => {
+    const confirmPromotion = window.confirm(
+      `Are you sure you want to promote the Tour Guide with email: ${email} to an Expert?`
+    );
+
+    if (confirmPromotion) {
+      try {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          alert("Authorization token missing. Please log in.");
+          return;
+        }
+        console.log(token);
+        const assignedDay = "Monday";
+        const response = await axios.post(
+          "http://localhost:8081/api/promoteTourGuide",
+          null, // No JSON body
+          {
+            params: {
+                guideEmail: email,
+                assignedDay: assignedDay,
+            },
+            headers: { Authorization: `Bearer ${token}`,
+             "Content-Type": "application/json",},
+            withCredentials: true,
+          }
+        );
+
+        if (response.status == 200 || response.status === 201 || response.status === 202) {
+          alert("Tour Rehberi " + email + " uzmanlığa yükseltildi!");
+          fetchTourGuides(); // Refresh the list
+        }
+      } catch (error) {
+        if (error.response) {
+          alert(`Error: ${error.response.data}`);
+        } else {
+          alert("An unexpected error occurred.");
+        }
+      }
+    }
+  };
+
+
   return (
     <div>
       <table className="user-table">
@@ -84,6 +127,7 @@ const TourGuideList = () => {
             <th>Çalışma Saatleri</th>
             <th>Sınıf</th>
             <th>IBAN</th>
+            <th>Uzmanlık</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -96,14 +140,34 @@ const TourGuideList = () => {
               <td>{tourGuide.workHours}</td>
               <td>{tourGuide.grade}</td>
               <td>{tourGuide.iban}</td>
+              <td>{tourGuide.role=="TourGuide" ? "Tur Rehberi" : "Advisor"}</td>
               <td>
+                {/* Delete Button */}
                 <button
                   onClick={() => removeRow(tourGuide.email)}
                   title="Delete Tour Guide"
                 >
                   🗑️
                 </button>
+
+                {/* New "Uzmanlığa Yükselt" Button */}
+                <button
+                  onClick={() => promoteToExpert(tourGuide.email)}
+                  title="Uzmanlığa Yükselt"
+                  style={{
+                    marginLeft: "10px",
+                    padding: "5px 10px",
+                    backgroundColor: "#28a745",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Uzmanlığa Yükselt
+                </button>
               </td>
+
             </tr>
           ))}
         </tbody>

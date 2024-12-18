@@ -6,6 +6,8 @@
     --deep-blue:#142f6b;
     --orange: #E38E49;       /* Orange */
     --my-red: #df5454;       /* My Red */
+    --my-green: #d4edda;       /* My Green */
+    --dark-green: #11ac36;
 
   /* Accent Colors */
     --dark-gray: #5A5A5A;    /* Dark Gray */
@@ -70,7 +72,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
 .app-main {
     flex: 1;
     padding: 20px;
-    margin-top: 100px;
+    margin-top: 0px;
     background-color: #f4f4f4;
     justify-content: center;
     align-items: center;
@@ -87,42 +89,6 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-}
-
-.login-form {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-}
-
-.login-form label {
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
-.login-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.login-button {
-    background-color: #1c3b8e;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.login-button:hover {
-    background-color: var(--deep-blue) ;
 }
 
 /* Application Table Styles */

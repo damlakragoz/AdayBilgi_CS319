@@ -42,7 +42,7 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                 <br />
                 {/* Subtitle: Notifications */}
                 <li>
-                    <Link to="/notifications" className="sidebar-subtitle">
+                    <Link to="/tourguide-notifications" className="sidebar-subtitle">
                         Bildirimler
                     </Link>
                 </li>

@@ -1,12 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './mainpage/MainPage';
+import IndividualApplicationPage from './mainpage/IndividualApplicationPage';
 import LoginPage from './authorization/LoginPage';
 import SignUpForm from './authorization/SignUpForm';
-import Dashboard from './dashboard/Dashboard';
+import CounselorDashboard from './dashboard/CounselorDashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
-import IndividualApplicationPage from "./mainpage/IndividualApplicationPage";
+import PuantageTable from './common/PuantageTable';
+import ChangePassword from "./passwordPages/ChangePassword";
+import ForgotPassword from './passwordPages/ForgotPassword';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -22,7 +25,7 @@ import FairSchedule from './common/FairSchedule';
 import AllTourApplications from './common/AllTourApplications';
 import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
-import NewNotifications from './notification/NewNotifications';
+import CoordinatorNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
 // Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
@@ -35,15 +38,27 @@ import TourApplicationDetailsPage from "./counselorPages/TourApplicationDetailsP
 import SendFairInvitation from "./counselorPages/SendFairInvitation";
 import FairInvitationsPage from "./counselorPages/FairInvitationsPage";
 import CounselorLayout from "./counselorPages/CounselorLayout";
+import CounselorNotifications from './notification/NewNotifications';
 // Executive Page Imports
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
+import ExecutiveNotifications from './notification/NewNotifications';
 // TourGuide Page Imports
 import TourGuideLayout from './tourguidepages/TourGuideLayout';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
 import TourGuidePuantage from './tourguidepages/TourGuidePuantage';
 import TourEnrollmentPage from './tourguidepages/TourEnrollmentPage';
 import TourSchedule from './tourguidepages/TourSchedule';
+import TourGuideNotifications from './notification/NewNotifications';
+
+// Advisor Page Imports
+import AdvisorLayout from './advisorpages/AdvisorLayout';
+import AdvisorHomepage from './advisorpages/AdvisorHomepage';
+import AdvisorEnrollmentPage from './advisorpages/AdvisorEnrollmentPage';
+import AdvisorTourSchedule from './advisorpages/AdvisorSchedule';
+import AdvisorNotifications from './notification/NewNotifications';
+import TourWithdrawRequests from "./advisorpages/TourWithdrawRequests";
+
 
 import './App.css';
 
@@ -58,10 +73,12 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<MainPage />} />
+            <Route path="/individual-application" element={<IndividualApplicationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
-              <Route path="/individual-application" element={<IndividualApplicationPage />} />
-              {/* Protected Routes Wrapper */}
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+
+            {/* Protected Routes Wrapper */}
             <Route
               path="/*"
               element={
@@ -70,7 +87,6 @@ function App() {
                     <Route path="/anasayfa" element={<MainPage />} />
                     <Route path="/notifications" element={<Notifications />} />
 
-                    <Route path="/applications" element={<Dashboard />} />
                     <Route path="/submit-application" element={<SubmitApplication />} />
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
@@ -83,23 +99,29 @@ function App() {
                       <Route path="/tur-basvurulari" element={<AllTourApplications />} />
                       <Route path="/fuar-davetleri" element={<FairInvitations />} />
                       <Route path="/add-tourguide" element={<AddTourGuideForm />} />
+                        <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
+                        <Route path="/coordinator-change-password" element={<ChangePassword />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
                         <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
+                        <Route path="/executive-notifications" element={<ExecutiveNotifications />} />
+                        <Route path="/executive-change-password" element={<ChangePassword />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
+                        <Route path="/applications" element={<CounselorDashboard />} />
                         <Route path="/" element={<CounselorDashboardContent/>}/>
                         <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
-                        <Route path="/new-notifications" element={<NewNotifications />} />
                         <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
                         <Route path="/feedback" element={<FeedbackForm/>}/>
                         <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
                         <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
                         <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
+                        <Route path="/counselor-notifications" element={<CounselorNotifications />} />
+                        <Route path="/counselor-change-password" element={<ChangePassword />} />
                     </Route>
                     {/* TourGuide Routes Wrapped in TourGuide */}
                     <Route element={<TourGuideLayout />}>
@@ -108,9 +130,22 @@ function App() {
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
+                        <Route path="/puantage-table" element={<PuantageTable />} />
+                        <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
+                        <Route path="/tourguide-change-password" element={<ChangePassword />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
 
+                    {/* Advisor Routes Wrapped in AdvisorLayout */}
+                    <Route element={<AdvisorLayout />}>
+                        <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
+                        <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
+                        <Route path="/advisor-tourenrollment" element={<AdvisorEnrollmentPage />} />
+                        <Route path="/withdraw-requests" element={<TourWithdrawRequests />} />
+                        <Route path="/advisor-notifications" element={<AdvisorNotifications />} />
+                        <Route path="/advisor-change-password" element={<ChangePassword />} />
+
+                    </Route>
                   </Routes>
                 </ProtectedRoute>
               }
