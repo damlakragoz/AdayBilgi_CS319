@@ -1,9 +1,6 @@
 package com.CS319.BTO_Application.Service;
 
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.HighSchool;
-import com.CS319.BTO_Application.Entity.IndividualTourApplication;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
+import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Repos.HighschoolRepos;
 import com.CS319.BTO_Application.Repos.IndividualTourApplicationRepos;
 import com.CS319.BTO_Application.Repos.UserRepos;
@@ -26,9 +23,7 @@ public class IndividualTourApplicationService {
         this.highschoolRepos = highschoolRepos;
     }
 
-    public IndividualTourApplication addIndividualApplication(IndividualTourApplication tourApplication, String schoolName) {
-        HighSchool school = highschoolRepos.findBySchoolName(schoolName);
-        tourApplication.setApplyingHighschool(school);
+    public IndividualTourApplication addIndividualApplication(IndividualTourApplication tourApplication) {
         tourApplication.setApplicationStatus("Created");
 
         // Şu anki zamanı al

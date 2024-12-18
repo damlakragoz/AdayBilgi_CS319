@@ -1,6 +1,5 @@
 package com.CS319.BTO_Application.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,4 +27,7 @@ public class IndividualTourApplication extends TourApplication {
 
     @Column(name = "extra_info", nullable = true)
     private String extraInformation; // Any extra information from the applicant
+
+    @Column(name = "visitor_count")
+    private Integer visitorCount;
 }
