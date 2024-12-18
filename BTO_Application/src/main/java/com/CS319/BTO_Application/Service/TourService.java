@@ -153,6 +153,11 @@ public class TourService {
     }
 
     public Tour submitTourActivity(Tour tour, double durationTime) {
+        if(tour.getAssignedGuide() != null){
+            TourGuide guide = tour.getAssignedGuide();
+            guide.setWorkHours(guide.getWorkHours() + durationTime);
+        }
+
         tour.setDuration(durationTime);
         setStatusFinished(tour);
         tour.getTourApplication().setApplicationStatus("Finished");
