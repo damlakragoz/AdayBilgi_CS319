@@ -49,4 +49,16 @@ public class HighSchoolController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllHighSchools() {
+        try {
+            List<HighSchool> highSchools = highschoolService.getAllHighSchools();
+            return ResponseEntity.ok(highSchools);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving high schools.");
+        }
+    }
+
 }

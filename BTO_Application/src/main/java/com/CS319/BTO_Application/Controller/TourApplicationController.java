@@ -100,12 +100,19 @@ public class TourApplicationController {
 
     @PostMapping("/add/individual-application")
     public ResponseEntity<?> addIndividualApplication(@RequestBody AddIndividualApplicationRequest applicationRequest) {
+        System.out.println("Received Application: " + applicationRequest);
         HighSchool highSchool = highSchoolService.getSchoolByName(applicationRequest.getSchoolName());
         if (highSchool == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("High school not found", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(individualTourApplicationService.addIndividualApplication(applicationRequest.getIndividualTourApplication(),
-                applicationRequest.getSchoolName()), HttpStatus.CREATED);
+
+        IndividualTourApplication tourApplication = applicationRequest.getIndividualTourApplication();
+        tourApplication.setApplyingHighschool(highSchool);
+        tourApplication.setRequestedDates(applicationRequest.getRequestedDates()); // Set requestedDates here
+
+        IndividualTourApplication savedApplication = individualTourApplicationService.addIndividualApplication(tourApplication);
+
+        return new ResponseEntity<>(savedApplication, HttpStatus.CREATED);
     }
 
     @DeleteMapping("delete/individual-application")
