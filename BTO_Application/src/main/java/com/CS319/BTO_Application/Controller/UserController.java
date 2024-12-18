@@ -67,6 +67,43 @@ public class UserController {
         }
     }
 
+    // Forgot Password: Send Reset Code to Email
+    @PostMapping("/user/forgotPassword")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+        try {
+            User user = userService.getUserByUsername(email);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Email does not exist.");
+            }
+
+            userService.sendResetCode(email);
+            return ResponseEntity.ok("Reset code sent.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while sending reset code.");
+        }
+    }
+
+    @PutMapping("/user/resetPassword")
+    public ResponseEntity<?> resetPassword(
+            @RequestParam String email,
+            @RequestParam String code,
+            @RequestParam String newPassword) {
+        try {
+            if (!userService.verifyResetCode(email, code)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Invalid code or email.");
+            }
+
+            userService.resetPassword(email, newPassword, code);
+            return ResponseEntity.ok("Pasword changed successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while resetting password.");
+        }
+    }
+
     // Counselor Methods
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
