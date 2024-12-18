@@ -1,11 +1,16 @@
 package com.CS319.BTO_Application.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -23,23 +28,37 @@ public class FairInvitation {
     private Long id;
 
     @Column(name = "fair_start_date", nullable = false)
-    private Date fairStartDate;
+    private LocalDate fairStartDate;
 
     @Column(name = "fair_end_date", nullable = false)
-    private Date fairEndDate;
+    private LocalDate fairEndDate;
 
-    @Column(name = "STATUS")
-    private String status; // Status of the application (e.g., "pending", "approved", "denied")
+    @Column(name = "start_time", nullable = false)
+    private LocalTime fairStartTime;
 
-    @ManyToOne // A counselor can apply for many school tours
+    @Column(name = "end_time", nullable = false)
+    private LocalTime fairEndTime;
+
+    @Column(name = "invitation_status", nullable = false)
+    private String fairInvitationStatus; // Status of the application (e.g., "created", "approved", "cancelled")
+
+    @ManyToOne // A counselor can apply for many school fair
     @JoinColumn(name = "counselor_id", referencedColumnName = "id", nullable = true) // Foreign key column for counselor
     private Counselor applyingCounselor; // Counselor who is applying
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = true)
+    private HighSchool applyingHighschool;
+
+    // transitionTime field
+    @Column(name = "transition_time", nullable = true)
+    private LocalDateTime transitionTime;
 
     @PrePersist
     @PreUpdate
     private void validateDates() {
-        if (fairEndDate.before(fairStartDate)) {
+        if (fairEndDate.isBefore(fairStartDate)) {
             System.out.println("Fair end date must be after the start date.");
             throw new IllegalArgumentException("Fair end date must be after the start date.");
         }

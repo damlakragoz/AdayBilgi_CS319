@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FairApproval {
-    Long fairId;
+    Long fairInvitationId;
     String BTOManagerEmail;
 }
