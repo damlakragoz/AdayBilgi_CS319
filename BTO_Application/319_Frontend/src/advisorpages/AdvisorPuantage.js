@@ -3,9 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // For navigation
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "./TourGuidePuantage.css";
+import "./AdvisorPuantage.css";
 
-const TourGuidePuantage = () => {
+const AdvisorPuantage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [guideTours, setGuideTours] = useState([]); // Both GuideAssigned and Finished tours
   const [filteredTours, setFilteredTours] = useState([]); // Tours for the selected day
@@ -213,7 +213,7 @@ const TourGuidePuantage = () => {
       {/* Button to navigate to Puantage Table */}
       <div className="puantage-table-button">
         <button
-          onClick={() => navigate("/tourguide-puantage-table")}
+          onClick={() => navigate("/advisor-puantage-table")}
           style={{
             marginTop: "20px",
             padding: "10px 20px",
@@ -231,4 +231,4 @@ const TourGuidePuantage = () => {
   );
 };
 
-export default TourGuidePuantage;
+export default AdvisorPuantage;
