@@ -33,11 +33,36 @@ const TourWithdrawRequests = () => {
         });
 
         if (response.status === 200) {
-          const filteredTours = response.data.filter(
-            (tour) => tour.tourStatus === "WithdrawRequested"
+          const filteredTours = await Promise.all(
+            response.data
+              .filter((tour) => tour.tourStatus === "WithdrawRequested")
+              .map(async (tour) => {
+                // Fetch the assigned guide's email for the tour
+                try {
+                  const guideResponse = await axios.get(
+                    "http://localhost:8081/api/tour/get/assignedGuide",
+                    {
+                      params: { tourId: tour.id },
+                      headers: { Authorization: `Bearer ${token}` },
+                    }
+                  );
+
+                  const assignedGuideEmail = guideResponse.data?.email;
+                  if (assignedGuideEmail !== advisorEmail) {
+                    return tour;
+                  }
+                } catch (error) {
+                  console.error(
+                    `Error fetching guide for tour ID ${tour.id}:`,
+                    error
+                  );
+                }
+                return null;
+              })
           );
-          setWithdrawnTours(filteredTours);
-          fetchGuideNames(filteredTours);
+
+          // Filter out null values (tours that were excluded)
+          setWithdrawnTours(filteredTours.filter((tour) => tour !== null));
         }
       } catch (err) {
         setError("Failed to load withdraw requests.");
@@ -46,7 +71,7 @@ const TourWithdrawRequests = () => {
     };
 
     fetchWithdrawnTours();
-  }, [token]);
+  }, [token, advisorEmail]);
 
   // Fetch guide names dynamically for each tour
   const fetchGuideNames = async (tours) => {
