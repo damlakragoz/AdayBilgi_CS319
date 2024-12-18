@@ -52,13 +52,13 @@ public class HighSchoolController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<?> getAllHighschools() {
+    public ResponseEntity<?> getAllHighSchools() {
         try {
-            List<HighSchool> schoolTourApplications = highschoolService.getAll();
-            return ResponseEntity.ok(schoolTourApplications); // return the list of schoolApplications
+            List<HighSchool> highSchools = highschoolService.getAllHighSchools();
+            return ResponseEntity.ok(highSchools);
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while retrieving all high schools");
+                    .body("An error occurred while retrieving high schools.");
         }
     }
 }
