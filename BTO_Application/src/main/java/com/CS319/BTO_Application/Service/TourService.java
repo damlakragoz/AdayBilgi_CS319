@@ -101,6 +101,11 @@ public class TourService {
                 .orElseThrow(() -> new EntityNotFoundException("Tour not found with id: " + tourId));
     }
 
+    public Tour getTourByApplicationId(Long tourApplicationId) {
+        System.out.println("in method");
+        return schoolTourRepos.findByTourApplicationId(tourApplicationId);
+    }
+
     public Tour assignTour(Tour tour, String tourGuideEmail) {
         TourGuide guide = tourGuideRepos.findByEmail(tourGuideEmail);
         if (guide == null) {

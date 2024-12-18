@@ -130,11 +130,11 @@ public class TourApplicationController {
         Counselor counselor = counselorService.getCounselorByUsername(counselorEmail);
         if(schoolTourApplication.getApplyingCounselor().equals(counselor)){
             // Notification Logic
-            Tour tour = tourService.getTourById(tourApplicationId);
-            notifyForTourApplication(tour, counselorEmail, "Counselor Cancellation");
-            notifyForTourApplication(tour, tour.getAssignedGuideEmail(), "Guide Cancellation");
-
-            tourService.cancelTourByCounselor(tourApplicationId);
+            Tour tour = tourService.getTourByApplicationId(tourApplicationId);
+            if(tour != null){
+                notifyForTourApplication(tour, tour.getAssignedGuideEmail(), "Guide Cancellation");
+                tourService.cancelTourByCounselor(tourApplicationId);
+            }
             return new ResponseEntity<>(schoolTourApplicationService.cancelSchoolTourApplication(counselorEmail, tourApplicationId), HttpStatus.ACCEPTED);
         }
         else{

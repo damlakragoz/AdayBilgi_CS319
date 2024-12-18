@@ -10,7 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.security.SecureRandom;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api")
@@ -23,11 +24,12 @@ public class UserController {
     private final HighSchoolService highschoolService;
     private final AdvisorService advisorService;
     private final ExecutiveService executiveService;
+    private final MailService mailService;
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
                           CoordinatorService coordinatorService, TourGuideService tourGuideService,
-                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService) {
+                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService, MailService mailService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
@@ -35,6 +37,7 @@ public class UserController {
         this.highschoolService = highschoolService;
         this.advisorService = advisorService;
         this.executiveService = executiveService;
+        this.mailService = mailService;
     }
 
 
@@ -49,6 +52,21 @@ public class UserController {
                     .body("An error occurred while retrieving users.");
         }
     }
+
+    @PutMapping("/user/changePassword")
+    public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, @RequestParam String username) {
+        try {
+            User user = userService.getUserByUsername(username);
+            if (!userService.checkPassword(user, currentPassword)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password is incorrect");
+            }
+            userService.updatePassword(user, newPassword);
+            return ResponseEntity.ok("Password changed successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while changing the password");
+        }
+    }
+
     // Counselor Methods
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
@@ -161,9 +179,12 @@ public class UserController {
             return ResponseEntity.status(400).body("Username for tour guide is already taken");
         }
 
+        // Generate a random password
+        String randomPassword = generateRandomPassword(10); // Password length is 10 characters
+
         TourGuide tourGuide = new TourGuide(
                 tourGuideRegister.getEmail(),
-                tourGuideRegister.getPassword(),
+                randomPassword,
                 tourGuideRegister.getFirstName(),
                 tourGuideRegister.getLastName(),
                 tourGuideRegister.getPhoneNumber(),
@@ -172,8 +193,28 @@ public class UserController {
                 tourGuideRegister.getIban()
         );
 
-        return new ResponseEntity<>(tourGuideService.saveTourGuide(tourGuide), HttpStatus.CREATED);
+        TourGuide savedTourGuide = tourGuideService.saveTourGuide(tourGuide);
+
+        // Send the password to the user's email
+        String subject = "BTO Hesap Bilgileriniz";
+        String text = String.format(
+                "Merhaba %s %s,\n\nBTO sistemine giriş yapabilmeniz için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",
+                tourGuideRegister.getFirstName(),
+                tourGuideRegister.getLastName(),
+                randomPassword
+        );
+
+        try {
+            System.out.println(tourGuideRegister.getEmail());
+            mailService.sendMail(tourGuideRegister.getEmail(), subject, text);
+            return new ResponseEntity<>(savedTourGuide, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // If email fails, still return a success response but log the issue
+            e.printStackTrace();
+            return ResponseEntity.status(201).body("Tour Guide created, but failed to send email.");
+        }
     }
+
     @GetMapping("/tourguide/getAll")
     public ResponseEntity<?> getAllTourGuides() {
         try {
@@ -250,6 +291,48 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // Utility function to generate a random password
+    private String generateRandomPassword(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!";
+        Random random = new SecureRandom();
+        StringBuilder password = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            password.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return password.toString();
+    }
 // Advisor Methods END
 ////////////////
+
+    @PostMapping("/promoteTourGuide")
+    public ResponseEntity<?> getAssignedTours(@RequestParam String guideEmail, @RequestParam String assignedDay){
+        try {
+            // Retrieve the Tour Guide by email
+            TourGuide tourGuideToBePromoted = tourGuideService.getTourGuideByEmail(guideEmail);
+            if (tourGuideToBePromoted==null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour Guide with email " + guideEmail + " not found.");
+            }
+            tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
+
+            // Create a new Advisor with Tour Guide's attributes
+            Advisor advisor = new Advisor(
+                    tourGuideToBePromoted.getEmail(),
+                    tourGuideToBePromoted.getPassword(),
+                    tourGuideToBePromoted.getFirstName(),
+                    tourGuideToBePromoted.getLastName(),
+                    tourGuideToBePromoted.getPhoneNumber(),
+                    tourGuideToBePromoted.getDepartment(),
+                    tourGuideToBePromoted.getGrade(),
+                    tourGuideToBePromoted.getIban(),
+                    null //assigned day null
+            );
+
+            advisorService.saveAdvisor(advisor);
+            return ResponseEntity.ok("Tour Guide promoted to Advisor successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while promoting the Tour Guide: " + e.getMessage());
+        }
+    }
 }

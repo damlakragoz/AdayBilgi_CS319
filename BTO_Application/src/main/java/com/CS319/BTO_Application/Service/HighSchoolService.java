@@ -2,6 +2,7 @@ package com.CS319.BTO_Application.Service;
 
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.HighSchool;
+import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Entity.User;
 import com.CS319.BTO_Application.Repos.HighschoolRepos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,8 @@ public class HighSchoolService {
         return highschoolRepos.findAll();
     }
 
+
+    public List<HighSchool> getAll() {
+        return highschoolRepos.findAll();
+    }
 }

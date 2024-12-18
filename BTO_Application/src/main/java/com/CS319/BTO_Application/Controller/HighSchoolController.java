@@ -4,6 +4,7 @@ package com.CS319.BTO_Application.Controller;
 import com.CS319.BTO_Application.DTO.HighSchoolRegister;
 import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.HighSchool;
+import com.CS319.BTO_Application.Entity.SchoolTourApplication;
 import com.CS319.BTO_Application.Service.HighSchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,5 +61,4 @@ public class HighSchoolController {
                     .body("An error occurred while retrieving high schools.");
         }
     }
-
 }
