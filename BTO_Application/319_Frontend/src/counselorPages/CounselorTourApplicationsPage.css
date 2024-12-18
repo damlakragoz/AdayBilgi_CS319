@@ -214,11 +214,11 @@
 
 .filter-button {
     padding: 10px 15px;
-    background-color: #e8eaf6;
+    background-color: var(--light-blue);
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
-    color: #333;
+    color: black;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -231,3 +231,4 @@
     color: #fff;
     border-color: #1c3b8e;
 }
+
