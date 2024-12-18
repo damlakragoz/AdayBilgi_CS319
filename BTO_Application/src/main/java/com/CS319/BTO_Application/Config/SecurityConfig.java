@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for simplicity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login","/api/auth/user-role","/api/*/register").permitAll() // Allow unauthenticated access to the login endpoint
+                        .requestMatchers("/api/auth/login","/api/auth/user-role","/api/*/register", "/api/user/forgotPassword", "/api/user/resetPassword").permitAll() // Allow unauthenticated access to the login endpoint
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated() // Require authentication for all other requests
                 )
