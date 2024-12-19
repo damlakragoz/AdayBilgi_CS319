@@ -7,7 +7,7 @@ const OnayBekleyen = () => {
 
   return (
     <div className="onay-bekleyen-container">
-      <h1 className="onay-bekleyen-header">Onay Bekleyen Aktivite Girişleri</h1>
+      <h3 className="onay-bekleyen-header">Onay Bekleyen Işlemler</h3>
       <OnayBekleyenTurlar/>
       <OnayBekleyenFuarlar/>
     </div>

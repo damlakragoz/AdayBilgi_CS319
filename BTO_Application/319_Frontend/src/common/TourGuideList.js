@@ -6,7 +6,7 @@ import "./UserTables.css";
 const TourGuideList = () => {
   const [tourGuides, setTourGuides] = useState([]);
   const [error, setError] = useState(null);
-
+  const [isHovered, setIsHovered] = useState(false);
   const fetchTourGuides = async () => {
     try {
       const token = localStorage.getItem("userToken");
@@ -122,6 +122,7 @@ const TourGuideList = () => {
         <thead>
           <tr>
             <th>Ad Soyad</th>
+            <th>Email</th>
             <th>Bölümü</th>
             <th>Puantaj</th>
             <th>Çalışma Saatleri</th>
@@ -134,6 +135,7 @@ const TourGuideList = () => {
         <tbody>
           {tourGuides.map((tourGuide, index) => (
             <tr key={index}>
+              <td>{tourGuide.firstName +" "+ tourGuide.lastName}</td>
               <td>{tourGuide.email}</td>
               <td>{tourGuide.department}</td>
               <td>{tourGuide.puantage}</td>
@@ -145,24 +147,14 @@ const TourGuideList = () => {
                 {/* Delete Button */}
                 <button
                   onClick={() => removeRow(tourGuide.email)}
-                  title="Delete Tour Guide"
+                  className="usertable-button usertable-button-delete"
                 >
                   🗑️
                 </button>
-
-                {/* New "Uzmanlığa Yükselt" Button */}
                 <button
                   onClick={() => promoteToExpert(tourGuide.email)}
                   title="Uzmanlığa Yükselt"
-                  style={{
-                    marginLeft: "10px",
-                    padding: "5px 10px",
-                    backgroundColor: "#28a745",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
+                  className="usertable-button usertable-button-promote"
                 >
                   Uzmanlığa Yükselt
                 </button>
@@ -177,19 +169,9 @@ const TourGuideList = () => {
       {/* Centered Button Below the Table */}
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <Link to="/add-tourguide">
-          <button
-            style={{
-              padding: "10px 20px",
-              backgroundColor: '#002855',
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "16px",
-            }}
-          >
-            Yeni Tur Rehberi Kaydet
-          </button>
+            <button className="usertable-button usertable-button-add">
+              Yeni Tur Rehberi Kaydet
+            </button>
         </Link>
       </div>
     </div>
