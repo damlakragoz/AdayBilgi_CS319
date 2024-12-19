@@ -51,8 +51,13 @@ const FeedbackForm = ({ closeFeedback, tourId }) => {
                 closeFeedback();
             })
             .catch((error) => {
-                console.error("Error submitting feedback:", error);
                 setLoading(false); // Enable the button
+                if (error.response && error.response.status === 400) {
+                    alert("Bu tura çoktan geri bildirim verdiniz."); // Specific message for status 400
+                } else {
+                    alert("Geri bildirim gönderilirken bir hata oluştu. Lütfen tekrar deneyin."); // Generic error message
+                }
+                console.error("Error submitting feedback:", error);
             });
     };
 

@@ -1,0 +1,19 @@
+.fb-activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.fb-activity-table th,
+.fb-activity-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--gray);  /* Light border for separation */
+    background-color: var(--white);
+}
+
+.fb-activity-table th {
+    background-color: var(--background-light);  /* Soft background for header */
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+

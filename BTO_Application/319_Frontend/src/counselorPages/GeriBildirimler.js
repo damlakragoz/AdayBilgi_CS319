@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FeedbackForm from "./FeedbackForm";
+import "./GeriBildirimler.css";
 import axios from "axios";
 
 const GeriBildirimler = () => {
@@ -21,9 +22,11 @@ const GeriBildirimler = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await fetchCounselorInformation(); // Wait for counselor info
+                await fetchCounselorInformation();
+                await fetchFeedbacks(); // Fetch feedbacks after getting counselor info
+                console.log(feedbacks);
             } catch (error) {
-                console.error("Error fetching counselor info:", error);
+                console.error("Error fetching data:", error);
             }
         };
 
@@ -56,15 +59,15 @@ const GeriBildirimler = () => {
             console.log("Counselors fetched:", resp.data);
 
             const counselorEmail = localStorage.getItem("username")?.toLowerCase();
-//            if (!counselorEmail) {
-//                console.log("Counselor email is missing.");
-//
-//            }
+            if (!counselorEmail) {
+                console.log("Counselor email is missing.");
 
-//            if (!Array.isArray(resp.data)) {
-//                console.log("Expected response data to be an array, but got:", typeof resp.data);
-//
-//            }
+            }
+
+            if (!Array.isArray(resp.data)) {
+                console.log("Expected response data to be an array, but got:", typeof resp.data);
+
+            }
 
             const filteredCounselors = resp.data.filter(
                 (counselor) => counselor.email?.toLowerCase() === counselorEmail
@@ -102,7 +105,7 @@ const GeriBildirimler = () => {
                 (tour) => tour.applyingHighschoolName === counselor.schoolName
             );
             filteredTours = filteredTours.filter(
-                (tour) => tour.tourStatus != "Rejected" && tour.tourStatus != "Cancelled"
+                (tour) => tour.tourStatus == "Finished" || tour.tourStatus == "Approved"
             );
 
             console.log(filteredTours);
@@ -133,15 +136,20 @@ const GeriBildirimler = () => {
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true,
             });
-
+            console.log(response.data);
             setFeedbacks(response.data);
         } catch (error) {
-            console.error("Error fetching feedbacks:", error);
+            console.log("Error fetching feedbacks:"+error);
         }
     };
 
     const hasFeedbackForTour = (tourId) => {
-        return feedbacks.some((feedback) => feedback.tourId === tourId);
+        return feedbacks.some((feedback) => (feedback.tour).id == tourId);
+    };
+
+    const getRatingForTour = (tourId) => {
+        const feedback = feedbacks.find((feedback) => feedback.tour.id === tourId);
+        return feedback ? feedback.rating : 0; // Return 0 if no feedback is found
     };
 
     const formatDate = (date) => {
@@ -173,7 +181,7 @@ const GeriBildirimler = () => {
     return (
         <div>
             <h2>Geri Bildirimlerim</h2>
-            <table className="table">
+            <table className="fb-activity-table">
                 <thead>
                     <tr>
                         <th>Tur Durumu</th>
@@ -190,30 +198,48 @@ const GeriBildirimler = () => {
                             <td>{tour.tourStatus}</td>
                             <td>
                                 {hasFeedbackForTour(tour.id)
-                                    ? "Geri dönüş verildi"
-                                    : "Geri dönüşünüz bekleniyor"}
+                                    ? "Geri bildirim verildi"
+                                    : "Geri bildirim bekleniyor"}
                             </td>
                             <td>{formatDate(tour.chosenDate)}</td>
                             <td>{formatTimeSlot(tour.chosenTimeSlot)}</td>
                             <td>
-                                {[...Array(5)].map((_, i) => (
-                                    <i
-                                        key={i}
-                                        className={`fas fa-star ${
-                                            i < tour.stars ? "text-warning" : "text-secondary"
-                                        }`}
-                                    ></i>
-                                ))}
+                                    {[...Array(5)].map((_, i) => {
+                                        const rating = getRatingForTour(tour.id); // Get the tour rating
+                                        if (i < Math.floor(rating)) {
+                                            return <i key={i} className="fas fa-star text-warning"></i>; // Full star
+                                        } else {
+                                            return <i key={i} className="fas fa-star text-secondary"></i>; // Empty star
+                                        }
+                                    })}
                             </td>
-                            <td>
-                                <i
-                                    className="fas fa-pen text-primary"
-                                    onClick={() => handlePenClick(tour.id)} // Pass the tour ID
-                                    style={{
-                                        color: '#2c7a7b',
-                                        cursor: 'pointer',
-                                      }}
-                                ></i>
+                            <td >
+                                 {!hasFeedbackForTour(tour.id) &&
+                                    tour.tourStatus=="Finished" && (
+                                        <i
+                                            className="fas fa-pen text-primary"
+                                            onClick={() => handlePenClick(tour.id)} // Pass the tour ID
+                                            style={{
+                                                color: "#2c7a7b",
+                                                cursor: "pointer",
+                                            }}
+                                        ></i>
+                                    )}
+                                 {!hasFeedbackForTour(tour.id) && (
+                                         <button
+                                             onClick={() => viewDetails(tour.id)} // Function to handle viewing details
+                                              style={{
+                                                         padding: "0px 5px",
+                                                         border: "1px solid #ddd",
+                                                         background: "#f4f4f4",
+                                                         cursor: "pointer",
+
+                                                         margin: "0px 20px"
+                                                     }}
+                                         >
+                                             View Details
+                                         </button>
+                                     )}
                             </td>
                         </tr>
                     ))}
