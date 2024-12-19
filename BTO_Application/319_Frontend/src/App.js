@@ -8,6 +8,12 @@ import CounselorDashboard from './dashboard/CounselorDashboard';
 import ProtectedRoute from "./dashboard/ProtectedRoute";
 import SubmitApplication from './submitapplication/SubmitApplication';
 import PuantageTable from './common/PuantageTable';
+import ChangePassword from "./passwordPages/ChangePassword";
+import ForgotPassword from './passwordPages/ForgotPassword';
+import ResetPassword from './passwordPages/ResetPassword';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 // Coordinator Page Imports
 import CoordinatorLayout from './coordinatorPages/CoordinatorLayout';
@@ -49,8 +55,11 @@ import TourGuideNotifications from './notification/NewNotifications';
 // Advisor Page Imports
 import AdvisorLayout from './advisorpages/AdvisorLayout';
 import AdvisorHomepage from './advisorpages/AdvisorHomepage';
-import AdvisorEnrollmentPage from './advisorpages/AdvisorEnrollmentPage';
-import AdvisorTourSchedule from './advisorpages/AdvisorSchedule';
+import AdvisorTourEnrollmentPage from './advisorpages/AdvisorTourEnrollmentPage';
+import AdvisorTourSchedule from './advisorpages/AdvisorTourSchedule';
+import AdvisorNotifications from './notification/NewNotifications';
+import TourWithdrawRequests from './advisorpages/TourWithdrawRequests';
+import AdvisorPuantage from './advisorpages/AdvisorPuantage';
 
 
 import './App.css';
@@ -59,6 +68,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+          <ToastContainer position="top-right" autoClose={3000} />
         <header className="app-header"></header>
 
         <main className="app-main">
@@ -68,6 +78,8 @@ function App() {
             <Route path="/individual-application" element={<IndividualApplicationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
             {/* Protected Routes Wrapper */}
             <Route
@@ -91,12 +103,14 @@ function App() {
                       <Route path="/fuar-davetleri" element={<FairInvitations />} />
                       <Route path="/add-tourguide" element={<AddTourGuideForm />} />
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
+                        <Route path="/coordinator-change-password" element={<ChangePassword />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
                         <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
                         <Route path="/executive-notifications" element={<ExecutiveNotifications />} />
+                        <Route path="/executive-change-password" element={<ChangePassword />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
@@ -111,6 +125,7 @@ function App() {
                         <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
                         <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
                         <Route path="/counselor-notifications" element={<CounselorNotifications />} />
+                        <Route path="/counselor-change-password" element={<ChangePassword />} />
                     </Route>
                     {/* TourGuide Routes Wrapped in TourGuide */}
                     <Route element={<TourGuideLayout />}>
@@ -119,8 +134,9 @@ function App() {
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
                         <Route path="/tourguide-tourschedule" element={<TourSchedule />} />
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
-                        <Route path="/puantage-table" element={<PuantageTable />} />
+                        <Route path="/tourguide-puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
+                        <Route path="/tourguide-change-password" element={<ChangePassword />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
 
@@ -128,7 +144,13 @@ function App() {
                     <Route element={<AdvisorLayout />}>
                         <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
                         <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
-                        <Route path="/advisor-tourenrollment" element={<AdvisorEnrollmentPage />} />
+                        <Route path="/advisor-tourenrollment" element={<AdvisorTourEnrollmentPage />} />
+                        <Route path="/withdraw-requests" element={<TourWithdrawRequests />} />
+                        <Route path="/advisor-notifications" element={<AdvisorNotifications />} />
+                        <Route path="/advisor-change-password" element={<ChangePassword />} />
+                        <Route path="/advisor-puantage-table" element={<PuantageTable />} />
+                        <Route path="/advisor-puantage" element={<AdvisorPuantage />} />
+
                     </Route>
                   </Routes>
                 </ProtectedRoute>

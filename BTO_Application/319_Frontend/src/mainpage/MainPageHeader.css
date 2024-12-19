@@ -142,9 +142,35 @@
     }
 
     .logo-section {
-        flex-direction: column;
+        display: flex;
         align-items: center;
+        gap: 15px;
     }
+
+    .logo-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo {
+        height: 60px;
+        border-radius: 50%;
+    }
+
+    .logo-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--dark-blue);
+        margin: 0; /* Remove default margin */
+    }
+
+    .logo-subtitle {
+        font-size: 16px;
+        color: var(--dark-gray);
+        margin: 0; /* Remove default margin */
+    }
+
 
     .search-bar {
         max-width: 100%;
@@ -156,3 +182,10 @@
         gap: 10px;
     }
 }
+
+.main-page__content {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
