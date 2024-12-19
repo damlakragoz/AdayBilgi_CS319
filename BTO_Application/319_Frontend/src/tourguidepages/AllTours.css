@@ -1,0 +1,107 @@
+/* General container */
+.tour-schedule-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tour-list-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: left;
+  margin: 0;
+}
+
+/* Tour list container */
+.tour-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.tour-item {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tour-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Tour item colors */
+.tour-item[data-status="Approved"],
+.tour-item[data-status="Withdrawn"],
+.tour-item[data-status="WithdrawRequested"] {
+  border-left: 5px solid #28a745; /* Green */
+  background: #f0fff4;
+}
+
+.tour-item[data-status="GuideAssigned"] {
+  border-left: 5px solid #e74c3c; /* Red */
+  background: #fff5f5;
+}
+
+.tour-item[data-status="AdvisorAssigned"] {
+  border-left: 5px solid #e74c3c; /* Red */
+  background: #fff5f5;
+}
+
+.tour-item[data-status="Completed"] {
+  border-left: 5px solid #6c757d; /* Dark Gray */
+  background: #f5f5f5;
+}
+
+
+/* Buttons */
+/* Buttons */
+.enroll-button,
+.withdraw-button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: white; /* White text for better readability */
+  display: inline-block; /* Ensures proper alignment */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+/* Enroll Button */
+.enroll-button {
+  background: #28a745; /* Solid green for visibility */
+}
+
+.enroll-button:hover {
+  background: #218838;
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Withdraw Button */
+.withdraw-button {
+  background: #dc3545; /* Solid red for visibility */
+}
+
+.withdraw-button:hover {
+  background: #c82333;
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+

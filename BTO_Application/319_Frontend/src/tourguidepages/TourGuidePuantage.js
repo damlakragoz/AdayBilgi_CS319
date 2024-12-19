@@ -81,8 +81,13 @@ const TourGuidePuantage = () => {
     }
 
     try {
+      const endpoint =
+        selectedTour.tourStatus === "Finished"
+          ? "http://localhost:8081/api/tour/edit-activity"
+          : "http://localhost:8081/api/tour/submit-activity";
+
       const response = await axios.post(
-        "http://localhost:8081/api/tour/submit-activity",
+        endpoint,
         null,
         {
           params: {
@@ -94,10 +99,14 @@ const TourGuidePuantage = () => {
         }
       );
 
-      if (response.status === 201) {
-        alert("Activity duration submitted successfully!");
+      if (response.status === 201 || response.status === 200) {
+        alert(
+          selectedTour.tourStatus === "Finished"
+            ? "Activity duration updated successfully!"
+            : "Activity duration submitted successfully!"
+        );
 
-        // Update the local state: modify the submitted tour
+        // Update the local state
         setGuideTours((prev) =>
           prev.map((tour) =>
             tour.id === selectedTour.id
@@ -110,8 +119,8 @@ const TourGuidePuantage = () => {
         setActivityDuration("");
       }
     } catch (error) {
-      console.error("Error submitting activity:", error.message);
-      alert("Failed to submit activity. Please try again.");
+      console.error("Error submitting or updating activity:", error.message);
+      alert("Failed to submit or update activity. Please try again.");
     }
   };
 
@@ -187,19 +196,19 @@ const TourGuidePuantage = () => {
           </label>
           <button
             onClick={handleSubmitDuration}
-            disabled={!isDateTimePassed(selectedTour)} // Disable button conditionally
+            //disabled={!isDateTimePassed(selectedTour)} // Disable button conditionally
             style={{
               backgroundColor: !isDateTimePassed(selectedTour) ? "#d3d3d3" : "#28a745", // Gray when disabled, Green when enabled
               color: "#fff",
               border: "none",
               padding: "10px 20px",
               borderRadius: "5px",
-              cursor: !isDateTimePassed(selectedTour) ? "not-allowed" : "pointer", // Change cursor to 'not-allowed' when disabled
+              cursor: "pointer", // Change cursor to 'not-allowed' when disabled
               opacity: !isDateTimePassed(selectedTour) ? 0.6 : 1, // Slight transparency for disabled look
               transition: "background-color 0.3s, opacity 0.3s",
             }}
           >
-            {selectedTour.tourStatus === "Finished" ? "Update Duration" : "Submit Duration"}
+            {selectedTour.tourStatus === "Finished" ? "Edit Activity" : "Submit Duration"}
           </button>
 
           {!isDateTimePassed(selectedTour) && (
