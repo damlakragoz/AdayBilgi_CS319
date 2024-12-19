@@ -248,13 +248,6 @@ public class FairController {
         List<Fair> finishedFairs = fairService.getFinishedFairsByMonthAndYear(month, year);
         return ResponseEntity.ok(finishedFairs);
     }
-
-    @PutMapping("/setWorkHour")
-    public void setWorkHour(@RequestParam Long fairId) {
-        Fair fair = fairService.getFairById(fairId);
-        fair.setDuration(0.0);
-        fairRepos.save(fair);
-    }
 }
 
 
