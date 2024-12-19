@@ -52,16 +52,19 @@
 
 /* General Page Container */
 .notifications-page-container {
-    width: 100%; /* Full width */
+    max-width: 1200px;
     height: 100%; /* Full height */
     display: flex;
     flex-direction: column;
     align-items: center; /* Center horizontally */
     justify-content: flex-start; /* Start content from the top */
     padding: 20px;
-    background-color: #f7f7f7; /* Light gray background */
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     color: #333333; /* Dark gray text */
     box-sizing: border-box;
+    margin: 50px auto;
 }
 
 /* Header */

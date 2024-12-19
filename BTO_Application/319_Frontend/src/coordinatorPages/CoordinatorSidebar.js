@@ -28,7 +28,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 </li>
                 <li>
                     <Link to="/bto-koordinasyonu" className="nav-link text-white">
-                     BTO Koordinasyonu
+                        BTO Koordinasyonu
 
                     </Link>
                 </li>
@@ -39,7 +39,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/tur-basvurulari" className="nav-link text-white">Tur Başvuruları</Link>
                 </li>
                 <li>
-                    <Link to="/geribildirimler" className="nav-link text-white">Geribildirimler</Link>
+                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
                 </li>
 
 
@@ -52,7 +52,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 </li>
                 <li>
                     <Link to="/coordinator-tour-schedule" className="nav-link text-white">
-                    Tur Takvimi</Link>
+                        Tur Takvimi</Link>
                 </li>
                 <li>
                     <Link to="/fuar-takvimi" className="nav-link text-white">Fuar Takvimi</Link>
@@ -60,6 +60,11 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 <li>
                     <Link to="/coordinator-notifications" className="nav-link text-white">
                         Bildirimlerim
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/executive-statistics" className="nav-link text-white">
+                        İstatistikler
                     </Link>
                 </li>
 
@@ -71,7 +76,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
                 <li>
-                    <a  onClick={handleLogout} className="nav-link text-white">
+                    <a onClick={handleLogout} className="nav-link text-white">
                         Çıkış Yap
                     </a>
                 </li>

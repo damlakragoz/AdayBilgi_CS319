@@ -11,24 +11,24 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
             <ul className="nav flex-column">
                 {/* Subtitle: Onay Bekleyenler */}
                 <li>
-                    <Link to="/exec-onay-bekleyen-islemler" className="sidebar-subtitle">
+                    <Link to="/onay-bekleyen-islemler/executive" className="sidebar-subtitle">
                         Onay Bekleyenler
                     </Link>
                 </li>
                 <li>
-                    <Link to="/bto-koordinasyonu" className="nav-link text-white">
+                    <Link to="/bto-koordinasyonu/executive" className="nav-link text-white">
                      BTO Koordinasyonu
 
                     </Link>
                 </li>
                 <li>
-                    <Link to="/fuar-davetleri" className="nav-link text-white">Fuar Davetleri</Link>
+                    <Link to="/fuar-davetleri/executive" className="nav-link text-white">Fuar Davetleri</Link>
                 </li>
                 <li>
-                    <Link to="/tur-basvurulari" className="nav-link text-white">Tur Başvuruları</Link>
+                    <Link to="/tur-basvurulari/executive" className="nav-link text-white">Tur Başvuruları</Link>
                 </li>
                 <li>
-                    <Link to="/geribildirimler" className="nav-link text-white">Geribildirimler</Link>
+                    <Link to="/geribildirimler/executive" className="nav-link text-white">Geribildirimler</Link>
                 </li>
 
 
@@ -46,8 +46,13 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/fuar-takvimi" className="nav-link text-white">Fuar Takvimi</Link>
                 </li>
                 <li>
-                    <Link to="/executive-notifications" className="nav-link text-white">
+                    <Link to="/notifications/executive" className="nav-link text-white">
                         Bildirimlerim
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/executive-statistics" className="nav-link text-white">
+                        İstatistikler
                     </Link>
                 </li>
 

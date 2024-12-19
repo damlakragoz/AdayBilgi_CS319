@@ -18,6 +18,12 @@ const ForgotPassword = () => {
     // Handle Submit: Send Email to Server
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (newPassword.length < 8) {
+            setErrorMessage("Şifre en az 8 karakter uzunluğunda olmalı.");
+            return;
+        }
+        
         setIsButtonDisabled(true); // Disable the button immediately
         setIsLoading(true); // Show loading screen
 
