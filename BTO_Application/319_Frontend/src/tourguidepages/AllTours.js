@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import "./TourSchedule.css";
+import "./AllTours.css";
 
-const TourSchedule = () => {
+const AllTours = () => {
     const [tours, setTours] = useState([]);
     const [enrolledTours, setEnrolledTours] = useState([]);
     const [toggleState, setToggleState] = useState(false);
@@ -229,4 +229,4 @@ const TourSchedule = () => {
     );
 };
 
-export default TourSchedule;
+export default AllTours;

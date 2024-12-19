@@ -28,8 +28,8 @@ const TourGuideHeader = ({ toggleSidebar }) => {
                 <a href="/kullanici-islemleri" className="nav-link">
                     Kullanıcı İşlemleri
                 </a>
-                <a href="/gosterge-paneli" className="nav-link">
-                    Gösterge Paneli
+                <a href="/tourguide-all-tours" className="nav-link">
+                    Onay Bekleyen İşlemler
                 </a>
                 <i className="fas fa-bell"></i>
                 <div className="user-dropdown">

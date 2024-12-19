@@ -77,9 +77,13 @@ const CreateTourApplication = () => {
                 setRequestedDates([]); // Clear the form
                 setVisitorCount("");
             }
+
         } catch (error) {
-            console.error("Error submitting application:", error);
-            alert("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
+            if(error.status === 409){
+                alert("Başvurunuzda önceden yapmış olduğunuz aktif bir başvuruyla çakışan tarih var! ");
+            }
+            //console.error("Error submitting application:", error);
+            //alert("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
         } finally {
             setIsSubmitting(false); // Reset loading spinner
         }

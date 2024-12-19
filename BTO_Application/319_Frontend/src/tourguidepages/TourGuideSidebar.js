@@ -26,10 +26,10 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                         Kullanici Islemleri
                     </Link>
                 </li>
-                <li><Link to="/tourguide-tourenrollment"className="nav-link text-white">
+                <li><Link to="/tourguide-tourenrollment" className="nav-link text-white">
                     Turlara Başvur/Tur Takvimi
                 </Link></li>
-                <li><Link to="/basvur-fuar"className="nav-link text-white">
+                <li><Link to="/tourguide-all-fairs" className="nav-link text-white">
                     Fuara Başvur
                 </Link></li>
                 <li><Link to="/basvur-diger" className="nav-link text-white">

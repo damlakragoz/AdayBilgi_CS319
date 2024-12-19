@@ -59,7 +59,7 @@ const TourGuideNavbar = () => {
 
                         <li className="dropdown" ref={dropdownRef2}>
                             <button onClick={toggleDropdown2} className="dropdown-button">
-                                Gösterge Paneli <span>▼</span>
+                                Onay Bekleyen İşlemler <span>▼</span>
                             </button>
                             {isDropdown2Open && (
                                 <ul className="dropdown-menu">

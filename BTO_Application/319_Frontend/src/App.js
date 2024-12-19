@@ -63,6 +63,8 @@ import AdvisorPuantage from './advisorpages/AdvisorPuantage';
 
 
 import './App.css';
+import AllTours from "./tourguidepages/AllTours";
+import AllFairs from "./tourguidepages/AllFairs";
 
 function App() {
   return (
@@ -137,6 +139,8 @@ function App() {
                         <Route path="/tourguide-puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
                         <Route path="/tourguide-change-password" element={<ChangePassword />} />
+                        <Route path="/tourguide-all-tours" element={<AllTours />} />
+                        <Route path="/tourguide-all-fairs" element={<AllFairs />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
 
