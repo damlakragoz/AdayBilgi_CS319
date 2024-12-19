@@ -28,7 +28,7 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                 <a href="/executive-homepage" className="nav-link">
                     Anasayfa
                 </a>
-                <a href="/exec-onay-bekleyen-islemler" className="nav-link">
+                <a href="/onay-bekleyen-islemler/executive" className="nav-link">
                     Onay Bekleyen İşlemler
                 </a>
                 <a href="#" className="nav-link">

@@ -45,6 +45,7 @@ import CounselorNotifications from './notification/NewNotifications';
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
 import ExecutiveNotifications from './notification/NewNotifications';
+import GeriBildirimlerManagerView from './executivePages/GeriBildirimlerManagerView';
 // TourGuide Page Imports
 import TourGuideLayout from './tourguidepages/TourGuideLayout';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
@@ -95,14 +96,16 @@ function App() {
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CoordinatorLayout />}>
-                      <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
-                      <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
-                      <Route path="/onay-bekleyen-islemler" element={<OnayBekleyen />} />
-                      <Route path="/coordinator-tour-schedule" element={<ManagerTourSchedule />} />
-                      <Route path="/fuar-takvimi" element={<FairSchedule />} />
-                      <Route path="/tur-basvurulari" element={<AllTourApplications />} />
-                      <Route path="/fuar-davetleri" element={<FairInvitations />} />
-                      <Route path="/add-tourguide" element={<AddTourGuideForm />} />
+                        <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
+                        <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
+                        <Route path="/onay-bekleyen-islemler" element={<OnayBekleyen />} />
+                        <Route path="/coordinator-tour-schedule" element={<ManagerTourSchedule />} />
+                        <Route path="/fuar-takvimi" element={<FairSchedule />} />
+                        <Route path="/tur-takvimi" element={<TourSchedule />} />
+                        <Route path="/tur-basvurulari" element={<AllTourApplications />} />
+                        <Route path="/fuar-davetleri" element={<FairInvitations />} />
+                        <Route path="/add-tourguide" element={<AddTourGuideForm />} />
+                        <Route path="/geribildirimler/coordinator" element={<GeriBildirimlerManagerView />} />
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
                         <Route path="/coordinator-change-password" element={<ChangePassword />} />
                         <Route path="/coordinator-statistics" element={<Statistics />} />
@@ -110,10 +113,14 @@ function App() {
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
-                        <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
-                        <Route path="/executive-notifications" element={<ExecutiveNotifications />} />
+                        <Route path="/onay-bekleyen-islemler/executive" element={<OnayBekleyen />} />
+                        <Route path="/tur-basvurulari/executive" element={<AllTourApplications />} />
+                        <Route path="/notifications/executive" element={<ExecutiveNotifications />} />
                         <Route path="/executive-change-password" element={<ChangePassword />} />
                         <Route path="/executive-statistics" element={<Statistics />} />
+                       <Route path="/bto-koordinasyonu/executive" element={<BtoKoordinasyonu />} />
+                       <Route path="/fuar-davetleri/executive" element={<FairInvitations />} />
+                       <Route path="/geribildirimler/executive" element={<GeriBildirimlerManagerView />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
@@ -123,6 +130,7 @@ function App() {
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
                         <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
                         <Route path="/feedback" element={<FeedbackForm/>}/>
+                        <Route path="/my-feedbacks" element={<GeriBildirimler/>}/>
                         <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
                         <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
                         <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
@@ -152,7 +160,6 @@ function App() {
                         <Route path="/advisor-change-password" element={<ChangePassword />} />
                         <Route path="/advisor-puantage-table" element={<PuantageTable />} />
                         <Route path="/advisor-puantage" element={<AdvisorPuantage />} />
-
                     </Route>
                   </Routes>
                 </ProtectedRoute>

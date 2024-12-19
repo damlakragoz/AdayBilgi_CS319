@@ -1,5 +1,5 @@
 .feedback-container {
-    max-width: 800px; /* Increased width */
+    max-width: 1000px; /* Increased width */
     margin: 20px auto;
     padding: 30px;
     background-color: #f9f9f9;
@@ -17,16 +17,17 @@
 }
 
 .feedback-details {
-    background-color: #e6f0f8;
+    background-color: var(--light-blue);
     padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 25px;
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
 .details-title {
     font-size: 1.4rem;
     color: #013365;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .rating {
@@ -34,11 +35,16 @@
 }
 
 .rating h5 {
+text-align: center;
     margin-bottom: 10px;
     color: #013365;
     font-size: 1.2rem;
 }
-
+.stars-container {
+    display: flex;
+    justify-content: center; /* Centers the stars horizontally */
+    align-items: center; /* Centers the stars vertically if needed */
+}
 .stars-container i {
     font-size: 28px;
     color: #ddd;
@@ -93,11 +99,11 @@
 }
 
 .btn-submit {
-    background-color: #93C572;
+    background-color: var(--dark-blue);
     color: white;
     padding: 8px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1.0rem;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -107,11 +113,11 @@
 }
 
 .btn-submit:hover {
-    background-color: #79a65b;
+    background-color: var(--orange);
 }
 
-.btn-secondary {
-    background-color: #6c757d; /* Darker gray */
+.feedback-btn-secondary {
+    background-color: #9c9c9c; /* Darker gray */
     color: white;
     padding: 8px 20px; /* Adjusted padding for a smaller button */
     border: none;
@@ -121,6 +127,6 @@
     transition: background-color 0.3s;
 }
 
-.btn-secondary:hover {
+.feedback-btn-secondary:hover {
     background-color: #5a6268;
 }

@@ -71,7 +71,7 @@ const CounselorTourApplicationsPage = () => {
                 });
 
 
-console.log(sortedApplications);
+            console.log(sortedApplications);
 
                 setApplications(sortedApplications);
             } catch (error) {
@@ -89,7 +89,7 @@ console.log(sortedApplications);
     const handleCancelTour = async (applicationId) => {
         try {
             const token = localStorage.getItem("userToken");
-            const counselorEmail = localStorage.getItem("username").toLowerCase();;
+            const counselorEmail = localStorage.getItem("username").toLowerCase();
 
             console.log(counselorEmail);
             console.log(applicationId);
@@ -207,7 +207,22 @@ console.log(sortedApplications);
                                 }`}
                             >
                                 {statusTranslations[application.applicationStatus] || statusTranslations.default}
+
                             </span>
+                            {/* Add pen icon for "Finished" status FOR FEEDBACKS*/}
+                            {application.applicationStatus === "Finished" && (
+                                <a href={"/my-feedbacks"} className="pen-icon-link" >
+                                    <i className="fas fa-pen"
+                                        title="Geribildirim ver"
+                                        style={{ color: '#2c7a7b',
+                                                fontSize: '12px',
+                                                marginLeft: '6px',
+                                                marginBottom: '10px'
+                                              }}
+                                        >
+                                    </i>
+                                </a>
+                            )}
                         </div>
                         <div className="card-details">
                             <p>

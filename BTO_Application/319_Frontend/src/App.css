@@ -1,7 +1,7 @@
 /*COLORS*/
 :root {
-  /* Primary Colors */
-    --light-blue: #eaedff;   /* Light Blue */
+  /* Primary Colors */ /*eaedff was previously light blue*/
+    --light-blue: #e6f0f8;   /* Light Blue */
     --dark-blue: #002855;    /* Dark Blue */
     --deep-blue:#142f6b;
     --orange: #E38E49;       /* Orange */

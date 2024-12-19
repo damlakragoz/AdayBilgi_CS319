@@ -64,13 +64,13 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
 
       {/* Navigation Buttons */}
       <div className="page-navigation">
-        <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
+        <button className="filter-button" onClick={() => goToPage(1)} disabled={currentPage === 1}>
           Tur Rehberleri
         </button>
-        <button onClick={() => goToPage(2)} disabled={currentPage === 2}>
+        <button className="filter-button" onClick={() => goToPage(2)} disabled={currentPage === 2}>
           Rehber Öğretmenler
         </button>
-        <button onClick={() => goToPage(3)} disabled={currentPage === 3}>
+        <button className="filter-button" onClick={() => goToPage(3)} disabled={currentPage === 3}>
           Yeni Hesaplar
         </button>
       </div>

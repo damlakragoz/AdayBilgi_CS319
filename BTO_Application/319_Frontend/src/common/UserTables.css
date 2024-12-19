@@ -96,3 +96,31 @@
   border-bottom-right-radius: 8px;
 }
 
+/* General Button Styles */
+.usertable-button {
+  border: 1px solid #ddd;
+  background: var(--dark-blue);
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.usertable-button:hover {
+  background: var(--orange);
+  color: white;
+}
+
+.usertable-button-add {
+  padding: 10px 20px;
+  background: var(--dark-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.usertable-button-add:hover {
+  background: var(--orange);
+}

@@ -31,7 +31,7 @@ const CounselorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/feedback" className="nav-link text-white">
+                    <Link to="/my-feedbacks" className="nav-link text-white">
                         Geri Bildirimlerim
                     </Link>
                 </li>
