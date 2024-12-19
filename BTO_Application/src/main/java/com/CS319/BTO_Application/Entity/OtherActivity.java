@@ -21,7 +21,7 @@ public class OtherActivity {
     private String activityTitle;
 
     @Column(name = "work_hours", nullable = false)
-    private double workHours;
+    private Double workHours;
 
     @ManyToOne
     @JoinColumn(name = "tour_guide_id", nullable = false)

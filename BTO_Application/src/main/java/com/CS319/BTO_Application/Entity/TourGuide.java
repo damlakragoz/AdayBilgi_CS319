@@ -24,10 +24,10 @@ public class TourGuide extends BTOMember {
     private Long puantage;
 
     @Column(name = "work_hours", nullable = true)
-    private float workHours;
+    private Double workHours;
 
     @Column(name = "grade", nullable = true)
-    private int grade;
+    private Integer grade;
 
     @Column(name = "iban", nullable = true)
     private String iban;
