@@ -1,7 +1,7 @@
 /* General Container */
 .bto-container {
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 50px auto;
   padding: 20px;
   background-color: var(--white);
   border-radius: 8px;
@@ -24,23 +24,10 @@
   margin-bottom: 20px;
 }
 
-.page-navigation button {
-  padding: 10px 20px;
-  font-size: 1.1rem;
-  background-color: var(--gray);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.page-navigation button:hover {
-  background-color:var(--dark-blue);
-}
 
 .page-navigation button:disabled {
-  background-color: #ccc;
+  background-color: var(--dark-blue);
+  color: white;
   cursor: not-allowed;
 }
 
@@ -136,4 +123,31 @@
 
 .page-content-exit {
   opacity: 0;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-button {
+    padding: 10px 15px;
+    background-color: var(--light-blue);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #1c3b8e;
+    color: #fff;
+}
+.filter-button.active {
+    background-color: #1c3b8e;
+    color: #fff;
+    border-color: #1c3b8e;
 }
