@@ -3,8 +3,9 @@ import axios from 'axios';
 import './FairInvitations.css';
 import {toast} from "react-toastify"; // Import the updated CSS file
 
-// Mapping of application status in English to Turkish
+// Mapping of fair invitation status in English to Turkish
 const statusMap = {
+  "pending": "Onay bekliyor",
   "created": "Oluşturuldu",
   "approved": "Onaylandı",
   "rejected": "Reddedildi",
