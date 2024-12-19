@@ -146,6 +146,16 @@ public class TourService {
         return schoolTourRepos.findAll();
     }
 
+    public List<Tour> getAllIndividualTours() {
+        System.out.println("GETAll Individual tours IS CALLED");
+        return schoolTourRepos.findAllByType("individual");
+    }
+
+    public List<Tour> getAllSchoolTours() {
+        System.out.println("GETAll School tours IS CALLED");
+        return schoolTourRepos.findAllByType("school");
+    }
+
     public void cancelTourByCounselor(Long tourApplicationId) {
         Tour tour = schoolTourRepos.findByTourApplicationId(tourApplicationId);
         setStatusRejected(tour);
@@ -153,6 +163,11 @@ public class TourService {
     }
 
     public Tour submitTourActivity(Tour tour, double durationTime) {
+        if(tour.getAssignedGuide() != null){
+            TourGuide guide = tour.getAssignedGuide();
+            guide.setWorkHours(guide.getWorkHours() + durationTime);
+        }
+
         tour.setDuration(durationTime);
         setStatusFinished(tour);
         tour.getTourApplication().setApplicationStatus("Finished");

@@ -34,6 +34,11 @@ public class HighSchoolService {
         return counselors;
     }
 
+    public List<HighSchool> getAllHighSchools() {
+        return highschoolRepos.findAll();
+    }
+
+
     public List<HighSchool> getAll() {
         return highschoolRepos.findAll();
     }

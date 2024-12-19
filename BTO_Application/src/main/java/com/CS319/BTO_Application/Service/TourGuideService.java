@@ -64,6 +64,7 @@ public class TourGuideService {
         tourGuideRepos.delete(tourGuide);
     }
 
+
     public TourGuide getTourGuideById(Long tourGuideId) {
         return tourGuideRepos.findById(tourGuideId)
                 .orElseThrow(() -> new EntityNotFoundException("Tour Guide not found with ID: " + tourGuideId));

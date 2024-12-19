@@ -52,6 +52,58 @@ public class UserController {
                     .body("An error occurred while retrieving users.");
         }
     }
+
+    @PutMapping("/user/changePassword")
+    public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, @RequestParam String username) {
+        try {
+            User user = userService.getUserByUsername(username);
+            if (!userService.checkPassword(user, currentPassword)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password is incorrect");
+            }
+            userService.updatePassword(user, newPassword);
+            return ResponseEntity.ok("Password changed successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while changing the password");
+        }
+    }
+
+    // Forgot Password: Send Reset Code to Email
+    @PostMapping("/user/forgotPassword")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+        try {
+            User user = userService.getUserByUsername(email);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Email does not exist.");
+            }
+
+            userService.sendResetCode(email);
+            return ResponseEntity.ok("Reset code sent.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while sending reset code.");
+        }
+    }
+
+    @PutMapping("/user/resetPassword")
+    public ResponseEntity<?> resetPassword(
+            @RequestParam String email,
+            @RequestParam String code,
+            @RequestParam String newPassword) {
+        try {
+            if (!userService.verifyResetCode(email, code)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Invalid code or email.");
+            }
+
+            userService.resetPassword(email, newPassword, code);
+            return ResponseEntity.ok("Pasword changed successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while resetting password.");
+        }
+    }
+
     // Counselor Methods
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
@@ -289,8 +341,9 @@ public class UserController {
 // Advisor Methods END
 ////////////////
 
+
     @PostMapping("/promoteTourGuide")
-    public ResponseEntity<?> getAssignedTours(@RequestParam String guideEmail, @RequestParam String assignedDay){
+    public ResponseEntity<?> promoteTourGuide(@RequestParam String guideEmail, @RequestParam String assignedDay){
         try {
             // Retrieve the Tour Guide by email
             TourGuide tourGuideToBePromoted = tourGuideService.getTourGuideByEmail(guideEmail);
@@ -298,8 +351,10 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Tour Guide with email " + guideEmail + " not found.");
             }
-            tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
+            List<Tour> tours = tourGuideToBePromoted.getEnrolledTours();
+            List<Payment> payments = tourGuideToBePromoted.getPaymentHistory();
 
+            tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
             // Create a new Advisor with Tour Guide's attributes
             Advisor advisor = new Advisor(
                     tourGuideToBePromoted.getEmail(),
@@ -310,9 +365,14 @@ public class UserController {
                     tourGuideToBePromoted.getDepartment(),
                     tourGuideToBePromoted.getGrade(),
                     tourGuideToBePromoted.getIban(),
-                    null //assigned day null
+                    assignedDay
             );
-
+            for (Tour tour : tours) {
+                tour.setAssignedGuide(advisor);
+            }
+            for (Payment payment : payments) {
+                payment.setTourGuide(advisor);
+            }
             advisorService.saveAdvisor(advisor);
             return ResponseEntity.ok("Tour Guide promoted to Advisor successfully.");
         } catch (Exception e) {
