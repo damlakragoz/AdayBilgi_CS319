@@ -1,6 +1,8 @@
 package com.CS319.BTO_Application.Controller;
 
+import com.CS319.BTO_Application.Entity.Fair;
 import com.CS319.BTO_Application.Entity.Tour;
+import com.CS319.BTO_Application.Repos.TourGuideRepos;
 import com.CS319.BTO_Application.Service.TourGuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,16 @@ public class TourGuideController {
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while retrieving the assigned guide.");
+        }
+    }
+    @GetMapping("/get/enrolledFairs")
+    public ResponseEntity<?> getEnrolledFairs(@RequestParam String guideEmail) {
+        try {
+            List<Fair> fairs = tourGuideService.getAssignedFairs(guideEmail);
+            return ResponseEntity.ok(fairs); // Return the list of fairs with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving the assigned guides.");
         }
     }
 }

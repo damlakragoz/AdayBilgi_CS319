@@ -61,7 +61,8 @@ public class Fair {
     @Column(name = "duration", nullable = true)
     private Double duration; // Duration in hours
 
-    public Fair(LocalDate startDate, LocalDate endDate, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation, LocalTime startTime, LocalTime endTime) {
+    public Fair(LocalDate startDate, LocalDate endDate, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation,
+                LocalTime startTime, LocalTime endTime, Double duration) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.fairStatus = fairStatus;
@@ -69,6 +70,7 @@ public class Fair {
         this.fairInvitation = fairInvitation;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.duration = duration;
     }
 
     public String getAssignedGuideEmail() {

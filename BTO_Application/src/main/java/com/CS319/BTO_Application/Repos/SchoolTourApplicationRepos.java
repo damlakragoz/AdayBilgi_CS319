@@ -1,9 +1,6 @@
 package com.CS319.BTO_Application.Repos;
 
-import com.CS319.BTO_Application.Entity.Counselor;
-import com.CS319.BTO_Application.Entity.SchoolTourApplication;
-import com.CS319.BTO_Application.Entity.TimeSlot;
-import com.CS319.BTO_Application.Entity.TourApplication;
+import com.CS319.BTO_Application.Entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,4 +24,5 @@ public interface SchoolTourApplicationRepos extends TourApplicationRepos<SchoolT
             @Param("selectedTimeSlot") TimeSlot selectedTimeSlot,
             @Param("applicationStatus") String applicationStatus);
 
+    boolean existsBySelectedDateAndApplyingHighschoolAndApplicationStatus(LocalDate selectedDate, HighSchool highSchool, String applicationStatus);
 }

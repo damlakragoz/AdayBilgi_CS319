@@ -52,9 +52,10 @@ public class FairInvitationService {
         fairInvitation.setApplyingCounselor(counselor);
         fairInvitation.setApplyingHighschool(counselor.getHighSchool());
         fairInvitation.setFairInvitationStatus("Created");
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
-        fairInvitation.setTransitionTime(batchWindow);
+        fairInvitation.setFairStartDate(fairInvitation.getFairStartDate());
+        fairInvitation.setFairEndDate(fairInvitation.getFairEndDate());
+        fairInvitation.setFairStartTime(fairInvitation.getFairStartTime());
+        fairInvitation.setFairEndTime(fairInvitation.getFairEndTime());
         return fairInvitationRepos.save(fairInvitation);
     }
 
@@ -75,6 +76,7 @@ public class FairInvitationService {
         return fairInvitationRepos.findById(fairInvitationId).get();
     }
 
+    /*
     @Transactional
     public void processFairInvitation() {
         LocalDateTime now = LocalDateTime.now(); // Şu anki zaman
@@ -125,6 +127,8 @@ public class FairInvitationService {
 
     }
 
+     */
+
     public FairInvitation setStatusPending(FairInvitation fairInvitation) {
         fairInvitation.setFairInvitationStatus("Pending");
         return fairInvitationRepos.save(fairInvitation);
@@ -138,6 +142,27 @@ public class FairInvitationService {
     public FairInvitation setStatusCancelled(FairInvitation fairInvitation) {
         fairInvitation.setFairInvitationStatus("Cancelled");
         return fairInvitationRepos.save(fairInvitation);
+    }
+
+    public boolean existsFairInvitationByHighSchoolAndDate(FairInvitation fairInvitation, String counselorEmail) {
+        if(!counselorRepos.existsByEmail(counselorEmail)){
+            return false;
+        }
+        Counselor counselor  = counselorRepos.findByEmail(counselorEmail);
+        HighSchool applyingHighSchool = counselor.getHighSchool();
+        if(fairInvitationRepos.existsByFairStartDateAndFairEndDateAndApplyingHighschoolAndFairInvitationStatus
+                (fairInvitation.getFairStartDate(), fairInvitation.getFairEndDate(), applyingHighSchool,"Created")
+         || fairInvitationRepos.existsByFairStartDateAndFairEndDateAndApplyingHighschoolAndFairInvitationStatus
+                (fairInvitation.getFairStartDate(), fairInvitation.getFairEndDate(), applyingHighSchool,"Pending")
+        || fairInvitationRepos.existsByFairStartDateAndFairEndDateAndApplyingHighschoolAndFairInvitationStatus
+                (fairInvitation.getFairStartDate(), fairInvitation.getFairEndDate(), applyingHighSchool,"Approved")
+        || fairInvitationRepos.existsByFairStartDateAndFairEndDateAndApplyingHighschoolAndFairInvitationStatus
+                (fairInvitation.getFairStartDate(), fairInvitation.getFairEndDate(), applyingHighSchool,"Rejected")
+        || fairInvitationRepos.existsByFairStartDateAndFairEndDateAndApplyingHighschoolAndFairInvitationStatus
+                (fairInvitation.getFairStartDate(), fairInvitation.getFairEndDate(), applyingHighSchool,"Finished")){
+            return true;
+        }
+        return false;
     }
 
     public FairInvitation cancelFairInvitation(String counselorEmail, Long fairInvitationID) {
@@ -190,9 +215,10 @@ public class FairInvitationService {
         LocalTime startTime = fairInvitation.getFairStartTime();
         LocalTime endTime = fairInvitation.getFairEndTime();
         HighSchool applyingHighschool = fairInvitation.getApplyingHighschool();
-        // Fair(LocalDate startDate, LocalDate endDate, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation, LocalTime startTime, LocalTime endTime)
-        Fair fair = new Fair(startDate, endDate, "Pending", applyingHighschool, fairInvitation, startTime, endTime);
+        Fair fair = new Fair(startDate, endDate, "Pending", applyingHighschool, fairInvitation,startTime, endTime, 0.0);
         fairService.saveFair(fair, fairInvitation);
     }
+
+
 }
 

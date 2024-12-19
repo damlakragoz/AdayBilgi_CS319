@@ -155,7 +155,7 @@ public class FairController {
             }
 
             Fair updatedFair = fairService.submitFairActivity(fair, duration);
-            paymentController.createPaymentForTour(tourGuideEmail, fairId);
+            //paymentController.createPaymentForTour(tourGuideEmail, fairId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedFair);
@@ -247,6 +247,13 @@ public class FairController {
             @RequestParam int year) {
         List<Fair> finishedFairs = fairService.getFinishedFairsByMonthAndYear(month, year);
         return ResponseEntity.ok(finishedFairs);
+    }
+
+    @PutMapping("/setWorkHour")
+    public void setWorkHour(@RequestParam Long fairId) {
+        Fair fair = fairService.getFairById(fairId);
+        fair.setDuration(0.0);
+        fairRepos.save(fair);
     }
 }
 

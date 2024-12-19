@@ -51,19 +51,16 @@ public class FairInvitation {
     @JoinColumn(name = "school_id", referencedColumnName = "id", nullable = true)
     private HighSchool applyingHighschool;
 
+    public HighSchool getApplyingHighschool() {
+        return applyingHighschool;
+    }
+
     // transitionTime field
+    /*
     @Column(name = "transition_time", nullable = true)
     private LocalDateTime transitionTime;
 
-    @PrePersist
-    @PreUpdate
-    private void validateDates() {
-        if (fairEndDate.isBefore(fairStartDate)) {
-            System.out.println("Fair end date must be after the start date.");
-            throw new IllegalArgumentException("Fair end date must be after the start date.");
-        }
-    }
-
+     */
 
 
 }

@@ -173,6 +173,20 @@ public class TourService {
         tour.getTourApplication().setApplicationStatus("Finished");
         return tour;
     }
+    public Tour editTourActivity(Tour tour, double durationTime) {
+        if(tour.getAssignedGuide() != null){
+            TourGuide guide = tour.getAssignedGuide();
+            if(tour.getTourStatus().equals("Finished")){
+                Double prevWorkhours = tour.getDuration();
+                guide.setWorkHours(guide.getWorkHours() - prevWorkhours);
+                guide.setWorkHours(guide.getWorkHours() + durationTime);
+            }
+        }
+        tour.setDuration(durationTime);
+        setStatusFinished(tour);
+        tour.getTourApplication().setApplicationStatus("Finished");
+        return tour;
+    }
 
     public List<Tour> getToursByMonthAndYear(int month, int year) {
         return schoolTourRepos.findToursByMonthAndYear(month, year);

@@ -49,7 +49,9 @@ public class FairInvitationController {
         if(counselorService.getCounselorByUsername(invitationRequest.getCounselorUsername()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by username
-
+        if(fairInvitationService.existsFairInvitationByHighSchoolAndDate(invitationRequest.getFairInvitation(), invitationRequest.getCounselorUsername())){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(fairInvitationService.addFairInvitation(invitationRequest.getFairInvitation(),invitationRequest.getCounselorUsername()), HttpStatus.CREATED);
     }
 
