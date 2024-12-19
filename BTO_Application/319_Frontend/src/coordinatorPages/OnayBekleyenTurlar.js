@@ -8,6 +8,21 @@ const OnayBekleyenTurlar = () => {
     const [error, setError] = useState(null);
     const [toggleState, setToggleState] = useState(false); // State to trigger rerender
 
+    // TimeSlot mappings for displaying in a user-friendly format
+    const timeSlotDisplayNames = {
+        SLOT_9_10:  "09:00-10:00",
+        SLOT_10_11: "10:00-11:00",
+        SLOT_11_12: "11:00-12:00",
+        SLOT_13_14: "13:00-14:00",
+        SLOT_14_15: "14:00-15:00",
+    };
+
+
+    // Function to format TimeSlot enum
+    const formatTimeSlot = (timeSlot) => {
+        return timeSlotDisplayNames[timeSlot] || timeSlot;  // Default to enum value if not found
+    };
+
     // Function to fetch tours
     const fetchTours = async () => {
         try {
@@ -134,8 +149,9 @@ const OnayBekleyenTurlar = () => {
                 <thead>
                     <tr>
                         <th>Tur Onay Durumu</th>
-                        <th>Tur Tarihi</th>
                         <th>Lise</th>
+                        <th>Tur Tarihi</th>
+                        <th>Saatler</th>
                         <th>Tercihler</th>
                     </tr>
                 </thead>
@@ -143,6 +159,7 @@ const OnayBekleyenTurlar = () => {
                     {tours.map((tour, index) => (
                         <tr key={index}>
                             <td>{tour.tourStatus}</td>
+                            <td>{tour.applyingHighschoolName}</td>
                             <td>
                                 {new Date(tour.chosenDate).toLocaleDateString('tr-TR', {
                                     day: 'numeric',
@@ -150,7 +167,7 @@ const OnayBekleyenTurlar = () => {
                                     year: 'numeric',
                                 })}
                             </td>
-                            <td>{tour.applyingHighschoolName}</td>
+                            <td>{formatTimeSlot(tour.chosenTimeSlot)}</td>
 
                             <td className="onay-bekleyen-buttons">
                                 {tour.tourStatus === 'Pending' && (
