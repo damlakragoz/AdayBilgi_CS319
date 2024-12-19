@@ -133,6 +133,7 @@
 
 .card-actions .cancel-button {
     border: none;
+    background: var(--gray);
     padding: 8px 16px;
     border-radius: 5px;
     font-size: 14px;

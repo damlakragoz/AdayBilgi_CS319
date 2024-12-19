@@ -120,6 +120,7 @@ function App() {
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
                         <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
                         <Route path="/feedback" element={<FeedbackForm/>}/>
+                        <Route path="/my-feedbacks" element={<GeriBildirimler/>}/>
                         <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
                         <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
                         <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
