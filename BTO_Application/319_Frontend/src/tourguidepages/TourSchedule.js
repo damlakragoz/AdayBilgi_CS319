@@ -323,8 +323,6 @@ const TourSchedule = () => {
                                             enrolledTour.id === tour.id &&
                                             enrolledTour.chosenDate === formatISODate(new Date(tour.chosenDate))
                                     );
-
-
                                     return (
                                         <li
                                             key={tour.id}
@@ -348,6 +346,8 @@ const TourSchedule = () => {
                                             <br/>
                                             <strong>Tour
                                                 Status:</strong> {tour.tourStatus}
+                                            <br/>
+                                            <strong>Assigned Guide Email:</strong> {tour.assignedGuideEmail}
                                             <br/>
                                             {/* Request Withdraw or Enroll Button Logic */}
                                             {isUserEnrolled ? (

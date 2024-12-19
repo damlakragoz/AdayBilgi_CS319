@@ -28,8 +28,9 @@ const TourWithdrawRequests = () => {
   useEffect(() => {
     const fetchWithdrawnTours = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/api/tour/getAll", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await axios.get("http://localhost:8081/api/advisor/get/all-assigned-day-tours", {
+          params: { advisorEmail: advisorEmail },
+          headers: {Authorization: `Bearer ${token}` },
         });
 
         if (response.status === 200) {
@@ -122,6 +123,7 @@ const TourWithdrawRequests = () => {
     }
   };
 
+
   return (
     <div className="withdraw-container">
       <h1 className="main-title">Tour Withdraw Requests</h1>
@@ -138,8 +140,8 @@ const TourWithdrawRequests = () => {
                   {getTimeSlotDisplayName(tour.chosenTimeSlot)}
                 </div>
                 <div>
-                  <strong>Guide Name:</strong>{" "}
-                  {guideNames[tour.id] || "Loading..."}
+                  <strong>Guide Email:</strong>{" "}
+                  {tour.assignedGuideEmail || "Loading..."}
                 </div>
               </div>
               <div className="action-buttons">

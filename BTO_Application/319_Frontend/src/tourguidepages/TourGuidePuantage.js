@@ -187,14 +187,15 @@ const TourGuidePuantage = () => {
           </label>
           <button
             onClick={handleSubmitDuration}
-            disabled={!isDateTimePassed(selectedTour)} // Disable button conditionally
+            //disabled={!isDateTimePassed(selectedTour)} // Disable button conditionally
             style={{
               backgroundColor: !isDateTimePassed(selectedTour) ? "#d3d3d3" : "#28a745", // Gray when disabled, Green when enabled
               color: "#fff",
               border: "none",
               padding: "10px 20px",
               borderRadius: "5px",
-              cursor: !isDateTimePassed(selectedTour) ? "not-allowed" : "pointer", // Change cursor to 'not-allowed' when disabled
+              cursor: "pointer",
+              //cursor: !isDateTimePassed(selectedTour) ? "not-allowed" : "pointer", // Change cursor to 'not-allowed' when disabled
               opacity: !isDateTimePassed(selectedTour) ? 0.6 : 1, // Slight transparency for disabled look
               transition: "background-color 0.3s, opacity 0.3s",
             }}
