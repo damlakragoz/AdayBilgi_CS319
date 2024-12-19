@@ -89,7 +89,7 @@ const CounselorTourApplicationsPage = () => {
     const handleCancelTour = async (applicationId) => {
         try {
             const token = localStorage.getItem("userToken");
-            const counselorEmail = localStorage.getItem("username").toLowerCase();;
+            const counselorEmail = localStorage.getItem("username").toLowerCase();
 
             console.log(counselorEmail);
             console.log(applicationId);
