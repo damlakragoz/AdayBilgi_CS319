@@ -17,7 +17,7 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                 </li>
                 <li>
                     <Link to="/bto-koordinasyonu" className="nav-link text-white">
-                     BTO Koordinasyonu
+                        BTO Koordinasyonu
 
                     </Link>
                 </li>
@@ -48,6 +48,11 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                 <li>
                     <Link to="/executive-notifications" className="nav-link text-white">
                         Bildirimlerim
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/executive-statistics" className="nav-link text-white">
+                        İstatistikler
                     </Link>
                 </li>
 

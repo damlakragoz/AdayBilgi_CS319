@@ -11,6 +11,7 @@ import PuantageTable from './common/PuantageTable';
 import ChangePassword from "./passwordPages/ChangePassword";
 import ForgotPassword from './passwordPages/ForgotPassword';
 import ResetPassword from './passwordPages/ResetPassword';
+import Statistics from "./statistics/Statistics";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -104,6 +105,7 @@ function App() {
                       <Route path="/add-tourguide" element={<AddTourGuideForm />} />
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
                         <Route path="/coordinator-change-password" element={<ChangePassword />} />
+                        <Route path="/coordinator-statistics" element={<Statistics />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
@@ -111,6 +113,7 @@ function App() {
                         <Route path="/exec-onay-bekleyen-islemler" element={<OnayBekleyen />} />
                         <Route path="/executive-notifications" element={<ExecutiveNotifications />} />
                         <Route path="/executive-change-password" element={<ChangePassword />} />
+                        <Route path="/executive-statistics" element={<Statistics />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
