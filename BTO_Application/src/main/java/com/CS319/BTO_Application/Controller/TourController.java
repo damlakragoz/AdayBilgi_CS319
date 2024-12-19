@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -74,7 +75,7 @@ public class TourController {
         Integer visitorCount = tourApplication.getVisitorCount();
         HighSchool applyingSchool = tourApplication.getApplyingHighschool();
 
-        Tour tour = new Tour(visitorCount, selectedTimeSlot, selectedDate,"Pending", applyingSchool, tourApplication);
+        Tour tour = new Tour(visitorCount, selectedTimeSlot, selectedDate,"Pending", applyingSchool, tourApplication, "individual");
 
         return new ResponseEntity<>(tourService.createIndividualTour(tour, tourApplication), HttpStatus.CREATED);
 
@@ -98,7 +99,7 @@ public class TourController {
         Integer visitorCount = schoolTourApplication.getVisitorCount();
         HighSchool applyingSchool = schoolTourApplication.getApplyingHighschool();
 
-        Tour tour = new Tour(visitorCount, selectedTimeSlot, selectedDate,"Pending", applyingSchool, schoolTourApplication);
+        Tour tour = new Tour(visitorCount, selectedTimeSlot, selectedDate,"Pending", applyingSchool, schoolTourApplication, "school");
 
         return new ResponseEntity<>(tourService.createSchoolTour(tour, schoolTourApplication), HttpStatus.CREATED);
 
@@ -111,7 +112,6 @@ public class TourController {
 
         try {
             // Fetch all tour guides from the service
-            System.out.println("controşller");
             List<Tour> tours = tourService.getAllTours();
             return ResponseEntity.ok(tours); // Return the list of tours with a 200 OK status
         } catch (Exception ex) {
@@ -124,7 +124,7 @@ public class TourController {
     @GetMapping("/get/assignedGuide")
     public ResponseEntity<?> getAssignedGuide(@RequestParam Long tourId) {
         try {
-            // Fetch all tour guides from the service
+            // Fetch all tour guides from the serviceeyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCb3JheSIsImlhdCI6MTczNDU2MzY3OSwiZXhwIjoxNzM0NTY3Mjc5fQ.stV5V-4Kp54GSoDt36AF9HRVpTNvbw93wy_TTB8xA_M
             Tour tour = tourService.getTourById(tourId);
             TourGuide assignedGuide = tour.getAssignedGuide();
             return ResponseEntity.ok(assignedGuide); // Return the list of tours with a 200 OK status
@@ -133,6 +133,8 @@ public class TourController {
                     .body("An error occurred while retrieving the assigned guide.");
         }
     }
+
+
 
 
     /*
@@ -226,7 +228,9 @@ public class TourController {
 
             // Notification Logic
             for (Advisor advisor: advisorService.getAllAdvisors()) {
-                notifyForTour(tour, advisor.getEmail(), "Advisor Tour Withdraw Request");
+                if(advisor.getAssignedDay().equals(tour.getChosenDate().getDayOfWeek().toString())){
+                    notifyForTour(tour, advisor.getEmail(), "Advisor Tour Withdraw Request");
+                }
             }
 
             return new ResponseEntity<>(tourService.requestWithdraw(tour), HttpStatus.CREATED);
@@ -242,7 +246,8 @@ public class TourController {
         if(advisorService.getAdvisorByEmail(tourOperationsForAdvisor.getAdvisorEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
-        if(tour.getTourStatus().equals("WithdrawRequested")){
+        Advisor advisor = advisorService.getAdvisorByEmail(tourOperationsForAdvisor.getAdvisorEmail());
+        if(tour.getTourStatus().equals("WithdrawRequested") && tour.getChosenDate().getDayOfWeek().toString().equals(advisor.getAssignedDay())){
             // Notification Logic
             notifyForTour(tour, tour.getAssignedGuide().getEmail(), "Guide Withdraw Request Rejected");
 

@@ -146,6 +146,16 @@ public class TourService {
         return schoolTourRepos.findAll();
     }
 
+    public List<Tour> getAllIndividualTours() {
+        System.out.println("GETAll Individual tours IS CALLED");
+        return schoolTourRepos.findAllByType("individual");
+    }
+
+    public List<Tour> getAllSchoolTours() {
+        System.out.println("GETAll School tours IS CALLED");
+        return schoolTourRepos.findAllByType("school");
+    }
+
     public void cancelTourByCounselor(Long tourApplicationId) {
         Tour tour = schoolTourRepos.findByTourApplicationId(tourApplicationId);
         setStatusRejected(tour);
