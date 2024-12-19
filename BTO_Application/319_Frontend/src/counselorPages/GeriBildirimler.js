@@ -11,6 +11,10 @@ const GeriBildirimler = () => {
     const [counselor, setCounselor] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const [selectedFeedback, setSelectedFeedback] = useState(null); // State for the selected feedback
+    const [showPopup, setShowPopup] = useState(false); // State to toggle popup visibility
+
+
     const timeSlotDisplayNames = {
         SLOT_9_10: "09:00-10:00",
         SLOT_10_11: "10:00-11:00",
@@ -40,6 +44,18 @@ const GeriBildirimler = () => {
         }
     }, [counselor]); // Dependency on counselor to trigger when it updates
 
+    const viewDetails = (tourId) => {
+            const feedback = feedbacks.find((fb) => fb.tour.id === tourId);
+            if (feedback) {
+                setSelectedFeedback(feedback);
+                setShowPopup(true);
+            }
+        };
+
+        const closePopup = () => {
+            setShowPopup(false);
+            setSelectedFeedback(null);
+        };
 
     const fetchCounselorInformation = async () => {
         try {
@@ -178,6 +194,19 @@ const GeriBildirimler = () => {
         );
     }
 
+    const formatFeedbackComment = (comment) => {
+        if (!comment) return { yorum: "N/A", oneri: "N/A" };
+
+        const yorumMatch = comment.match(/Yorum:\s*([^\.]+)/i);
+        const oneriMatch = comment.match(/Öneri:\s*([^\.]+)/i);
+
+        return {
+            yorum: yorumMatch ? yorumMatch[1].trim() : "",
+            oneri: oneriMatch ? oneriMatch[1].trim() : "",
+        };
+    };
+
+
     return (
         <div>
             <h2>Geri Bildirimlerim</h2>
@@ -225,9 +254,9 @@ const GeriBildirimler = () => {
                                             }}
                                         ></i>
                                     )}
-                                 {!hasFeedbackForTour(tour.id) && (
+                                 {hasFeedbackForTour(tour.id) && (
                                          <button
-                                             onClick={() => viewDetails(tour.id)} // Function to handle viewing details
+                                              onClick={() => viewDetails(tour.id)} // Function to handle viewing details
                                               style={{
                                                          padding: "0px 5px",
                                                          border: "1px solid #ddd",
@@ -245,6 +274,33 @@ const GeriBildirimler = () => {
                     ))}
                 </tbody>
             </table>
+
+            {/* Feedback Details Popup */}
+            {showPopup && selectedFeedback && (
+                <div className="popup-overlay" onClick={closePopup}>
+                    <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                        {/* Close Icon */}
+                        <span className="popup-close-icon" onClick={closePopup}>
+                            &times;
+                        </span>
+
+                        {/* Feedback Details */}
+                        <h3>Geribildirim Detayları</h3>
+                        <p><strong>Oy:</strong> {selectedFeedback.rating} yıldız</p>
+                        {/* Format and Display Comment */}
+                                    {(() => {
+                                        const { yorum, oneri } = formatFeedbackComment(selectedFeedback.comment);
+                                        return (
+                                            <>
+                                                <p><strong>Yorum:</strong> {yorum}</p>
+                                                <p><strong>Öneri:</strong> {oneri}</p>
+                                            </>
+                                        );
+                                    })()}
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
