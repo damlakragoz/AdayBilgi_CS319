@@ -39,7 +39,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/tur-basvurulari" className="nav-link text-white">Tur Başvuruları</Link>
                 </li>
                 <li>
-                    <Link to="/geribildirimler" className="nav-link text-white">Geribildirimler</Link>
+                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
                 </li>
 
 
