@@ -121,6 +121,27 @@ public class TourController {
         }
     }
 
+    @GetMapping("/getById")
+    public ResponseEntity<?> getTourById(@RequestParam Long tourId){
+        try {
+            // Fetch the tour from the service using the provided tourId
+            Tour tour = tourService.getTourById(tourId);
+
+            // If tour is found, return it with status 200 (OK)
+            if (tour != null) {
+                return ResponseEntity.ok(tour); // Return the tour wrapped in ResponseEntity with HTTP status 200
+            } else {
+                // If no tour is found, return a 404 (Not Found) status
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour with ID " + tourId + " not found.");
+            }
+        } catch (Exception ex) {
+            // If an error occurs, return a 500 (Internal Server Error) status
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving the tour.");
+        }
+    }
+
     @GetMapping("/get/assignedGuide")
     public ResponseEntity<?> getAssignedGuide(@RequestParam Long tourId) {
         try {
