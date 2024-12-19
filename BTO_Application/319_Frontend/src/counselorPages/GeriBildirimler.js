@@ -5,15 +5,20 @@ import axios from "axios";
 
 const GeriBildirimler = () => {
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
-    const [selectedTourId, setSelectedTourId] = useState(null); // State for the selected tour ID
+    const [selectedTourId, setSelectedTourId] = useState(null);
     const [tours, setTours] = useState([]);
     const [feedbacks, setFeedbacks] = useState([]);
     const [counselor, setCounselor] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [showFeedbackList, setShowFeedbackList] = useState(true);
 
-    const [selectedFeedback, setSelectedFeedback] = useState(null); // State for the selected feedback
-    const [showPopup, setShowPopup] = useState(false); // State to toggle popup visibility
+    const toggleFeedbackList = () => {
+        setShowFeedbackList((prev) => !prev);
+    };
 
+
+    const [selectedFeedback, setSelectedFeedback] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
 
     const timeSlotDisplayNames = {
         SLOT_9_10: "09:00-10:00",
@@ -27,8 +32,7 @@ const GeriBildirimler = () => {
         const fetchData = async () => {
             try {
                 await fetchCounselorInformation();
-                await fetchFeedbacks(); // Fetch feedbacks after getting counselor info
-                console.log(feedbacks);
+                await fetchFeedbacks();
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -38,24 +42,24 @@ const GeriBildirimler = () => {
     }, []);
 
     useEffect(() => {
-        // Fetch tours only after the counselor state is updated
         if (counselor?.schoolName) {
             fetchTours();
         }
-    }, [counselor]); // Dependency on counselor to trigger when it updates
+        toggleFeedbackList;
+    }, [counselor]);
 
     const viewDetails = (tourId) => {
-            const feedback = feedbacks.find((fb) => fb.tour.id === tourId);
-            if (feedback) {
-                setSelectedFeedback(feedback);
-                setShowPopup(true);
-            }
-        };
+        const feedback = feedbacks.find((fb) => fb.tour.id === tourId);
+        if (feedback) {
+            setSelectedFeedback(feedback);
+            setShowPopup(true);
+        }
+    };
 
-        const closePopup = () => {
-            setShowPopup(false);
-            setSelectedFeedback(null);
-        };
+    const closePopup = () => {
+        setShowPopup(false);
+        setSelectedFeedback(null);
+    };
 
     const fetchCounselorInformation = async () => {
         try {
@@ -72,17 +76,9 @@ const GeriBildirimler = () => {
                 withCredentials: true,
             });
 
-            console.log("Counselors fetched:", resp.data);
-
             const counselorEmail = localStorage.getItem("username")?.toLowerCase();
             if (!counselorEmail) {
                 console.log("Counselor email is missing.");
-
-            }
-
-            if (!Array.isArray(resp.data)) {
-                console.log("Expected response data to be an array, but got:", typeof resp.data);
-
             }
 
             const filteredCounselors = resp.data.filter(
@@ -90,7 +86,7 @@ const GeriBildirimler = () => {
             );
 
             if (filteredCounselors.length > 0) {
-                setCounselor(filteredCounselors[0]); // Assuming you want the first match
+                setCounselor(filteredCounselors[0]);
             } else {
                 console.warn("No counselor found with the provided email.");
                 setCounselor(null);
@@ -107,7 +103,6 @@ const GeriBildirimler = () => {
                 alert("Authorization token missing. Please log in.");
                 return;
             }
-            console.log(counselor)
 
             const response = await axios.get("http://localhost:8081/api/tour/getAll", {
                 headers: {
@@ -116,28 +111,26 @@ const GeriBildirimler = () => {
                 withCredentials: true,
             });
 
-            // filter tours based on the school of counselor
             let filteredTours = response.data.filter(
                 (tour) => tour.applyingHighschoolName === counselor.schoolName
             );
+
             filteredTours = filteredTours.filter(
                 (tour) => tour.tourStatus == "Finished" || tour.tourStatus == "Approved"
             );
 
-            console.log(filteredTours);
-
             const sortedTours = filteredTours.sort((a, b) => {
-                const dateA = new Date(a.assignedDate);
-                const dateB = new Date(b.assignedDate);
+                const dateA = new Date(a.chosenDate);
+                const dateB = new Date(b.chosenDate);
                 return dateB - dateA; // Descending order
             });
 
             setTours(sortedTours);
         } catch (error) {
             console.error("Error fetching tours:", error);
-            alert("Failed to fetch tours. Please try again later.");
         } finally {
             setIsLoading(false);
+            setShowFeedbackList((prev) => !prev);
         }
     };
 
@@ -152,7 +145,6 @@ const GeriBildirimler = () => {
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true,
             });
-            console.log(response.data);
             setFeedbacks(response.data);
         } catch (error) {
             console.log("Error fetching feedbacks:"+error);
@@ -165,7 +157,7 @@ const GeriBildirimler = () => {
 
     const getRatingForTour = (tourId) => {
         const feedback = feedbacks.find((feedback) => feedback.tour.id === tourId);
-        return feedback ? feedback.rating : 0; // Return 0 if no feedback is found
+        return feedback ? feedback.rating : 0;
     };
 
     const formatDate = (date) => {
@@ -177,8 +169,8 @@ const GeriBildirimler = () => {
     };
 
     const handlePenClick = (tourId) => {
-        setSelectedTourId(tourId); // Set the selected tour ID
-        setShowFeedbackForm(true); // Show the feedback form
+        setSelectedTourId(tourId);
+        setShowFeedbackForm(true);
     };
 
     if (isLoading) {
@@ -189,7 +181,7 @@ const GeriBildirimler = () => {
         return (
             <FeedbackForm
                 closeFeedback={() => setShowFeedbackForm(false)}
-                tourId={selectedTourId} // Pass the selected tour ID to the FeedbackForm
+                tourId={selectedTourId}
             />
         );
     }
@@ -205,7 +197,6 @@ const GeriBildirimler = () => {
             oneri: oneriMatch ? oneriMatch[1].trim() : "",
         };
     };
-
 
     return (
         <div>
@@ -224,7 +215,7 @@ const GeriBildirimler = () => {
                 <tbody>
                     {tours.map((tour) => (
                         <tr key={tour.id}>
-                            <td>{tour.tourStatus}</td>
+                            <td>{tour.tourStatus=="Finished" ? "Tamamlandı" : ""}</td>
                             <td>
                                 {hasFeedbackForTour(tour.id)
                                     ? "Geri bildirim verildi"
@@ -233,21 +224,21 @@ const GeriBildirimler = () => {
                             <td>{formatDate(tour.chosenDate)}</td>
                             <td>{formatTimeSlot(tour.chosenTimeSlot)}</td>
                             <td>
-                                    {[...Array(5)].map((_, i) => {
-                                        const rating = getRatingForTour(tour.id); // Get the tour rating
-                                        if (i < Math.floor(rating)) {
-                                            return <i key={i} className="fas fa-star text-warning"></i>; // Full star
-                                        } else {
-                                            return <i key={i} className="fas fa-star text-secondary"></i>; // Empty star
-                                        }
-                                    })}
+                                {[...Array(5)].map((_, i) => {
+                                    const rating = getRatingForTour(tour.id);
+                                    if (i < Math.floor(rating)) {
+                                        return <i key={i} className="fas fa-star text-warning"></i>;
+                                    } else {
+                                        return <i key={i} className="fas fa-star text-secondary"></i>;
+                                    }
+                                })}
                             </td>
-                            <td >
+                            <td>
                                  {!hasFeedbackForTour(tour.id) &&
-                                    tour.tourStatus=="Finished" && (
+                                    tour.tourStatus == "Finished" && (
                                         <i
                                             className="fas fa-pen text-primary"
-                                            onClick={() => handlePenClick(tour.id)} // Pass the tour ID
+                                            onClick={() => handlePenClick(tour.id)}
                                             style={{
                                                 color: "#2c7a7b",
                                                 cursor: "pointer",
@@ -256,7 +247,7 @@ const GeriBildirimler = () => {
                                     )}
                                  {hasFeedbackForTour(tour.id) && (
                                          <button
-                                              onClick={() => viewDetails(tour.id)} // Function to handle viewing details
+                                              onClick={() => viewDetails(tour.id)}
                                               style={{
                                                          padding: "0px 5px",
                                                          border: "1px solid #ddd",
@@ -275,32 +266,26 @@ const GeriBildirimler = () => {
                 </tbody>
             </table>
 
-            {/* Feedback Details Popup */}
             {showPopup && selectedFeedback && (
                 <div className="popup-overlay" onClick={closePopup}>
                     <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                        {/* Close Icon */}
                         <span className="popup-close-icon" onClick={closePopup}>
                             &times;
                         </span>
-
-                        {/* Feedback Details */}
                         <h3>Geribildirim Detayları</h3>
                         <p><strong>Oy:</strong> {selectedFeedback.rating} yıldız</p>
-                        {/* Format and Display Comment */}
-                                    {(() => {
-                                        const { yorum, oneri } = formatFeedbackComment(selectedFeedback.comment);
-                                        return (
-                                            <>
-                                                <p><strong>Yorum:</strong> {yorum}</p>
-                                                <p><strong>Öneri:</strong> {oneri}</p>
-                                            </>
-                                        );
-                                    })()}
+                        {(() => {
+                            const { yorum, oneri } = formatFeedbackComment(selectedFeedback.comment);
+                            return (
+                                <>
+                                    <p><strong>Yorum:</strong> {yorum}</p>
+                                    <p><strong>Öneri:</strong> {oneri}</p>
+                                </>
+                            );
+                        })()}
                     </div>
                 </div>
             )}
-
         </div>
     );
 };

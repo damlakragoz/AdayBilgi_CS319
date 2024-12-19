@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./FeedbackForm.css";
 
+import { useNavigate } from "react-router-dom";  // Import useNavigate
+
 const FeedbackForm = ({ closeFeedback, tourId }) => {
     const [rating, setRating] = useState(0);
     const [feedbackDetails, setFeedbackDetails] = useState("");
     const [suggestions, setSuggestions] = useState("");
     const [tourDetails, setTourDetails] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const timeSlotDisplayNames = {
             SLOT_9_10: "09:00-10:00",
@@ -34,8 +38,8 @@ const FeedbackForm = ({ closeFeedback, tourId }) => {
             {
                 params: {
                     tourId: tourDetails.id,
-                    Oyunuz: rating,
-                    Geribildirim:  "Yorum: "+ feedbackDetails+ "\n Öneri: "+ suggestions,
+                    rating: rating,
+                    comment:  "Yorum: "+ feedbackDetails+ "\n Öneri: "+ suggestions,
                     counselorEmail: counselorEmail,
                 },
                 headers: {
@@ -48,6 +52,7 @@ const FeedbackForm = ({ closeFeedback, tourId }) => {
             .then((response) => {
                 alert("Geri bildirim başarıyla gönderildi!");
                 setLoading(false); // Enable the button
+                navigate("/my-feedbacks");  // Navigate to feedbacks page
                 closeFeedback();
             })
             .catch((error) => {
