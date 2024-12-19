@@ -324,7 +324,7 @@ public class StatisticsService {
                     continue; // Skip to the next iteration
                 }
 
-                String status = fairInvitation.getStatus();
+                String status = fairInvitation.getFairInvitationStatus();
 
                 // Skip if the fair invitation status is null
                 if (status == null || status.trim().isEmpty()) {
