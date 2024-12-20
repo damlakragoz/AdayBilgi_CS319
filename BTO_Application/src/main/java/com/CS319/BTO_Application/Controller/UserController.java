@@ -227,7 +227,8 @@ public class UserController {
                 tourGuideRegister.getPhoneNumber(),
                 tourGuideRegister.getDepartment(),
                 tourGuideRegister.getGrade(),
-                tourGuideRegister.getIban()
+                tourGuideRegister.getIban(),
+                0.0
         );
 
         TourGuide savedTourGuide = tourGuideService.saveTourGuide(tourGuide);

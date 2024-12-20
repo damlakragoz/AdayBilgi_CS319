@@ -352,6 +352,57 @@ public class TourController {
                     .body("An unexpected error occurred: " + ex.getMessage());
         }
     }
+    @PostMapping("/edit-activity")
+    public ResponseEntity<?> editTourActivity(@RequestParam Long tourId,
+                                                @RequestParam String tourGuideEmail,
+                                                @RequestParam Double duration) {
+        try {
+            if (tourId == null || tourGuideEmail == null || duration <= 0) {
+                return ResponseEntity.badRequest()
+                        .body("Invalid input: Tour ID, Tour Guide ID, and duration must be provided, and duration should be greater than 0.");
+            }
+            Tour tour = tourService.getTourById(tourId);
+            TourGuide tourGuide = tourGuideService.getTourGuideByEmail(tourGuideEmail);
+
+            // Check if tour or tour guide does not exist
+            if (tour == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour with ID " + tourId + " not found.");
+            }
+            if (tourGuide == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour Guide with ID " + tourGuideEmail + " not found.");
+            }
+
+            // Check if the assigned guide matches
+            if (tour.getAssignedGuideEmail() == null || !tour.getAssignedGuideEmail().equals(tourGuide.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("Mismatch: The provided Tour Guide is not assigned to this tour.");
+            }
+
+            Tour updatedTour = tourService.editTourActivity(tour, duration);
+            paymentController.createPayment(tourGuideEmail, tourId);
+
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(updatedTour);
+
+        } catch (EntityNotFoundException ex) {
+            // Log and return specific error if the entity isn't found
+            System.err.println("EntityNotFoundException: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Entity not found: " + ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            // Handle invalid arguments
+            System.err.println("IllegalArgumentException: " + ex.getMessage());
+            return ResponseEntity.badRequest()
+                    .body("Invalid input: " + ex.getMessage());
+        } catch (Exception ex) {
+            // General exception handling
+            System.err.println("Exception: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred: " + ex.getMessage());
+        }
+    }
 
     @GetMapping("/by-month")
     public ResponseEntity<List<Tour>> getToursByMonthAndYear(

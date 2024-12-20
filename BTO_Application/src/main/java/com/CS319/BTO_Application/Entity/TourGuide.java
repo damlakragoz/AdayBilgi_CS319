@@ -35,6 +35,10 @@ public class TourGuide extends BTOMember {
     @OneToMany(mappedBy = "assignedGuide",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Tour> enrolledTours;
+
+    @OneToMany(mappedBy = "assignedGuideToFair",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    private List<Fair> enrolledFairs;
     /*
     TODO:
      -paymentHistory: List<Payment>
@@ -66,7 +70,7 @@ public class TourGuide extends BTOMember {
     }
 
     public TourGuide(String email, String password, String firstName, String lastName,
-                     String phoneNumber, String department, Integer grade, String iban) {
+                     String phoneNumber, String department, Integer grade, String iban, Double workHours) {
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
@@ -76,6 +80,7 @@ public class TourGuide extends BTOMember {
         this.setGrade(grade);
         this.setIban(iban);
         this.setRole("TourGuide");
+        this.setWorkHours(workHours);
     }
 
 }

@@ -155,7 +155,7 @@ public class FairController {
             }
 
             Fair updatedFair = fairService.submitFairActivity(fair, duration);
-            paymentController.createPaymentForTour(tourGuideEmail, fairId);
+            //paymentController.createPaymentForTour(tourGuideEmail, fairId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedFair);
