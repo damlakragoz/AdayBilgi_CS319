@@ -43,7 +43,7 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/tur-takvimi" className="nav-link text-white">Tour Schedule</Link>
                 </li>
                 <li>
-                    <Link to="/fuar-takvimi" className="nav-link text-white">Fuar Takvimi</Link>
+                    <Link to="/yaklasan-fuarlar/yonetici" className="nav-link text-white">Yaklaşan Fuarlar</Link>
                 </li>
                 <li>
                     <Link to="/notifications/executive" className="nav-link text-white">

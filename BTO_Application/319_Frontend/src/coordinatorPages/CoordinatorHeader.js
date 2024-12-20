@@ -1,10 +1,57 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import for navigation
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios"; // Import axios
 import "../common/Header.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/logo.png";
 
 const CoordinatorHeader = ({ toggleSidebar }) => {
     const navigate = useNavigate();
+    const [unreadCount, setUnreadCount] = useState(0);
+
+    useEffect(() => {
+        // Fetch all notifications and calculate unread count
+        const fetchNotifications = async () => {
+            try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                    toast.error("Yetkilendirme başarısız. Lütfen giriş yapın.", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        onClose: () => navigate("/login"),
+                    });
+                    return;
+                }
+
+                const response = await axios.get(
+                    "http://localhost:8081/api/notifications/all",
+                    {
+                        params: { receiverName: localStorage.getItem("username") },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                // Calculate unread notifications
+                const allNotifications = response.data || [];
+                const unreadNotifications = allNotifications.filter(
+                    (notification) => !notification.isRead // Assuming `isRead` is a boolean property in the response
+                );
+
+                setUnreadCount(unreadNotifications.length);
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+                toast.error("Bildirimler alınırken hata oluştu.", {
+                    position: "top-center",
+                    autoClose: 5000,
+                });
+            }
+        };
+
+        fetchNotifications();
+    }, []);
 
     const handleLogout = () => {
         // Clear authentication data (example: localStorage or context)
@@ -34,7 +81,14 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                 <a href="#" className="nav-link">
                     Yaklaşan Etkinlikler
                 </a>
-                <i className="fas fa-bell"></i>
+                <div className="notification-container">
+                    <Link to="/geribildirimler/coordinator" className="nav-link">
+                        <i className="fas fa-bell"></i>
+                        {unreadCount > 0 && (
+                            <span className="notification-badge">{unreadCount}</span>
+                        )}
+                    </Link>
+                </div>
                 <div className="user-dropdown">
                     <div className="d-flex align-items-center">
                         <img
@@ -50,7 +104,7 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                     </div>
                     <div className="dropdown-menu">
                         <a href="/coordinator-change-password">Şifremi Değiştir</a>
-                        <a  onClick={handleLogout}>
+                        <a onClick={handleLogout}>
                             Çıkış Yap
                         </a>
                     </div>

@@ -74,8 +74,6 @@ const AllTourApplications = () => {
 
   const formatDate = (date) => {
     const parsedDate = new Date(date);
-    console.log("Date"+date);
-    console.log("ParsedDate: " +parsedDate.toLocaleString);
     return isNaN(parsedDate) ? "Geçersiz Tarih" : parsedDate.toLocaleString();
   };
 
@@ -111,7 +109,7 @@ const AllTourApplications = () => {
           {currentData.map((tour, index) => (
               <tr key={index}>
                 <td>
-                  {tour.applicationType === "School"
+                  {tour.type === "school"
                       ? "Okul Başvurusu"
                       : "Bireysel Başvuru"}
                 </td>
