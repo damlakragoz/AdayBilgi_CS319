@@ -1,8 +1,8 @@
 /* General container styling */
 .statistics-container {
     font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 20px auto;
+    max-width: 1200px; /* Adjusted for wider charts */
+    margin: 100px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -10,41 +10,25 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styling */
-.statistics-header {
-    font-size: 24px;
+/* Section container */
+.statistics-section {
+    width: 80%; /* Ensure 80% width for all sections */
+    margin: 20px auto; /* Center align and add spacing between sections */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title styling */
+.statistics-section h3 {
+    font-size: 20px;
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
-}
-
-/* List container */
-.statistics-list {
-    padding: 0;
-    margin: 0;
-}
-
-.statistics-item {
-    font-size: 18px;
-    color: #555;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    transition: background-color 0.3s ease;
-}
-
-.statistics-item:last-child {
-    border-bottom: none;
-}
-
-.statistics-item:hover {
-    background-color: #f0f0f0;
-}
-
-/* Role and count styling */
-.statistics-role {
-    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ddd; /* Adds a nice underline effect */
+    padding-bottom: 5px;
 }
 
 /* Loading and error messages */
@@ -53,4 +37,15 @@
     color: #d9534f;
     text-align: center;
     margin-top: 20px;
+}
+
+.pie-chart-container {
+    align-items: center;
+    width: 45%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center align the chart */
+}
+
+.statistics-header {
+    text-align: center;
+    font-size: 30px;
 }
