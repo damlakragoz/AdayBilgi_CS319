@@ -136,7 +136,7 @@ const LoginPage = () => {
                     </button>
                 </form>
 
-                <a href="/forgot-password"> Şifrenizi mi unuttunuz ? </a>
+                <a href="/forgot-password">Şifrenizi mi unuttunuz?</a>
                 <center>
                 <div>
                     Yalnızca rehber öğretmenler üye olabilir. Bireysel turlar için başvurmak istiyorsanız

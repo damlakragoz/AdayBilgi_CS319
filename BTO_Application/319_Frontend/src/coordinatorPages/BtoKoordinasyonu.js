@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import CounselorList from "../common/CounselorList";
 import TourGuideList from "../common/TourGuideList";
-import CoordinatorList from '../common/CoordinatorList';
-import ExecutiveList from '../common/ExecutiveList';
+import ExecutiveList from "../common/ExecutiveList";
+import CoordinatorList from "../common/CoordinatorList";
 import "./BTOKoordinasyonu.css";
 
 const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
@@ -60,7 +60,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
       >
         <div className="page-content">
           <h3>Yöneticiler</h3>
-          <ExecutiveList/>
+            <ExecutiveList />
         </div>
       </CSSTransition>
 
@@ -72,7 +72,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
             >
               <div className="page-content">
                 <h3>Koordinatörler</h3>
-                <CoordinatorList/>
+                  <CoordinatorList />
               </div>
             </CSSTransition>
 
