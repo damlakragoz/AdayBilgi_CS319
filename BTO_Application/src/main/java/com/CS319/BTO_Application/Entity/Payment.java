@@ -19,7 +19,7 @@ public class Payment {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "tour_guide_id", nullable = true)
+    @JoinColumn(name = "tour_guide_id", nullable = false)
     private TourGuide tourGuide;
 
     @Column(name = "tour_id", nullable = false)
@@ -28,8 +28,8 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @Column(name = "activity_submittion_date", nullable = false)
-    private Date activitySubmittionDate;
+    @Column(name = "activity_submission_date", nullable = false)
+    private Date activitySubmissionDate;
 
     @Column(name = "status", nullable = false)
     private String status; // PENDING, PAID, etc.
