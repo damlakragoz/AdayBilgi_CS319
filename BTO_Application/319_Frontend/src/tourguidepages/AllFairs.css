@@ -1,0 +1,161 @@
+/* General container */
+.fair-schedule-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tour-list-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #34495e;
+    text-align: center;
+    margin: 0;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+/* Tour list container */
+.fair-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.tour-item {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 6px solid #d1d8e0; /* Default light gray border */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tour-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Highlighted tour-item based on status */
+.tour-item[data-status="Approved"],
+.tour-item[data-status="ExecutiveAssigned"] {
+    border-left: 6px solid #28a745; /* Green for Approved/ExecutiveAssigned */
+    background: #f0fff4;
+}
+
+.tour-item[data-status="GuideAssigned"] {
+    border-left: 6px solid #007bff; /* Blue for GuideAssigned */
+    background: #e8f4ff;
+}
+
+.tour-item[data-status="Withdrawn"],
+.tour-item[data-status="WithdrawRequested"] {
+    border-left: 6px solid #e74c3c; /* Red for Withdrawn/WithdrawRequested */
+    background: #fff5f5;
+}
+
+.tour-item[data-status="Completed"] {
+    border-left: 6px solid #6c757d; /* Gray for Completed */
+    background: #f5f5f5;
+}
+
+/* Date and Status Text */
+.tour-item p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.tour-item strong {
+    color: #34495e;
+    font-weight: bold;
+}
+
+/* Buttons */
+.enroll-button,
+.withdraw-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: white;
+    display: block;
+    margin-top: 10px;
+    width: 100%; /* Full-width for uniformity */
+    text-align: center;
+}
+
+/* Enroll Button */
+.enroll-button {
+    background: #28a745; /* Solid green */
+}
+
+.enroll-button:hover {
+    background: #218838;
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.enroll-button:disabled {
+    background: #6c757d; /* Gray when disabled */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Withdraw Button */
+.withdraw-button {
+    background: #dc3545; /* Solid red */
+}
+
+.withdraw-button:hover {
+    background: #c82333;
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .fair-schedule-container {
+        padding: 15px;
+    }
+
+    .tour-item {
+        padding: 10px;
+    }
+
+    .enroll-button,
+    .withdraw-button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fair-list {
+        grid-template-columns: 1fr;
+    }
+
+    .tour-list-header {
+        font-size: 20px;
+    }
+
+    .enroll-button,
+    .withdraw-button {
+        font-size: 12px;
+    }
+}

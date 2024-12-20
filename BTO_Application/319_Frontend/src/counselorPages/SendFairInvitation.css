@@ -1,134 +1,76 @@
-/* Main Container */
-.send-fair-invitation-container {
-    padding: 20px;
-    max-width: 1000px;
-    margin: 20px auto;
-    background-color: var(--background-light);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.send-fair-invitation-header {
-    font-size: 24px;
-    color: var(--dark-blue);
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.invitation-content {
+.container {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem;
 }
 
-.calendar-section,
-.time-selection-section {
+.calendar-container {
     flex: 1;
-    text-align: center;
-    min-width: 300px;
+    max-width: 400px; /* Increase max-width for a larger calendar */
 }
 
 .react-calendar {
-    width: 100%;
+    font-size: 1.2rem; /* Make the calendar text larger */
+}
+
+.details-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.date-toggle-button {
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.react-calendar__tile {
-    background: var(--white);
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-}
-
-.react-calendar__tile--now {
-    background-color: var(--orange);
-    color: var(--white);
-}
-
-.react-calendar__tile--active {
-    background-color: var(--dark-blue);
-    color: var(--white);
-}
-
-.time-selection-dropdown {
-    margin-top: 10px;
-    padding: 10px;
-    border: 2px solid var(--dark-blue);
-    border-radius: 8px;
-    width: 100%;
-    max-width: 300px;
-}
-
-.select-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: var(--dark-blue);
-    color: white;
-    border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.select-button:hover {
-    background-color: var(--orange);
+.date-toggle-button:hover {
+    background-color: #0056b3;
 }
 
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1050;
+.selected-dates {
+    margin-top: 0.5rem;
+    font-size: 1rem;
 }
 
-/* Modal Content */
-.modal-content {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 400px;
-    max-width: 90%;
-    text-align: center;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.modal-confirm-button {
-    background-color: var(--dark-blue);
-    color: var(--white);
-    padding: 10px 20px;
+.submit-button {
+    padding: 0.5rem 1rem; /* Reduce padding to make it smaller */
+    font-size: 1rem; /* Adjust the font size */
+    background-color: #28a745;
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
+    max-width: 200px; /* Limit the button width */
+    align-self: flex-start; /* Align to the left */
 }
 
-.modal-confirm-button:hover {
-    background-color: var(--orange);
+.submit-button:hover {
+    background-color: #218838;
+}
+.selected-dates-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9; /* Light gray background for contrast */
+    border: 1px solid #ddd; /* Border for better distinction */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    text-align: center; /* Center the text */
+    font-size: 1.2rem; /* Slightly larger font for emphasis */
+    font-weight: bold; /* Make the text bold */
+    color: #333; /* Darker text color for better readability */
 }
 
-.modal-cancel-button {
-    background-color: var(--gray);
-    color: var(--dark-gray);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
+.selected-dates-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem; /* Slightly larger font size for the title */
+    font-weight: bold;
+    color: #007bff; /* Blue color to indicate importance */
 }
 
-.modal-cancel-button:hover {
-    background-color: var(--dark-gray);
-    color: var(--white);
-}

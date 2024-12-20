@@ -1,0 +1,56 @@
+/* General container styling */
+.statistics-container {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.statistics-header {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* List container */
+.statistics-list {
+    padding: 0;
+    margin: 0;
+}
+
+.statistics-item {
+    font-size: 18px;
+    color: #555;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.statistics-item:last-child {
+    border-bottom: none;
+}
+
+.statistics-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Role and count styling */
+.statistics-role {
+    color: #333;
+}
+
+/* Loading and error messages */
+.statistics-message {
+    font-size: 16px;
+    color: #d9534f;
+    text-align: center;
+    margin-top: 20px;
+}

@@ -44,7 +44,7 @@ const CounselorTourApplicationsPage = () => {
                     return;
                 }
 
-                const response = await axios.get("http://localhost:8081/api/tour-applications/getAll", {
+                const response = await axios.get("http://localhost:8081/api/tour-applications/getAll/school-applications", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

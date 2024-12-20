@@ -50,6 +50,11 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                         Bildirimlerim
                     </Link>
                 </li>
+                <li>
+                    <Link to="/executive-statistics" className="nav-link text-white">
+                        İstatistikler
+                    </Link>
+                </li>
 
                 <hr/>
                 {/* Settings and Logout */}

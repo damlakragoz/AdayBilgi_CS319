@@ -11,6 +11,7 @@ import PuantageTable from './common/PuantageTable';
 import ChangePassword from "./passwordPages/ChangePassword";
 import ForgotPassword from './passwordPages/ForgotPassword';
 import ResetPassword from './passwordPages/ResetPassword';
+import Statistics from "./statistics/Statistics";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -64,6 +65,8 @@ import AdvisorPuantage from './advisorpages/AdvisorPuantage';
 
 
 import './App.css';
+import AllTours from "./tourguidepages/AllTours";
+import AllFairs from "./tourguidepages/AllFairs";
 
 function App() {
   return (
@@ -107,6 +110,7 @@ function App() {
                         <Route path="/geribildirimler/coordinator" element={<GeriBildirimlerManagerView />} />
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
                         <Route path="/coordinator-change-password" element={<ChangePassword />} />
+                        <Route path="/coordinator-statistics" element={<Statistics />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
@@ -115,6 +119,7 @@ function App() {
                         <Route path="/tur-basvurulari/executive" element={<AllTourApplications />} />
                         <Route path="/notifications/executive" element={<ExecutiveNotifications />} />
                         <Route path="/executive-change-password" element={<ChangePassword />} />
+                        <Route path="/executive-statistics" element={<Statistics />} />
                        <Route path="/bto-koordinasyonu/executive" element={<BtoKoordinasyonu />} />
                        <Route path="/fuar-davetleri/executive" element={<FairInvitations />} />
                        <Route path="/geribildirimler/executive" element={<GeriBildirimlerManagerView />} />
@@ -144,6 +149,8 @@ function App() {
                         <Route path="/tourguide-puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
                         <Route path="/tourguide-change-password" element={<ChangePassword />} />
+                        <Route path="/tourguide-all-tours" element={<AllTours />} />
+                        <Route path="/tourguide-all-fairs" element={<AllFairs />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
                     </Route>
 
