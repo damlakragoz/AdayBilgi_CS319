@@ -30,12 +30,29 @@ const CreateTourApplication = () => {
             return;
         }
         const formattedDate = selectedDate.toLocaleDateString("en-CA"); // Format as YYYY-MM-DD
-        setRequestedDates((prev) => [
-            ...prev,
-            { date: formattedDate, timeSlot: selectedTimeSlot },
-        ]);
+        // Check if the date and timeSlot already exist in requestedDates
+        const isDuplicate = requestedDates.some(
+            (item) => item.date === formattedDate && item.timeSlot === selectedTimeSlot
+        );
+
+        if (isDuplicate) {
+            alert("Bu tarih ve saat aralığı zaten seçildi!");
+            return;
+        }
+
+        // Prevent the addition of more than 3 date options
+        if (requestedDates.length < 3) {
+            setRequestedDates((prev) => [
+                ...prev,
+                { date: formattedDate, timeSlot: selectedTimeSlot },
+            ]);
+        } else {
+            alert("En fazla üç farklı tarih seçebilirsiniz.");
+        }
+
         setSelectedTimeSlot(""); // Reset the time slot
     };
+
 
     const handleRemoveDateTime = (index) => {
         setRequestedDates((prev) => prev.filter((_, i) => i !== index));
