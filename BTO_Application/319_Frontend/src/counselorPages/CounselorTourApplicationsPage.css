@@ -42,7 +42,7 @@
 }
 .applications-container {
     max-width: 1000px;
-    margin: 40px auto;
+    margin: 10px auto;
     padding: 20px;
     background: var(--background-light);
     border-radius: 8px;

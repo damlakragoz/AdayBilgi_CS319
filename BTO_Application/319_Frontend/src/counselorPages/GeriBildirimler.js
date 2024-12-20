@@ -199,7 +199,7 @@ const GeriBildirimler = () => {
     };
 
     return (
-        <div>
+        <div className="manager-feedbacks-container">
             <h2>Geri Bildirimlerim</h2>
             <table className="fb-activity-table">
                 <thead>

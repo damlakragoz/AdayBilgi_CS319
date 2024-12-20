@@ -170,7 +170,7 @@ const OnayBekleyenFuarlar = () => {
 
   return (
     <div className="onay-bekleyen-container">
-      <h1 className="onay-bekleyen-header">Onay Bekleyen Fuar Girişleri</h1>
+      <h1 className="onay-bekleyen-header">Onay Bekleyen Fuar Davetleri</h1>
       <table className="onay-bekleyen-activity-table">
         <thead>
           <tr>

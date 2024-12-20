@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../counselorPages/GeriBildirimler.css";
 import axios from "axios";
 
-const GeriBildirimler = () => {
+const GeriBildirimlerManagerView = () => {
     const [selectedTourId, setSelectedTourId] = useState(null); // State for the selected tour ID
     const [tours, setTours] = useState([]);
     const [feedbacks, setFeedbacks] = useState([]);
@@ -23,24 +23,21 @@ const GeriBildirimler = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
             try {
-                await fetchCounselorInformation();
-                await fetchFeedbacks(); // Fetch feedbacks after getting counselor info
-                console.log(feedbacks);
+                await fetchFeedbacks();
+                await fetchTours();
             } catch (error) {
                 console.error("Error fetching data:", error);
+            } finally {
+                setIsLoading(false); // Only set isLoading to false once both fetches complete
             }
         };
 
         fetchData();
-    }, []);
+    }, []);  // This will run only once when the component mounts
 
-    useEffect(() => {
-        // Fetch tours only after the counselor state is updated
-        if (counselor?.schoolName) {
-            fetchTours();
-        }
-    }, [counselor]); // Dependency on counselor to trigger when it updates
+
 
     const viewDetails = (tourId) => {
             const feedback = feedbacks.find((fb) => fb.tour.id === tourId);
@@ -55,49 +52,6 @@ const GeriBildirimler = () => {
             setSelectedFeedback(null);
         };
 
-    const fetchCounselorInformation = async () => {
-        try {
-            const token = localStorage.getItem("userToken");
-            if (!token) {
-                alert("Authorization token missing. Please log in.");
-                return;
-            }
-
-            const resp = await axios.get("http://localhost:8081/api/counselors/getAll", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                withCredentials: true,
-            });
-
-            console.log("Counselors fetched:", resp.data);
-
-            const counselorEmail = localStorage.getItem("username")?.toLowerCase();
-            if (!counselorEmail) {
-                console.log("Counselor email is missing.");
-
-            }
-
-            if (!Array.isArray(resp.data)) {
-                console.log("Expected response data to be an array, but got:", typeof resp.data);
-
-            }
-
-            const filteredCounselors = resp.data.filter(
-                (counselor) => counselor.email?.toLowerCase() === counselorEmail
-            );
-
-            if (filteredCounselors.length > 0) {
-                setCounselor(filteredCounselors[0]); // Assuming you want the first match
-            } else {
-                console.warn("No counselor found with the provided email.");
-                setCounselor(null);
-            }
-        } catch (error) {
-            console.error("Error fetching counselors:", error);
-        }
-    };
-
     const fetchTours = async () => {
         try {
             const token = localStorage.getItem("userToken");
@@ -105,7 +59,6 @@ const GeriBildirimler = () => {
                 alert("Authorization token missing. Please log in.");
                 return;
             }
-            console.log(counselor)
 
             const response = await axios.get("http://localhost:8081/api/tour/getAll", {
                 headers: {
@@ -170,7 +123,7 @@ const GeriBildirimler = () => {
     }
 
     const formatFeedbackComment = (comment) => {
-        if (!comment) return { yorum: "N/A", oneri: "N/A" };
+        if (!comment) return { yorum: "", oneri: "" };
 
         const yorumMatch = comment.match(/Yorum:\s*([^\.]+)/i);
         const oneriMatch = comment.match(/Öneri:\s*([^\.]+)/i);
@@ -183,7 +136,7 @@ const GeriBildirimler = () => {
 
 
     return (
-        <div>
+        <div className="manager-feedbacks-container">
             <h2>Geri Bildirimlerim</h2>
             <table className="fb-activity-table">
                 <thead>
@@ -197,7 +150,7 @@ const GeriBildirimler = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tours.map((tour) => (
+                    {tours.filter((tour) => hasFeedbackForTour(tour.id)).map((tour) => (
                         <tr key={tour.id}>
                             <td>{tour.tourStatus}</td>
                             <td>
@@ -269,4 +222,4 @@ const GeriBildirimler = () => {
     );
 };
 
-export default GeriBildirimler;
+export default GeriBildirimlerManagerView;

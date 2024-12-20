@@ -144,7 +144,7 @@ const OnayBekleyenTurlar = () => {
 
     return (
         <div className="onay-bekleyen-container">
-            <h1 className="onay-bekleyen-header">Onay Bekleyen Tur Girişleri</h1>
+            <h1 className="onay-bekleyen-header">Onay Bekleyen Tur Başvuruları</h1>
             <table className="onay-bekleyen-activity-table">
                 <thead>
                     <tr>
