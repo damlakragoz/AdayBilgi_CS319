@@ -69,7 +69,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
               unmountOnExit
             >
               <div className="page-content">
-                <h2>Koordinatorler</h2>
+                <h2>Koordinatörler</h2>
                 {/* Add content for this page if needed */}
               </div>
             </CSSTransition>
@@ -86,7 +86,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
           Yöneticiler
         </button>
         <button className="filter-button" onClick={() => goToPage(4)} disabled={currentPage === 4}>
-          Koordinatorler
+          Koordinatörler
         </button>
       </div>
     </div>
