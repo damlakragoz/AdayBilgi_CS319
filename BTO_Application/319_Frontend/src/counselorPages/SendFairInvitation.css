@@ -43,7 +43,7 @@
 .submit-button {
     padding: 0.5rem 1rem; /* Reduce padding to make it smaller */
     font-size: 1rem; /* Adjust the font size */
-    background-color: #28a745;
+    background-color: var(--dark-blue);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -53,7 +53,7 @@
 }
 
 .submit-button:hover {
-    background-color: #218838;
+    background-color: var(--orange);
 }
 .selected-dates-container {
     margin-top: 1rem;
@@ -71,6 +71,11 @@
     margin-bottom: 0.5rem;
     font-size: 1.4rem; /* Slightly larger font size for the title */
     font-weight: bold;
-    color: #007bff; /* Blue color to indicate importance */
+    color: var(--dark-blue); /* Blue color to indicate importance */
 }
 
+.react-calendar__tile.highlight-start-date {
+    background: var(--light-blue);
+    font-weight: bold;
+    color: black !important;
+}
