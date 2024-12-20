@@ -96,7 +96,6 @@ public class FairController {
         }
         else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
         }
     }
 
@@ -125,7 +124,6 @@ public class FairController {
     public ResponseEntity<?> submitFairActivityAsGuide(@RequestParam Long fairId,
                                                        @RequestParam String tourGuideEmail,
                                                        @RequestParam Double duration) {
-
         try {
             if (fairId == null || tourGuideEmail == null || duration <= 0) {
                 return ResponseEntity.badRequest()
@@ -155,7 +153,7 @@ public class FairController {
             }
 
             Fair updatedFair = fairService.submitFairActivity(fair, duration);
-            //paymentController.createPaymentForTour(tourGuideEmail, fairId);
+            paymentController.createPaymentForFair(tourGuideEmail, fairId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedFair);

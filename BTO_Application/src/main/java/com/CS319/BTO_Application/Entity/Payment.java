@@ -19,11 +19,14 @@ public class Payment {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "tour_guide_id", nullable = false)
+    @JoinColumn(name = "tour_guide_id", nullable = true)
     private TourGuide tourGuide;
 
-    @Column(name = "tour_id", nullable = false)
+    @Column(name = "tour_id", nullable = true)
     private Long tourId;
+
+    @Column(name = "fair_id", nullable = true)
+    private Long fairId;
 
     @Column(name = "amount", nullable = false)
     private Double amount;

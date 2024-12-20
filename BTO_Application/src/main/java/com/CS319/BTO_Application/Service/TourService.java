@@ -141,11 +141,6 @@ public class TourService {
         return schoolTourRepos.save(tour);
     }
 
-    public List<Tour> getAllTours() {
-        System.out.println("GETALLTOURS IS CALLED");
-        return schoolTourRepos.findAll();
-    }
-
     public List<Tour> getAllIndividualTours() {
         System.out.println("GETAll Individual tours IS CALLED");
         return schoolTourRepos.findAllByType("individual");
@@ -195,4 +190,9 @@ public class TourService {
     public List<Tour> getFinishedToursByMonthAndYear(int month, int year) {
         return schoolTourRepos.findFinishedToursByMonthAndYear(month, year);
     }
+
+    public List<Tour> getAllTours() {
+        return schoolTourRepos.findAll(); // SchoolTourRepos stands for tour repo but don't rename it!
+    }
+
 }

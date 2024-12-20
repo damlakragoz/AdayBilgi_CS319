@@ -8,4 +8,6 @@ import java.util.List;
 public interface PaymentRepos extends JpaRepository<Payment, Long> {
     List<Payment> findByTourGuideId(Long tourGuideId);
     Payment findByTourId(Long tourId);
+    Payment findByFairId(Long fairId);
+    List<Payment> findAllByStatus(String status);
 }

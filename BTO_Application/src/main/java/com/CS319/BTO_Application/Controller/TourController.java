@@ -330,7 +330,7 @@ public class TourController {
             }
 
             Tour updatedTour = tourService.submitTourActivity(tour, duration);
-            paymentController.createPayment(tourGuideEmail, tourId);
+            paymentController.createPaymentForTour(tourGuideEmail, tourId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedTour);
@@ -381,7 +381,7 @@ public class TourController {
             }
 
             Tour updatedTour = tourService.editTourActivity(tour, duration);
-            paymentController.createPayment(tourGuideEmail, tourId);
+            paymentController.createPaymentForTour(tourGuideEmail, tourId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedTour);
