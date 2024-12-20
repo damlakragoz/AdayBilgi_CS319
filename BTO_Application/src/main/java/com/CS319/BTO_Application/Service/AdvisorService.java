@@ -58,7 +58,9 @@ public class AdvisorService {
         for(Tour tour: tours){
             if(tour.getAssignedGuide() != null){
                 if(tour.getAssignedGuide().getEmail().equals(advisorEmail)){
-                    activeToursAssignedToAdvisor.add(tour);
+                    if(tour.getTourStatus().equals("AdvisorAssigned")){
+                        activeToursAssignedToAdvisor.add(tour);
+                    }
                 }
             }
         }
