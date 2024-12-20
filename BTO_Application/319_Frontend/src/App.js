@@ -44,6 +44,7 @@ import CounselorNotifications from './notification/NewNotifications';
 // Executive Page Imports
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
+import AllFairsBTOManager from "./executivePages/AllFairsBTOManager";
 import ExecutiveNotifications from './notification/NewNotifications';
 import GeriBildirimlerManagerView from './executivePages/GeriBildirimlerManagerView';
 // TourGuide Page Imports
@@ -116,6 +117,7 @@ function App() {
                     <Route element={<ExecutiveLayout />}>
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
                         <Route path="/onay-bekleyen-islemler/executive" element={<OnayBekleyen />} />
+                        <Route path="/yaklasan-fuarlar/yonetici" element={<AllFairsBTOManager />} />
                         <Route path="/tur-basvurulari/executive" element={<AllTourApplications />} />
                         <Route path="/notifications/executive" element={<ExecutiveNotifications />} />
                         <Route path="/executive-change-password" element={<ChangePassword />} />
