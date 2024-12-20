@@ -73,10 +73,6 @@ const TourGuideList = () => {
     }
   };
 
-
-
-
-
   const promoteToExpert = async (firstName, lastName, email) => {
     const confirmPromotion = window.confirm(
         `${firstName} ${lastName} isimli tur rehberini danışmanlığa yükseltmeyi onaylıyor musunuz?`
@@ -122,7 +118,6 @@ const TourGuideList = () => {
   };
 
 
-
   return (
     <div>
       <table className="user-table">
@@ -131,7 +126,6 @@ const TourGuideList = () => {
             <th>Ad Soyad</th>
             <th>E-mail</th>
             <th>Bölüm</th>
-            <th>Puantaj</th>
             <th>Çalışma Saatleri</th>
             <th>Sınıf</th>
             <th>IBAN</th>
@@ -145,7 +139,6 @@ const TourGuideList = () => {
               <td>{tourGuide.firstName +" "+ tourGuide.lastName}</td>
               <td>{tourGuide.email}</td>
               <td>{tourGuide.department}</td>
-              <td>{tourGuide.puantage}</td>
               <td>{tourGuide.workHours}</td>
               <td>{tourGuide.grade}</td>
               <td>{tourGuide.iban}</td>
@@ -167,13 +160,15 @@ const TourGuideList = () => {
                       Danışmanlığa Yükselt
                     </button>)}
                 {/* Delete Button */}
+                <button className="usertable-button usertable-button-promote" onClick={() => removeRow(tourGuide.firstName, tourGuide.lastName, tourGuide.email)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
                 <button
-                    onClick={() =>
-                        removeRow(tourGuide.firstName, tourGuide.lastName, tourGuide.email)
-                    }
-                    className="usertable-button usertable-button-delete"
+                  onClick={() => promoteToExpert(tourGuide.email)}
+                  title="Uzmanlığa Yükselt"
+                  className="usertable-button usertable-button-promote"
                 >
-                  🗑️ Sil
+                  Uzmanlığa Yükselt
                 </button>
               </td>
 

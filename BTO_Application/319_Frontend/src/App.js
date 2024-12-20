@@ -29,6 +29,7 @@ import FairInvitations from './common/FairInvitations';
 import Notifications from './common/Notifications';
 import CoordinatorNotifications from './notification/NewNotifications';
 import CounselorList from './common/CounselorList';
+import CoordinatorList from './common/CoordinatorList';
 // Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
 import GeriBildirimler from './counselorPages/GeriBildirimler';
