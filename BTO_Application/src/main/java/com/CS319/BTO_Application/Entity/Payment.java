@@ -22,14 +22,17 @@ public class Payment {
     @JoinColumn(name = "tour_guide_id", nullable = true)
     private TourGuide tourGuide;
 
-    @Column(name = "tour_id", nullable = false)
+    @Column(name = "tour_id", nullable = true)
     private Long tourId;
+
+    @Column(name = "fair_id", nullable = true)
+    private Long fairId;
 
     @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @Column(name = "activity_submittion_date", nullable = false)
-    private Date activitySubmittionDate;
+    @Column(name = "activity_submission_date", nullable = false)
+    private Date activitySubmissionDate;
 
     @Column(name = "status", nullable = false)
     private String status; // PENDING, PAID, etc.

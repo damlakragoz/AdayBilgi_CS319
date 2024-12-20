@@ -13,5 +13,6 @@ public interface PaymentRepos extends JpaRepository<Payment, Long> {
     List<Payment> findAllByStatuses(@Param("statuses") List<String> statuses);
 
     Payment findByTourId(Long tourId);
-
+    Payment findByFairId(Long fairId);
+    List<Payment> findAllByStatus(String status);
 }
