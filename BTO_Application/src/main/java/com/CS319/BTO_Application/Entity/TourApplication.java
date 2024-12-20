@@ -44,5 +44,13 @@ public abstract class TourApplication extends TourEvent{
     @Enumerated(EnumType.STRING)
     @Column(name = "selected_time_slot", nullable = true)
     private TimeSlot selectedTimeSlot; // The selected time slot for the tour application
+
+    public String getHighschoolName(){
+        if(applyingHighschool != null){
+            return applyingHighschool.getSchoolName();
+        }
+        return null;
+    }
+
 }
 

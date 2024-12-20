@@ -6,9 +6,11 @@ import com.CS319.BTO_Application.Repos.CoordinatorRepos;
 import com.CS319.BTO_Application.Repos.PaymentRepos;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -61,6 +63,10 @@ public class CoordinatorService {
         Payment payment = paymentRepos.findById(paymentId)
                 .orElseThrow(() -> new RuntimeException("Payment not found with id: " + paymentId));
 
+        if(payment.getStatus().equals("APPROVED")){
+            System.out.println("Payment Status is APPROVED");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment is already approved."); //400 BAD REQUEST
+        }
         payment.setApprovedBy(coordinatorEmail);
         payment.setApprovalDate(new java.util.Date());
             payment.setStatus("APPROVED");

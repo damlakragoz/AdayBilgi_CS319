@@ -45,6 +45,7 @@ public class HighSchool {
         this.schoolName = schoolName;
         this.city = city;
         this.priorityPoint = priorityPoint;
+        this.totalTourCount = 0;
     }
 
 }

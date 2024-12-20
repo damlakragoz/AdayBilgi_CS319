@@ -276,8 +276,13 @@ public class UserController {
         if(tourGuideService.getTourGuideByEmail(username).getEnrolledTours() != null){
             for(Tour tour: tourGuideService.getTourGuideByEmail(username).getEnrolledTours()){
                 if(tour.getTourStatus().equals("GuideAssigned")){
-                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has enrolled active tours!");
+                    return ResponseEntity.status(400).body("Bu emaildeki " + username + " rehberin bitmemiş turları var!");
                 }
+            }
+        }
+        for(Payment payment: tourGuideService.getTourGuideByEmail(username).getPaymentHistory()){
+            if(payment.getStatus().equals("PENDING") || payment.getStatus().equals("UPDATED")){
+                return ResponseEntity.status(400).body("Bu emaildeki " + username + " rehberin bekleyen ödemesi var!");
             }
         }
         tourGuideService.deleteTourGuideByUsername(username);
@@ -354,6 +359,7 @@ public class UserController {
             }
             List<Tour> tours = tourGuideToBePromoted.getEnrolledTours();
             List<Payment> payments = tourGuideToBePromoted.getPaymentHistory();
+            List<Fair> fairs = tourGuideToBePromoted.getEnrolledFairs();
 
             tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
             // Create a new Advisor with Tour Guide's attributes
@@ -373,6 +379,9 @@ public class UserController {
             }
             for (Payment payment : payments) {
                 payment.setTourGuide(advisor);
+            }
+            for (Fair fair : fairs) {
+                fair.setAssignedGuideToFair(advisor);
             }
             advisorService.saveAdvisor(advisor);
             return ResponseEntity.ok("Tour Guide promoted to Advisor successfully.");

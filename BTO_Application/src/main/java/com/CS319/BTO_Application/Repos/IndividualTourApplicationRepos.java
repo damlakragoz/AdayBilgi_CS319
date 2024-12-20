@@ -19,4 +19,13 @@ public interface IndividualTourApplicationRepos extends TourApplicationRepos<Ind
     @Query("SELECT ta FROM IndividualTourApplication ta WHERE ta.selectedDate = :selectedDate AND ta.selectedTimeSlot = :selectedTimeSlot")
     IndividualTourApplication findIndBySelectedDateAndSelectedTimeSlot(@Param("selectedDate") LocalDate selectedDate,
                                                           @Param("selectedTimeSlot") TimeSlot selectedTimeSlot);
+
+    @Query("SELECT ta FROM SchoolTourApplication ta " +
+            "WHERE ta.selectedDate = :selectedDate " +
+            "AND ta.selectedTimeSlot = :selectedTimeSlot " +
+            "AND ta.applicationStatus = :applicationStatus")
+    IndividualTourApplication findIndBySelectedDateAndSelectedTimeSlotAndStatus(
+            @Param("selectedDate") LocalDate selectedDate,
+            @Param("selectedTimeSlot") TimeSlot selectedTimeSlot,
+            @Param("applicationStatus") String applicationStatus);
 }

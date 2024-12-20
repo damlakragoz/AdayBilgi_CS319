@@ -73,6 +73,10 @@ public class TourGuideService {
             tour.setAssignedGuide(null);
         }
 
+        for (Fair fair : tourGuide.getEnrolledFairs()) {
+            fair.setAssignedGuideToFair(null);
+        }
+
         tourGuideRepos.delete(tourGuide);
     }
 

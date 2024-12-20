@@ -20,9 +20,6 @@ public class TourGuide extends BTOMember {
     @Column(name = "department", nullable = true)
     private String department;
 
-    @Column(name = "puantage", nullable = true)
-    private Long puantage;
-
     @Column(name = "work_hours", nullable = true)
     private Double workHours;
 
@@ -51,8 +48,11 @@ public class TourGuide extends BTOMember {
     @JsonManagedReference
     private List<Payment> paymentHistory;
 
+    /*
     @OneToMany(mappedBy = "tourGuide", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<OtherActivity> otherActivities;
+
+     */
 
     public TourGuide(String email, String password, String role) {
         this.setEmail(email);

@@ -40,4 +40,24 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
         }
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllPayments() {
+        try {
+            return ResponseEntity.ok(paymentService.getAllPayments());
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
+        }
+    }
+
+    @GetMapping("/pending/getAll")
+    public ResponseEntity<?> getAllPendingAndUpdatedPayments() {
+        try {
+            return ResponseEntity.ok(paymentService.getAllPendingAndUpdatedPayments());
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
+        }
+    }
+
+
 }
