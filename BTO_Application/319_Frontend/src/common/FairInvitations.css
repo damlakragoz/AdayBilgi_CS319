@@ -87,41 +87,77 @@
 
 /* Add responsive design rules */
 @media (max-width: 768px) {
-  .fair-tour-lists-outer-container {
+.fair-tour-lists-outer-container {
     padding: 20px;
-  }
+}
 
-  .fair-tour-lists-title {
+.fair-tour-lists-title {
     font-size: 22px;
-  }
+}
 
-  .fair-tour-lists-table th,
-  .fair-tour-lists-table td {
+.fair-tour-lists-table th,
+    .fair-tour-lists-table td {
     padding: 10px 15px;
     font-size: 14px;
-  }
+}
 
-  .fair-tour-lists-arrow {
+.fair-tour-lists-arrow {
     font-size: 20px;
-  }
+}
 
+/* Enhanced button design */
+.fair-tour-lists-bto-button {
+  background: linear-gradient(135deg, var(--orange), var(--dark-orange));
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px; /* Rounded pill shape */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.fair-tour-lists-bto-button:hover {
+  background: linear-gradient(135deg, var(--dark-orange), var(--orange));
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.fair-tour-lists-bto-button:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 2px var(--orange);
+}
+
+/* Enhanced divider style */
+.fair-tour-lists-table tr td {
+  color: var(--dark-gray);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle transparent line */
+}
+
+.fair-tour-lists-table tr:not(:last-child) td {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2); /* Dashed line for better visibility */
+}
+
+.fair-tour-lists-table tbody tr:hover td {
+  background-color: rgba(240, 240, 240, 0.5); /* Slight background highlight on hover */
+  transition: background-color 0.3s ease;
+}
+
+/* Adjustments for better button placement */
+.fair-tour-lists-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
   .fair-tour-lists-bto-button {
-    background-color: var(--orange);
-    color: white;
-    padding: 8px 16px;
     font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 8px 16px;
   }
-
-  .fair-tour-lists-bto-button:hover {
-    background-color: var(--dark-orange);
-  }
-
-  .fair-tour-lists-bto-button:focus {
-    outline: none;
-  }
+}
 
 }
