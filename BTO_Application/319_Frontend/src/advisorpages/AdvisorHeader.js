@@ -1,10 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../common/Header.css";
 import logo from "../assets/logo.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const AdvisorHeader = ({ toggleSidebar }) => {
     const navigate = useNavigate();
+    const [unreadCount, setUnreadCount] = useState(0);
+
+    useEffect(() => {
+        // Fetch all notifications and calculate unread count
+        const fetchNotifications = async () => {
+            try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                    toast.error("Yetkilendirme başarısız. Lütfen giriş yapın.", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        onClose: () => navigate("/login"),
+                    });
+                    return;
+                }
+
+                const response = await axios.get(
+                    "http://localhost:8081/api/notifications/all",
+                    {
+                        params: { receiverName: localStorage.getItem("username") },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                const allNotifications = response.data || [];
+                const unreadNotifications = allNotifications.filter(
+                    (notification) => !notification.isRead
+                );
+
+                setUnreadCount(unreadNotifications.length);
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+                toast.error("Bildirimler alınırken hata oluştu.", {
+                    position: "top-center",
+                    autoClose: 5000,
+                });
+            }
+        };
+
+        fetchNotifications();
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("userToken");
@@ -25,7 +71,14 @@ const AdvisorHeader = ({ toggleSidebar }) => {
             <div className="nav-links">
                 <Link to="/advisor-tourenrollment" className="nav-link">Başvur-Tur Takvimi</Link>
                 <Link to="/advisor-puantage" className="nav-link">Puantaj-Aktivite Giriş</Link>
-                <i className="fas fa-bell"></i>
+                <div className="notification-container">
+                    <Link to="/advisor-notifications" className="nav-link">
+                        <i className="fas fa-bell"></i>
+                        {unreadCount > 0 && (
+                            <span className="notification-badge">{unreadCount}</span>
+                        )}
+                    </Link>
+                </div>
                 <div className="user-dropdown">
                     <div className="d-flex align-items-center">
                         <span className="user-name">{localStorage.username}</span>

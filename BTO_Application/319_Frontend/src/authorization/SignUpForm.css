@@ -38,7 +38,7 @@
     margin-bottom: 20px;
     display: flex;
     align-items: start;
-     justify-content: flex-start;
+    justify-content: flex-start;
 }
 
 /* Styling input fields */
@@ -117,4 +117,27 @@
 
 .back-button:hover {
     background-color: #142f6b;
+}
+
+/* Styling for the checkbox container */
+.form-group.checkbox-group {
+    display: flex;
+    align-items: center; /* Align checkbox and text vertically */
+    justify-content: flex-start;
+    width: auto; /* Adjust the width of the checkbox container */
+    margin: 0; /* Remove unnecessary margins */
+}
+
+/* Styling for the checkbox input */
+.form-group.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px; /* Size of the checkbox */
+    height: 20px; /* Size of the checkbox */
+}
+
+/* Styling for the checkbox label */
+.form-group.checkbox-group label {
+    margin: 0; /* Remove extra margins */
+    font-size: 14px; /* Adjust text size */
+    color: #666;
 }
