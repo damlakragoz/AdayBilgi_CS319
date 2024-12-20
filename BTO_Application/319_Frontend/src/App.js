@@ -173,7 +173,7 @@ function App() {
         </main>
 
         <footer className="app-footer">
-          <p>© 2023 Bilkent University. All rights reserved.</p>
+          <p>© 2024 Bilkent University. All rights reserved.</p>
           <div>
             <a href="#privacy">Privacy Policy</a> |
             <a href="#terms">Terms of Service</a> |
