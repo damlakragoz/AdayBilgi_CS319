@@ -30,7 +30,7 @@ const AddTourGuideForm = () => {
     // Input Validation: Ensure all fields are filled
     for (const key in formData) {
       if (!formData[key]) {
-        alert("Lütfen tüm alanları doldurunuz! (" + key + " boş bırakıldı)");
+        alert("Lütfen tüm alanları doldurunuz! (" + key + " boş bırakıldı.)");
         return;
       }
     }
@@ -67,7 +67,7 @@ const AddTourGuideForm = () => {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // Show popup if user already exists
-        alert("Aynı Email Adresine Sahip Bir Tur Rehberi Daha Var!");
+        alert("Aynı e-mail adresine sahip bir tur rehberi daha var!");
       } else {
         console.error("Error:", error.response ? error.response.data : error.message);
         alert("Error registering user. Please try again.");

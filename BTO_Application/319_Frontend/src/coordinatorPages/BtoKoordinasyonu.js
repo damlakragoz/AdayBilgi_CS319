@@ -88,7 +88,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
           Yöneticiler
         </button>
         <button className="filter-button" onClick={() => goToPage(4)} disabled={currentPage === 4}>
-          Koordinatorler
+          Koordinatörler
         </button>
       </div>
     </div>
