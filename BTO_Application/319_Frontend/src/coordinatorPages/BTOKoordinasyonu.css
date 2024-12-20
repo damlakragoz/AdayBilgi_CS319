@@ -25,10 +25,20 @@
   text-align: center; /* Centers the text */
   letter-spacing: 1px; /* Slightly increased letter spacing for a more refined look */
   text-transform: capitalize; /* Capitalizes the first letter of each word */
-  /* border-bottom: 2px solid var(--background-light);  Soft underline for separation */
-  /* padding-bottom: 10px; /* Padding to make space between the text and the border */
+  border-bottom: 2px solid var(--light-blue);  /*Soft underline for separation */
+  padding-bottom: 10px; /* Padding to make space between the text and the border */
 }
+.bto-container h3 {
+  font-family: 'Poppins', sans-serif; /* Clean and modern font */
+  font-size: 26px; /* Larger font size for better emphasis */
+  font-weight: 550; /* Semi-bold for prominence */
+  color: var(--dark-blue); /* Match your theme color */
+  margin-bottom: 20px; /* Adds spacing between the title and the content below */
+  text-align: center; /* Centers the text */
+  letter-spacing: 1px; /* Slightly increased letter spacing for a more refined look */
+  text-transform: capitalize; /* Capitalizes the first letter of each word */
 
+}
 /* Page Navigation */
 .page-navigation {
   display: flex;

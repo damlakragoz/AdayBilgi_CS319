@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; // Import Link from React Router
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons"; // Import icons
 import "./UserTables.css";
 
 const TourGuideList = () => {
@@ -124,12 +126,11 @@ const TourGuideList = () => {
             <th>Ad Soyad</th>
             <th>Email</th>
             <th>Bölümü</th>
-            <th>Puantaj</th>
             <th>Çalışma Saatleri</th>
             <th>Sınıf</th>
             <th>IBAN</th>
-            <th>Uzmanlık</th>
-            <th>Actions</th>
+            <th>Rol</th>
+            <th>Tercihler</th>
           </tr>
         </thead>
         <tbody>
@@ -138,18 +139,14 @@ const TourGuideList = () => {
               <td>{tourGuide.firstName +" "+ tourGuide.lastName}</td>
               <td>{tourGuide.email}</td>
               <td>{tourGuide.department}</td>
-              <td>{tourGuide.puantage}</td>
               <td>{tourGuide.workHours}</td>
               <td>{tourGuide.grade}</td>
               <td>{tourGuide.iban}</td>
-              <td>{tourGuide.role=="TourGuide" ? "Tur Rehberi" : "Advisor"}</td>
+              <td>{tourGuide.role=="TourGuide" ? "Tur Rehberi" : "Danışman"}</td>
               <td>
                 {/* Delete Button */}
-                <button
-                  onClick={() => removeRow(tourGuide.email)}
-                  className="usertable-button usertable-button-delete"
-                >
-                  🗑️
+                <button className="usertable-button usertable-button-promote" onClick={() => removeRow(tourGuide.email)}>
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
                 <button
                   onClick={() => promoteToExpert(tourGuide.email)}
