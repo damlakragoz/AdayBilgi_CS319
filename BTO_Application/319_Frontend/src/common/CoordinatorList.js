@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from React Router
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons"; // Import icons
 import "./UserTables.css";
@@ -108,6 +109,15 @@ const CoordinatorList = () => {
           </tbody>
         </table>
       )}
+
+        {/* Centered Button Below the Table */}
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Link to="/koordinator-ekle">
+              <button className="usertable-button usertable-button-add">
+                Yeni Koordinatör Kaydet
+              </button>
+            </Link>
+          </div>
     </div>
   );
 };

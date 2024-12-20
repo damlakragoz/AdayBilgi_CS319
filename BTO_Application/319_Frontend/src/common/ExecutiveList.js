@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom"; // Import Link from React Router
 import { faTrash } from "@fortawesome/free-solid-svg-icons"; // Import icons
 import "./UserTables.css";
 
 const ExecutiveList = () => {
   const [executives, setExecutives] = useState([]);
   const [error, setError] = useState(null);
+  const role = localStorage.getItem("role"); //
 
   // Function to fetch executives
   const fetchExecutives = async () => {
@@ -111,6 +113,16 @@ const ExecutiveList = () => {
           </tbody>
         </table>
       )}
+        {/* Centered Button Below the Table */}
+        { (role==="Admin") &&
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Link to="/yonetici-ekle">
+              <button className="usertable-button usertable-button-add">
+                Yeni Yönetici Kaydet
+              </button>
+            </Link>
+          </div>
+        }
     </div>
   );
 };

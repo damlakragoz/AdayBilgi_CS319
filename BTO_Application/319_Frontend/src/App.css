@@ -32,6 +32,11 @@ h1, h2, h3, h4, h5, h6, p, span, a, button {
     font-family: 'Poppins', sans-serif;
     border: none;
 }
+
+h2 {
+    border-bottom: 2px solid var(--light-blue);  /*Soft underline for separation */
+    padding-bottom: 10px; /* Padding to make space between the text and the border */
+}
 /* Header and Navigation */
 .app-header, .main-header {
     background-color: var(--dark-blue);
