@@ -39,7 +39,7 @@ const FeedbackForm = ({ closeFeedback, tourId }) => {
                 params: {
                     tourId: tourDetails.id,
                     rating: rating,
-                    comment:  "Yorum: "+ feedbackDetails+ "\n Öneri: "+ suggestions,
+                    comment:  "Yorum: "+ feedbackDetails+ " Öneri: "+ suggestions,
                     counselorEmail: counselorEmail,
                 },
                 headers: {

@@ -23,7 +23,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
 
   return (
     <div className="bto-container">
-      <h1>BTO Koordinasyonu</h1>
+      <h2>BTO Koordinasyonu</h2>
 
       {/* Conditional Rendering Based on Current Page with Transitions */}
       <CSSTransition
@@ -33,7 +33,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
         unmountOnExit
       >
         <div className="page-content">
-          <h2>Tur Rehberleri</h2>
+          <h3>Tur Rehberleri</h3>
           <TourGuideList />
         </div>
       </CSSTransition>
@@ -45,7 +45,7 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
         unmountOnExit
       >
         <div className="page-content">
-          <h2>Rehber Öğretmenler</h2>
+          <h3>Rehber Öğretmenler</h3>
           <CounselorList />
         </div>
       </CSSTransition>
@@ -57,10 +57,22 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
         unmountOnExit
       >
         <div className="page-content">
-          <h2>Yeni Açılan Koordinatör Hesapları</h2>
+          <h3>Yöneticiler</h3>
           {/* Add content for this page if needed */}
         </div>
       </CSSTransition>
+
+      <CSSTransition
+              in={currentPage === 4}
+              timeout={500}
+              classNames="page-content"
+              unmountOnExit
+            >
+              <div className="page-content">
+                <h2>Koordinatorler</h2>
+                {/* Add content for this page if needed */}
+              </div>
+            </CSSTransition>
 
       {/* Navigation Buttons */}
       <div className="page-navigation">
@@ -71,7 +83,10 @@ const BtoKoordinasyonu = ({ data = [], itemsPerPage = 5 }) => {
           Rehber Öğretmenler
         </button>
         <button className="filter-button" onClick={() => goToPage(3)} disabled={currentPage === 3}>
-          Yeni Hesaplar
+          Yöneticiler
+        </button>
+        <button className="filter-button" onClick={() => goToPage(4)} disabled={currentPage === 4}>
+          Koordinatorler
         </button>
       </div>
     </div>
