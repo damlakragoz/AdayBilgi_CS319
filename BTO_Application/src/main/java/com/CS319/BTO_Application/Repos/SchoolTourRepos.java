@@ -22,7 +22,11 @@ public interface SchoolTourRepos extends JpaRepository<Tour, Long> {
     @Query("SELECT t FROM Tour t WHERE t.tourStatus = 'Approved' AND t.chosenDate <= :dateThreshold")
     List<Tour> findToursToCancel(@Param("dateThreshold") LocalDate dateThreshold);
 
+    @Query("SELECT t FROM Tour t WHERE t.tourStatus = 'Approved' AND t.chosenDate <= :dateThreshold")
+    List<Tour> findToursToBeAssignedToAdvisors(@Param("dateThreshold") LocalDate dateThreshold);
 
+    @Query("SELECT t FROM Tour t WHERE t.chosenDate <= :dateThreshold")
+    List<Tour> isDatePassed(@Param("dateThreshold") LocalDate dateThreshold);
 
 
 }
