@@ -1,40 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate, BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../authorization/LoginPage.css';
 // Import your protected page
 
 const LoginPage = () => {
-    const [loginData, setLoginData] = useState({
-        username: '',
-        password: '',
-    });
-    const [error, setError] = useState(''); // State to store error message
+    const [loginData, setLoginData] = useState({ username: '', password: '' });
     const navigate = useNavigate();
-
-    useEffect(() => {
-        // localStorage.removeItem('userToken');
-        //sessionStorage.removeItem('userToken');
-
-        //console.log("use effect called");
-        // No need to clear tokens here
-    }, []);
-
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setLoginData({
-            ...loginData,
-            [name]: value,
-        });
+        setLoginData({ ...loginData, [name]: value });
     };
 
     axios.defaults.baseURL = 'http://localhost:8081';
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(''); // Clear any existing error messages
+
+        if (loginData.username.trim() === '' || loginData.password.trim() === '') {
+            toast.warn('Lütfen kullanıcı adı ve şifre alanlarını doldurun.', { position: 'top-center' });
+            return;
+        }
 
         try {
             // Send a POST request to the backend login endpoint
@@ -89,11 +78,16 @@ const LoginPage = () => {
                         break;
                 }
             } else {
-                setError('Login failed: no token provided');
+                toast.error('Giriş başarısız. E-mail veya şifrenizi doğru girdiğinizden emin olun.', { position: 'top-center' });
             }
         } catch (err) {
-            console.error('Login failed:', err);
-            setError('Invalid username or password'); // Set error message if login fails
+            if (err.response && err.response.status === 401) {
+                toast.error('Geçersiz kullanıcı adı veya şifre', { position: 'top-center' });
+            } else if (err.response && err.response.status === 500) {
+                toast.error('Sunucu hatası. Lütfen daha sonra tekrar deneyin.', { position: 'top-center' });
+            } else {
+                toast.error('Bilinmeyen bir hata oluştu.', { position: 'top-center' });
+            }
         }
     };
 
@@ -114,20 +108,21 @@ const LoginPage = () => {
 
             {/* Login Section */}
             <div className="login-container">
-                <h2>Explore Our Campus</h2>
-                <p>Discover the beauty and facilities of our state-of-the-art campus through our guided tours.</p>
-
+                <h2>Kampüsümüzü Keşfedin</h2>
+                <center>
+                <p>Rehberli turlarımızla kampüsümüzün tüm güzelliklerini ve olanaklarını keşfedin.</p>
+                </center>
                 <form onSubmit={handleLogin} className="login-form">
-                    <label>Email</label>
+                    <label>E-mail</label>
                     <input
                         type="text"
                         name="username"
-                        placeholder="Kullanıcı adı girin"
+                        placeholder="E-mailinizi girin"
                         value={loginData.username}
                         onChange={handleChange}
                         required
                     />
-                    <label>Password</label>
+                    <label>Şifre</label>
                     <input
                         type="password"
                         name="password"
@@ -137,18 +132,21 @@ const LoginPage = () => {
                         required
                     />
                     <button type="submit" className="login-button">
-                        Login
+                        Giriş Yap
                     </button>
                 </form>
 
-                <a href="/forgot-password">Forgot Password?</a>
-                {/* Add the Sign Up button here */}
+                <a href="/forgot-password"> Şifrenizi mi unuttunuz ? </a>
+                <center>
                 <div>
-                    <div> Do not have an account?</div>
-                    <button className="signup-button" onClick={() => navigate('/signup')}>
-                        Sign Up
-                    </button>
+                    Yalnızca rehber öğretmenler üye olabilir. Bireysel turlar için başvurmak istiyorsanız
+                        <a href='/individual-application'> buraya tıklayın</a>.
                 </div>
+                </center>
+                <button className="signup-button" onClick={() => navigate('/signup')}>
+                    Rehber Öğretmen Üye Ol
+                </button>
+
             </div>
         </div>
     );
