@@ -12,6 +12,52 @@ const AllFairs = () => {
         return typeof date === "string" ? date : date.toLocaleDateString("en-CA");
     };
 
+    // Map status from English to Turkish
+    const mapStatusToTurkish = (status) => {
+        const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
+        return statusMap[normalizedStatus] || statusMap["not_specified"]; // Default to "Belirtilmedi" if not found
+    };
+
+    const formatDate = (date) => {
+       if (!date) return "Geçersiz Tarih"; // Handle null or undefined
+       try {
+           // If the date is a Date object, we can directly format it
+           if (date instanceof Date) {
+               return new Intl.DateTimeFormat('tr-TR', {
+                   day: '2-digit',
+                   month: '2-digit',
+                   year: 'numeric',
+               }).format(date);
+           }
+
+           // Otherwise, handle string format (expected format: 'YYYY-MM-DD')
+           const [year, month, day] = date.split('-');
+           const parsedDate = new Date(year, month - 1, day); // Create a Date object for formatting
+           return new Intl.DateTimeFormat('tr-TR', {
+               day: '2-digit',
+               month: '2-digit',
+               year: 'numeric',
+           }).format(parsedDate); // Format in Turkish
+       } catch (error) {
+           console.error("Error formatting date:", error);
+           return "Geçersiz Tarih";
+       }
+    };
+
+    // Mapping of fair invitation status in English to Turkish
+    const statusMap = {
+        "pending": "Kayıt bekliyor",
+        "created": "Oluşturuldu",
+        "approved": "Onaylandı",
+        "rejected": "Reddedildi",
+        "cancelled": "İptal Edildi",
+        "finished": "Tamamlandı",
+        "executiveassigned": "Yönetici Başvurdu",
+        "executiveandguideAssigned": "Yönetici ve Tur Rehberi Başvurdu",
+        "tourguideAssigned": "Tur Rehberi Başvurdu",
+        "not_specified": "-",
+    };
+
     // Fetch all fairs
     useEffect(() => {
         const fetchFairs = async () => {
@@ -33,7 +79,6 @@ const AllFairs = () => {
                 alert("Failed to load fairs. Please try again later.");
             }
         };
-
         fetchFairs();
     }, [toggleState]);
 
@@ -67,8 +112,6 @@ const AllFairs = () => {
         fetchEnrolledFairs();
     }, [toggleState]);
 
-
-
     // Sort fairs into prioritized categories and by nearest date
     const sortedFairs = useMemo(() => {
         return fairs
@@ -96,7 +139,6 @@ const AllFairs = () => {
     }, [fairs, enrolledFairs]);
 
     console.log(enrolledFairs)
-
     const handleEnroll = async (fairId) => {
         const applyingGuideEmail = localStorage.getItem("username");
 
@@ -159,20 +201,21 @@ const AllFairs = () => {
                             <li
                                 key={fair.id}
                                 className="tour-item"
-                                data-status={fair.fairStatus}
+                                data-status={mapStatusToTurkish(fair.fairStatus)}
                             >
                                 <p>
-                                    <strong>Date:</strong> {formatISODate(new Date(fair.startDate))}
+                                    <strong>Tarih:</strong>
+                                    {" " + formatDate(new Date(fair.startDate)) + " - " + formatDate(new Date(fair.endDate)) }
                                 </p>
                                 <p>
-                                    <strong>Status:</strong> {fair.fairStatus}
+                                   <strong>Durum:</strong> {mapStatusToTurkish(fair.fairStatus)}
                                 </p>
                                 <button
                                     onClick={() => handleEnroll(fair.id)}
                                     className="enroll-button"
                                     disabled={isUserEnrolled}
                                 >
-                                    {isUserEnrolled ? "Enrolled" : "Enroll"}
+                                    {isUserEnrolled ? "Kaydoldunuz" : "Kaydol"}
                                 </button>
                             </li>
                         );
