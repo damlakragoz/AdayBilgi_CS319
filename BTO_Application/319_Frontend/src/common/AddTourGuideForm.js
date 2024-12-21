@@ -67,7 +67,7 @@ const AddTourGuideForm = () => {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // Show popup if user already exists
-        alert("Aynı e-mail adresine sahip bir tur rehberi daha var!");
+        alert("Aynı e-mail adresine sahip bir kullanıcı daha var!");
       } else {
         console.error("Error:", error.response ? error.response.data : error.message);
         alert("Error registering user. Please try again.");

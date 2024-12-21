@@ -54,7 +54,7 @@ const AddCoordinatorForm = () => {
       });
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        alert("Aynı e-mail adresine sahip bir yönetici daha var!");
+        alert("Aynı e-mail adresine sahip bir kullanıcı daha var!");
       } else {
         console.error("Error:", error.response ? error.response.data : error.message);
         alert("Error registering coordinator. Please try again.");
