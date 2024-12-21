@@ -35,7 +35,7 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Tour Withdraw Requests */}
                 <li>
                     <Link to="/withdraw-requests" className="nav-link text-white">
-                        <i className="fas fa-clipboard-list"></i> Tour Withdraw Requests
+                        <i className="fas fa-clipboard-list"></i> Turdan Çekilme İstekleri
                     </Link>
                 </li>
 

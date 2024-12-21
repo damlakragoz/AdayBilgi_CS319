@@ -16,6 +16,20 @@ const TourGuidePuantage = () => {
   const token = localStorage.getItem("userToken");
   const navigate = useNavigate(); // React Router navigation hook
 
+  // Statüleri Türkçe'ye çevirmek için bir eşleme tablosu
+  const statusTranslations = {
+    GuideAssigned: "Rehber Atandı",
+    Finished: "Tamamlandı",
+    Approved: "Onaylandı",
+    Withdrawn: "Çekildi",
+    WithdrawRequested: "Çekilme Talep Edildi",
+  };
+
+  // Statüyü Türkçe'ye çeviren fonksiyon
+  const translateStatusToTurkish = (status) => {
+    return statusTranslations[status] || status; // Eğer çeviri yoksa orijinal değeri döndür
+  };
+
   const formatISODate = (date) => date.toLocaleDateString("en-CA");
 
   // Fetch GuideAssigned and Finished tours for the logged-in guide
@@ -23,18 +37,18 @@ const TourGuidePuantage = () => {
     const fetchTours = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/tour/getAll",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+            "http://localhost:8081/api/tour/getAll",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
         );
 
         if (response.status === 200) {
           const tours = response.data.filter(
-            (tour) =>
-              (tour.tourStatus === "GuideAssigned" ||
-                tour.tourStatus === "Finished") &&
-              tour.assignedGuideEmail === guideEmail
+              (tour) =>
+                  (tour.tourStatus === "GuideAssigned" ||
+                      tour.tourStatus === "Finished") &&
+                  tour.assignedGuideEmail === guideEmail
           );
           setGuideTours(tours);
         }
@@ -50,7 +64,7 @@ const TourGuidePuantage = () => {
   useEffect(() => {
     const formattedSelectedDate = formatISODate(selectedDate);
     const toursForDay = guideTours.filter(
-      (tour) => tour.chosenDate === formattedSelectedDate
+        (tour) => tour.chosenDate === formattedSelectedDate
     );
     setFilteredTours(toursForDay);
   }, [selectedDate, guideTours]);
@@ -150,121 +164,102 @@ const TourGuidePuantage = () => {
     }
   };
 
-
-  // Check if the date and hour of the selected tour have passed
-  const isDateTimePassed = (tour) => {
-    const currentDate = new Date();
-    const tourDate = new Date(tour.chosenDate);
-
-    return currentDate > tourDate; // True if the current date and time are after the chosen date
-  };
-
   return (
-    <div className="puantage-container">
-      <div className="calendar-container">
-        <Calendar
-          onChange={setSelectedDate}
-          value={selectedDate}
-          locale="tr-TR"
-          tileClassName={getTileClassName} // Apply custom classes
-        />
-      </div>
+      <div className="puantage-container">
+        <div className="calendar-container">
+          <Calendar
+              onChange={setSelectedDate}
+              value={selectedDate}
+              locale="tr-TR"
+              tileClassName={getTileClassName} // Apply custom classes
+          />
+        </div>
 
-      <div className="tour-list-container">
-        <h3>
-          {selectedDate.toLocaleDateString("tr-TR")} Tarihindeki Turlar:
-        </h3>
-        {filteredTours.length > 0 ? (
-          <ul>
-            {filteredTours.map((tour) => (
-              <li
-                key={tour.id}
-                onClick={() => {
-                  setSelectedTour(tour);
-                  setActivityDuration(tour.duration || ""); // Prepopulate duration if already set
-                }}
-                style={{
-                  cursor: "pointer",
-                  backgroundColor:
-                    selectedTour?.id === tour.id ? "#c3e6cb" : "#f8f9fa",
-                  padding: "10px",
-                  border: "1px solid #ddd",
-                  margin: "5px 0",
-                  borderRadius: "5px",
-                }}
-              >
-                <strong>Tour ID:</strong> {tour.id} |{" "}
-                <strong>Date:</strong>{" "}
-                {formatISODate(new Date(tour.chosenDate))} |{" "}
-                <strong>Status:</strong> {tour.tourStatus} |{" "}
-                <strong>Duration:</strong>{" "}
-                {tour.duration ? `${tour.duration} hours` : "Not submitted"}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Seçilen tarihe ait tur bulunamamıştır.</p>
-        )}
-      </div>
-
-      {selectedTour && (
-        <div className="activity-input-container">
-          <h4>Submit Work Hours for Tour ID: {selectedTour.id}</h4>
-          <label>
-            Duration (in hours):
-            <input
-              type="number"
-              value={activityDuration}
-              onChange={(e) => setActivityDuration(e.target.value)}
-              placeholder="Enter duration"
-              min="0.5"
-              step="0.5"
-            />
-          </label>
-          <button
-            onClick={handleSubmitDuration}
-            //disabled={!isDateTimePassed(selectedTour)} // Disable button conditionally
-            style={{
-              backgroundColor: !isDateTimePassed(selectedTour) ? "#d3d3d3" : "#28a745", // Gray when disabled, Green when enabled
-              color: "#fff",
-              border: "none",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              cursor: "pointer", // Change cursor to 'not-allowed' when disabled
-              opacity: !isDateTimePassed(selectedTour) ? 0.6 : 1, // Slight transparency for disabled look
-              transition: "background-color 0.3s, opacity 0.3s",
-            }}
-          >
-            {selectedTour.tourStatus === "Finished" ? "Edit Activity" : "Submit Duration"}
-          </button>
-
-          {!isDateTimePassed(selectedTour) && (
-            <p style={{ color: "red", marginTop: "10px" }}>
-              You can only submit work hours after the scheduled time.
-            </p>
+        <div className="tour-list-container">
+          <h3>
+            {selectedDate.toLocaleDateString("tr-TR")} Tarihindeki Turlar:
+          </h3>
+          {filteredTours.length > 0 ? (
+              <ul>
+                {filteredTours.map((tour) => (
+                    <li
+                        key={tour.id}
+                        onClick={() => {
+                          setSelectedTour(tour);
+                          setActivityDuration(tour.duration || ""); // Prepopulate duration if already set
+                        }}
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor:
+                              selectedTour?.id === tour.id ? "#c3e6cb" : "#f8f9fa",
+                          padding: "10px",
+                          border: "1px solid #ddd",
+                          margin: "5px 0",
+                          borderRadius: "5px",
+                        }}
+                    >
+                      <strong>Tur ID:</strong> {tour.id} |{" "}
+                      <strong>Tarih:</strong>{" "}
+                      {formatISODate(new Date(tour.chosenDate))} |{" "}
+                      <strong>Durum:</strong> {translateStatusToTurkish(tour.tourStatus)} |{" "}
+                      <strong>Süre:</strong>{" "}
+                      {tour.duration ? `${tour.duration} saat` : "Gönderilmedi"}
+                    </li>
+                ))}
+              </ul>
+          ) : (
+              <p>Seçilen tarihe ait tur bulunamamıştır.</p>
           )}
         </div>
-      )}
 
-      {/* Button to navigate to Puantage Table */}
-      <div className="puantage-table-button">
-        <button
-          onClick={() => navigate("/tourguide-puantage-table")}
-          style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Puantaj Tablosunu Gör
-        </button>
+        {selectedTour && (
+            <div className="activity-input-container">
+              <h4>{selectedTour.id} Numaralı Tur İçin Çalışma Saatinizi Giriniz: </h4>
+              <label>
+                Süre (saat):
+                <input
+                    type="number"
+                    value={activityDuration}
+                    onChange={(e) => setActivityDuration(e.target.value)}
+                    placeholder="Süre giriniz"
+                    min="0.5"
+                    step="0.5"
+                />
+              </label>
+              <button
+                  onClick={handleSubmitDuration}
+                  style={{
+                    backgroundColor: "#28a745",
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+              >
+                {selectedTour.tourStatus === "Finished" ? "Aktiviteyi Düzenle" : "Aktiviteyi Tamamla"}
+              </button>
+            </div>
+        )}
+
+        {/* Button to navigate to Puantage Table */}
+        <div className="puantage-table-button">
+          <button
+              onClick={() => navigate("/tourguide-puantage-table")}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                backgroundColor: "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+          >
+            Puantaj Tablosunu Gör
+          </button>
+        </div>
       </div>
-    </div>
   );
 };
-
 export default TourGuidePuantage;

@@ -180,6 +180,7 @@ function App() {
                         <Route path="/advisor-notifications" element={<AdvisorNotifications />} />
                         <Route path="/advisor-change-password" element={<ChangePassword />} />
                         <Route path="/advisor-puantage-table" element={<PuantageTable />} />
+                        <Route path="/advisor-all-tours" element={<AllTours />} />
                         <Route path="/advisor-puantage" element={<AdvisorPuantage />} />
                     </Route>
                   </Routes>
