@@ -39,9 +39,6 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/tur-basvurulari" className="nav-link text-white">Tur Başvuruları</Link>
                 </li>
                 <li>
-                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
-                </li>
-                <li>
                     <Link to="/ödemeler/coordinator" className="nav-link text-white">Ödemeler</Link>
                 </li>
 
@@ -60,15 +57,26 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 <li>
                     <Link to="/fuar-takvimi" className="nav-link text-white">Fuar Takvimi</Link>
                 </li>
-                <li>
+                {/*<li>
                     <Link to="/coordinator-notifications" className="nav-link text-white">
                         Bildirimlerim
                     </Link>
+                </li>*/}
+
+                <br/>
+                {/* Subtitle: Performans Analizi */}
+                <li>
+                    <a className="sidebar-subtitle">
+                        Performans Analizi
+                    </a>
                 </li>
                 <li>
                     <Link to="/executive-statistics" className="nav-link text-white">
                         İstatistikler
                     </Link>
+                </li>
+                <li>
+                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
                 </li>
 
                 <hr/>
@@ -83,6 +91,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                         Çıkış Yap
                     </a>
                 </li>
+
             </ul>
         </div>
     );
