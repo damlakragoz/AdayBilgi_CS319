@@ -12,6 +12,18 @@ const GeriBildirimlerManagerView = () => {
     const [selectedFeedback, setSelectedFeedback] = useState(null); // State for the selected feedback
     const [showPopup, setShowPopup] = useState(false); // State to toggle popup visibility
 
+    const formatFeedbackComment = (comment) => {
+            if (!comment) return { yorum: "-", oneri: "-" };
+
+            // Extract Yorum and Öneri using regular expressions
+            const yorumMatch = comment.match(/Yorum:\s*(.*?)\s*Öneri:/i);
+            const oneriMatch = comment.match(/Öneri:\s*(.*)$/i);
+
+            return {
+                yorum: yorumMatch ? yorumMatch[1].trim() : "-",
+                oneri: oneriMatch ? oneriMatch[1].trim() : "-",
+            };
+        };
 
     const timeSlotDisplayNames = {
         SLOT_9_10: "09:00-10:00",
@@ -121,19 +133,6 @@ const GeriBildirimlerManagerView = () => {
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
-    const formatFeedbackComment = (comment) => {
-        if (!comment) return { yorum: "", oneri: "" };
-
-        const yorumMatch = comment.match(/Yorum:\s*([^\.]+)/i);
-        const oneriMatch = comment.match(/Öneri:\s*([^\.]+)/i);
-
-        return {
-            yorum: yorumMatch ? yorumMatch[1].trim() : "",
-            oneri: oneriMatch ? oneriMatch[1].trim() : "",
-        };
-    };
-
 
     return (
         <div className="manager-feedbacks-container">
