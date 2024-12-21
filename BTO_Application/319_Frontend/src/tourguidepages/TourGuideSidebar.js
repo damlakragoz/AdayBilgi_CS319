@@ -23,20 +23,17 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Subtitle: My Tours */}
                 <li>
                     <Link to="/kullanici-islemleri" className="sidebar-subtitle">
-                        Kullanici Islemleri
+                        Kullanıcı İşlemleri
                     </Link>
                 </li>
                 <li><Link to="/tourguide-tourenrollment" className="nav-link text-white">
-                    Turlara Başvur/Tur Takvimi
+                    Tur Takvimi - Başvur
                 </Link></li>
                 <li><Link to="/tourguide-all-fairs" className="nav-link text-white">
-                    Fuara Başvur
-                </Link></li>
-                <li><Link to="/basvur-diger" className="nav-link text-white">
-                    Diğer
+                    Fuar Takvimi - Başvur
                 </Link></li>
                 <li><Link to="/tourguide-puantage" className="nav-link text-white">
-                Puantaj-Aktivite Giriş
+                Aktivite Giriş - Puantaj
                 </Link></li>
 
                 <br />
@@ -46,18 +43,10 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                         Bildirimler
                     </Link>
                 </li>
-                <li>
-                    <Link to="/messages" className="nav-link text-white">
-                        Mesajlarım
-                    </Link>
-                </li>
-
                 <br />
                 {/* Subtitle: Resources */}
                 <li>
-                    <Link to="/resources" className="sidebar-subtitle">
                         Kaynaklar
-                    </Link>
                 </li>
                 <li>
                     <Link to="/tour-guidelines" className="nav-link text-white">
