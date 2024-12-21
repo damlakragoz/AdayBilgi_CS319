@@ -78,15 +78,19 @@ public class TourApplicationService {
         System.out.println("Deleted " + nonUniqueApplications.size() + " non-unique applications.");
 
 
-        // Unique başvuruları priorityPoint ve transitionTime'a göre sırala
         List<SchoolTourApplication> sortedApplications = uniqueApplications.stream()
                 .sorted(Comparator.comparingInt((SchoolTourApplication app) -> app.getApplyingHighschool().getPriorityPoint())
                         .reversed() // Büyükten küçüğe sıralama
-                        .thenComparing(SchoolTourApplication::getTransitionTime)) // Aynı priorityPoint için transitionTime
+                        .thenComparing((SchoolTourApplication app) ->
+                                app.getApplyingHighschool().getCity().equalsIgnoreCase("Ankara") ? 1 : 0) // Ankara olmayanlar öncelikli
+                        .thenComparing(SchoolTourApplication::getApplicationTime)) // Başvuru zamanına göre artan sıralama
                 .toList();
+
 
         // İşlenmiş başvuruları sırayla işle
         for (SchoolTourApplication application : sortedApplications) {
+
+            System.out.println(application.getApplyingHighschool().getSchoolName() + "\n");
             boolean assigned = assignSlotWithPrioritization(application);
 
             if (!assigned) {
@@ -174,11 +178,19 @@ public class TourApplicationService {
             return (priority1 > priority2) ? app1 : app2;
         }
 
-        // Eğer priorityPoint aynı ise, daha erken başvuru yapanı önceliklendir
-        LocalDateTime transitionTime1 = app1.getTransitionTime();
-        LocalDateTime transitionTime2 = app2.getTransitionTime();
+        if(highSchool1.getSchoolName().equalsIgnoreCase("Ankara") && !highSchool2.getSchoolName().equalsIgnoreCase("Ankara")) {
+            return app2;
+        }
+        else if(!highSchool1.getSchoolName().equalsIgnoreCase("Ankara") && highSchool2.getSchoolName().equalsIgnoreCase("Ankara")){
+            return app1;
+        }
+        else{// if both are from Ankara or both from outside of Ankara
+            // daha erken başvuru yapanı önceliklendir
+            LocalDateTime applicationTime1 = app1.getApplicationTime();
+            LocalDateTime applicationTime2 = app2.getApplicationTime();
 
-        return (transitionTime1.isBefore(transitionTime2)) ? app1 : app2;
+            return (applicationTime1.isBefore(applicationTime2)) ? app1 : app2;
+        }
     }
 
     /**
@@ -289,11 +301,12 @@ public class TourApplicationService {
         System.out.println("Deleted " + nonUniqueApplications.size() + " non-unique applications.");
 
 
-        // Unique başvuruları priorityPoint ve transitionTime'a göre sırala
         List<IndividualTourApplication> sortedApplications = uniqueApplications.stream()
                 .sorted(Comparator.comparingInt((IndividualTourApplication app) -> app.getApplyingHighschool().getPriorityPoint())
                         .reversed() // Büyükten küçüğe sıralama
-                        .thenComparing(IndividualTourApplication::getTransitionTime)) // Aynı priorityPoint için transitionTime
+                        .thenComparing((IndividualTourApplication app) ->
+                                app.getApplyingHighschool().getCity().equalsIgnoreCase("Ankara") ? 1 : 0) // Ankara olmayanlar öncelikli
+                        .thenComparing(IndividualTourApplication::getApplicationTime)) // Başvuru zamanına göre artan sıralama
                 .toList();
 
         // İşlenmiş başvuruları sırayla işle
@@ -385,11 +398,19 @@ public class TourApplicationService {
             return (priority1 > priority2) ? app1 : app2;
         }
 
-        // Eğer priorityPoint aynı ise, daha erken başvuru yapanı önceliklendir
-        LocalDateTime transitionTime1 = app1.getTransitionTime();
-        LocalDateTime transitionTime2 = app2.getTransitionTime();
+        if(highSchool1.getSchoolName().equalsIgnoreCase("Ankara") && !highSchool2.getSchoolName().equalsIgnoreCase("Ankara")) {
+            return app2;
+        }
+        else if(!highSchool1.getSchoolName().equalsIgnoreCase("Ankara") && highSchool2.getSchoolName().equalsIgnoreCase("Ankara")){
+            return app1;
+        }
+        else{// if both are from Ankara or both from outside of Ankara
+            // daha erken başvuru yapanı önceliklendir
+            LocalDateTime applicationTime1 = app1.getApplicationTime();
+            LocalDateTime applicationTime2 = app2.getApplicationTime();
 
-        return (transitionTime1.isBefore(transitionTime2)) ? app1 : app2;
+            return (applicationTime1.isBefore(applicationTime2)) ? app1 : app2;
+        }
     }
 
     /**
