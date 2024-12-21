@@ -38,6 +38,9 @@ public abstract class TourApplication extends TourEvent{
     @Column(name = "transition_time", nullable = true)
     private LocalDateTime transitionTime;
 
+    @Column(name = "application_time", nullable = true)
+    private LocalDateTime applicationTime;
+
     @Column(name = "selected_date", nullable = true)
     private LocalDate selectedDate;
 

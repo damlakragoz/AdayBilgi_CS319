@@ -66,6 +66,7 @@ public class SchoolTourApplicationService {
          */
 
         schoolTourApplication.setTransitionTime(batchWindow);
+        schoolTourApplication.setApplicationTime(now);
 
         return schoolTourApplicationRepos.save(schoolTourApplication);
     }

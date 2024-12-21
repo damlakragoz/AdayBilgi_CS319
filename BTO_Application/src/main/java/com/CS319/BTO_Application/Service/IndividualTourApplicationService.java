@@ -33,6 +33,7 @@ public class IndividualTourApplicationService {
         LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
 
         tourApplication.setTransitionTime(batchWindow);
+        tourApplication.setApplicationTime(now);
 
 
         return individualTourApplicationRepos.save(tourApplication);
