@@ -258,7 +258,7 @@ const GeriBildirimler = () => {
                                                          margin: "0px 20px"
                                                      }}
                                          >
-                                             View Details
+                                             Detayları Gör
                                          </button>
                                      )}
                             </td>

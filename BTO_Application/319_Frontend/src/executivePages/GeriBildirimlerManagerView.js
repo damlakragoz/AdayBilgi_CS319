@@ -201,7 +201,7 @@ const GeriBildirimlerManagerView = () => {
                         </span>
 
                         {/* Feedback Details */}
-                        <h3>Geribildirim Detayları</h3>
+                        <h3>Detayları Gör</h3>
                         <p><strong>Oy:</strong> {selectedFeedback.rating} yıldız</p>
                         {/* Format and Display Comment */}
                                     {(() => {
