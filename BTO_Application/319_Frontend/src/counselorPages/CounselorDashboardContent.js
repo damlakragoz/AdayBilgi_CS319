@@ -9,8 +9,8 @@ const CounselorDashboardContent = () => {
     ];
 
     const feedbacks = [
-        { status: "Geri donüt bekleniyor", activity: "Tur", date: "25.08.2023", time: "11.30-12.30", stars: 0 },
-        { status: "Geri donüt verildi", activity: "Fuar", date: "20.07.2022", time: "15.30-16.30", stars: 3 },
+        { status: "Geri dönüt bekleniyor.", activity: "Tur", date: "25.08.2023", time: "11.30-12.30", stars: 0 },
+        { status: "Geri dönüt verildi.", activity: "Fuar", date: "20.07.2022", time: "15.30-16.30", stars: 3 },
     ];
 
     const invitations = [
