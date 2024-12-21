@@ -22,7 +22,6 @@ const TourGuideList = () => {
         alert("Authorization token missing. Please log in.");
         return;
       }
-
       const response = await axios.get(
         "http://localhost:8081/api/tourguide/getAll",
         {
