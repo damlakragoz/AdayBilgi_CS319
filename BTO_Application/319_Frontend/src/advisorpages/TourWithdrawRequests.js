@@ -97,11 +97,14 @@ const TourWithdrawRequests = () => {
 
   const handleAccept = async (tourId) => {
     try {
-      await axios.put(
+      const response = await axios.put(
         "http://localhost:8081/api/tour/accept-withdraw-request",
         { tourId, advisorEmail },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      if(response.status === 200 || response.status === 201) {
+        alert("Tur geri çekilme isteği başarıyla kabul edildi!")
+      }
       setWithdrawnTours((prev) => prev.filter((tour) => tour.id !== tourId));
     } catch (err) {
       console.error(err);
@@ -111,15 +114,18 @@ const TourWithdrawRequests = () => {
 
   const handleReject = async (tourId) => {
     try {
-      await axios.put(
+      const response = await axios.put(
         "http://localhost:8081/api/tour/reject-withdraw-request",
         { tourId, advisorEmail },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      if(response.status === 200 || response.status === 201) {
+        alert("Tur geri çekilme isteği başarıyla reddedildi!")
+      }
       setWithdrawnTours((prev) => prev.filter((tour) => tour.id !== tourId));
     } catch (err) {
       console.error(err);
-      alert("Failed to reject the withdraw request.");
+      alert("Turdan çekilme isteği yapılırken bir hata oluştu!");
     }
   };
 

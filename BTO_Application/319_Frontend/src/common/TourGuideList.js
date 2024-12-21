@@ -75,7 +75,7 @@ const TourGuideList = () => {
 
   const promoteToExpert = async (email) => {
     const confirmPromotion = window.confirm(
-      `Are you sure you want to promote the Tour Guide with email: ${email} to an Expert?`
+      `Bu emaildeki rehberi ${email} danışman yapmaya emin misiniz?`
     );
 
     if (confirmPromotion) {
@@ -102,7 +102,7 @@ const TourGuideList = () => {
         );
 
         if (response.status == 200 || response.status === 201 || response.status === 202) {
-          alert("Tour Rehberi " + email + " uzmanlığa yükseltildi!");
+          alert("Tour Rehberi " + email + " danışmanlığa yükseltildi!");
           fetchTourGuides(); // Refresh the list
         }
       } catch (error) {
@@ -124,7 +124,6 @@ const TourGuideList = () => {
             <th>Ad Soyad</th>
             <th>Email</th>
             <th>Bölümü</th>
-            <th>Puantaj</th>
             <th>Çalışma Saatleri</th>
             <th>Sınıf</th>
             <th>IBAN</th>
@@ -138,7 +137,6 @@ const TourGuideList = () => {
               <td>{tourGuide.firstName +" "+ tourGuide.lastName}</td>
               <td>{tourGuide.email}</td>
               <td>{tourGuide.department}</td>
-              <td>{tourGuide.puantage}</td>
               <td>{tourGuide.workHours}</td>
               <td>{tourGuide.grade}</td>
               <td>{tourGuide.iban}</td>
@@ -153,7 +151,7 @@ const TourGuideList = () => {
                 </button>
                 <button
                   onClick={() => promoteToExpert(tourGuide.email)}
-                  title="Uzmanlığa Yükselt"
+                  title="Danışmanlığa Yükselt"
                   className="usertable-button usertable-button-promote"
                 >
                   Uzmanlığa Yükselt

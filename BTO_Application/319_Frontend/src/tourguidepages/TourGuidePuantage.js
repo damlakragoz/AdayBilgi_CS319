@@ -81,38 +81,64 @@ const TourGuidePuantage = () => {
     }
 
     try {
-      const endpoint =
-        selectedTour.tourStatus === "Finished"
-          ? "http://localhost:8081/api/tour/edit-activity"
-          : "http://localhost:8081/api/tour/submit-activity";
+      // Fetch all approved payments
+      const approvedPaymentsResponse = await axios.get(
+          "http://localhost:8081/api/payments/getAll", // Assuming this endpoint returns all payments
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+      );
 
+      const approvedPayments = approvedPaymentsResponse.data.filter(
+          (payment) => payment.status === "APPROVED"
+      );
+
+      // Check if the selected tour's ID exists in the approved payments
+      const isTourInApprovedPayments = approvedPayments.some(
+          (payment) => payment.tourId === selectedTour.id
+      );
+
+      if (isTourInApprovedPayments) {
+        alert(
+            "Bu turun ödemesi onaylandı. Onaylanan turun ödemesi değiştirilemez!"
+        );
+        return;
+      }
+
+      // Determine the endpoint based on the tour status
+      const endpoint =
+          selectedTour.tourStatus === "Finished"
+              ? "http://localhost:8081/api/tour/edit-activity"
+              : "http://localhost:8081/api/tour/submit-activity";
+
+      // Call the appropriate endpoint
       const response = await axios.post(
-        endpoint,
-        null,
-        {
-          params: {
-            tourId: selectedTour.id,
-            tourGuideEmail: guideEmail,
-            duration: activityDuration,
-          },
-          headers: { Authorization: `Bearer ${token}` },
-        }
+          endpoint,
+          null,
+          {
+            params: {
+              tourId: selectedTour.id,
+              tourGuideEmail: guideEmail,
+              duration: activityDuration,
+            },
+            headers: { Authorization: `Bearer ${token}` },
+          }
       );
 
       if (response.status === 201 || response.status === 200) {
         alert(
-          selectedTour.tourStatus === "Finished"
-            ? "Activity duration updated successfully!"
-            : "Activity duration submitted successfully!"
+            selectedTour.tourStatus === "Finished"
+                ? "Activity duration updated successfully!"
+                : "Activity duration submitted successfully!"
         );
 
         // Update the local state
         setGuideTours((prev) =>
-          prev.map((tour) =>
-            tour.id === selectedTour.id
-              ? { ...tour, duration: activityDuration, tourStatus: "Finished" }
-              : tour
-          )
+            prev.map((tour) =>
+                tour.id === selectedTour.id
+                    ? { ...tour, duration: activityDuration, tourStatus: "Finished" }
+                    : tour
+            )
         );
 
         setSelectedTour(null);
@@ -123,6 +149,7 @@ const TourGuidePuantage = () => {
       alert("Failed to submit or update activity. Please try again.");
     }
   };
+
 
   // Check if the date and hour of the selected tour have passed
   const isDateTimePassed = (tour) => {

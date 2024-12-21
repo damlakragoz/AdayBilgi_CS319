@@ -15,8 +15,14 @@ const SendFairInvitation = () => {
 
     const handleDateSelection = (date) => {
         if (!selectingEndDate) {
-            setFairStartDate(date);
+            // Başlangıç tarihi seçilirken bitiş tarihinden sonra olmamasını kontrol et
+            if (fairEndDate && date > fairEndDate) {
+                alert("Başlangıç tarihi bitiş tarihinden sonra olamaz!");
+            } else {
+                setFairStartDate(date);
+            }
         } else {
+            // Bitiş tarihi seçilirken başlangıç tarihinden önce olmamasını kontrol et
             if (fairStartDate && date < fairStartDate) {
                 alert("Bitiş tarihi başlangıç tarihinden önce olamaz!");
             } else {

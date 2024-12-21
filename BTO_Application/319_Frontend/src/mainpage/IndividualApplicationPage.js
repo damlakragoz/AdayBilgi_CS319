@@ -12,7 +12,7 @@ const IndividualApplicationPage = () => {
         highSchool: "",
         phoneNumber: "",
         email: "",
-        visitors: "",
+        visitorCount: "",
         additionalRequests: "",
         selectedDates: [],
     });
@@ -143,7 +143,7 @@ const IndividualApplicationPage = () => {
                 applicantSurname: formData.lastName,
                 phoneNumber: formData.phoneNumber,
                 email: formData.email,
-                visitorCount: formData.visitors,
+                visitorCount: formData.visitorCount,
                 extraInformation: formData.additionalRequests,
             },
             schoolName: formData.highSchool,
@@ -290,9 +290,9 @@ const IndividualApplicationPage = () => {
                     <div className="form-group">
                         <input
                             type="number"
-                            name="visitors"
+                            name="visitorCount"
                             placeholder="Ziyaretçi Sayısı"
-                            value={formData.visitors}
+                            value={formData.visitorCount}
                             onChange={handleChange}
                             required
                         />
