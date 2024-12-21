@@ -44,6 +44,7 @@ import SendFairInvitation from "./counselorPages/SendFairInvitation";
 import FairInvitationsPage from "./counselorPages/FairInvitationsPage";
 import CounselorLayout from "./counselorPages/CounselorLayout";
 import CounselorNotifications from './notification/NewNotifications';
+import FuarBasvurularim from "./counselorPages/FuarBasvurularim";
 // Executive Page Imports
 import ExecutiveHomepage from './executivePages/ExecutiveHomepage';
 import ExecutiveLayout from "./executivePages/ExecutiveLayout";
@@ -61,6 +62,7 @@ import TourGuideNotifications from './notification/NewNotifications';
 
 // Advisor Page Imports
 import AdvisorLayout from './advisorpages/AdvisorLayout';
+import AdvisorOnayBekleyen from './advisorpages/AdvisorOnayBekleyen';
 import AdvisorHomepage from './advisorpages/AdvisorHomepage';
 import AdvisorTourEnrollmentPage from './advisorpages/AdvisorTourEnrollmentPage';
 import AdvisorTourSchedule from './advisorpages/AdvisorTourSchedule';
@@ -148,7 +150,8 @@ function App() {
                         <Route path="/my-feedbacks" element={<GeriBildirimler/>}/>
                         <Route path="/tour-application/:id" element={<TourApplicationDetailsPage/>}/>
                         <Route path="/send-fair-invitation" element={<SendFairInvitation/>}/>
-                        <Route path="/fair-invitations" element={<FairInvitationsPage/>}/>
+                        <Route path="/fair-invitations" element={<FuarBasvurularim/>}/>
+                        <Route path="/fuar-basvurularim" element={<FuarBasvurularim/>}/>
                         <Route path="/counselor-notifications" element={<CounselorNotifications />} />
                         <Route path="/counselor-change-password" element={<ChangePassword />} />
                     </Route>
@@ -171,6 +174,7 @@ function App() {
                     <Route element={<AdvisorLayout />}>
                         <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
                         <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
+                        <Route path="/onay-bekleyen-islemler/advisor" element={<AdvisorOnayBekleyen />} />
                         <Route path="/advisor-tourenrollment" element={<AdvisorTourEnrollmentPage />} />
                         <Route path="/withdraw-requests" element={<TourWithdrawRequests />} />
                         <Route path="/advisor-notifications" element={<AdvisorNotifications />} />
