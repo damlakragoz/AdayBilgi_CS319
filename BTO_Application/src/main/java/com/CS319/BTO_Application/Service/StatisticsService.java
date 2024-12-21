@@ -5,10 +5,10 @@ import com.CS319.BTO_Application.Repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneId;
+import java.util.*;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 
 @Service
 public class StatisticsService {
@@ -348,5 +348,183 @@ public class StatisticsService {
         return fairInvitationByStatus;
     }
 
+    public Map<String, Integer> getTourCountByMonth() {
+        Map<String, Integer> toursByMonth = initializeMonthMap();
+
+        List<TourApplication> tourApplications = tourApplicationRepos.findAll();
+
+        if (tourApplications != null) {
+            for (TourApplication tourApplication : tourApplications) {
+                if (tourApplication == null) {
+                    System.out.println("Skipping null or empty tour application");
+                    continue;
+                }
+
+                LocalDate selectedDate = tourApplication.getSelectedDate();
+
+                if (selectedDate == null) {
+                    System.out.println("Skipping null or empty tour application date");
+                    continue;
+                }
+
+                // Get the start date (12 months ago) and today's date
+                LocalDate now = LocalDate.now();
+                LocalDate startDate = now.minusMonths(11);
+
+                // Check if the date falls within the last 12 months
+                if (!selectedDate.isBefore(startDate) && !selectedDate.isAfter(now)) {
+                    // Get the corresponding month and year
+                    String monthNameTurkish = selectedDate.getMonth()
+                            .getDisplayName(TextStyle.FULL, new Locale("tr", "TR"));
+                    String mapKey = monthNameTurkish + " " + selectedDate.getYear();
+
+                    // Increment the count for the corresponding month
+                    toursByMonth.put(mapKey, toursByMonth.getOrDefault(mapKey, 0) + 1);
+                }
+
+            }
+        }
+
+        return toursByMonth;
+    }
+
+
+    public Map<String, Integer> getFairCountByMonth() {
+        Map<String, Integer> fairsByMonth = initializeMonthMap();
+
+        List<FairInvitation> fairInvitations = fairInvitationRepos.findAll();
+
+        if (fairInvitations != null) {
+            for (FairInvitation fairInvitation : fairInvitations) {
+                if (fairInvitation == null) {
+                    System.out.println("Skipping null or empty fair invitation");
+                    continue;
+                }
+
+                LocalDate selectedDate = fairInvitation.getFairStartDate();
+
+                if (selectedDate == null) {
+                    System.out.println("Skipping null or empty fair invitation date");
+                    continue;
+                }
+
+                LocalDate now = LocalDate.now();
+                LocalDate startDate = now.minusMonths(11);
+
+                if (!selectedDate.isBefore(startDate) && !selectedDate.isAfter(now)) {
+                    // Get the corresponding month and year
+                    String monthNameTurkish = selectedDate.getMonth()
+                            .getDisplayName(TextStyle.FULL, new Locale("tr", "TR"));
+                    String mapKey = monthNameTurkish + " " + selectedDate.getYear();
+
+                    // Increment the count for the corresponding month
+                    fairsByMonth.put(mapKey, fairsByMonth.getOrDefault(mapKey, 0) + 1);
+                }
+
+            }
+        }
+
+        return fairsByMonth;
+    }
+
+    public Map<String, Double> getPaymentAmountByMonth() {
+        Map<String, Double> paymentByMonth = initializeMonthMapDouble();
+
+        List<Payment> payments = paymentRepos.findAll();
+
+        if (payments != null) {
+            for (Payment payment : payments) {
+                if (payment == null) {
+                    System.out.println("Skipping null or empty payment payment");
+                    continue;
+                }
+
+                Date paymentDate = payment.getApprovalDate();
+
+                if (paymentDate == null) {
+                    System.out.println("Skipping null or empty payment date");
+                    continue;
+                }
+
+                // Convert Date to LocalDate
+                LocalDate localPaymentDate = paymentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                // Define the start date and end date (last 12 months range)
+                LocalDate now = LocalDate.now();
+                LocalDate startDate = now.minusMonths(11);
+
+                // Check if the payment date is within the last 12 months
+                if (!localPaymentDate.isBefore(startDate) && !localPaymentDate.isAfter(now)) {
+                    // Get the corresponding month and year
+                    String monthNameTurkish = localPaymentDate.getMonth()
+                            .getDisplayName(TextStyle.FULL, new Locale("tr", "TR"));
+                    String mapKey = monthNameTurkish + " " + localPaymentDate.getYear();
+
+                    // Add the payment amount to the corresponding month
+                    double currentAmount = paymentByMonth.getOrDefault(mapKey, 0.0);
+                    if (payment.getAmount() != null) {
+                        paymentByMonth.put(mapKey, currentAmount + payment.getAmount());
+                    }
+                }
+            }
+        }
+
+        return paymentByMonth;
+    }
+
+    // Private method to initialize the map for the last 12 months
+    private Map<String, Integer> initializeMonthMap() {
+        Map<String, Integer> monthMap = new LinkedHashMap<>();
+
+        // Get today's date
+        LocalDate now = LocalDate.now();
+
+        // Calculate the start date: 11 months before the current month
+        LocalDate startDate = now.minusMonths(11);
+
+        // Loop over the last 12 months
+        for (int i = 0; i < 12; i++) {
+            LocalDate monthDate = startDate.plusMonths(i); // Move forward from the start date
+
+            // Get the month name in Turkish
+            String monthNameTurkish = monthDate.getMonth()
+                    .getDisplayName(TextStyle.FULL, new Locale("tr", "TR"));
+
+            // Construct the key (e.g., "Şubat 2023")
+            String mapKey = monthNameTurkish + " " + monthDate.getYear();
+
+            // Add the month to the map with an initial count of 0
+            monthMap.put(mapKey, 0);
+        }
+
+        return monthMap;
+    }
+
+    private Map<String, Double> initializeMonthMapDouble() {
+        Map<String, Double> monthMap = new LinkedHashMap<>();
+
+        // Get today's date
+        LocalDate now = LocalDate.now();
+
+        // Calculate the start date: 11 months before the current month
+        LocalDate startDate = now.minusMonths(11);
+
+        // Loop over the last 12 months
+        for (int i = 0; i < 12; i++) {
+            LocalDate monthDate = startDate.plusMonths(i); // Move forward from the start date
+
+            // Get the month name in Turkish
+            String monthNameTurkish = monthDate.getMonth()
+                    .getDisplayName(TextStyle.FULL, new Locale("tr", "TR"));
+
+            // Construct the key (e.g., "Şubat 2023")
+            String mapKey = monthNameTurkish + " " + monthDate.getYear();
+
+            // Add the month to the map with an initial count of 0
+            monthMap.put(mapKey, 0.0);
+        }
+
+        return monthMap;
+    }
 
 }
