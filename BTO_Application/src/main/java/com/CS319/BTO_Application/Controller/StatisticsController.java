@@ -70,4 +70,19 @@ public class StatisticsController {
     public ResponseEntity<?> getFairInvitationCountByStatus() {
         return new ResponseEntity<>(statisticsService.getFairInvitationCountByStatus(), HttpStatus.OK);
     }
+
+    @GetMapping("/tourCountByMonth")
+    public ResponseEntity<?> getTourCountByMonth() {
+        return new ResponseEntity<>(statisticsService.getTourCountByMonth(), HttpStatus.OK);
+    }
+
+    @GetMapping("/fairCountByMonth")
+    public ResponseEntity<?> getFairCountByMonth() {
+        return new ResponseEntity<>(statisticsService.getFairCountByMonth(), HttpStatus.OK);
+    }
+
+    @GetMapping("/paymentAmountByMonth")
+    public ResponseEntity<?> getPaymentAmountByMonth() {
+        return new ResponseEntity<>(statisticsService.getPaymentAmountByMonth(), HttpStatus.OK);
+    }
 }
