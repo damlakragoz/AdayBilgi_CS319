@@ -67,6 +67,11 @@ const CreateTourApplication = () => {
             alert("Lütfen ziyaretçi sayısını girin!");
             return;
         }
+        // ensure the visitor count is below 60
+        if (visitorCount>60) {
+            alert("Tur gerekleri sebebiyle ziyaretçi sayısı 60'tan fazla olamaz.");
+            return;
+        }
 
         const payload = {
             tourApplication: {

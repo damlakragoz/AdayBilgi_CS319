@@ -8,6 +8,7 @@ import "./UserTables.css";
 const CoordinatorList = () => {
   const [coordinators, setCoordinators] = useState([]);
   const [error, setError] = useState(null);
+  const role = localStorage.getItem("role"); // Retrieve the user role
 
   // Function to fetch coordinators
   const fetchCoordinators = async () => {
@@ -110,14 +111,16 @@ const CoordinatorList = () => {
         </table>
       )}
 
-        {/* Centered Button Below the Table */}
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Link to="/koordinator-ekle">
-              <button className="usertable-button usertable-button-add">
-                Yeni Koordinatör Kaydet
-              </button>
-            </Link>
-          </div>
+        {/* Conditional Add Coordinator Button Below the Table */}
+        {  (role == "Executive" || role == "Admin") &&
+             <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <Link to="/koordinator-ekle">
+                  <button className="usertable-button usertable-button-add">
+                    Yeni Koordinatör Kaydet
+                  </button>
+                </Link>
+              </div>
+        }
     </div>
   );
 };
