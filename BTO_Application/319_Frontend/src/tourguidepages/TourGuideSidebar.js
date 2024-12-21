@@ -28,26 +28,21 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                 </li>
                 <li>
                     <Link to="/tourguide-tourenrollment" className="nav-link text-white">
-                        <i className="fas fa-calendar-alt"></i> Turlara Başvur/Tur Takvimi
+                        <i className="fas fa-calendar-alt"></i> Tur Takvimi - Başvur
                     </Link>
                 </li>
                 <li>
                     <Link to="/tourguide-all-fairs" className="nav-link text-white">
-                        <i className="fas fa-briefcase"></i> Fuara Başvur
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/basvur-diger" className="nav-link text-white">
-                        <i className="fas fa-ellipsis-h"></i> Diğer
+                        <i className="fas fa-briefcase"></i> Fuar Takvimi - Başvur
                     </Link>
                 </li>
                 <li>
                     <Link to="/tourguide-puantage" className="nav-link text-white">
-                        <i className="fas fa-edit"></i> Puantaj-Aktivite Giriş
+                        <i className="fas fa-edit"></i> Puantaj - Aktivite Girişi
                     </Link>
                 </li>
 
-                <br />
+                <br/>
                 {/* Subtitle: Bildirimler */}
                 <li>
                     <Link to="/tourguide-notifications" className="sidebar-subtitle">
@@ -55,30 +50,14 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/messages" className="nav-link text-white">
-                        <i className="fas fa-envelope"></i> Mesajlarım
+                    <Link to="/tourguide-notifications" className="nav-link text-white">
+                        <i className="fas fa-bell"></i> Bildirimlerim
                     </Link>
                 </li>
 
-                <br />
+                <br/>
                 {/* Subtitle: Resources */}
-                <li>
-                    <Link to="/resources" className="sidebar-subtitle">
-                        <i className="fas fa-book"></i> Kaynaklar
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/tour-guidelines" className="nav-link text-white">
-                        <i className="fas fa-map-signs"></i> Tur Kılavuzları
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/faqs" className="nav-link text-white">
-                        <i className="fas fa-question-circle"></i> Sıkça Sorulan Sorular
-                    </Link>
-                </li>
-
-                <hr />
+                <hr/>
                 {/* Settings and Logout */}
                 <li>
                     <Link to="/settings" className="nav-link text-white">
