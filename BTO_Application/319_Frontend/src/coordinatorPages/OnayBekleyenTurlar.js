@@ -8,6 +8,18 @@ const OnayBekleyenTurlar = () => {
     const [error, setError] = useState(null);
     const [toggleState, setToggleState] = useState(false); // State to trigger rerender
 
+    const translateStatus = (status) => {
+        // Normalize the status to lowercase
+        const normalizedStatus = status ? status.toLowerCase() : "";
+
+        switch (normalizedStatus) {
+            case "pending":
+                return "Onay Bekliyor";
+            default:
+                return "Bilinmiyor"; // Return "Bilinmiyor" for any unrecognized status
+        }
+    };
+
     // TimeSlot mappings for displaying in a user-friendly format
     const timeSlotDisplayNames = {
         SLOT_9_10:  "09:00-10:00",
@@ -142,6 +154,7 @@ const OnayBekleyenTurlar = () => {
         return <div className="onay-bekleyen-container">{error}</div>;
     }
 
+
     return (
         <div className="onay-bekleyen-container">
             <h1 className="onay-bekleyen-header">Onay Bekleyen Tur Başvuruları</h1>
@@ -158,7 +171,7 @@ const OnayBekleyenTurlar = () => {
                 <tbody>
                     {tours.map((tour, index) => (
                         <tr key={index}>
-                            <td>{tour.tourStatus}</td>
+                            <td>{translateStatus(tour.status)}</td>
                             <td>{tour.applyingHighschoolName}</td>
                             <td>
                                 {new Date(tour.chosenDate).toLocaleDateString('tr-TR', {

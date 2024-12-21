@@ -23,7 +23,7 @@ const OnayBekleyen = () => {
         <thead>
           <tr>
             <th>Görev Açıklaması</th>
-            <th>İsteyen</th>
+            <th>Talep Eden</th>
             <th>Gönderilme Tarihi</th>
             <th>Tercihler</th>
           </tr>

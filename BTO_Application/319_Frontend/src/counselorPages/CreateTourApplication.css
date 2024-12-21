@@ -13,10 +13,10 @@
 
 /* Container Styling */
 .tour-application-container {
-    padding: 30px;
+    padding: 65px;
     font-family: "Poppins", sans-serif;
     color: var(--text-primary);
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     background-color: var(--background-light);
     border-radius: var(--border-radius);
@@ -35,14 +35,25 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    text-align: center;
 }
 
 .tour-application-section {
-    flex: 1;
+    flex: 100px; /* flex-grow: 1; flex-shrink: 1; flex-basis: 280px; */
     min-width: 280px;
     text-align: center;
 }
+
+/*
+.tour-application-section {
+    flex:1;
+    min-width: 280px;
+    text-align: center;
+}
+
+ */
 
 /* Calendar Styling */
 .tour-application-calendar {
@@ -88,10 +99,11 @@
     border: 2px solid var(--dark-blue);
     border-radius: var(--border-radius);
     width: 100%;
-    max-width: 300px;
+    max-width: 150px;
     font-size: 14px;
     background: var(--white);
     color: var(--text-primary);
+    align-content: center;
 }
 
 .tour-application-input {
@@ -160,7 +172,7 @@
 .tour-application-selected-dates li {
     background: var(--white);
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;

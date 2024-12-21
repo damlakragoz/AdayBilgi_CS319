@@ -1,0 +1,126 @@
+:root {
+    /* Primary Colors */
+    --light-blue: #d4ebf8; /* Light Blue */
+    --dark-blue: #0a3981; /* Dark Blue */
+    --orange: #e38e49; /* Orange */
+
+    /* Accent Colors */
+    --dark-gray: #5a5a5a; /* Dark Gray */
+    --charcoal: #2b2b2b; /* Charcoal */
+    --white: #ffffff; /* White */
+    --black: #000000; /* Black */
+    --gray: #d9d9d9; /* Neutral Gray */
+
+    /* Background Colors */
+    --background-light: #f7fafc; /* Light Background */
+    --background-dark: #1a1a1a; /* Dark Background */
+}
+
+.pending-payments-main-container {
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--background-light);
+    border-radius: 8px;
+}
+
+.pending-payments-container {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pending-payments-header-main {
+    color: var(--dark-blue);  /* Title color */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.pending-payments-header {
+    color: var(--dark-blue);  /* Title color */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.pending-payments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.pending-payments-table th,
+.pending-payments-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--gray);  /* Light border for separation */
+}
+
+.pending-payments-table th {
+    background-color: var(--background-light);  /* Soft background for header */
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+.pending-payments-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allows buttons to wrap to the next line */
+    gap: 10px; /* Maintains spacing between buttons */
+    justify-content: center; /* Centers buttons horizontally */
+    align-items: center; /* Aligns buttons vertically */
+}
+
+.pending-payments-button {
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.pending-payments-approve-btn {
+    background-color: var(--dark-green); /* Use a more vibrant green */
+    color: var(--white);
+    border-radius: 30px;
+}
+
+.pending-payments-reject-btn {
+    background-color: var(--my-red); /* Use a more vibrant red */
+    color: var(--white);
+    border-radius: 30px;
+}
+
+.pending-payments-approve-btn:hover {
+    background-color: #218838; /* Darker green for hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.pending-payments-reject-btn:hover {
+    background-color: #c82333; /* Darker red for hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.pending-payments-button:focus {
+    outline: none;
+}
+
+.pending-payments-button:active {
+    transform: scale(0.98); /* Slight button scale on click */
+}
+
+.pending-payments-approve-btn:active {
+    background-color: #1e7e34; /* Even darker green on click */
+}
+
+.pending-payments-reject-btn:active {
+    background-color: #bd2130; /* Even darker red on click */
+}

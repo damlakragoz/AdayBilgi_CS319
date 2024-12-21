@@ -71,6 +71,7 @@ import AdvisorPuantage from './advisorpages/AdvisorPuantage';
 import './App.css';
 import AllTours from "./tourguidepages/AllTours";
 import AllFairs from "./tourguidepages/AllFairs";
+import CoordinatorPayments from "./coordinatorPages/CoordinatorPayments";
 
 function App() {
   return (
@@ -117,6 +118,7 @@ function App() {
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
                         <Route path="/coordinator-change-password" element={<ChangePassword />} />
                         <Route path="/coordinator-statistics" element={<Statistics />} />
+                        <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>

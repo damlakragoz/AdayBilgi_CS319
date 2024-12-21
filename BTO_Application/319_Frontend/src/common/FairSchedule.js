@@ -60,7 +60,7 @@ const FairSchedule = () => {
 
             console.log("Filtered Fairs:", filteredFairs);
           } else {
-            alert("No fairs found for the specified date.");
+            alert("Belirtilen tarihte gerçekleşen fuar bulunamadı.");
           }
         } catch (error) {
           if (error.response) {
@@ -68,10 +68,10 @@ const FairSchedule = () => {
             alert(`Server Error: ${error.response.status} - ${error.response.data}`);
           } else if (error.request) {
             console.error("Request Error:", error.request);
-            alert("No response from the server. Check your network or backend.");
+            alert("Bağlantınızı kontrol ediniz");
           } else {
             console.error("Unexpected Error:", error.message);
-            alert("An unexpected error occurred: " + error.message);
+            alert("Beklenmeyen bir hata oluştu: " + error.message);
           }
         }
       };

@@ -143,7 +143,7 @@ const AllFairs = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header">Available Fairs</h4>
+            <h4 className="tour-list-header">Güncel Fuarlar</h4>
             <ul className="fair-list">
                 {sortedFairs
                     .filter(
