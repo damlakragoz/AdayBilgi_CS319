@@ -9,7 +9,7 @@ const statusMap = {
   "created": "Oluşturuldu",
   "approved": "Onaylandı",
   "rejected": "Reddedildi",
-  "cancelled": "Iptal Edildi",
+  "cancelled": "İptal Edildi",
   "Finished": "Tamamlandı",
   "not_specified": "-",
 };
@@ -50,7 +50,7 @@ const FairInvitations = () => {
     fetchData();
   }, []);
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
+  const totalPages = Math.ceil(data.length / rowsPerPage) == 0 ? 1 : Math.ceil(data.length / rowsPerPage);
   const currentData = data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   const handleNextPage = () => {
@@ -110,7 +110,7 @@ const FairInvitations = () => {
             <th>Tarihler</th>
             <th>Saatler</th>
             <th>Rehber Öğretmen</th>
-            <th>Rehber Öğretmen Maili</th>
+            <th>Rehber Öğretmen E-maili</th>
           </tr>
           </thead>
           <tbody>

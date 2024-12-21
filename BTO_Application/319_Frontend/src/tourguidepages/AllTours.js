@@ -196,13 +196,13 @@ const AllTours = () => {
                             data-status={tour.tourStatus}
                         >
                             <p>
-                                <strong>Date:</strong> {formatISODate(new Date(tour.chosenDate))}
+                                <strong>Tarih:</strong> {formatISODate(new Date(tour.chosenDate))}
                             </p>
                             <p>
-                                <strong>Status:</strong> {tour.tourStatus}
+                                <strong>Tur Durumu:</strong> {tour.tourStatus}
                             </p>
                             <p>
-                                <strong>Visitor Count:</strong> {tour.visitorCount}
+                                <strong>Ziyaretçi Sayısı:</strong> {tour.visitorCount}
                             </p>
                             {isUserEnrolled && tour.tourStatus === "GuideAssigned" ? (
                                 <button

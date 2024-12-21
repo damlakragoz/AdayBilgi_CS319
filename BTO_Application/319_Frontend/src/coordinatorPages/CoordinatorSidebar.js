@@ -23,7 +23,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Subtitle: Onay Bekleyenler */}
                 <li>
                     <Link to="/onay-bekleyen-islemler" className="sidebar-subtitle">
-                        Onay Bekleyenler
+                        Onay Bekleyen İşlemler
                     </Link>
                 </li>
                 <li>

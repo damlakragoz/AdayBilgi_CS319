@@ -283,13 +283,14 @@ const TourSchedule = () => {
 
     return (
         <div className="tour-schedule-container">
+
             {/* Calendar Section */}
             <div className="calendar-container">
                 <Calendar
                     onChange={handleDateChange}
                     value={selectedDate}
                     locale="tr-TR"
-                    tileClassName={({ date, view }) => {
+                    tileClassName={({date, view}) => {
                         if (view === "month") {
                             const dateStr = formatISODate(date);
                             if (greenDates.includes(dateStr)) {
@@ -304,7 +305,6 @@ const TourSchedule = () => {
 
                 />
             </div>
-
             {/* Tour List Section */}
             <div className="tour-list-container">
                 <h4 className="tour-list-header">
@@ -341,13 +341,13 @@ const TourSchedule = () => {
                                                 margin: "0.5rem 0",
                                             }}
                                         >
-                                            <strong>Visitor
-                                                Count:</strong> {tour.visitorCount}
+                                            <strong>Ziyaretçi
+                                                Sayısı:</strong> {tour.visitorCount}
                                             <br/>
-                                            <strong>Tour
-                                                Status:</strong> {tour.tourStatus}
+                                            <strong>Tur
+                                                Durumu:</strong> {tour.tourStatus}
                                             <br/>
-                                            <strong>Assigned Guide Email:</strong> {tour.assignedGuideEmail}
+                                            <strong>Tur Rehberi:</strong> {tour.assignedGuideEmail}
                                             <br/>
                                             {/* Request Withdraw or Enroll Button Logic */}
                                             {isUserEnrolled ? (
