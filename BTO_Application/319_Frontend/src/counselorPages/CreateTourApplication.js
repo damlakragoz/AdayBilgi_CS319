@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CreateTourApplication.css";
-import ReactDOM from "react-dom";
 import axios from "axios";
 
 const CreateTourApplication = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date()); // Currently selected date
-    const [selectedTimeSlot, setSelectedTimeSlot] = useState(""); // Currently selected time slot
-    const [visitorCount, setVisitorCount] = useState(""); // Number of visitors
-    const [requestedDates, setRequestedDates] = useState([]); // List of date-time combinations
-    const [isModalOpen, setIsModalOpen] = useState(false); // Confirmation modal state
-    const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+    const [visitorCount, setVisitorCount] = useState("");
+    const [requestedDates, setRequestedDates] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const email = localStorage.getItem("username");
     const token = localStorage.getItem("userToken");
@@ -29,8 +27,7 @@ const CreateTourApplication = () => {
             alert("Lütfen bir saat aralığı seçin!");
             return;
         }
-        const formattedDate = selectedDate.toLocaleDateString("en-CA"); // Format as YYYY-MM-DD
-        // Check if the date and timeSlot already exist in requestedDates
+        const formattedDate = selectedDate.toLocaleDateString("en-CA");
         const isDuplicate = requestedDates.some(
             (item) => item.date === formattedDate && item.timeSlot === selectedTimeSlot
         );
@@ -40,7 +37,6 @@ const CreateTourApplication = () => {
             return;
         }
 
-        // Prevent the addition of more than 3 date options
         if (requestedDates.length < 3) {
             setRequestedDates((prev) => [
                 ...prev,
@@ -50,9 +46,8 @@ const CreateTourApplication = () => {
             alert("En fazla üç farklı tarih seçebilirsiniz.");
         }
 
-        setSelectedTimeSlot(""); // Reset the time slot
+        setSelectedTimeSlot("");
     };
-
 
     const handleRemoveDateTime = (index) => {
         setRequestedDates((prev) => prev.filter((_, i) => i !== index));
@@ -67,47 +62,47 @@ const CreateTourApplication = () => {
             alert("Lütfen ziyaretçi sayısını girin!");
             return;
         }
-        // ensure the visitor count is below 60
-        if (visitorCount>60) {
+        if (visitorCount > 60) {
             alert("Tur gerekleri sebebiyle ziyaretçi sayısı 60'tan fazla olamaz.");
             return;
         }
 
         const payload = {
             tourApplication: {
-                requestedDates, // The array of selected dates and time slots
-                visitorCount: parseInt(visitorCount, 10), // Ensure visitor count is an integer
+                requestedDates,
+                visitorCount: parseInt(visitorCount, 10),
             },
-            counselorUsername: email, // Replace with actual username
+            counselorUsername: email,
         };
-        try {
-            setIsSubmitting(true); // Show loading spinner
 
+        try {
+            setIsSubmitting(true);
             const response = await axios.post(
                 "http://localhost:8081/api/tour-applications/add/school-application",
                 payload,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Include token in header
+                        Authorization: `Bearer ${token}`,
                     },
                     withCredentials: true,
-                } // Ensures cookies and headers are included
+                }
             );
 
             if (response.status === 201) {
                 alert("Başvurunuz başarıyla oluşturuldu!");
-                setRequestedDates([]); // Clear the form
+                setRequestedDates([]);
                 setVisitorCount("");
             }
-
         } catch (error) {
-            if(error.status === 409){
-                alert("Başvurunuzda liseniz ait aktif bir başvuruyla çakışan tarih var! Eğer bu başvuru size ait değil ise okulunuzun diğer rehber öğretmenlerine danışınız. ");
+            if (error.response?.status === 409) {
+                alert(
+                    "Başvurunuzda liseniz ait aktif bir başvuruyla çakışan tarih var! Eğer bu başvuru size ait değil ise okulunuzun diğer rehber öğretmenlerine danışınız."
+                );
+            } else {
+                alert("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
             }
-            //console.error("Error submitting application:", error);
-            //alert("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
         } finally {
-            setIsSubmitting(false); // Reset loading spinner
+            setIsSubmitting(false);
         }
     };
 
@@ -115,83 +110,83 @@ const CreateTourApplication = () => {
         <div className="tour-application-container">
             <h2>Tur Başvurusu Yap</h2>
             <div className="tour-application-wrapper">
-                <div className="tour-application-section">
-                    <label>Tarih Seçiniz:</label>
-                    <Calendar
-                        onChange={setSelectedDate}
-                        value={selectedDate}
-                        locale="tr-TR"
-                        minDate={new Date()}
-                        className="tour-application-calendar"
-                    />
-                </div>
-
-                {/* New wrapper for right-aligned content */}
-                <div className="tour-application-right-section">
-                    <label>Saat Aralığı Seçiniz:</label>
+                <div className="tour-application-left-container">
                     <div className="tour-application-section">
-                        <select
-                            value={selectedTimeSlot}
-                            onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                            className="tour-application-dropdown">
-                            <option value="">Saat Aralığı Seç</option>
-                            {timeSlots.map((slot) => (
-                                <option key={slot.id} value={slot.id}>
-                                    {slot.displayName}
-                                </option>
-                            ))}
-                        </select>
-                        <button className="tour-application-button" onClick={handleAddDateTime}>
-                            Tarih ve Saat Ekle
-                        </button>
+                        <label>Tarih Seçiniz:</label>
+                        <Calendar
+                            onChange={setSelectedDate}
+                            value={selectedDate}
+                            locale="tr-TR"
+                            minDate={new Date()}
+                            className="tour-application-calendar"
+                        />
                     </div>
+                </div>
+                <div className="tour-application-right-container">
+                    <label>Saat Aralığı Seçiniz:</label>
+                    <select
+                        value={selectedTimeSlot}
+                        onChange={(e) => setSelectedTimeSlot(e.target.value)}
+                        className="tour-application-dropdown"
+                    >
+                        <option value="">Saat Aralığı Seç</option>
+                        {timeSlots.map((slot) => (
+                            <option key={slot.id} value={slot.id}>
+                                {slot.displayName}
+                            </option>
+                        ))}
+                    </select>
+                    <button className="tour-application-button" onClick={handleAddDateTime}>
+                        Tarih ve Saat Ekle
+                    </button>
                     <label>Seçilen Tarih ve Saatler:</label>
-                    <div className="tour-application-selected-dates">
+                    <ul className="tour-application-selected-dates">
                         {requestedDates.length > 0 ? (
-                            <ul>
-                                {requestedDates.map((item, index) => {
-                                    const timeSlotDisplayName = timeSlots.find(
-                                        (slot) => slot.id === item.timeSlot
-                                    )?.displayName;
-
-                                    return (
-                                        <li key={index}>
-                                            <strong>Tarih:</strong> {item.date}, <strong>Saat:</strong> {timeSlotDisplayName || item.timeSlot}
-                                            <button
-                                                className="tour-application-remove-button"
-                                                onClick={() => handleRemoveDateTime(index)}
-                                            >
-                                                Kaldır
-                                            </button>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
+                            requestedDates.map((item, index) => {
+                                const timeSlotDisplayName = timeSlots.find(
+                                    (slot) => slot.id === item.timeSlot
+                                )?.displayName;
+                                return (
+                                    <li key={index}>
+                                        <strong>Tarih:</strong> {item.date}, <strong>Saat:</strong>{" "}
+                                        {timeSlotDisplayName || item.timeSlot}
+                                        <button
+                                            className="tour-application-remove-button"
+                                            onClick={() => handleRemoveDateTime(index)}
+                                        >
+                                            Kaldır
+                                        </button>
+                                    </li>
+                                );
+                            })
                         ) : (
                             <p>Henüz tarih ve saat eklenmedi.</p>
                         )}
-                    </div>
-
+                    </ul>
                     <label>Ziyaretçi Sayısını Giriniz:</label>
-                    <div className="tour-application-section">
-
-                        <input
-                            type="number"
-                            value={visitorCount}
-                            onChange={(e) => setVisitorCount(e.target.value)}
-                            placeholder="Ziyaretçi sayısı"
-                            min="1"
-                            className="tour-application-input"
-                        />
-                    </div>
-
-                    <button className="tour-application-button" onClick={handleSubmit}>
-                        Başvuruyu Onayla
-                    </button>
+                    <input
+                        type="number"
+                        value={visitorCount}
+                        onChange={(e) => setVisitorCount(e.target.value)}
+                        placeholder="Ziyaretçi sayısı"
+                        min="1"
+                        className="tour-application-input"
+                    />
                 </div>
+            </div>
+            <div className="submit-button-container">
+                <button
+                    className="tour-application-button"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                >
+                    {isSubmitting ? "Gönderiliyor..." : "Başvuruyu Onayla"}
+                </button>
             </div>
         </div>
     );
+
+
 };
 
 export default CreateTourApplication;
