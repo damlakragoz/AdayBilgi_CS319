@@ -129,6 +129,12 @@ const CounselorTourApplicationsPage = () => {
     const filteredApplications =
         statusFilter === "All"
             ? applications
+            : statusFilter === "Rejected"
+            ? applications.filter(
+                  (application) =>
+                      application.applicationStatus === "Rejected" ||
+                      application.applicationStatus === "Pre-rejected"
+              )
             : applications.filter((application) => application.applicationStatus === statusFilter);
 
     // Pagination logic
@@ -162,6 +168,7 @@ const CounselorTourApplicationsPage = () => {
             {/* Filter Buttons */}
             <div className="filter-buttons">
                 <button className="filter-button" onClick={() => setStatusFilter("All")}>Tüm Başvurular</button>
+                <button className="filter-button" onClick={() => setStatusFilter("Created")}>Oluşturulanlar</button>
                 <button className="filter-button" onClick={() => setStatusFilter("Pending")}>Onay Bekleyenler</button>
                 <button className="filter-button" onClick={() => setStatusFilter("Approved")}>Onaylananlar</button>
                 <button className="filter-button" onClick={() => setStatusFilter("Rejected")}>Reddedilenler</button>
