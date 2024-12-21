@@ -4,7 +4,6 @@ import com.CS319.BTO_Application.DTO.*;
 import com.CS319.BTO_Application.Entity.*;
 //import com.CS319.BTO_Application.Service.UserService;
 import com.CS319.BTO_Application.Service.*;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -274,7 +273,7 @@ public class UserController {
             // Fetch all tour guides from the service
             List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
             coordinators.forEach(coordinator -> {
-                System.out.println("TourGuide: " + coordinator.getEmail());
+                System.out.println("Coordinator: " + coordinator.getEmail());
             });
             return ResponseEntity.ok(coordinators); // Return the list of tour guides with a 200 OK status
         } catch (Exception ex) {
@@ -290,7 +289,6 @@ public class UserController {
         coordinatorService.deleteCoordinatorByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
     // Coordinator Methods END
 ////////////////////////
 // TourGuide Methods START
@@ -359,34 +357,16 @@ public class UserController {
         }
         if(tourGuideService.getTourGuideByEmail(username).getEnrolledTours() != null){
             for(Tour tour: tourGuideService.getTourGuideByEmail(username).getEnrolledTours()){
-                if(tour.getTourStatus().equals("GuideAssigned")){
-                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has enrolled active tours!");
+                if(tour.getTourStatus().equals("GuideAssigned") || tour.getTourStatus().equals("WithdrawRequested") || tour.getTourStatus().equals("Withdrawn")){
+                    return ResponseEntity.status(400).body("Bu emaildeki " + username + " rehberin bitmemiş turları var!");
                 }
             }
         }
-        if(tourGuideService.getTourGuideByEmail(username).getPaymentHistory() != null){
-            for(Payment p: tourGuideService.getTourGuideByEmail(username).getPaymentHistory()){
-
-                if(!p.getStatus().equals("APPROVED")){
-                    System.out.println("pymnt"+ p.getTourGuide()+ p.getStatus() + p.getTourId());
-                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has waiting payments!");
-                }
+        for(Payment payment: tourGuideService.getTourGuideByEmail(username).getPaymentHistory()){
+            if(payment.getStatus().equals("PENDING") || payment.getStatus().equals("UPDATED")){
+                return ResponseEntity.status(400).body("Bu emaildeki " + username + " rehberin bekleyen ödemesi var!");
             }
         }
-        if(tourGuideService.getTourGuideByEmail(username).getEnrolledFairs() != null){
-            for(Fair fair: tourGuideService.getTourGuideByEmail(username).getEnrolledFairs()){
-                if(fair.getFairStatus().equals("GuideAssigned")){
-                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has assigned fairs!");
-                }
-            }
-        }
-        //setting fairs' tourguide ids to null
-        if(tourGuideService.getTourGuideByEmail(username).getEnrolledFairs() != null){
-            for(Fair fair: tourGuideService.getTourGuideByEmail(username).getEnrolledFairs()){
-                fair.setAssignedGuideToFair(null);
-            }
-        }
-        tourGuideService.saveTourGuide(tourGuideService.getTourGuideByEmail(username));
         tourGuideService.deleteTourGuideByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -450,38 +430,25 @@ public class UserController {
 ////////////////
 
 
-
     @PostMapping("/promoteTourGuide")
-    public ResponseEntity<?> promoteTourGuide(@RequestParam String guideEmail, @RequestParam String assignedDay) {
+    public ResponseEntity<?> promoteTourGuide(@RequestParam String guideEmail, @RequestParam String assignedDay){
         try {
             // Retrieve the Tour Guide by email
             TourGuide tourGuideToBePromoted = tourGuideService.getTourGuideByEmail(guideEmail);
-            if (tourGuideToBePromoted == null) {
+            if (tourGuideToBePromoted==null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Tour Guide with email " + guideEmail + " not found.");
             }
-
-            // Get related entities
             List<Tour> tours = tourGuideToBePromoted.getEnrolledTours();
-            List<Fair> fairs = tourGuideToBePromoted.getEnrolledFairs();
             List<Payment> payments = tourGuideToBePromoted.getPaymentHistory();
-            // Update references in related entities to point to NULL
-            for (Tour tour : tours) {
-                tour.setAssignedGuide(null);  // Change reference from TourGuide to Advisor
-            }
-            for (Fair fair : fairs) {
-                fair.setAssignedGuideToFair(null);  // Change reference from TourGuide to Advisor
-            }
-            for (Payment payment : payments) {
-                payment.setTourGuide(null);  // Change reference from TourGuide to Advisor
-            }
-            // Now delete the TourGuide entity
-            tourGuideService.deleteTourGuideByUsername(guideEmail);
+            List<Fair> fairs = tourGuideToBePromoted.getEnrolledFairs();
+
+            String randomPassword = generateRandomPassword(10);  // Password length is 10 characters
 
             // Create new Advisor based on the TourGuide
             Advisor advisor = new Advisor(
                     tourGuideToBePromoted.getEmail(),
-                    tourGuideToBePromoted.getPassword(),
+                    randomPassword,
                     tourGuideToBePromoted.getFirstName(),
                     tourGuideToBePromoted.getLastName(),
                     tourGuideToBePromoted.getPhoneNumber(),
@@ -490,26 +457,20 @@ public class UserController {
                     tourGuideToBePromoted.getIban(),
                     assignedDay
             );
-
-            // Save the newly created Advisor
-            advisorService.saveAdvisor(advisor);
-
-            // Update references in related entities to point to the new Advisor
             for (Tour tour : tours) {
-                tour.setAssignedGuide(advisor);  // Change reference from TourGuide to Advisor
-            }
-            for (Fair fair : fairs) {
-                fair.setAssignedGuideToFair(advisor);  // Change reference from TourGuide to Advisor
+                tour.setAssignedGuide(advisor);
             }
             for (Payment payment : payments) {
-                payment.setTourGuide(advisor);  // Change reference from TourGuide to Advisor
+                payment.setTourGuide(advisor);
+            }
+            for (Fair fair : fairs) {
+                fair.setAssignedGuideToFair(advisor);
             }
 
             // Save the newly created Advisor
             advisorService.saveAdvisor(advisor);
 
             // Send the password to the new Advisor's email
-            String randomPassword = generateRandomPassword(10);  // Password length is 10 characters
             String subject = "BTO Hesap Bilgileriniz";
             String text = String.format(
                     "Merhaba %s %s,\n\nBTO sistemine giriş yapabilmeniz için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",

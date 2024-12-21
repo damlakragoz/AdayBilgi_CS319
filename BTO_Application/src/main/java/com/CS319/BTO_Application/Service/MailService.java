@@ -23,8 +23,7 @@ public class MailService {
         try {
             mailSender.send(message);
         } catch (MailException e) {
-            // Handle mail exception, you could log it or throw an exception
-            e.printStackTrace();
+            System.out.println(String.format("Unable to send email to %s. Reason: %s", to, e.getMessage()));
         }
     }
 

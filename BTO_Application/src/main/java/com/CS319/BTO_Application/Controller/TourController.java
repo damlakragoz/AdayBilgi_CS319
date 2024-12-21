@@ -268,8 +268,9 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by email
         Advisor advisor = advisorService.getAdvisorByEmail(tourOperationsForAdvisor.getAdvisorEmail());
-        if(tour.getTourStatus().equals("WithdrawRequested") && tour.getChosenDate().getDayOfWeek().toString().equals(advisor.getAssignedDay())){
+        if(tour.getTourStatus().equals("WithdrawRequested") && tour.getChosenDate().getDayOfWeek().toString().equalsIgnoreCase(advisor.getAssignedDay())){
             // Notification Logic
+
             notifyForTour(tour, tour.getAssignedGuide().getEmail(), "Guide Withdraw Request Rejected");
 
             return new ResponseEntity<>(tourService.rejectWithdrawRequest(tour, tourOperationsForAdvisor.getAdvisorEmail()), HttpStatus.CREATED);
