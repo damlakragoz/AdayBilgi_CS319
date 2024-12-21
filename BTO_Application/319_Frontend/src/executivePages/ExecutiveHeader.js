@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Import for navigation
 import "../common/Header.css";
-import axios from "axios";
 import logo from "../assets/logo.png";
 import {toast} from "react-toastify";
 import axios from "axios";
@@ -110,7 +109,7 @@ const ExecutiveHeader = ({ toggleSidebar }) => {
                     Yaklaşan Etkinlikler
                 </a>
                 <div className="notification-container">
-                    <Link to="/notifications/executive" className="nav-link">
+                    <Link to="/bildirimler/yonetici" className="nav-link">
                         <i className="fas fa-bell"></i>
                         {unreadCount > 0 && (
                             <span className="notification-badge">{unreadCount}</span>
