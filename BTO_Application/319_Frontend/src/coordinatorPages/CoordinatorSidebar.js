@@ -83,7 +83,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </span>
                 </li>
                 <li>
-                    <Link to="/executive-statistics" className="nav-link text-white">
+                    <Link to="/coordinator-statistics" className="nav-link text-white">
                         <i className="fas fa-chart-bar"></i> İstatistikler
                     </Link>
                 </li>
