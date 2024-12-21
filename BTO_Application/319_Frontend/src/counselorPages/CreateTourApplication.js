@@ -123,13 +123,12 @@ const CreateTourApplication = () => {
 
                 {/* New wrapper for right-aligned content */}
                 <div className="tour-application-right-section">
+                    <label>Saat Aralığı Seçiniz:</label>
                     <div className="tour-application-section">
-                        <label>Saat Aralığı Seçiniz:</label>
                         <select
                             value={selectedTimeSlot}
                             onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                            className="tour-application-dropdown"
-                        >
+                            className="tour-application-dropdown">
                             <option value="">Saat Aralığı Seç</option>
                             {timeSlots.map((slot) => (
                                 <option key={slot.id} value={slot.id}>
@@ -141,9 +140,8 @@ const CreateTourApplication = () => {
                             Tarih ve Saat Ekle
                         </button>
                     </div>
-
+                    <label>Seçilen Tarih ve Saatler:</label>
                     <div className="tour-application-selected-dates">
-                        <label>Seçilen Tarih ve Saatler:</label>
                         {requestedDates.length > 0 ? (
                             <ul>
                                 {requestedDates.map((item, index) => {
@@ -169,8 +167,9 @@ const CreateTourApplication = () => {
                         )}
                     </div>
 
+                    <label>Ziyaretçi Sayısını Giriniz:</label>
                     <div className="tour-application-section">
-                        <label>Ziyaretçi Sayısını Giriniz:</label>
+
                         <input
                             type="number"
                             value={visitorCount}
