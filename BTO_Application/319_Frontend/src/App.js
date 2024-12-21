@@ -23,6 +23,8 @@ import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import OnayBekleyen from './coordinatorPages/OnayBekleyen';
 import AddTourGuideForm from './common/AddTourGuideForm';
+import AddCoordinatorForm from './common/AddCoordinatorForm';
+import AddExecutiveForm from './common/AddExecutiveForm';
 import FairSchedule from './common/FairSchedule';
 import AllTourApplications from './common/AllTourApplications';
 import FairInvitations from './common/FairInvitations';
@@ -74,7 +76,7 @@ import CoordinatorPayments from "./coordinatorPages/CoordinatorPayments";
 function App() {
   return (
     <Router>
-      <div className="app-container">
+      <div className="app-container" title="AdayBilgi">
           <ToastContainer position="top-right" autoClose={3000} />
         <header className="app-header"></header>
 
@@ -109,7 +111,9 @@ function App() {
                         <Route path="/tur-takvimi" element={<TourSchedule />} />
                         <Route path="/tur-basvurulari" element={<AllTourApplications />} />
                         <Route path="/fuar-davetleri" element={<FairInvitations />} />
-                        <Route path="/add-tourguide" element={<AddTourGuideForm />} />
+                        <Route path="/rehber-ekle"element={<AddTourGuideForm />} />
+                        <Route path="/yonetici-ekle"element={<AddExecutiveForm />} />
+                        <Route path="/koordinator-ekle" element={<AddCoordinatorForm />} />
                         <Route path="/geribildirimler/coordinator" element={<GeriBildirimlerManagerView />} />
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
                         <Route path="/coordinator-change-password" element={<ChangePassword />} />

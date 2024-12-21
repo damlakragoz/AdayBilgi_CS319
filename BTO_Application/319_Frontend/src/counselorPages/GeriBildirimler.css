@@ -45,7 +45,7 @@
 .fb-activity-table th,
 .fb-activity-table td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border: 1px solid var(--gray);
     background-color: var(--white);
 }

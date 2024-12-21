@@ -22,9 +22,9 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
             <ul className="nav flex-column">
                 {/* Subtitle: Onay Bekleyen İşlemler */}
                 <li>
-                    <span className="sidebar-subtitle">
+                    <Link to="/onay-bekleyen-islemler" className="sidebar-subtitle">
                         <i className="fas fa-hourglass-half"></i> Onay Bekleyen İşlemler
-                    </span>
+                    </Link>
                 </li>
                 <li>
                     <Link to="/bto-koordinasyonu" className="nav-link text-white">
@@ -74,10 +74,21 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-bell"></i> Bildirimlerim
                     </Link>
                 </li>
+
+                <br/>
+                {/* Subtitle: Performans Analizi */}
+                <li>
+                    <a className="sidebar-subtitle">
+                        Performans Analizi
+                    </a>
+                </li>
                 <li>
                     <Link to="/executive-statistics" className="nav-link text-white">
                         <i className="fas fa-chart-bar"></i> İstatistikler
                     </Link>
+                </li>
+                <li>
+                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
                 </li>
 
                 <hr />
@@ -92,6 +103,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-sign-out-alt"></i> Çıkış Yap
                     </a>
                 </li>
+
             </ul>
         </div>
     );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from React Router
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons"; // Import icons
 import "./UserTables.css";
@@ -7,6 +8,7 @@ import "./UserTables.css";
 const CoordinatorList = () => {
   const [coordinators, setCoordinators] = useState([]);
   const [error, setError] = useState(null);
+  const role = localStorage.getItem("role"); // Retrieve the user role
 
   // Function to fetch coordinators
   const fetchCoordinators = async () => {
@@ -108,6 +110,17 @@ const CoordinatorList = () => {
           </tbody>
         </table>
       )}
+
+        {/* Conditional Add Coordinator Button Below the Table */}
+        {  (role == "Executive" || role == "Admin") &&
+             <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <Link to="/koordinator-ekle">
+                  <button className="usertable-button usertable-button-add">
+                    Yeni Koordinatör Kaydet
+                  </button>
+                </Link>
+              </div>
+        }
     </div>
   );
 };

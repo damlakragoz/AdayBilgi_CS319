@@ -48,4 +48,29 @@
 .statistics-header {
     text-align: center;
     font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.category-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.category-button.active,
+.category-button:hover {
+    background-color: #007bff;
+    color: white;
 }
