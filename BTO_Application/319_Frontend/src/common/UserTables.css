@@ -22,10 +22,6 @@
   font-size: 14px;
 }
 
-.user-table tr:nth-child(even) {
-  background-color: #f2f2f2; /* Light gray for alternate rows */
-}
-
 .user-table tr:hover {
   background-color: #e6f7ff; /* Light blue on hover for better UX */
   cursor: pointer;
@@ -60,7 +56,7 @@
 .user-table th,
 .user-table td {
   padding: 12px 15px; /* Uniform padding */
-  border-bottom: 1px solid #ddd; /* Subtle border between rows */
+  border-bottom: 0.5px solid #ddd; /* Subtle border between rows */
   text-align: center; /* Align text center */
 }
 
@@ -71,9 +67,6 @@
   font-size: 14px;
 }
 
-.user-table tr:nth-child(even) {
-  background-color: #f2f2f2; /* Light gray for alternate rows */
-}
 
 .user-table tr:hover {
   background-color: #e6f7ff; /* Light blue on hover for better UX */
@@ -99,15 +92,15 @@
 /* General Button Styles */
 .usertable-button {
   border: 1px solid #ddd;
-  background: var(--dark-blue);
-  color: white;
+  background: var(--gray);
+  color: black;
   cursor: pointer;
   border-radius: 8px;
   margin: 5px;
   transition: background 0.3s ease, color 0.3s ease;
 }
 .usertable-button:hover {
-  background: var(--orange);
+  background: var(--dark-blue);
   color: white;
 }
 

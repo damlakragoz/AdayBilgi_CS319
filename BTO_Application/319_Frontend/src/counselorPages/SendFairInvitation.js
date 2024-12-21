@@ -56,6 +56,9 @@ const SendFairInvitation = () => {
             );
             if (response.status === 201) {
                 alert("Fuar davetiyesi başarıyla oluşturuldu!");
+
+                setFairEndDate(null)
+                setFairStartDate(null)
             } else if (response.status === 409) {
                 alert("Bu tarihlerde zaten bir davetiye mevcut.");
             } else {
@@ -73,6 +76,17 @@ const SendFairInvitation = () => {
         }
     };
 
+    const tileClassName = ({ date, view }) => {
+        // Highlight the fairStartDate with a red background
+        if (view === "month" && fairStartDate && date.toDateString() === fairStartDate.toDateString()) {
+            return "highlight-start-date";
+        }
+        if (view === "month" && fairEndDate && date.toDateString() === fairEndDate.toDateString()) {
+            return "highlight-start-date";
+        }
+        return null;
+    };
+
     return (
         <div className="container">
             <div className="calendar-container">
@@ -80,12 +94,13 @@ const SendFairInvitation = () => {
                 <Calendar
                     onChange={handleDateSelection}
                     value={selectingEndDate ? fairEndDate : fairStartDate}
+                    tileClassName={tileClassName}
                 />
                 <button
                     className="date-toggle-button"
                     onClick={() => setSelectingEndDate((prev) => !prev)}
                 >
-                    {selectingEndDate ? "Başlangıç Tarihi Seç" : "Bitiş Tarihi Seç"}
+                    {selectingEndDate ? "Bitiş Tarihi Seç" : "Başlangıç Tarihi Seç"}
                 </button>
                 <p className="selected-dates-container">
                     <span className="selected-dates-title">Seçilen Tarihler:</span>

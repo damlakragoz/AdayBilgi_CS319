@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUpForm.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpForm = () => {
     const [formData, setFormData] = useState({
@@ -17,21 +19,39 @@ const SignUpForm = () => {
 
     const [schools, setSchools] = useState([]);  // State for schools
     const navigate = useNavigate();
+    const [toastId, setToastId] = useState(null);
 
-    // Fetch schools from the API on component mount
+
     useEffect(() => {
+        // Display toast notification if not already shown
+        if (!toast.isActive(toastId)) {
+            const id = toast.info(
+                'Bu sayfa yalnızca rehber öğretmenler içindir. Lütfen kaydolmadan önce rehber öğretmen olduğunuzdan emin olun.',
+                {
+                    autoClose: 5000,
+                    closeOnClick: true,
+                    draggable: true,
+                }
+            );
+            setToastId(id); // Store the toast ID
+        }
+        // Fetch schools from the API on component mount
         const fetchSchools = async () => {
             try {
                 const response = await axios.get('http://localhost:8081/api/school/getAll');
                 setSchools(response.data);  // Assuming response.data contains the list of schools
             } catch (error) {
                 console.error('Okullar yüklenirken hata oluştu:', error);
-                alert('Okullar yüklenemedi');
+                toast.error('Okullar yüklenemedi. Lütfen daha sonra tekrar deneyin.');
             }
         };
 
         fetchSchools();
-    }, []);
+        // Cleanup toast on unmount or navigation
+        return () => {
+            toast.dismiss(toastId);
+        };
+    }, [toastId]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -45,8 +65,13 @@ const SignUpForm = () => {
         e.preventDefault();
         const { firstName, lastName, highSchool, phoneNumber, email, password, confirmPassword } = formData;
 
+        if (password.length < 8) {
+            toast.error('Şifre en az 8 karakter olmalıdır!');
+            return;
+        }
+
         if (password !== confirmPassword) {
-            alert('Şifreler eşleşmiyor!');
+            toast.error('Şifreler eşleşmiyor! Lütfen girdiğiniz şifreleri kontrol edin.');
             return;
         }
 
@@ -62,7 +87,7 @@ const SignUpForm = () => {
 
         try {
             const response = await axios.post('http://localhost:8081/api/counselor/register', body);
-            alert('Başarıyla kaydoldunuz!');
+            toast.success('Başarıyla kaydoldunuz! Giriş sayfasına yönlendiriliyorsunuz.', { position: 'top-center' });
 
             setFormData({
                 firstName: '',
@@ -78,7 +103,7 @@ const SignUpForm = () => {
             navigate('/login');
         } catch (error) {
             console.error('Başvuru hatası:', error.response?.data || error.message);
-            alert(`Hata: ${error.response?.data?.message || 'Kayıt başarısız'}`);
+            toast.error(`Hata: ${error.response?.data?.message || 'Kayıt başarısız. Lütfen tekrar deneyin.'}`, { position: 'top-center' });
         }
     };
 
@@ -88,7 +113,8 @@ const SignUpForm = () => {
 
             <form className="signup-form" onSubmit={handleSubmit}>
                 <h2>Aday Bilgi'ye Üye Ol</h2>
-                <p>Akademik programlarımızı keşfetmek ve kişiselleştirilmiş kampüs turlarının keyfini çıkarmak için rehber öğretmen olarak kaydolun.</p>
+                <p>Akademik programlarımızı keşfetmek ve kişiselleştirilmiş kampüs turlarının keyfini çıkarmak için
+                    rehber öğretmen olarak kaydolun.</p>
 
                 <div className="form-group">
                     <input
@@ -167,7 +193,7 @@ const SignUpForm = () => {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group checkbox-group">
                     <input
                         type="checkbox"
                         name="agreeToTerms"
