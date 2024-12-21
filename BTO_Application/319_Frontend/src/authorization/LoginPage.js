@@ -67,7 +67,7 @@ const LoginPage = () => {
                         console.log('COORDINATOR to applications page');
                         break;
                     case 'Counselor':
-                        navigate('/counselor-homepage');
+                        navigate('/anasayfa/rehber-ogretmen');
                         break;
                     case 'TourGuide':
                         navigate('/tur-rehberi-anasayfa');
