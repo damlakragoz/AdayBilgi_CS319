@@ -129,6 +129,7 @@ function App() {
                         <Route path="/notifications/executive" element={<ExecutiveNotifications />} />
                         <Route path="/executive-change-password" element={<ChangePassword />} />
                         <Route path="/executive-statistics" element={<Statistics />} />
+                        <Route path="/tur-takvimi/yonetici" element={<ManagerTourSchedule />} />
                        <Route path="/bto-koordinasyonu/executive" element={<BtoKoordinasyonu />} />
                        <Route path="/fuar-davetleri/executive" element={<FairInvitations />} />
                        <Route path="/geribildirimler/executive" element={<GeriBildirimlerManagerView />} />
