@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Statistics.css";
+import { Bar, Pie } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement } from "chart.js";
+
+// Register necessary components for Bar and Pie charts
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
 
 const Statistics = () => {
     const [statisticsData, setStatisticsData] = useState({});
@@ -62,122 +67,388 @@ const Statistics = () => {
     const renderSection = (key, data) => {
         switch (key) {
             case "userCounts":
+                const barChartDataUserCounts = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            label: "Kullanıcı Sayısı",
+                            data: Object.values(data),
+                            backgroundColor: "rgba(75, 192, 192, 0.6)",
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const barChartOptionsUserCounts = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Roller",
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Kullanıcı Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                            },
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>User Counts by Role</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([role, count]) => (
-                                <div className="statistics-item" key={role}>
-                                    <strong>{role}:</strong> {count}
-                                </div>
-                            ))}
-                        </div>
+                        <h3>Rollere Göre Kullanıcı Sayısı</h3>
+                        <Bar data={barChartDataUserCounts} options={barChartOptionsUserCounts} />
                     </div>
                 );
+
             case "tourGuideByDepartment":
+                const barChartDataTourGuideByDepartment = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            label: "Tur Rehberi Sayısı",
+                            data: Object.values(data),
+                            backgroundColor: "rgba(255, 159, 64, 0.6)",
+                            borderColor: "rgba(255, 159, 64, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const barChartOptionsTourGuideByDepartment = {
+                    responsive: true,
+                    indexAxis: "y",
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Rehber Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Departmanlar",
+                            },
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Tour Guide Count by Department</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([department, count]) => (
-                                <div className="statistics-item" key={department}>
-                                    <strong>{department}:</strong> {count}
-                                </div>
-                            ))}
-                        </div>
+                        <h3>Departmanlara Göre Tur Rehberi Sayısı</h3>
+                        <Bar data={barChartDataTourGuideByDepartment} options={barChartOptionsTourGuideByDepartment} />
                     </div>
                 );
+
             case "tourGuideByGrade":
+                const pieChartDataTourGuideByGrade = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            data: Object.values(data),
+                            backgroundColor: [
+                                "rgba(255, 99, 132, 0.6)",
+                                "rgba(54, 162, 235, 0.6)",
+                                "rgba(255, 206, 86, 0.6)",
+                                "rgba(75, 192, 192, 0.6)",
+                                "rgba(153, 102, 255, 0.6)",
+                                "rgba(255, 159, 64, 0.6)",
+                            ],
+                            borderColor: [
+                                "rgba(255, 99, 132, 1)",
+                                "rgba(54, 162, 235, 1)",
+                                "rgba(255, 206, 86, 1)",
+                                "rgba(75, 192, 192, 1)",
+                                "rgba(153, 102, 255, 1)",
+                                "rgba(255, 159, 64, 1)",
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const pieChartOptionsTourGuideByGrade = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Tour Guide Count by Grade</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([grade, count]) => (
-                                <div className="statistics-item" key={grade}>
-                                    <strong>Grade {grade}:</strong> {count}
-                                </div>
-                            ))}
+                        <h3>Sınıflara Göre Tur Rehberi Sayısı</h3>
+                        <div className="pie-chart-container">
+                        <Pie data={pieChartDataTourGuideByGrade} options={pieChartOptionsTourGuideByGrade} />
                         </div>
                     </div>
                 );
+
             case "tourApplicationCountByStatus":
+                const pieChartDataTourApplicationByStatus = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            data: Object.values(data),
+                            backgroundColor: [
+                                "rgba(255, 99, 132, 0.6)",
+                                "rgba(54, 162, 235, 0.6)",
+                                "rgba(255, 206, 86, 0.6)",
+                                "rgba(75, 192, 192, 0.6)",
+                            ],
+                            borderColor: [
+                                "rgba(255, 99, 132, 1)",
+                                "rgba(54, 162, 235, 1)",
+                                "rgba(255, 206, 86, 1)",
+                                "rgba(75, 192, 192, 1)",
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Tour Applications by Status</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([status, count]) => (
-                                <div className="statistics-item" key={status}>
-                                    <strong>{status}:</strong> {count}
-                                </div>
-                            ))}
+                        <h3>Durumlara Göre Tur Başvuru Sayısı</h3>
+                        <div className="pie-chart-container">
+                            <Pie data={pieChartDataTourApplicationByStatus} />
                         </div>
                     </div>
                 );
+
             case "tourApplicationCountByType":
+                const pieChartDataTourApplicationByType = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            data: Object.values(data),
+                            backgroundColor: [
+                                "rgba(75, 192, 192, 0.6)",
+                                "rgba(153, 102, 255, 0.6)",
+                            ],
+                            borderColor: [
+                                "rgba(75, 192, 192, 1)",
+                                "rgba(153, 102, 255, 1)",
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Tour Applications by Type</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([type, count]) => (
-                                <div className="statistics-item" key={type}>
-                                    <strong>{type}:</strong> {count}
-                                </div>
-                            ))}
+                        <h3>Başvuru Türüne Göre Tur Sayısı</h3>
+                        <div className="pie-chart-container">
+                            <Pie data={pieChartDataTourApplicationByType} />
                         </div>
                     </div>
                 );
+
             case "tourCountByHighSchool":
+                const barChartDataTourCountByHighSchool = {
+                    labels: Object.keys(data), // High Schools
+                    datasets: [
+                        {
+                            label: "Tur Sayısı",
+                            data: Object.values(data), // Counts
+                            backgroundColor: "rgba(75, 192, 192, 0.6)",
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const barChartOptionsTourCountByHighSchool = {
+                    responsive: true,
+                    indexAxis: "y", // Horizontal bars
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Tur Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1, // Ensure integer steps
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Okullar",
+                            },
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Tour Count by High School</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([highSchool, count]) => (
-                                <div className="statistics-item" key={highSchool}>
-                                    <strong>{highSchool}:</strong> {count}
-                                </div>
-                            ))}
-                        </div>
+                        <h3>Okullara Göre Tur Sayısı</h3>
+                        <Bar data={barChartDataTourCountByHighSchool} options={barChartOptionsTourCountByHighSchool} />
                     </div>
                 );
+
             case "highSchoolCountByCity":
+                const barChartDataHighSchoolByCity = {
+                    labels: Object.keys(data), // Cities
+                    datasets: [
+                        {
+                            label: "Lise Sayısı",
+                            data: Object.values(data), // Counts
+                            backgroundColor: "rgba(153, 102, 255, 0.6)",
+                            borderColor: "rgba(153, 102, 255, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const barChartOptionsHighSchoolByCity = {
+                    responsive: true,
+                    indexAxis: "y", // Horizontal bars
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Lise Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1, // Ensure integer steps
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Şehirler",
+                            },
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>High School Count by City</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([city, count]) => (
-                                <div className="statistics-item" key={city}>
-                                    <strong>{city}:</strong> {count}
-                                </div>
-                            ))}
-                        </div>
+                        <h3>Şehirlere Göre Lise Sayısı</h3>
+                        <Bar data={barChartDataHighSchoolByCity} options={barChartOptionsHighSchoolByCity} />
                     </div>
                 );
+
             case "feedbackCountByRating":
+                const barChartDataFeedbackByRating = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            label: "Geri Bildirim Sayısı",
+                            data: Object.values(data),
+                            backgroundColor: "rgba(255, 99, 132, 0.6)",
+                            borderColor: "rgba(255, 99, 132, 1)",
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const barChartOptionsFeedbackCounts = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Puan",
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Geri Bildirim Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                            },
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Feedback Count by Rating</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([rating, count]) => (
-                                <div className="statistics-item" key={rating}>
-                                    <strong>Rating {rating}:</strong> {count}
-                                </div>
-                            ))}
-                        </div>
+                        <h3>Puanlara Göre Geri Bildirim Sayısı</h3>
+                        <Bar data={barChartDataFeedbackByRating} options={barChartOptionsFeedbackCounts} />
                     </div>
                 );
+
             case "fairInvitationCountByStatus":
+                const pieChartDataFairInvitationByStatus = {
+                    labels: Object.keys(data),
+                    datasets: [
+                        {
+                            data: Object.values(data),
+                            backgroundColor: [
+                                "rgba(255, 99, 132, 0.6)",
+                                "rgba(54, 162, 235, 0.6)",
+                                "rgba(75, 192, 192, 0.6)",
+                            ],
+                            borderColor: [
+                                "rgba(255, 99, 132, 1)",
+                                "rgba(54, 162, 235, 1)",
+                                "rgba(75, 192, 192, 1)",
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
-                        <h2>Fair Invitations by Status</h2>
-                        <div className="statistics-list">
-                            {Object.entries(data).map(([status, count]) => (
-                                <div className="statistics-item" key={status}>
-                                    <strong>{status}:</strong> {count}
-                                </div>
-                            ))}
+                        <h3>Durumlara Göre Fuar Davetiye Sayısı</h3>
+                        <div className="pie-chart-container">
+                            <Pie data={pieChartDataFairInvitationByStatus} />
                         </div>
                     </div>
                 );
+
             default:
                 return null;
         }
@@ -186,7 +457,7 @@ const Statistics = () => {
 
     return (
         <div className="statistics-container">
-            <div className="statistics-header">Statistics Dashboard</div>
+            <div className="statistics-header">İstatistikler</div>
             {Object.entries(statisticsData).map(([key, data]) => renderSection(key, data))}
         </div>
     );

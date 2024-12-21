@@ -82,7 +82,7 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                     Yaklaşan Etkinlikler
                 </a>
                 <div className="notification-container">
-                    <Link to="/geribildirimler/coordinator" className="nav-link">
+                    <Link to="/coordinator-notifications" className="nav-link">
                         <i className="fas fa-bell"></i>
                         {unreadCount > 0 && (
                             <span className="notification-badge">{unreadCount}</span>

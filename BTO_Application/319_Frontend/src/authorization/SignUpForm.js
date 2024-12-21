@@ -65,8 +65,13 @@ const SignUpForm = () => {
         e.preventDefault();
         const { firstName, lastName, highSchool, phoneNumber, email, password, confirmPassword } = formData;
 
+        if (password.length < 8) {
+            toast.error('Şifre en az 8 karakter olmalıdır!');
+            return;
+        }
+
         if (password !== confirmPassword) {
-            toast.error('Şifreler eşleşmiyor!', { position: 'top-center' });
+            toast.error('Şifreler eşleşmiyor! Lütfen girdiğiniz şifreleri kontrol edin.');
             return;
         }
 
@@ -108,7 +113,8 @@ const SignUpForm = () => {
 
             <form className="signup-form" onSubmit={handleSubmit}>
                 <h2>Aday Bilgi'ye Üye Ol</h2>
-                <p>Akademik programlarımızı keşfetmek ve kişiselleştirilmiş kampüs turlarının keyfini çıkarmak için rehber öğretmen olarak kaydolun.</p>
+                <p>Akademik programlarımızı keşfetmek ve kişiselleştirilmiş kampüs turlarının keyfini çıkarmak için
+                    rehber öğretmen olarak kaydolun.</p>
 
                 <div className="form-group">
                     <input
@@ -187,7 +193,7 @@ const SignUpForm = () => {
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group checkbox-group">
                     <input
                         type="checkbox"
                         name="agreeToTerms"

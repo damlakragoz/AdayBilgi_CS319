@@ -95,7 +95,7 @@ const TourGuideList = () => {
     const { firstName, lastName, email } = currentGuide;
 
     const confirmPromotion = window.confirm(
-      `${firstName} ${lastName} isimli tur rehberini danışmanlığa yükseltmeyi onaylıyor musunuz?`
+        `${firstName} ${lastName} isimli tur rehberini danışmanlığa yükseltmeyi onaylıyor musunuz?`
     );
 
     if (confirmPromotion) {
@@ -155,7 +155,7 @@ const TourGuideList = () => {
         <tbody>
           {tourGuides.map((tourGuide, index) => (
             <tr key={index}>
-              <td>{tourGuide.firstName + " " + tourGuide.lastName}</td>
+              <td>{tourGuide.firstName +" "+ tourGuide.lastName}</td>
               <td>{tourGuide.email}</td>
               <td>{tourGuide.department}</td>
               <td>{tourGuide.workHours}</td>
@@ -178,6 +178,7 @@ const TourGuideList = () => {
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
               </td>
+
             </tr>
           ))}
         </tbody>
