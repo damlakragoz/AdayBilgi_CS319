@@ -141,7 +141,7 @@ function App() {
                     <Route element={<CounselorLayout />}>
                         <Route path="/applications" element={<CounselorDashboard />} />
                         <Route path="/" element={<CounselorDashboardContent/>}/>
-                        <Route path="/counselor-homepage" element={<CounselorHomepage/>}/>
+                        <Route path="/anasayfa/rehber-ogretmen" element={<CounselorHomepage/>}/>
                         <Route path="/create-tour-application" element={<CreateTourApplication/>}/>
                         <Route path="/tour-applications" element={<CounselorTourApplicationsPage/>}/>
                         <Route path="/feedback" element={<FeedbackForm/>}/>
