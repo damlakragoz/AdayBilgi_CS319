@@ -75,7 +75,7 @@ const TourGuideHeader = ({ toggleSidebar }) => {
                     Kullanıcı İşlemleri
                 </a>
                 <a href="/tourguide-all-tours" className="nav-link">
-                    Onay Bekleyen İşlemler
+                    Güncel Turlar
                 </a>
                 <div className="notification-container">
                     <Link to="/tourguide-notifications" className="nav-link">

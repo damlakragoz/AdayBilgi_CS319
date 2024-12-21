@@ -69,7 +69,7 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                 </Link>
             </div>
             <div className="nav-links">
-                <Link to="/advisor-tourenrollment" className="nav-link">Başvur-Tur Takvimi</Link>
+                <Link to="/advisor-all-tours" className="nav-link">Güncel Turlar</Link>
                 <Link to="/advisor-puantage" className="nav-link">Puantaj-Aktivite Giriş</Link>
                 <div className="notification-container">
                     <Link to="/advisor-notifications" className="nav-link">
