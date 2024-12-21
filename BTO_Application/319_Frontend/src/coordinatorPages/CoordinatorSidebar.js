@@ -41,6 +41,9 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 <li>
                     <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
                 </li>
+                <li>
+                    <Link to="/ödemeler/coordinator" className="nav-link text-white">Ödemeler</Link>
+                </li>
 
 
                 <br/>

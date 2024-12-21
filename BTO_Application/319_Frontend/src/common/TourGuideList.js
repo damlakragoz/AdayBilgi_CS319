@@ -145,7 +145,6 @@ const TourGuideList = () => {
               <td>{tourGuide.firstName +" "+ tourGuide.lastName}</td>
               <td>{tourGuide.email}</td>
               <td>{tourGuide.department}</td>
-              <td>{tourGuide.puantage}</td>
               <td>{tourGuide.workHours}</td>
               <td>{tourGuide.grade}</td>
               <td>{tourGuide.iban}</td>

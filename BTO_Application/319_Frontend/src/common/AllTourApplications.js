@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './FairInvitations.css';
-import {toast} from "react-toastify"; // Import the updated CSS file
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./FairInvitations.css";
+import { toast } from "react-toastify";
 
 const timeSlots = [
   { id: "SLOT_9_10", displayName: "09:00-10:00" },
@@ -13,52 +13,85 @@ const timeSlots = [
 
 // Mapping of application status in English to Turkish
 const statusMap = {
-  "pending": "Onay bekliyor",
-  "approved": "Onaylandı",
-  "rejected": "Reddedildi",
-  "in_progress": "İşleniyor",
-  "completed": "Tamamlandı",
-  "not_specified": "-",
+  Created: "Oluşturuldu",
+  Pending: "Onay bekleniyor",
+  Approved: "Onaylandı",
+  Rejected: "Reddedildi",
+  "Pre-rejected": "Reddedildi", // Map Pre-rejected to Reddedildi
+  Cancelled: "Iptal edildi",
+  Finished: "Tamamlandı", // Added Finished state
+  default: "Oluşturuldu", // Handle unexpected statuses
 };
 
 const AllTourApplications = () => {
-  const [data, setData] = useState([]);
+  const [schoolApplications, setSchoolApplications] = useState([]);
+  const [individualApplications, setIndividualApplications] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
 
   useEffect(() => {
-    let shownError = false;
-
-    const fetchData = async () => {
+    const fetchApplications = async () => {
       try {
         const token = localStorage.getItem("userToken");
         if (!token) {
-          toast.error("Authorization token missing. Lütfen giriş yapın.", { autoClose: 3000 });
+          toast.error("Authorization token missing. Lütfen giriş yapın.", {
+            autoClose: 3000,
+          });
           return;
         }
 
-        const response = await axios.get("http://localhost:8081/api/tour-applications/getAll", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        });
+        // Fetch school applications
+        const schoolResponse = await axios.get(
+            "http://localhost:8081/api/tour-applications/getAll/school-applications",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
+            }
+        );
+        setSchoolApplications(schoolResponse.data);
 
-        setData(response.data);
+        // Fetch individual applications
+        const individualResponse = await axios.get(
+            "http://localhost:8081/api/tour-applications/getAll/individual-applications",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
+            }
+        );
+        setIndividualApplications(individualResponse.data);
       } catch (error) {
-        if (!shownError) {
-          console.error('Error fetching data:', error);
-          toast.error("Tur başvuruları veri tabanından alınamadı. Lütfen daha sonra tekrar deneyin.", { autoClose: 3000 });
-          shownError = true;
-        }
+        console.error("Error fetching data:", error);
+        toast.error(
+            "Tur başvuruları veri tabanından alınamadı. Lütfen daha sonra tekrar deneyin.",
+            { autoClose: 3000 }
+        );
       }
     };
 
-    fetchData();
+    fetchApplications();
   }, []);
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-  const currentData = data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  console.log(individualApplications)
+  console.log(schoolApplications)
+
+  // Combine school and individual applications
+  const combinedApplications = [
+    ...schoolApplications.map((app) => ({
+      ...app,
+      type: "school",
+    })),
+    ...individualApplications.map((app) => ({
+      ...app,
+      type: "individual",
+    })),
+  ];
+
+  // Calculate total pages and current data for the current page
+  const totalPages = Math.ceil(combinedApplications.length / rowsPerPage);
+  const currentData = combinedApplications.slice(
+      (currentPage - 1) * rowsPerPage,
+      currentPage * rowsPerPage
+  );
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -83,80 +116,82 @@ const AllTourApplications = () => {
   };
 
   const mapStatusToTurkish = (status) => {
-    const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
-    return statusMap[normalizedStatus] || statusMap["not_specified"]; // Default to "Belirtilmedi" if not found
+    // Add console log to verify the incoming status
+    console.log("Incoming status:", status);
+
+    // Normalize the status to match the keys in the `statusMap`
+    const normalizedStatus =
+        status && typeof status === "string"
+            ? status.trim().replace(/_/g, "-").toLowerCase()
+            : "default";
+
+    // Match the normalized status to the map
+    const mappedStatus = Object.keys(statusMap).find(
+        (key) => key.toLowerCase() === normalizedStatus
+    );
+
+    // Return the mapped status or fallback to "default"
+    return statusMap[mappedStatus] || statusMap.default;
   };
 
-  return (
-    <div className="fair-tour-lists-outer-container">
-      <h1 className="fair-tour-lists-title">Tur Başvuruları</h1>
-      <div className="fair-tour-lists-table-container">
-        <table className="fair-tour-lists-table">
-          <thead>
-          <tr>
-            <th>Başvuru Türü</th>
-            <th>Başvuru Durumu</th>
-            <th>Lise Adı</th>
-            <th>Başvuran Rehber Öğretmen</th>
-            <th>Atanan Tur Tarihi</th>
-            <th>Seçilen Zaman Dilimi</th>
-            <th>İşlenme Zamanı</th>
-            <th>Talep Edilen Tarihler</th>
-            <th>Katılımcı Sayısı</th>
-          </tr>
-          </thead>
-          <tbody>
-          {currentData.map((tour, index) => (
-              <tr key={index}>
-                <td>
-                  {tour.type === "school"
-                      ? "Okul Başvurusu"
-                      : "Bireysel Başvuru"}
-                </td>
-                <td>{mapStatusToTurkish(tour.applicationStatus) || "Belirtilmedi"}</td>
-                <td>{tour.schoolName || "Bilinmiyor"}</td>
-                <td>
-                  {tour.applicationType === "School"
-                      ? tour.counselorName || "-"
-                      : "-"}
-                </td>
-                <td>{tour.selectedDate ? formatDate(tour.selectedDate) : "Seçilmedi"}</td>
-                <td>{getTimeSlotDisplayName(tour.selectedTimeSlot)}</td>
-                <td>{tour.transitionTime ? formatDate(tour.transitionTime) : "Yok"}</td>
-                <td>
-                  {tour.requestedDates?.length
-                      ? tour.requestedDates.map((date, idx) => (
-                          <div key={idx}>{formatDate(date)}</div>
-                      ))
-                      : "Talep Yok"}
-                </td>
-                <td>{tour.visitorCount || 0}</td>
-              </tr>
-          ))}
-          </tbody>
 
-        </table>
-      </div>
-      <div className="fair-tour-lists-footer">
-        <div className="fair-tour-lists-pagination-info">
-          {`Page ${currentPage} of ${totalPages}`}
+  return (
+      <div className="fair-tour-lists-outer-container">
+        <h1 className="fair-tour-lists-title">Tur Başvuruları</h1>
+        <div className="fair-tour-lists-table-container">
+          <table className="fair-tour-lists-table">
+            <thead>
+            <tr>
+              <th>Başvuru Türü</th>
+              <th>Başvuru Durumu</th>
+              <th>Lise Adı</th>
+              <th>Başvuran Rehber Öğretmen</th>
+              <th>Atanan Tur Tarihi</th>
+              <th>Katılımcı Sayısı</th>
+            </tr>
+            </thead>
+            <tbody>
+            {currentData.map((app, index) => (
+                <tr key={index}>
+                  <td>
+                    {app.type === "school" ? "Okul Başvurusu" : "Bireysel Başvuru"}
+                  </td>
+                  <td>{mapStatusToTurkish(app.applicationStatus)}</td>
+                  <td>{app.highschoolName}</td>
+                  <td>{app.applyingCounselorEmail|| "-"}</td>
+                  <td>
+                    {app.selectedDate ? formatDate(app.selectedDate) : "Seçilmedi"}
+                  </td>
+                  <td>{app.visitorCount}</td>
+                </tr>
+            ))}
+            </tbody>
+          </table>
         </div>
-        <div className="fair-tour-lists-arrow-navigation">
+        <div className="fair-tour-lists-footer">
+          <div className="fair-tour-lists-pagination-info">
+            {`Sayfa ${currentPage} / ${totalPages}`}
+          </div>
+          <div className="fair-tour-lists-arrow-navigation">
           <span
-              className={`fair-tour-lists-arrow ${currentPage === 1 ? 'disabled' : ''}`}
+              className={`fair-tour-lists-arrow ${
+                  currentPage === 1 ? "disabled" : ""
+              }`}
               onClick={handlePreviousPage}
           >
-            {'<'}
+            {"<"}
           </span>
-          <span
-              className={`fair-tour-lists-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
-              onClick={handleNextPage}
-          >
-            {'>'}
+            <span
+                className={`fair-tour-lists-arrow ${
+                    currentPage === totalPages ? "disabled" : ""
+                }`}
+                onClick={handleNextPage}
+            >
+            {">"}
           </span>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
