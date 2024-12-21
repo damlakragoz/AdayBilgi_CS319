@@ -157,7 +157,7 @@ const AllTourApplications = () => {
                     {app.type === "school" ? "Okul Başvurusu" : "Bireysel Başvuru"}
                   </td>
                   <td>{mapStatusToTurkish(app.applicationStatus)}</td>
-                  <td>{app.highschoolName}</td>
+                  <td>{app.schoolName}</td>
                   <td>{app.applyingCounselorEmail|| "-"}</td>
                   <td>
                     {app.selectedDate ? formatDate(app.selectedDate) : "Seçilmedi"}
