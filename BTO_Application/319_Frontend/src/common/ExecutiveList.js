@@ -91,7 +91,7 @@ const ExecutiveList = () => {
               <th>Ad Soyad</th>
               <th>Email</th>
               <th>Telefon Numarası</th>
-              <th>İşlem</th>
+              {role=="Admin"&&<th>İşlem</th>}
             </tr>
           </thead>
           <tbody>
@@ -101,12 +101,12 @@ const ExecutiveList = () => {
                 <td>{executive.email}</td>
                 <td>{executive.phoneNumber}</td>
                 <td>
-                  <button
+                  {role=="Admin"&&<button
                     className="usertable-button usertable-button-delete"
                     onClick={() => removeExecutive(executive.email)}
                   >
                     <FontAwesomeIcon icon={faTrash} />
-                  </button>
+                  </button>}
                 </td>
               </tr>
             ))}

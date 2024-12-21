@@ -9,10 +9,15 @@ import '../authorization/LoginPage.css';
 const LoginPage = () => {
     const [loginData, setLoginData] = useState({ username: '', password: '' });
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setLoginData({ ...loginData, [name]: value });
+    };
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
     };
 
     axios.defaults.baseURL = 'http://localhost:8081';
@@ -110,7 +115,7 @@ const LoginPage = () => {
             <div className="login-container">
                 <h2>Kampüsümüzü Keşfedin</h2>
                 <center>
-                <p>Rehberli turlarımızla kampüsümüzün tüm güzelliklerini ve olanaklarını keşfedin.</p>
+                    <p>Rehberli turlarımızla kampüsümüzün tüm güzelliklerini ve olanaklarını keşfedin.</p>
                 </center>
                 <form onSubmit={handleLogin} className="login-form">
                     <label>E-mail</label>
@@ -124,13 +129,22 @@ const LoginPage = () => {
                     />
                     <label>Şifre</label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'} // Toggle password visibility
                         name="password"
                         placeholder="Şifrenizi girin"
                         value={loginData.password}
                         onChange={handleChange}
                         required
                     />
+                    <div className="password-toggle">
+                        <input
+                            type="checkbox"
+                            id="showPassword"
+                            checked={showPassword}
+                            onChange={toggleShowPassword}
+                        />
+                        <label htmlFor="showPassword">Şifreyi Göster</label>
+                    </div>
                     <button type="submit" className="login-button">
                         Giriş Yap
                     </button>
@@ -138,10 +152,10 @@ const LoginPage = () => {
 
                 <a href="/forgot-password">Şifrenizi mi unuttunuz?</a>
                 <center>
-                <div>
-                    Yalnızca rehber öğretmenler üye olabilir. Bireysel turlar için başvurmak istiyorsanız
+                    <div>
+                        Yalnızca rehber öğretmenler üye olabilir. Bireysel turlar için başvurmak istiyorsanız
                         <a href='/individual-application'> buraya tıklayın</a>.
-                </div>
+                    </div>
                 </center>
                 <button className="signup-button" onClick={() => navigate('/signup')}>
                     Rehber Öğretmen Üye Ol

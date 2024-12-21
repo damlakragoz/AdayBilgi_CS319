@@ -102,7 +102,7 @@ const CreateTourApplication = () => {
 
         } catch (error) {
             if(error.status === 409){
-                alert("Başvurunuzda önceden yapmış olduğunuz aktif bir başvuruyla çakışan tarih var! ");
+                alert("Başvurunuzda liseniz ait aktif bir başvuruyla çakışan tarih var! Eğer bu başvuru size ait değil ise okulunuzun diğer rehber öğretmenlerine danışınız. ");
             }
             //console.error("Error submitting application:", error);
             //alert("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
