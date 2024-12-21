@@ -8,16 +8,32 @@ const OnayBekleyenTurlar = () => {
     const [error, setError] = useState(null);
     const [toggleState, setToggleState] = useState(false); // State to trigger rerender
 
-    const translateStatus = (status) => {
-        // Normalize the status to lowercase
-        const normalizedStatus = status ? status.toLowerCase() : "";
+    const statusMap = {
+      "Pending": "Onay bekleniyor",
+      Approved: "Onaylandı",
+      "Rejected": "Reddedildi",
+      Cancelled: "Iptal edildi",
+      Finished: "Tamamlandı", // Added Finished state
+      default: "yok", // Handle unexpected statuses
+    };
 
-        switch (normalizedStatus) {
-            case "pending":
-                return "Onay Bekliyor";
-            default:
-                return "Bilinmiyor"; // Return "Bilinmiyor" for any unrecognized status
-        }
+    const mapStatusToTurkish = (status) => {
+        // Add console log to verify the incoming status
+        console.log("Incoming status:", status);
+
+        // Normalize the status to match the keys in the `statusMap`
+        const normalizedStatus =
+            status && typeof status === "string"
+                ? status.trim().replace(/_/g, "-").toLowerCase()
+                : "default";
+
+        // Match the normalized status to the map
+        const mappedStatus = Object.keys(statusMap).find(
+            (key) => key.toLowerCase() === normalizedStatus
+        );
+
+        // Return the mapped status or fallback to "default"
+        return statusMap[mappedStatus] || statusMap.default;
     };
 
     // TimeSlot mappings for displaying in a user-friendly format
@@ -171,7 +187,7 @@ const OnayBekleyenTurlar = () => {
                 <tbody>
                     {tours.map((tour, index) => (
                         <tr key={index}>
-                            <td>{translateStatus(tour.status)}</td>
+                            <td>{mapStatusToTurkish(tour.status)}</td>
                             <td>{tour.applyingHighschoolName}</td>
                             <td>
                                 {new Date(tour.chosenDate).toLocaleDateString('tr-TR', {
