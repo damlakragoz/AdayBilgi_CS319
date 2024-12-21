@@ -4,6 +4,7 @@ import com.CS319.BTO_Application.DTO.*;
 import com.CS319.BTO_Application.Entity.*;
 //import com.CS319.BTO_Application.Service.UserService;
 import com.CS319.BTO_Application.Service.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,24 @@ public class UserController {
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while retrieving users.");
+        }
+    }
+
+    @GetMapping("/users/getByEmail")
+    public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
+        try {
+            // Fetch the user by email from the service
+            User user = userService.getUserByUsername(email);  // Adjust this according to your service method
+
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("User not found with email: " + email);
+            }
+
+            return ResponseEntity.ok(user); // Return the user details with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving the user.");
         }
     }
 
@@ -155,16 +174,41 @@ public class UserController {
             return ResponseEntity.status(400).body("Username for coordinator is already taken");
         }
 
+        // Generate a random password if no password provided
+        String password = btoMemberRegister.getPassword()==null ? generateRandomPassword(10) : btoMemberRegister.getPassword(); // Password length is 10 characters
+
+
         Coordinator coordinator = new Coordinator(
                 btoMemberRegister.getEmail(),
-                btoMemberRegister.getPassword(),
+                password,
                 btoMemberRegister.getFirstName(),
                 btoMemberRegister.getLastName(),
                 btoMemberRegister.getPhoneNumber(),
                 "Coordinator"
         );
 
-        return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+        if (btoMemberRegister.getPassword()==null){
+            // Send the password to the user's email
+            String subject = "BTO Hesap Bilgileriniz";
+            String text = String.format(
+                    "Merhaba %s %s,\n\nBTO sistemine giriş yapabilmeniz için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",
+                    btoMemberRegister.getFirstName(),
+                    btoMemberRegister.getLastName(),
+                    password
+            );
+
+            try {
+                System.out.println(btoMemberRegister.getEmail());
+                mailService.sendMail(btoMemberRegister.getEmail(), subject, text);
+                return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+            } catch (Exception e) {
+                // If email fails, still return a success response but log the issue
+                e.printStackTrace();
+                return ResponseEntity.status(201).body("Executive created, but failed to send email.");
+            }
+        } else {
+            return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
+        }
     }
     @PostMapping("/executive/register")
     private ResponseEntity<?> registerExecutive(@RequestBody BTOMemberRegister btoMemberRegister) {
@@ -173,25 +217,64 @@ public class UserController {
             return ResponseEntity.status(400).body("Username for executive is already taken");
         }
 
+        // Generate a random password if no password provided
+        String password = btoMemberRegister.getPassword()==null ? generateRandomPassword(10) : btoMemberRegister.getPassword(); // Password length is 10 characters
+
         Executive executive = new Executive(
                 btoMemberRegister.getEmail(),
-                btoMemberRegister.getPassword(),
+                password,
                 btoMemberRegister.getFirstName(),
                 btoMemberRegister.getLastName(),
                 btoMemberRegister.getPhoneNumber(),
                 "Executive"
         );
 
-        // Save the Executive to the database
-        return new ResponseEntity<>(executiveService.saveExecutive(executive), HttpStatus.CREATED);
+        if (btoMemberRegister.getPassword()==null){
+            // Send the password to the user's email
+            String subject = "BTO Hesap Bilgileriniz";
+            String text = String.format(
+                    "Merhaba %s %s,\n\nBTO sistemine giriş yapabilmeniz için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",
+                    btoMemberRegister.getFirstName(),
+                    btoMemberRegister.getLastName(),
+                    password
+            );
+
+            try {
+                System.out.println(btoMemberRegister.getEmail());
+                mailService.sendMail(btoMemberRegister.getEmail(), subject, text);
+                return new ResponseEntity<>(executiveService.saveExecutive(executive), HttpStatus.CREATED);
+            } catch (Exception e) {
+                // If email fails, still return a success response but log the issue
+                e.printStackTrace();
+                return ResponseEntity.status(201).body("Executive created, but failed to send email.");
+            }
+        } else {
+            // Save the Executive to the database
+            return new ResponseEntity<>(executiveService.saveExecutive(executive), HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping("/executive/getAll")
+    public ResponseEntity<?> getAllExecutives() {
+        try {
+            // Fetch all tour guides from the service
+            List<Executive> executives = executiveService.getAllExecutives();
+            executives.forEach(executive -> {
+                System.out.println("Executive: " + executive.getEmail());
+            });
+            return ResponseEntity.ok(executives); // Return the list of tour guides with a 200 OK status
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while retrieving tour guides.");
+        }
     }
     @GetMapping("/coordinator/getAll")
     public ResponseEntity<?> getAllCoordinators() {
         try {
             // Fetch all tour guides from the service
             List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
-            coordinators.forEach(tourGuide -> {
-                System.out.println("TourGuide: " + tourGuide.getEmail());
+            coordinators.forEach(coordinator -> {
+                System.out.println("TourGuide: " + coordinator.getEmail());
             });
             return ResponseEntity.ok(coordinators); // Return the list of tour guides with a 200 OK status
         } catch (Exception ex) {
@@ -207,6 +290,7 @@ public class UserController {
         coordinatorService.deleteCoordinatorByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     // Coordinator Methods END
 ////////////////////////
 // TourGuide Methods START
@@ -280,6 +364,29 @@ public class UserController {
                 }
             }
         }
+        if(tourGuideService.getTourGuideByEmail(username).getPaymentHistory() != null){
+            for(Payment p: tourGuideService.getTourGuideByEmail(username).getPaymentHistory()){
+
+                if(!p.getStatus().equals("APPROVED")){
+                    System.out.println("pymnt"+ p.getTourGuide()+ p.getStatus() + p.getTourId());
+                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has waiting payments!");
+                }
+            }
+        }
+        if(tourGuideService.getTourGuideByEmail(username).getEnrolledFairs() != null){
+            for(Fair fair: tourGuideService.getTourGuideByEmail(username).getEnrolledFairs()){
+                if(fair.getFairStatus().equals("GuideAssigned")){
+                    return ResponseEntity.status(400).body("TourGuide With Username " + username + " has assigned fairs!");
+                }
+            }
+        }
+        //setting fairs' tourguide ids to null
+        if(tourGuideService.getTourGuideByEmail(username).getEnrolledFairs() != null){
+            for(Fair fair: tourGuideService.getTourGuideByEmail(username).getEnrolledFairs()){
+                fair.setAssignedGuideToFair(null);
+            }
+        }
+        tourGuideService.saveTourGuide(tourGuideService.getTourGuideByEmail(username));
         tourGuideService.deleteTourGuideByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -343,20 +450,35 @@ public class UserController {
 ////////////////
 
 
+
     @PostMapping("/promoteTourGuide")
-    public ResponseEntity<?> promoteTourGuide(@RequestParam String guideEmail, @RequestParam String assignedDay){
+    public ResponseEntity<?> promoteTourGuide(@RequestParam String guideEmail, @RequestParam String assignedDay) {
         try {
             // Retrieve the Tour Guide by email
             TourGuide tourGuideToBePromoted = tourGuideService.getTourGuideByEmail(guideEmail);
-            if (tourGuideToBePromoted==null) {
+            if (tourGuideToBePromoted == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Tour Guide with email " + guideEmail + " not found.");
             }
-            List<Tour> tours = tourGuideToBePromoted.getEnrolledTours();
-            List<Payment> payments = tourGuideToBePromoted.getPaymentHistory();
 
-            tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
-            // Create a new Advisor with Tour Guide's attributes
+            // Get related entities
+            List<Tour> tours = tourGuideToBePromoted.getEnrolledTours();
+            List<Fair> fairs = tourGuideToBePromoted.getEnrolledFairs();
+            List<Payment> payments = tourGuideToBePromoted.getPaymentHistory();
+            // Update references in related entities to point to NULL
+            for (Tour tour : tours) {
+                tour.setAssignedGuide(null);  // Change reference from TourGuide to Advisor
+            }
+            for (Fair fair : fairs) {
+                fair.setAssignedGuideToFair(null);  // Change reference from TourGuide to Advisor
+            }
+            for (Payment payment : payments) {
+                payment.setTourGuide(null);  // Change reference from TourGuide to Advisor
+            }
+            // Now delete the TourGuide entity
+            tourGuideService.deleteTourGuideByUsername(guideEmail);
+
+            // Create new Advisor based on the TourGuide
             Advisor advisor = new Advisor(
                     tourGuideToBePromoted.getEmail(),
                     tourGuideToBePromoted.getPassword(),
@@ -368,17 +490,46 @@ public class UserController {
                     tourGuideToBePromoted.getIban(),
                     assignedDay
             );
+
+            // Save the newly created Advisor
+            advisorService.saveAdvisor(advisor);
+
+            // Update references in related entities to point to the new Advisor
             for (Tour tour : tours) {
-                tour.setAssignedGuide(advisor);
+                tour.setAssignedGuide(advisor);  // Change reference from TourGuide to Advisor
+            }
+            for (Fair fair : fairs) {
+                fair.setAssignedGuideToFair(advisor);  // Change reference from TourGuide to Advisor
             }
             for (Payment payment : payments) {
-                payment.setTourGuide(advisor);
+                payment.setTourGuide(advisor);  // Change reference from TourGuide to Advisor
             }
+
+            // Save the newly created Advisor
             advisorService.saveAdvisor(advisor);
-            return ResponseEntity.ok("Tour Guide promoted to Advisor successfully.");
+
+            // Send the password to the new Advisor's email
+            String randomPassword = generateRandomPassword(10);  // Password length is 10 characters
+            String subject = "BTO Hesap Bilgileriniz";
+            String text = String.format(
+                    "Merhaba %s %s,\n\nBTO sistemine giriş yapabilmeniz için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",
+                    advisor.getFirstName(),
+                    advisor.getLastName(),
+                    randomPassword
+            );
+
+            try {
+                mailService.sendMail(advisor.getEmail(), subject, text);
+                return ResponseEntity.ok("Tour Guide promoted to Advisor successfully.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(201).body("Tour Guide created, but failed to send email.");
+            }
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while promoting the Tour Guide: " + e.getMessage());
         }
     }
+
 }
