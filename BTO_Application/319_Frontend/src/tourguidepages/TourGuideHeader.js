@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/logo.png";
 import axios from "axios";
+import TourGuideHomepage from './TourGuideHomepage'; // import your tour guide homepage
+
 
 const TourGuideHeader = ({ toggleSidebar }) => {
     const navigate = useNavigate();
@@ -66,11 +68,15 @@ const TourGuideHeader = ({ toggleSidebar }) => {
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
                 <Link to="/anasayfa" className="logo-link">
-                    <img src={logo} alt="Logo" className="logo" />
+                    <img src={logo} alt="Logo" className="logo"/>
                     <h1>BTO AdayBilgi</h1>
                 </Link>
             </div>
+
             <div className="nav-links">
+                <a href="/tur-rehberi-anasayfa" className="nav-link">
+                    Anasayfa
+                </a>
                 <a href="/kullanici-islemleri" className="nav-link">
                     Kullanıcı İşlemleri
                 </a>
@@ -93,7 +99,7 @@ const TourGuideHeader = ({ toggleSidebar }) => {
                             className="user-avatar me-2"
                         />
                         <div>
-                        <span className="user-name">{localStorage.username}</span>
+                            <span className="user-name">{localStorage.username}</span>
                             <div className="role">{localStorage.role}</div>
                         </div>
                         <i className="fas fa-caret-down ms-2"></i>
@@ -101,7 +107,7 @@ const TourGuideHeader = ({ toggleSidebar }) => {
                     <div className="dropdown-menu">
                         <a href="/tourguide-change-password">Şifremi Değiştir</a>
                         <a onClick={handleLogout}>
-                        Çıkış Yap
+                            Çıkış Yap
                         </a>
                     </div>
                 </div>
