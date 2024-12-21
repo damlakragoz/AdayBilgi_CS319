@@ -3,9 +3,9 @@ import axios from "axios";
 import "./AddTourGuideForm.css";
 
 const departments = [
-  "AMER", "ARCH", "ARKEO", "COMD", "CS", "CTIS", "EE", "EDU", "ELIT", "ES", "FA",
-  "GRA", "HIST", "ECON", "IAED", "IE", "IR", "LAUD", "MAN", "MATEFL", "ME", "PHIL",
-  "POLS", "PSY", "TEACHED", "THM", "TRIN", "TURKISHLIT"
+  "AMER", "ARCH", "COMD", "CS", "CTIS", "EE", "EDU", "ELIT", "FA",
+  "GRA", "HIST", "ECON", "HART", "IAED", "IE", "IR", "LAUD", "MAN", "ME", "PHIL",
+  "POLS", "PSYC", "THM", "TRIN"
 ].sort();
 
 const AddTourGuideForm = () => {
@@ -18,6 +18,41 @@ const AddTourGuideForm = () => {
     grade: 1, // Default grade to 1
     iban: "",
   });
+
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@bilkent\.edu\.tr$/; // Validate Bilkent email
+    const ibanRegex = /^[A-Z0-9]{16,34}$/; // Basic IBAN format (adjust if needed)
+    const phoneRegex = /^[0-9]+$/; // Ensure only numeric values
+
+
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Geçerli bir Bilkent e-mail adresi girin (Örneğin: example@bilkent.edu.tr).";
+    }
+    if (!formData.firstName) {
+      newErrors.firstName = "Ad alanı boş bırakılamaz.";
+    }
+    if (!formData.lastName) {
+      newErrors.lastName = "Soyad alanı boş bırakılamaz.";
+    }
+    if (!phoneRegex.test(formData.phoneNumber) || formData.phoneNumber.length < 10) {
+      newErrors.phoneNumber = "Geçerli bir telefon numarası girin (en az 10 haneli).";
+    }
+    if (!formData.department) {
+      newErrors.department = "Lütfen bir bölüm seçin.";
+    }
+    if (!formData.grade || formData.grade < 1 || formData.grade > 4) {
+      newErrors.grade = "Sınıf 1 ile 4 arasında olmalıdır.";
+    }
+    if (!ibanRegex.test(formData.iban)) {
+      newErrors.iban = "Geçerli bir IBAN girin.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +69,12 @@ const AddTourGuideForm = () => {
         return;
       }
     }
+
+    if (validateForm()) {
+      console.log("Form Submitted:", formData);
+      // Perform further actions like API call
+    }
+
 
     const { email, firstName, lastName, phoneNumber, department, grade, iban } = formData;
 
@@ -67,10 +108,10 @@ const AddTourGuideForm = () => {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         // Show popup if user already exists
-        alert("Aynı e-mail adresine sahip bir kullanıcı daha var!");
+        alert("Bu e-mail adresine sahip bir tur rehberi bulunmaktadır!");
       } else {
         console.error("Error:", error.response ? error.response.data : error.message);
-        alert("Error registering user. Please try again.");
+        alert("Bir hata oluştu. LÜtfen tekrar deneyin.");
       }
     }
   };
@@ -97,7 +138,7 @@ const AddTourGuideForm = () => {
           <input
               type="email"
               name="email"
-              placeholder="Bilkent Email"
+              placeholder="example@ug.bilkent.edu.tr"
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -108,7 +149,7 @@ const AddTourGuideForm = () => {
           <input
               type="text"
               name="firstName"
-              placeholder="Ad"
+              placeholder="Adınızı giriniz."
               value={formData.firstName}
               onChange={handleInputChange}
               required
@@ -119,7 +160,7 @@ const AddTourGuideForm = () => {
           <input
               type="text"
               name="lastName"
-              placeholder="Soyad"
+              placeholder="Soyadınızı giriniz."
               value={formData.lastName}
               onChange={handleInputChange}
               required
@@ -130,7 +171,7 @@ const AddTourGuideForm = () => {
           <input
               type="tel"
               name="phoneNumber"
-              placeholder="Telefon numarası"
+              placeholder="0 (5xx) xxx xxxx"
               value={formData.phoneNumber}
               onChange={handleInputChange}
               required
@@ -168,7 +209,7 @@ const AddTourGuideForm = () => {
           <input
               type="text"
               name="iban"
-              placeholder="IBAN"
+              placeholder="IBAN numaranızı giriniz."
               value={formData.iban}
               onChange={handleInputChange}
               required
