@@ -32,7 +32,7 @@ const AdvisorPuantage = () => {
         if (response.status === 200) {
           const tours = response.data.filter(
               (tour) =>
-                  (tour.tourStatus === "AdvisorAssigned" ||
+                  (tour.tourStatus === "AdvisorAssigned" || tour.tourStatus === "GuideAssigned" ||
                       tour.tourStatus === "Finished") &&
                   tour.assignedGuideEmail === guideEmail
           );

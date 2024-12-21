@@ -18,17 +18,32 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 <i className="fas fa-times close-icon" onClick={toggleSidebar}></i>
             </div>
             <ul className="nav flex-column">
+                {/* Başvur-Tur Takvimi */}
                 <li>
-                    <Link to="/advisor-tourenrollment" className="nav-link text-white">Başvur-Tur Takvimi</Link>
+                    <Link to="/advisor-tourenrollment" className="nav-link text-white">
+                        <i className="fas fa-calendar-alt"></i> Başvur-Tur Takvimi
+                    </Link>
                 </li>
+
+                {/* Puantaj-Aktivite Giriş */}
                 <li>
-                    <Link to="/advisor-puantage" className="nav-link text-white">Puantaj-Aktivite Giriş</Link>
+                    <Link to="/advisor-puantage" className="nav-link text-white">
+                        <i className="fas fa-edit"></i> Puantaj-Aktivite Giriş
+                    </Link>
                 </li>
+
+                {/* Tour Withdraw Requests */}
                 <li>
-                    <Link to="/withdraw-requests" className="nav-link text-white">Tour Withdraw Requests</Link>
+                    <Link to="/withdraw-requests" className="nav-link text-white">
+                        <i className="fas fa-clipboard-list"></i> Tour Withdraw Requests
+                    </Link>
                 </li>
+
+                {/* Çıkış Yap */}
                 <li>
-                    <a onClick={handleLogout} className="nav-link text-white">Çıkış Yap</a>
+                    <a onClick={handleLogout} className="nav-link text-white">
+                        <i className="fas fa-sign-out-alt"></i> Çıkış Yap
+                    </a>
                 </li>
             </ul>
         </div>
