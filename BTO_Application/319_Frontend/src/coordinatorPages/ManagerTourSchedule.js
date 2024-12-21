@@ -154,6 +154,7 @@ const ManagerTourSchedule = () => {
     return (
         <div className="tour-schedule-container">
             <div className="calendar-container">
+            <h4 className="tour-list-header"> Tur Takvimi</h4>
                 <Calendar
                     onChange={handleDateChange}
                     value={selectedDate}
