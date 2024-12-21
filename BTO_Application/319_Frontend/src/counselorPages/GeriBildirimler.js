@@ -187,7 +187,7 @@ const GeriBildirimler = () => {
     }
 
     const formatFeedbackComment = (comment) => {
-        if (!comment) return { yorum: "N/A", oneri: "N/A" };
+        if (!comment) return { yorum: "-", oneri: "-" };
 
         const yorumMatch = comment.match(/Yorum:\s*([^\.]+)/i);
         const oneriMatch = comment.match(/Öneri:\s*([^\.]+)/i);
@@ -215,7 +215,7 @@ const GeriBildirimler = () => {
                 <tbody>
                     {tours.map((tour) => (
                         <tr key={tour.id}>
-                            <td>{tour.tourStatus=="Finished" ? "Tamamlandı" : ""}</td>
+                            <td>{tour.tourStatus=="Finished" ? "Tamamlandı" : "Tur henüz gerçekleşmedi"}</td>
                             <td>
                                 {hasFeedbackForTour(tour.id)
                                     ? "Geri bildirim verildi"
