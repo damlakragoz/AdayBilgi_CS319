@@ -120,7 +120,12 @@ public class StatisticsService {
 
     public Map<Integer, Integer> getTourGuideCountByGrade() {
         List<TourGuide> tourGuides = tourGuideRepos.findAllTourGuides();
-        Map<Integer, Integer> guidesByGrade = new HashMap<>();
+        Map<Integer, Integer> guidesByGrade = new LinkedHashMap<>();
+
+        guidesByGrade.put(1, 0);
+        guidesByGrade.put(2, 0);
+        guidesByGrade.put(3, 0);
+        guidesByGrade.put(4, 0);
 
         if (tourGuides != null) {
             for (TourGuide guide : tourGuides) {
@@ -156,7 +161,14 @@ public class StatisticsService {
 
     public Map<String, Integer> getTourApplicationCountByStatus() {
         List<TourApplication> tourApplications = tourApplicationRepos.findAll();
-        Map<String, Integer> tourApplicationsByStatus = new HashMap<>();
+        Map<String, Integer> tourApplicationsByStatus = new LinkedHashMap<>();
+
+        tourApplicationsByStatus.put("Created", 0);
+        tourApplicationsByStatus.put("Pending", 0);
+        tourApplicationsByStatus.put("Approved", 0);
+        tourApplicationsByStatus.put("Rejected", 0);
+        tourApplicationsByStatus.put("Finished", 0);
+        tourApplicationsByStatus.put("Cancelled", 0);
 
         if (tourApplications != null) {
             for (TourApplication tourApplication : tourApplications) {
@@ -277,6 +289,12 @@ public class StatisticsService {
 
     public Map<Integer, Integer> getFeedbackCountByRating() {
         Map<Integer, Integer> feedbackByRating = new HashMap<>();
+        feedbackByRating.put(1, 0);
+        feedbackByRating.put(2, 0);
+        feedbackByRating.put(3, 0);
+        feedbackByRating.put(4, 0);
+        feedbackByRating.put(5, 0);
+
 
         List<Feedback> feedbacks = feedbackRepos.findAll();
 
@@ -314,7 +332,12 @@ public class StatisticsService {
 
     public Map<String, Integer> getFairInvitationCountByStatus() {
         List<FairInvitation> fairInvitations = fairInvitationRepos.findAll();
-        Map<String, Integer> fairInvitationByStatus = new HashMap<>();
+        Map<String, Integer> fairInvitationByStatus = new LinkedHashMap<>();
+
+        fairInvitationByStatus.put("Created", 0);
+        fairInvitationByStatus.put("Rejected", 0);
+        fairInvitationByStatus.put("Cancelled", 0);
+        fairInvitationByStatus.put("Approved", 0);
 
         if (fairInvitations != null) {
             for (FairInvitation fairInvitation : fairInvitations) {
