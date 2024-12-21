@@ -196,7 +196,13 @@ const TourGuideList = () => {
       {/* Popup Modal */}
       {isPopupOpen && (
         <div className="popup-overlay">
-          <div className="popup">
+          <div className="popup-content">
+            <span
+              className="popup-close-icon"
+              onClick={() => setIsPopupOpen(false)}
+            >
+              ✖ {/* You can replace this with an icon from your preferred library */}
+            </span>
             <h3>Danışmanın Sorumlu Olduğu Günü Seçin</h3>
             <select
               value={selectedDay}
@@ -214,9 +220,6 @@ const TourGuideList = () => {
             <div className="popup-buttons">
               <button onClick={promoteToExpert} className="usertable-button">
                 Yükselt
-              </button>
-              <button onClick={() => setIsPopupOpen(false)} className="usertable-button">
-                Kapat
               </button>
             </div>
           </div>
