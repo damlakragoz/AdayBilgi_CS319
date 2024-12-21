@@ -27,9 +27,10 @@ public class FairController {
     private final PaymentController paymentController;
     private final FairRepos fairRepos;
     private final CounselorService counselorService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public FairController(FairService fairService, FairInvitationService fairInvitationService, TourGuideService tourGuideService, CoordinatorService coordinatorService, ExecutiveService executiveService, PaymentController paymentController, FairRepos fairRepos, CounselorService counselorService) {
+    public FairController(FairService fairService, FairInvitationService fairInvitationService, TourGuideService tourGuideService, CoordinatorService coordinatorService, ExecutiveService executiveService, PaymentController paymentController, FairRepos fairRepos, CounselorService counselorService, NotificationService notificationService) {
         this.fairService = fairService;
         this.fairInvitationService = fairInvitationService;
         this.tourGuideService = tourGuideService;
@@ -38,6 +39,7 @@ public class FairController {
         this.paymentController = paymentController;
         this.fairRepos = fairRepos;
         this.counselorService = counselorService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping("/getAll")
@@ -86,11 +88,23 @@ public class FairController {
         if(fair.getFairStatus().equals("Pending")){
             fair.setFairStatus("GuideAssigned");
             fairInvitationService.setStatusApproved(fair.getFairInvitation());
+
+            // Notify Enrolled Guide
+            notifyForFair(fair, fairOperationsForGuide.getApplyingGuideEmail(), "Guide Enroll In Fair");
+            // Notify Counselor since someone will come to fair
+            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Guide");
+
             return new ResponseEntity<>(fairService.assignFair(fair,
                     fairOperationsForGuide.getApplyingGuideEmail(), null), HttpStatus.ACCEPTED);
         }
         else if (fair.getFairStatus().equals("ExecutiveAssigned")) {
             fair.setFairStatus("ExecutiveAndGuideAssigned");
+
+            // Notify Enrolled Guide
+            notifyForFair(fair, fairOperationsForGuide.getApplyingGuideEmail(), "Guide Enroll In Fair");
+            // Notify Counselor since someone will come to fair
+            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Guide");
+
             return new ResponseEntity<>(fairService.assignFair(fair,
                     fairOperationsForGuide.getApplyingGuideEmail(), null), HttpStatus.ACCEPTED);
         }
@@ -108,10 +122,22 @@ public class FairController {
         if(fair.getFairStatus().equals("Pending")){
             fair.setFairStatus("ExecutiveAssigned");
             fairInvitationService.setStatusApproved(fair.getFairInvitation());
+
+            // Notify Enrolled Executive
+            notifyForFair(fair, fairOperationsForExecutive.getExecutiveEmail(), "Executive Enroll In Fair");
+            // Notify Counselor since someone will come to fair
+            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Executive");
+
             return new ResponseEntity<>(fairService.assignFair(fair, null,
                     fairOperationsForExecutive.getExecutiveEmail()), HttpStatus.ACCEPTED);
         }else if (fair.getFairStatus().equals("GuideAssigned")) {
             fair.setFairStatus("ExecutiveAndGuideAssigned");
+
+            // Notificaty Enrolled Executive
+            notifyForFair(fair, fairOperationsForExecutive.getExecutiveEmail(), "Executive Enroll In Fair");
+            // Notify Counselor since someone will come to fair
+            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Executive");
+
             return new ResponseEntity<>(fairService.assignFair(fair, null,
                     fairOperationsForExecutive.getExecutiveEmail()), HttpStatus.ACCEPTED);
         }
@@ -245,6 +271,42 @@ public class FairController {
             @RequestParam int year) {
         List<Fair> finishedFairs = fairService.getFinishedFairsByMonthAndYear(month, year);
         return ResponseEntity.ok(finishedFairs);
+    }
+
+    private void notifyForFair(Fair fair, String email, String situation) {
+        String title = null;
+        String text = null;
+        String textForBTOMember = "Başlangıç Zamanı: " + fair.getStartDate() + " - " + fair.getStartTime() + "<br>" +
+                "Bitiş Zamanı: " + fair.getEndDate() + " - " + fair.getEndDate() +"<br>" +
+                "Lise: " + fair.getApplyingHighschool() +"<br>" +
+                "Şehir: " + fair.getApplyingHighschool().getCity();
+        String textForCounselor = "Gelecek Kişinin Bilgileri: " + "<br>";
+
+
+        if (situation.equals("Guide Enroll In Fair") || situation.equals("Executive Enroll In Fair")) {
+            title = "Fuara Gitme İsteğiniz Onaylandı";
+            text = textForBTOMember;
+        }
+        else if (situation.equals("Counselor Fair Approved By Guide")) {
+            title = "Fuar Davetiyeniz Kabul Edildi";
+            textForCounselor += "Ad: " + fair.getAssignedGuideToFair().getFirstName() + "<br>" +
+                    "Soyad: " + fair.getAssignedGuideToFair().getLastName() + "<br>" +
+                    "Email: " + fair.getAssignedGuideToFair().getEmail() + "<br>" +
+                    "Tel: " + fair.getAssignedGuideToFair().getPhoneNumber();
+            text = textForCounselor;
+        }
+        else if (situation.equals("Counselor Fair Approved By Executive")) {
+            title = "Fuar Davetiyeniz Kabul Edildi";
+            textForCounselor += "Ad: " + fair.getAssignedExecutive().getFirstName() + "<br>" +
+                    "Soyad: " + fair.getAssignedExecutive().getLastName() + "<br>" +
+                    "Email: " + fair.getAssignedExecutive().getEmail() + "<br>" +
+                    "Tel: " + fair.getAssignedExecutive().getPhoneNumber();
+            text = textForCounselor;
+        }
+
+        if (title != null || text != null || email != null) {
+            notificationService.createNotification(email, title, text);
+        }
     }
 }
 
