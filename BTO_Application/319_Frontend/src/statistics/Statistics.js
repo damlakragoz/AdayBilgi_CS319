@@ -30,16 +30,36 @@ const Statistics = () => {
         paymentAmountByMonth: "paymentAmountByMonth",
     };
 
+    const statusTranslations = {
+        Created: "Oluşturuldu",
+        Pending: "Onay Bekliyor",
+        Approved: "Onaylandı",
+        Rejected: "Reddedildi",
+        Cancelled: "İptal Edildi",
+        Finished: "Tamamlandı",
+    };
+
     const categories = {
-        "BTO Üyeleri": ["userCounts", "tourGuideByDepartment", "tourGuideByGrade"],
+        "BTO Üyeleri": [
+            "userCounts",
+            "tourGuideByDepartment",
+            "tourGuideByGrade"
+        ],
         "Turlar": [
             "tourApplicationCountByStatus",
             "tourApplicationCountByType",
             "tourCountByHighSchool",
             "tourCountByMonth",
         ],
-        "Fuarlar": ["fairInvitationCountByStatus", "fairCountByMonth"],
-        "Diğerleri": ["feedbackCountByRating", "paymentAmountByMonth", "highSchoolCountByCity"],
+        "Fuarlar": [
+            "fairInvitationCountByStatus",
+            "fairCountByMonth"
+        ],
+        "Diğerleri": [
+            "feedbackCountByRating",
+            "paymentAmountByMonth",
+            "highSchoolCountByCity"
+        ],
     };
 
     const fetchStatistics = async () => {
@@ -102,6 +122,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                     },
                     scales: {
@@ -152,6 +173,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                     },
                     scales: {
@@ -213,6 +235,7 @@ const Statistics = () => {
                     plugins: {
                         legend: {
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                     },
                 };
@@ -227,8 +250,12 @@ const Statistics = () => {
                 );
 
             case "tourApplicationCountByStatus":
+                const translatedLabels = Object.keys(data).map(
+                    (key) => statusTranslations[key] || key // Translate or keep original
+                );
+
                 const pieChartDataTourApplicationByStatus = {
-                    labels: Object.keys(data),
+                    labels: translatedLabels,
                     datasets: [
                         {
                             data: Object.values(data),
@@ -249,11 +276,21 @@ const Statistics = () => {
                     ],
                 };
 
+                const pieChartOptionsTourApplicationByStatus = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                            onClick: null, // Disable all interactivity
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
                         <h3>Durumlara Göre Tur Başvuru Sayısı</h3>
                         <div className="pie-chart-container">
-                            <Pie data={pieChartDataTourApplicationByStatus} />
+                            <Pie data={pieChartDataTourApplicationByStatus} options={pieChartOptionsTourApplicationByStatus} />
                         </div>
                     </div>
                 );
@@ -277,11 +314,21 @@ const Statistics = () => {
                     ],
                 };
 
+                const pieChartOptionsTourApplicationByType = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                            onClick: null, // Disable all interactivity
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
                         <h3>Başvuru Türüne Göre Tur Sayısı</h3>
                         <div className="pie-chart-container">
-                            <Pie data={pieChartDataTourApplicationByType} />
+                            <Pie data={pieChartDataTourApplicationByType} options={pieChartOptionsTourApplicationByType} />
                         </div>
                     </div>
                 );
@@ -307,6 +354,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                     },
                     scales: {
@@ -357,6 +405,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                     },
                     scales: {
@@ -406,6 +455,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                     },
                     scales: {
@@ -436,8 +486,12 @@ const Statistics = () => {
                 );
 
             case "fairInvitationCountByStatus":
+                const translatedLabelsFair = Object.keys(data).map(
+                    (key) => statusTranslations[key] || key
+                );
+
                 const pieChartDataFairInvitationByStatus = {
-                    labels: Object.keys(data),
+                    labels: translatedLabelsFair,
                     datasets: [
                         {
                             data: Object.values(data),
@@ -456,11 +510,21 @@ const Statistics = () => {
                     ],
                 };
 
+                const pieChartOptionsFairInvitationByStatus = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                            onClick: null, // Disable all interactivity
+                        },
+                    },
+                };
+
                 return (
                     <div className="statistics-section" key={key}>
                         <h3>Durumlara Göre Fuar Davetiye Sayısı</h3>
                         <div className="pie-chart-container">
-                            <Pie data={pieChartDataFairInvitationByStatus} />
+                            <Pie data={pieChartDataFairInvitationByStatus} options={pieChartOptionsFairInvitationByStatus} />
                         </div>
                     </div>
                 );
@@ -486,6 +550,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                         tooltip: {
                             callbacks: {
@@ -543,6 +608,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                         tooltip: {
                             callbacks: {
@@ -600,6 +666,7 @@ const Statistics = () => {
                         legend: {
                             display: true,
                             position: "top",
+                            onClick: null, // Disable all interactivity
                         },
                         tooltip: {
                             callbacks: {
