@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Statistics.css";
-import { Bar, Pie } from "react-chartjs-2";
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement } from "chart.js";
+import { Bar, Pie, Line } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement, PointElement, LineElement } from "chart.js";
 
 // Register necessary components for Bar and Pie charts
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement, PointElement, LineElement);
 
 const Statistics = () => {
     const [statisticsData, setStatisticsData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("BTO Üyeleri"); // Define selectedCategory state
 
     const token = localStorage.getItem("userToken");
 
@@ -24,6 +25,21 @@ const Statistics = () => {
         highSchoolCountByCity: "highSchoolCountByCity",
         feedbackCountByRating: "feedbackCountByRating",
         fairInvitationCountByStatus: "fairInvitationCountByStatus",
+        tourCountByMonth: "tourCountByMonth",
+        fairCountByMonth: "fairCountByMonth",
+        paymentAmountByMonth: "paymentAmountByMonth",
+    };
+
+    const categories = {
+        "BTO Üyeleri": ["userCounts", "tourGuideByDepartment", "tourGuideByGrade"],
+        "Turlar": [
+            "tourApplicationCountByStatus",
+            "tourApplicationCountByType",
+            "tourCountByHighSchool",
+            "tourCountByMonth",
+        ],
+        "Fuarlar": ["fairInvitationCountByStatus", "fairCountByMonth"],
+        "Diğerleri": ["feedbackCountByRating", "paymentAmountByMonth", "highSchoolCountByCity"],
     };
 
     const fetchStatistics = async () => {
@@ -449,16 +465,203 @@ const Statistics = () => {
                     </div>
                 );
 
+            case "tourCountByMonth":
+                const lineChartDataTourCountByMonth = {
+                    labels: Object.keys(data), // Month names as labels
+                    datasets: [
+                        {
+                            label: "Aylara Göre Tur Sayısı",
+                            data: Object.values(data), // Tour counts as data
+                            fill: false,
+                            borderColor: "rgba(75, 192, 192, 1)", // Line color
+                            backgroundColor: "rgba(75, 192, 192, 0.6)", // Point background color
+                            tension: 0.2, // Line smoothness
+                        },
+                    ],
+                };
+
+                const lineChartOptionsTourCountByMonth = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `Tur Sayısı: ${tooltipItem.raw}`;
+                                },
+                            },
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Aylar",
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Tur Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1, // Ensure integer steps
+                            },
+                        },
+                    },
+                };
+
+                return (
+                    <div className="statistics-section" key={key}>
+                        <h3>Aylara Göre Tur Sayısı</h3>
+                        <Line data={lineChartDataTourCountByMonth} options={lineChartOptionsTourCountByMonth} />
+                    </div>
+                );
+
+            case "fairCountByMonth":
+                const lineChartDataFairCountByMonth = {
+                    labels: Object.keys(data), // Month names as labels
+                    datasets: [
+                        {
+                            label: "Aylara Göre Fuar Sayısı",
+                            data: Object.values(data), // Fair counts as data
+                            fill: false,
+                            borderColor: "rgba(255, 99, 132, 1)", // Line color
+                            backgroundColor: "rgba(255, 99, 132, 0.6)", // Point background color
+                            tension: 0.2, // Line smoothness
+                        },
+                    ],
+                };
+
+                const lineChartOptionsFairCountByMonth = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `Fuar Sayısı: ${tooltipItem.raw}`;
+                                },
+                            },
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Aylar",
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Fuar Sayısı",
+                            },
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1, // Ensure integer steps
+                            },
+                        },
+                    },
+                };
+
+                return (
+                    <div className="statistics-section" key={key}>
+                        <h3>Aylara Göre Fuar Sayısı</h3>
+                        <Line data={lineChartDataFairCountByMonth} options={lineChartOptionsFairCountByMonth} />
+                    </div>
+                );
+
+            case "paymentAmountByMonth":
+                const lineChartDataPaymentAmountByMonth = {
+                    labels: Object.keys(data), // Month names as labels
+                    datasets: [
+                        {
+                            label: "Aylara Göre Ödeme Miktarı (₺)",
+                            data: Object.values(data), // Payment amounts as data
+                            fill: false,
+                            borderColor: "rgba(54, 162, 235, 1)", // Line color
+                            backgroundColor: "rgba(54, 162, 235, 0.6)", // Point background color
+                            tension: 0.2, // Line smoothness
+                        },
+                    ],
+                };
+
+                const lineChartOptionsPaymentAmountByMonth = {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top",
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `Toplam Ödeme: ₺${tooltipItem.raw}`;
+                                },
+                            },
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Aylar",
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Toplam Ödeme Miktarı (₺)",
+                            },
+                            beginAtZero: true,
+                        },
+                    },
+                };
+
+                return (
+                    <div className="statistics-section" key={key}>
+                        <h3>Aylara Göre Ödeme Miktarı</h3>
+                        <Line data={lineChartDataPaymentAmountByMonth} options={lineChartOptionsPaymentAmountByMonth} />
+                    </div>
+                );
+
             default:
                 return null;
         }
     };
 
+    const renderButtons = () => (
+        <div className="category-buttons">
+            {Object.keys(categories).map((category) => (
+                <button
+                    key={category}
+                    className={`category-button ${selectedCategory === category ? "active" : ""}`}
+                    onClick={() => setSelectedCategory(category)}
+                >
+                    {category}
+                </button>
+            ))}
+        </div>
+    );
+
 
     return (
         <div className="statistics-container">
             <div className="statistics-header">İstatistikler</div>
-            {Object.entries(statisticsData).map(([key, data]) => renderSection(key, data))}
+            {renderButtons()}
+            <div className="statistics-sections">
+                {Object.entries(statisticsData)
+                    .filter(([key]) => categories[selectedCategory].includes(key))
+                    .map(([key, data]) => renderSection(key, data))}
+            </div>
         </div>
     );
 };

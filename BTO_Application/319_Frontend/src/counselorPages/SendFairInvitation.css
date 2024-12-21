@@ -1,13 +1,30 @@
 .container {
-    display: flex;
+    display: flex; /* Use flexbox to align items side by side */
     gap: 2rem;
-    align-items: flex-start;
     padding: 2rem;
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+    color: var(--text-primary);
+    margin: auto;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text */
+    max-width: 1200px; /* Optional: Set a max width for the container */
+    width: 100%; /* Allow full width on smaller screens */
 }
 
 .calendar-container {
-    flex: 1;
-    max-width: 400px; /* Increase max-width for a larger calendar */
+    flex: 1; /* Make the calendar take equal space as the details section */
+    max-width: 500px; /* Limit the max width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center calendar content */
+}
+
+react-calendar__tile--now {
+    background-color: transparent !important; /* Remove the background color */
+    color: var(--text-primary) !important; /* Set the text color to your default text color */
 }
 
 .react-calendar {
@@ -15,19 +32,23 @@
 }
 
 .details-container {
-    flex: 2;
+    flex: 1; /* Take remaining space */
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    text-align: center; /* Center text */
+    min-height: 100%; /* Ensure it fills available vertical space */
 }
 
 .date-toggle-button {
     margin-top: 1rem;
     padding: 0.7rem 1.5rem;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--gray);
+    color: black;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
@@ -46,15 +67,15 @@
     background-color: var(--dark-blue);
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     max-width: 200px; /* Limit the button width */
-    align-self: flex-start; /* Align to the left */
 }
 
 .submit-button:hover {
     background-color: var(--orange);
 }
+
 .selected-dates-container {
     margin-top: 1rem;
     padding: 1rem;
@@ -64,7 +85,6 @@
     text-align: center; /* Center the text */
     font-size: 1.2rem; /* Slightly larger font for emphasis */
     font-weight: bold; /* Make the text bold */
-    color: #333; /* Darker text color for better readability */
 }
 
 .selected-dates-title {

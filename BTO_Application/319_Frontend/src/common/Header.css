@@ -96,8 +96,8 @@
 }
 
 .user-dropdown .dropdown-menu a:hover {
-    background-color: var(--dark-blue); /* Optional: Add a hover effect for the links */
-    color: white; /* Ensure the hover text color stays consistent */
+    background-color: var(--deep-blue); /* Optional: Add a hover effect for the links */
+    color: white !important; /* Ensure the hover text color stays consistent */
 }
 
 .search-icon {

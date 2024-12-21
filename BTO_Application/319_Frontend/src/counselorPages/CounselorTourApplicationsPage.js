@@ -67,8 +67,9 @@ const CounselorTourApplicationsPage = () => {
                     const dateB = b.assignedDate
                         ? new Date(b.assignedDate)
                         : new Date(Math.min(...b.requestedDates.map((d) => new Date(d.date).getTime())));
-                    return dateB - dateA; // Descending order
+                    return dateA - dateB; // Ascending order
                 });
+
 
 
             console.log(sortedApplications);
@@ -125,10 +126,22 @@ const CounselorTourApplicationsPage = () => {
     // Function to handle pagination
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    // Helper function to handle filter changes
+    const handleFilterChange = (filter) => {
+        setStatusFilter(filter);
+        setCurrentPage(1); // Reset to the first page
+    };
+
     // Apply the status filter first
     const filteredApplications =
         statusFilter === "All"
             ? applications
+            : statusFilter === "Rejected"
+            ? applications.filter(
+                  (application) =>
+                      application.applicationStatus === "Rejected" ||
+                      application.applicationStatus === "Pre-rejected"
+              )
             : applications.filter((application) => application.applicationStatus === statusFilter);
 
     // Pagination logic
@@ -161,11 +174,13 @@ const CounselorTourApplicationsPage = () => {
 
             {/* Filter Buttons */}
             <div className="filter-buttons">
-                <button className="filter-button" onClick={() => setStatusFilter("All")}>Tüm Başvurular</button>
-                <button className="filter-button" onClick={() => setStatusFilter("Pending")}>Onay Bekleyenler</button>
-                <button className="filter-button" onClick={() => setStatusFilter("Approved")}>Onaylananlar</button>
-                <button className="filter-button" onClick={() => setStatusFilter("Rejected")}>Reddedilenler</button>
-                <button className="filter-button" onClick={() => setStatusFilter("Cancelled")}>İptal Edilenler</button>
+                <button className="filter-button" onClick={() => handleFilterChange("All")}>Tüm Başvurular</button>
+                <button className="filter-button" onClick={() => handleFilterChange("Created")}>Oluşturulanlar</button>
+                <button className="filter-button" onClick={() => handleFilterChange("Pending")}>Onay Bekleyenler</button>
+                <button className="filter-button" onClick={() => handleFilterChange("Approved")}>Onaylananlar</button>
+                <button className="filter-button" onClick={() => handleFilterChange("Rejected")}>Reddedilenler</button>
+                <button className="filter-button" onClick={() => handleFilterChange("Cancelled")}>İptal Edilenler</button>
+                <button className="filter-button" onClick={() => handleFilterChange("Finished")}>Tamamlananlar</button>
             </div>
 
             <div className="applications-grid">

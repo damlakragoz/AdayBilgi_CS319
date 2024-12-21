@@ -110,10 +110,75 @@
   color: white;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
 }
 
 .usertable-button-add:hover {
   background: var(--orange);
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    position: relative;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    width: 400px;
+    max-width: 90%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--dark-blue);
+}
+
+.popup-content select {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.usertable-button:hover {
+    background-color: rgba(0, 0, 139, 0.8); /* Slightly lighter dark blue on hover */
+}
+
+.popup-close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.popup-close-icon:hover {
+    color: var(--dark-blue);
 }

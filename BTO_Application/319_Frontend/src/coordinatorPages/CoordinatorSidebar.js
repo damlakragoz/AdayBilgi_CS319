@@ -20,67 +20,89 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 <i className="fas fa-times close-icon" onClick={toggleSidebar}></i>
             </div>
             <ul className="nav flex-column">
-                {/* Subtitle: Onay Bekleyenler */}
+                {/* Subtitle: Onay Bekleyen İşlemler */}
                 <li>
                     <Link to="/onay-bekleyen-islemler" className="sidebar-subtitle">
-                        Onay Bekleyen İşlemler
+                        <i className="fas fa-hourglass-half"></i> Onay Bekleyen İşlemler
                     </Link>
                 </li>
                 <li>
                     <Link to="/bto-koordinasyonu" className="nav-link text-white">
-                        BTO Koordinasyonu
-
+                        <i className="fas fa-sitemap"></i> BTO Koordinasyonu
                     </Link>
                 </li>
                 <li>
-                    <Link to="/fuar-davetleri" className="nav-link text-white">Fuar Davetleri</Link>
+                    <Link to="/fuar-davetleri" className="nav-link text-white">
+                        <i className="fas fa-envelope-open-text"></i> Fuar Davetleri
+                    </Link>
                 </li>
                 <li>
-                    <Link to="/tur-basvurulari" className="nav-link text-white">Tur Başvuruları</Link>
+                    <Link to="/tur-basvurulari" className="nav-link text-white">
+                        <i className="fas fa-file-alt"></i> Tur Başvuruları
+                    </Link>
                 </li>
                 <li>
-                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">Geribildirimler</Link>
+                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">
+                        <i className="fas fa-comments"></i> Geribildirimler
+                    </Link>
                 </li>
                 <li>
-                    <Link to="/ödemeler/coordinator" className="nav-link text-white">Ödemeler</Link>
+                    <Link to="/ödemeler/coordinator" className="nav-link text-white">
+                        <i className="fas fa-money-check-alt"></i> Ödemeler
+                    </Link>
                 </li>
 
-
-                <br/>
+                <br />
                 {/* Subtitle: Yaklaşan Etkinlikler */}
                 <li>
-                    <Link to="/yaklasan-etkinlikler" className="sidebar-subtitle">
-                        Yaklaşan Etkinlikler
-                    </Link>
+                    <span className="sidebar-subtitle">
+                        <i className="fas fa-calendar-alt"></i> Yaklaşan Etkinlikler
+                    </span>
                 </li>
                 <li>
                     <Link to="/coordinator-tour-schedule" className="nav-link text-white">
-                        Tur Takvimi</Link>
+                        <i className="fas fa-route"></i> Tur Takvimi
+                    </Link>
                 </li>
                 <li>
-                    <Link to="/fuar-takvimi" className="nav-link text-white">Fuar Takvimi</Link>
+                    <Link to="/fuar-takvimi" className="nav-link text-white">
+                        <i className="fas fa-calendar-check"></i> Fuar Takvimi
+                    </Link>
                 </li>
                 <li>
                     <Link to="/coordinator-notifications" className="nav-link text-white">
-                        Bildirimlerim
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/executive-statistics" className="nav-link text-white">
-                        İstatistikler
+                        <i className="fas fa-bell"></i> Bildirimlerim
                     </Link>
                 </li>
 
-                <hr/>
+                <br />
+                {/* Subtitle: Performans Analizi */}
+                <li>
+                    <span className="sidebar-subtitle">
+                        <i className="fas fa-chart-line"></i> Performans Analizi
+                    </span>
+                </li>
+                <li>
+                    <Link to="/executive-statistics" className="nav-link text-white">
+                        <i className="fas fa-chart-bar"></i> İstatistikler
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/geribildirimler/coordinator" className="nav-link text-white">
+                        <i className="fas fa-comments"></i> Geribildirimler
+                    </Link>
+                </li>
+
+                <hr />
                 {/* Settings and Logout */}
                 <li>
                     <Link to="/ayarlar" className="nav-link text-white">
-                        Ayarlar
+                        <i className="fas fa-cogs"></i> Ayarlar
                     </Link>
                 </li>
                 <li>
                     <a onClick={handleLogout} className="nav-link text-white">
-                        Çıkış Yap
+                        <i className="fas fa-sign-out-alt"></i> Çıkış Yap
                     </a>
                 </li>
             </ul>
