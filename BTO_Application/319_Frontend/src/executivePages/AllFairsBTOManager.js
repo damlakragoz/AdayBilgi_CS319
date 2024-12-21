@@ -14,7 +14,7 @@ const AllFairsBTOManager = () => {
      };
   // Mapping of fair invitation status in English to Turkish
   const statusMap = {
-    "pending": "Onay bekliyor",
+    "pending": "Kayıt bekliyor",
     "created": "Oluşturuldu",
     "approved": "Onaylandı",
     "rejected": "Reddedildi",
