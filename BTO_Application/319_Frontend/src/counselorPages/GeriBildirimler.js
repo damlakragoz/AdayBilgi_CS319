@@ -189,12 +189,13 @@ const GeriBildirimler = () => {
     const formatFeedbackComment = (comment) => {
         if (!comment) return { yorum: "-", oneri: "-" };
 
-        const yorumMatch = comment.match(/Yorum:\s*([^\.]+)/i);
-        const oneriMatch = comment.match(/Öneri:\s*([^\.]+)/i);
+        // Extract Yorum and Öneri using regular expressions
+        const yorumMatch = comment.match(/Yorum:\s*(.*?)\s*Öneri:/i);
+        const oneriMatch = comment.match(/Öneri:\s*(.*)$/i);
 
         return {
-            yorum: yorumMatch ? yorumMatch[1].trim() : "",
-            oneri: oneriMatch ? oneriMatch[1].trim() : "",
+            yorum: yorumMatch ? yorumMatch[1].trim() : "-",
+            oneri: oneriMatch ? oneriMatch[1].trim() : "-",
         };
     };
 
