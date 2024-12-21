@@ -1,0 +1,13 @@
+.coordinator-homepage {
+    background-image: url('/images/kampus4.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.content-container h1 {
+    text-align: center;
+    margin-top: 40vh;
+}
+
