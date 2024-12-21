@@ -4,10 +4,32 @@
     background-position: center;
     min-height: 100vh;
     color: #fff;
+
 }
 
 .content-container h1 {
     text-align: center;
     margin-top: 40vh;
+}
+
+/* Reset body and html styles */
+html, body {
+
+    height: 90%;
+    width: 90%;
+}
+
+/* Ensure the container stretches fully */
+.coordinator-homepage {
+    height: 90%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 90%;
+    width: 90%;
 }
 

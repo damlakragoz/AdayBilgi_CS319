@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import "../tourguidepages/AllFairs.css";
+import "./Fuarlarim.css";
 
-const AllFairsBTOManager = () => {
+const Fuarlarim = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
@@ -14,17 +14,17 @@ const AllFairsBTOManager = () => {
      };
   // Mapping of fair invitation status in English to Turkish
   const statusMap = {
-    "pending": "Kayıt bekliyor",
-    "created": "Oluşturuldu",
-    "approved": "Onaylandı",
-    "rejected": "Reddedildi",
-    "cancelled": "İptal Edildi",
-    "finished": "Tamamlandı",
-    "executiveassigned": "Yönetici Başvurdu",
-    "executiveandguideAssigned": "Yönetici ve Tur Rehberi Başvurdu",
-    "tourguideAssigned": "Tur Rehberi Başvurdu",
-    "not_specified": "-",
-  };
+      "pending": "Onay bekliyor",
+      "created": "Oluşturuldu",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "cancelled": "İptal Edildi",
+      "finished": "Tamamlandı",
+      "executiveassigned": "Yönetici Başvurdu",
+      "executiveandguideassigned": "Yönetici ve Tur Rehberi Başvurdu",
+      "tourguideAssigned": "Tur Rehberi Başvurdu",
+      "not_specified": "-",
+    };
    const formatDate = (date) => {
        if (!date) return "Geçersiz Tarih"; // Handle null or undefined
        try {
@@ -95,10 +95,13 @@ const AllFairsBTOManager = () => {
 
                if (response.status === 200) {
                    console.log(response.data); // Log all fairs for debugging
-                   const filteredFairs = response.data.filter(
+                   let filteredFairs = response.data.filter(
                        (fair) =>
                            (fair.assignedExecutiveEmail &&
                            fair.assignedExecutiveEmail.toLowerCase() === executiveEmail.toLowerCase())
+                   );
+                   filteredFairs = response.data.filter(
+                      (fair) => (fair.fairStatus.toLowerCase() == "executiveassigned" || fair.fairStatus.toLowerCase() == "executiveandguideassigned")
                    );
                    console.log(filteredFairs); // Log the filtered fairs for debugging
                    setEnrolledFairs(filteredFairs);
@@ -122,8 +125,7 @@ const AllFairsBTOManager = () => {
                 const getCategory = (fair) => {
                     if (
                         fair.fairStatus === "Pending" ||
-                        fair.fairStatus === "ExecutiveAndGuideAssigned" ||
-                        fair.fairStatus === "ExecutiveAssigned"
+                        fair.fairStatus === "TourGuideAssigned"
                     ) {
                         return 1; // Enrollable fairs
                     }
@@ -184,14 +186,9 @@ const AllFairsBTOManager = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header"> Yaklaşan Fuarlar</h4>
+            <h4 className="tour-list-header" style={{ textAlign: "center" }}> Yaklaşan Fuarlar</h4>
             <ul className="fair-list">
-                {sortedFairs
-                    .filter(
-                        (fair) =>
-                            fair.fairStatus === "Pending" ||
-                            fair.fairStatus === "TourGuideAssigned"
-                    ) // Filter out only enrollable fairs
+                {enrolledFairs
                     .map((fair) => {
                         const isUserEnrolled = enrolledFairs.some(
                             (enrolledFair) => enrolledFair.id === fair.id
@@ -208,19 +205,26 @@ const AllFairsBTOManager = () => {
                                 <p>
                                     <strong>Durum:</strong> {mapStatusToTurkish(fair.fairStatus)}
                                 </p>
+
+                                {/* Conditionally render assignedTourGuideEmail */}
+                                {(fair.fairStatus === "TourGuideAssigned" || fair.fairStatus === "ExecutiveAndGuideAssigned" )&& fair.assignedGuideEmail && (
+                                    <p>
+                                        <strong>Tur rehberi:</strong> {fair.assignedGuideEmail}
+                                    </p>
+                                )}
+
                                 <button
-                                    onClick={() => handleEnroll(fair.id)}
-                                    className="enroll-button"
-                                    disabled={isUserEnrolled}
                                 >
-                                    {isUserEnrolled ? "Kaydolundu" : "Kaydol"}
+                                    {isUserEnrolled ? "Kaydoldunuz" : "Kaydol"}
                                 </button>
                             </li>
                         );
                     })}
             </ul>
+
+
         </div>
     );
 };
 
-export default AllFairsBTOManager;
+export default Fuarlarim;

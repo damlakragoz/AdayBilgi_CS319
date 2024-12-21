@@ -11,30 +11,37 @@ const CoordinatorHomepage = () => {
     return (
         <div
             className="coordinator-homepage"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
+                alignItems: 'center',
                 backgroundImage: 'url(/images/kampus4.jpg)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                minHeight: '85vh',
+                height: '100vh',
+                width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 justifyContent: 'center',
-                textAlign: 'center',
-                opacity: isHovered ? 0.8 : 1,
-                transition: 'opacity 0.3s ease-in-out',
+                textAlign: 'left',
+                overflow: 'hidden',
+                margin: 0,
+
             }}
         >
+
+            {/* Transparent box with hover effect */}
             <div
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
                 style={{
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Common semi-transparent background
-                    borderRadius: '8px', // Rounded corners
-                    padding: '20px', // Padding around the text
-                    textAlign: 'center', // Center-align all text inside
+                    backgroundColor: isHovered
+                        ? 'rgba(0, 0, 0, 0.7)' // Darker when hovered
+                        : 'rgba(0, 0, 0, 0.5)', // Default transparency
+                    borderRadius: '8px',
+                    padding: '20px',
+                    transition: 'background-color 0.3s ease-in-out', // Smooth transition
+                    margin: 'auto', // Center the box within the container
                     position: 'center',
                 }}
             >
@@ -42,9 +49,10 @@ const CoordinatorHomepage = () => {
                     style={{
                         fontSize: '3rem',
                         fontWeight: 'bold',
-                        color: 'white', // White text color
-                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Stronger shadow
-                        margin: '0 0 20px 0', // Space below the header
+                        color: 'white',
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+                        margin: '0 0 20px 0',
+                        textAlign: 'center',
                     }}
                 >
                     Koordinatör Ana Sayfasına Hoş Geldiniz!
@@ -54,25 +62,29 @@ const CoordinatorHomepage = () => {
                         fontSize: '1.5rem',
                         fontWeight: 'bold',
                         color: 'white',
-                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)', // Stronger shadow
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+                        textAlign: 'center',
                         margin: 0,
                     }}
                 >
                     İşlem yapmak için sol taraftaki menüyü kullanabilirsiniz.
                 </p>
             </div>
-            <CoordinatorHeader toggleSidebar={toggleSidebar}/>
+
+            <CoordinatorHeader toggleSidebar={toggleSidebar} />
             <div className="d-flex">
-                <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar}/>
+                <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
                 <div
                     className={`content-container flex-grow-1 ${
                         sidebarOpen ? 'with-sidebar' : ''
                     }`}
                     style={{
+                        position: 'center',
                         padding: '20px',
-
+                        zIndex: 2,
                     }}
                 >
+
                 </div>
             </div>
         </div>
