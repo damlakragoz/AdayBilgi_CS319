@@ -58,7 +58,7 @@ const ExecutiveHeader = ({ toggleSidebar }) => {
                 <a href="/executive-homepage" className="nav-link">
                     Anasayfa
                 </a>
-                <a href="/onay-bekleyen-islemler/executive" className="nav-link">
+                <a href="/onay-bekleyen-islemler/yonetici" className="nav-link">
                     Onay Bekleyen İşlemler
                 </a>
                 <a href="/yaklasan-etkinlikler/yonetici" className="nav-link">

@@ -50,6 +50,7 @@ import ExecutiveLayout from "./executivePages/ExecutiveLayout";
 import AllFairsBTOManager from "./executivePages/AllFairsBTOManager";
 import ExecutiveNotifications from './notification/NewNotifications';
 import GeriBildirimlerManagerView from './executivePages/GeriBildirimlerManagerView';
+import YaklasanEtkinlikler from './executivePages/YaklasanEtkinlikler';
 // TourGuide Page Imports
 import TourGuideLayout from './tourguidepages/TourGuideLayout';
 import TourGuideHomepage from './tourguidepages/TourGuideHomepage';
@@ -123,16 +124,18 @@ function App() {
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
-                        <Route path="/onay-bekleyen-islemler/executive" element={<OnayBekleyen />} />
+                        <Route path="/onay-bekleyen-islemler/yonetici" element={<OnayBekleyen />} />
+                        <Route path="/yaklasan-etkinlikler/yonetici" element={<YaklasanEtkinlikler />} />
                         <Route path="/yaklasan-fuarlar/yonetici" element={<AllFairsBTOManager />} />
-                        <Route path="/tur-basvurulari/executive" element={<AllTourApplications />} />
-                        <Route path="/notifications/executive" element={<ExecutiveNotifications />} />
+                        <Route path="/fuar-takvimi/yonetici" element={<FairSchedule />} />
+                        <Route path="/tur-basvurulari/yonetici" element={<AllTourApplications />} />
+                        <Route path="/bildirimler/yonetici" element={<ExecutiveNotifications />} />
                         <Route path="/executive-change-password" element={<ChangePassword />} />
-                        <Route path="/executive-statistics" element={<Statistics />} />
+                        <Route path="/istatistikler/yonetici" element={<Statistics />} />
                         <Route path="/tur-takvimi/yonetici" element={<ManagerTourSchedule />} />
-                       <Route path="/bto-koordinasyonu/executive" element={<BtoKoordinasyonu />} />
-                       <Route path="/fuar-davetleri/executive" element={<FairInvitations />} />
-                       <Route path="/geribildirimler/executive" element={<GeriBildirimlerManagerView />} />
+                       <Route path="/bto-koordinasyonu/yonetici" element={<BtoKoordinasyonu />} />
+                       <Route path="/fuar-davetleri/yonetici" element={<FairInvitations />} />
+                       <Route path="/geribildirimler/yonetici" element={<GeriBildirimlerManagerView />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
