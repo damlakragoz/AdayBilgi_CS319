@@ -444,7 +444,7 @@ public class UserController {
             List<Fair> fairs = tourGuideToBePromoted.getEnrolledFairs();
 
             String randomPassword = generateRandomPassword(10);  // Password length is 10 characters
-
+            tourGuideService.deleteTourGuideByUsername(tourGuideToBePromoted.getEmail());
             // Create new Advisor based on the TourGuide
             Advisor advisor = new Advisor(
                     tourGuideToBePromoted.getEmail(),
@@ -473,7 +473,7 @@ public class UserController {
             // Send the password to the new Advisor's email
             String subject = "BTO Hesap Bilgileriniz";
             String text = String.format(
-                    "Merhaba %s %s,\n\nBTO sistemine giriş yapabilmeniz için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",
+                    "Merhaba %s %s,\n\nDanışmanlığa yükseltildiniz. BTO sistemine giriş yapabilmeniz geçici için şifreniz: %s\n\nLütfen şifrenizi en kısa sürede değiştiriniz.",
                     advisor.getFirstName(),
                     advisor.getLastName(),
                     randomPassword
