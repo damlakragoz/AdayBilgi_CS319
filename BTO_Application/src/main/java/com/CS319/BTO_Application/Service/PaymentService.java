@@ -11,6 +11,7 @@ import com.CS319.BTO_Application.Repos.TourGuideRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -147,8 +148,9 @@ public class PaymentService {
         return paymentRepos.findAll();
     }
 
-    public List<Payment> getAllPendingPayments() {
-        // Validate tour guide
-        return paymentRepos.findAllByStatus("PENDING");
+    public List<Payment> getAllPendingAndUpdatedPayments() {
+        List<String> statuses = Arrays.asList("PENDING", "UPDATED");
+        return paymentRepos.findAllByStatuses(statuses);
     }
+
 }

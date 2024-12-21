@@ -1,3 +1,4 @@
+/*
 package com.CS319.BTO_Application.Entity;
 
 import jakarta.persistence.*;
@@ -41,3 +42,5 @@ public class OtherActivity {
         return "Activity: " + activityTitle + ", Hours: " + workHours;
     }
 }
+
+ */

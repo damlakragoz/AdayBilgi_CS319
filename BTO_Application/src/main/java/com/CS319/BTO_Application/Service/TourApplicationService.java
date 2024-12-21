@@ -324,36 +324,44 @@ public class TourApplicationService {
             LocalDate requestedDate = requestedDateTime.getDate();
             TimeSlot requestedSlot = requestedDateTime.getTimeSlot();
 
-            // Aynı tarih ve zaman diliminde başka bir başvuru var mı kontrol et
-            IndividualTourApplication conflictingApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlot(requestedDate, requestedSlot);
+            // Aynı tarih ve zaman diliminde başka bir "Created" başvuru var mı kontrol et
+            if(requestedDate == null || requestedSlot == null) {
+                return false;
+            }
 
-            if (conflictingApplication == null) {
-                // Eğer çatışma yoksa, slot'u atayın
-                application.setSelectedDate(requestedDate);
-                application.setSelectedTimeSlot(requestedSlot);
-                application.setApplicationStatus("Pending");
-                return true; // Başarılı bir şekilde atandı
+            IndividualTourApplication conflictingApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlotAndStatus
+                    (requestedDate, requestedSlot, "Created");
+
+            IndividualTourApplication pendingApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlotAndStatus(requestedDate, requestedSlot, "Pending");
+
+            IndividualTourApplication approvedApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlotAndStatus(requestedDate, requestedSlot, "Approved");
+
+            // Eğer "Pending" veya "Approved" varsa, bu slotu koru ve diğer tercihe geç
+            if (pendingApplication != null || approvedApplication != null) {
+                continue;
             }
-            // Çakışma var ama "Pending" durumda ise, bu başvuruyu es geç
-            else if (conflictingApplication.getApplicationStatus().equals("Pending")) {
-                continue; // "Pending" durumundaki başvuruyu değiştirme
-            }
-            // Çakışma var ve "Pending" değilse, önceliklendirme yap
-            else {
-                // Çatışma varsa, önceliklendirme yap
+
+            if (conflictingApplication != null) {
+                // Çakışma varsa önceliklendirme yap
                 IndividualTourApplication prioritizedApplication = prioritizeSchoolInd(application, conflictingApplication);
 
                 if (prioritizedApplication == application) {
-                    // Daha düşük öncelikli uygulamayı işleme al
-                    handleLessPrioritizedSchoolInd(conflictingApplication);
+                    handleLessPrioritizedSchoolInd(conflictingApplication, 1);
 
-                    // Slot'u mevcut uygulamaya ata
                     application.setSelectedDate(requestedDate);
                     application.setSelectedTimeSlot(requestedSlot);
                     application.setApplicationStatus("Pending");
                     return true;
+                } else {
+                    continue;
                 }
             }
+
+            // Eğer çakışma yoksa slot'u atayın
+            application.setSelectedDate(requestedDate);
+            application.setSelectedTimeSlot(requestedSlot);
+            application.setApplicationStatus("Pending");
+            return true;
         }
 
         // Eğer hiçbir slot atanamadıysa, false döndür
@@ -389,25 +397,60 @@ public class TourApplicationService {
      */
 
 
-    private void handleLessPrioritizedSchoolInd(IndividualTourApplication application) {
-        List<RequestedDateTime> remainingPreferences = application.getRequestedDates().subList(1, application.getRequestedDates().size());
+    private void handleLessPrioritizedSchoolInd(IndividualTourApplication application, int start) {
+        if(start >= application.getRequestedDates().size()){
+            // Eğer hiçbir slot atanamadıysa, başvuruyu "Pre-rejected" olarak işaretle
+            application.setApplicationStatus("Pre-rejected");
+            return;
+        }
+        List<RequestedDateTime> remainingPreferences = application.getRequestedDates().subList(start, application.getRequestedDates().size());
 
         for (RequestedDateTime requestedDateTime : remainingPreferences) {
             LocalDate requestedDate = requestedDateTime.getDate();
             TimeSlot requestedSlot = requestedDateTime.getTimeSlot();
 
-            // Aynı tarih ve zaman diliminde başka bir başvuru var mı kontrol et
-            IndividualTourApplication conflictingApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlot(requestedDate, requestedSlot);
-
-            if (conflictingApplication == null) {
-                // Eğer slot boşsa, atama yap
-                application.setSelectedDate(requestedDate);
-                application.setSelectedTimeSlot(requestedSlot);
-                application.setApplicationStatus("Pending");
-                return; // Başarılı bir şekilde atandı
+            if (requestedDate == null || requestedSlot == null) {
+                continue; // Geçersiz tercihleri atla
             }
-        }
 
+            // Aynı tarih ve zaman diliminde başka bir başvuru var mı kontrol et
+            IndividualTourApplication conflictingApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlotAndStatus
+                    (requestedDate, requestedSlot, "Created");
+            IndividualTourApplication pendingApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlotAndStatus
+                    (requestedDate, requestedSlot, "Pending");
+            IndividualTourApplication approvedApplication = individualTourApplicationRepos.findIndBySelectedDateAndSelectedTimeSlotAndStatus
+                    (requestedDate, requestedSlot, "Approved");
+
+            if (pendingApplication != null || approvedApplication != null) {
+                // Eğer "Pending" veya "Approved" bir başvuru varsa, bu slotu koruyun ve diğer tercihlere geçin
+                continue;
+            }
+            if(conflictingApplication != null){
+                // Çatışma varsa, önceliklendirme yap
+                IndividualTourApplication prioritizedApplication = prioritizeSchoolInd(application, conflictingApplication);
+
+                if (prioritizedApplication == application) {
+                    // Daha düşük öncelikli uygulamayı işleme al
+                    handleLessPrioritizedSchoolInd(conflictingApplication, start +1);
+
+                    // Slot'u mevcut uygulamaya ata
+                    application.setSelectedDate(requestedDate);
+                    application.setSelectedTimeSlot(requestedSlot);
+                    application.setApplicationStatus("Pending");
+                    return;
+                }
+                else{
+                    // Eğer çakışma yaşayan başvuru daha yüksek öncelikliyse, mevcut başvuru için diğer tercihlere bak
+                    continue;
+                }
+            }
+            // Eğer slot boşsa, atama yap
+            application.setSelectedDate(requestedDate);
+            application.setSelectedTimeSlot(requestedSlot);
+            application.setApplicationStatus("Pending");
+            return; // Başarılı bir şekilde atandı
+
+        }
         // Eğer hiçbir slot atanamadıysa, başvuruyu "Pre-rejected" olarak işaretle
         application.setApplicationStatus("Pre-rejected");
     }

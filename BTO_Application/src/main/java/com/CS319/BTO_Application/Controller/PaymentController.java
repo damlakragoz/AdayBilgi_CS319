@@ -67,11 +67,13 @@ public class PaymentController {
     }
 
     @GetMapping("/pending/getAll")
-    public ResponseEntity<?> getAllPendingPayments() {
+    public ResponseEntity<?> getAllPendingAndUpdatedPayments() {
         try {
-            return ResponseEntity.ok(paymentService.getAllPendingPayments());
+            return ResponseEntity.ok(paymentService.getAllPendingAndUpdatedPayments());
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
         }
     }
+
+
 }

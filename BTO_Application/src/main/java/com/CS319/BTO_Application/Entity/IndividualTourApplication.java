@@ -28,6 +28,4 @@ public class IndividualTourApplication extends TourApplication {
     @Column(name = "extra_info", nullable = true)
     private String extraInformation; // Any extra information from the applicant
 
-    @Column(name = "visitor_count")
-    private Integer visitorCount;
 }
