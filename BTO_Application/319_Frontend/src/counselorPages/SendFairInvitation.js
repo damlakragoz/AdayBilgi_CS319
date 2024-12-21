@@ -42,37 +42,42 @@ const SendFairInvitation = () => {
             counselorUsername: counselorUsername,
         };
 
-        try {
-            const response = await axios.post(
-                "http://localhost:8081/api/fair-invitations/add",
-                requestData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                    withCredentials: true,
-                }
-            );
-            if (response.status === 201) {
-                alert("Fuar davetiyesi başarıyla oluşturuldu!");
+        if(requestData.fairInvitation.fairStartDate==null || requestData.fairInvitation.fairEndDate==null) {
+            alert("Lütfen fuar başlangıç ve bitiş saati seçiniz!");
+        }
+        else {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8081/api/fair-invitations/add",
+                    requestData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
+                        withCredentials: true,
+                    }
+                );
+                if (response.status === 201) {
+                    alert("Fuar davetiyesi başarıyla oluşturuldu!");
 
-                setFairEndDate(null)
-                setFairStartDate(null)
-            } else if (response.status === 409) {
-                alert("Bu tarihlerde zaten bir davetiye mevcut.");
-            } else {
-                alert("Davetiyeyi gönderirken bir hata oluştu.");
+                    setFairEndDate(null)
+                    setFairStartDate(null)
+                } else if (response.status === 409) {
+                    alert("Bu tarihlerde zaten bir davetiye mevcut.");
+                } else {
+                    alert("Davetiyeyi gönderirken bir hata oluştu.");
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 409) {
+                    alert("Bu tarihlerde zaten bir davetiye mevcut.");
+                } else if (error.response && error.response.status === 404) {
+                    alert("Counselor bulunamadı.");
+                } else {
+                    alert("Davetiyeyi gönderirken bir hata oluştu.");
+                }
+                console.error("Error submitting fair invitation:", error);
             }
-        } catch (error) {
-            if (error.response && error.response.status === 409) {
-                alert("Bu tarihlerde zaten bir davetiye mevcut.");
-            } else if (error.response && error.response.status === 404) {
-                alert("Counselor bulunamadı.");
-            } else {
-                alert("Davetiyeyi gönderirken bir hata oluştu.");
-            }
-            console.error("Error submitting fair invitation:", error);
         }
     };
 
@@ -105,8 +110,8 @@ const SendFairInvitation = () => {
                 <p className="selected-dates-container">
                     <span className="selected-dates-title">Seçilen Tarihler:</span>
                     <br/>
-                    {fairStartDate?.toLocaleDateString("tr-TR") || "--"} -{" "}
-                    {fairEndDate?.toLocaleDateString("tr-TR") || "--"}
+                    {fairStartDate?.toLocaleDateString("tr-TR") || "__"} -{" "}
+                    {fairEndDate?.toLocaleDateString("tr-TR") || "__"}
                 </p>
 
             </div>

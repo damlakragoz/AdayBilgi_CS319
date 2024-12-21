@@ -10,7 +10,7 @@ const statusMap = {
   "approved": "Onaylandı",
   "rejected": "Reddedildi",
   "cancelled": "İptal Edildi",
-  "Finished": "Tamamlandı",
+  "finished": "Tamamlandı",
   "not_specified": "-",
 };
 
@@ -37,7 +37,15 @@ const FairInvitationsPage = () => {
           withCredentials: true,
         });
         console.log(response.data);
-        setData(response.data);
+
+        const counselorEmail = localStorage.getItem("username").toLowerCase();
+        const filteredInvitations = response.data.filter(
+            (invitation) => invitation.applyingCounselor.email &&
+                            invitation.applyingCounselor.email.toLowerCase() === counselorEmail
+        );
+        console.log(filteredInvitations)
+
+        setData(filteredInvitations);
       } catch (error) {
         if (!shownError) {
           console.error('Error fetching data:', error);
