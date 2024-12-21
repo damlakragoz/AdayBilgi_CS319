@@ -172,7 +172,7 @@ const TourGuidePuantage = () => {
 
       <div className="tour-list-container">
         <h3>
-          Tours for {selectedDate.toLocaleDateString("tr-TR")}
+          {selectedDate.toLocaleDateString("tr-TR")} Tarihindeki Turlar:
         </h3>
         {filteredTours.length > 0 ? (
           <ul>
@@ -203,7 +203,7 @@ const TourGuidePuantage = () => {
             ))}
           </ul>
         ) : (
-          <p>No tours available for the selected date.</p>
+          <p>Seçilen tarihe ait tur bulunamamıştır.</p>
         )}
       </div>
 
@@ -260,7 +260,7 @@ const TourGuidePuantage = () => {
             cursor: "pointer",
           }}
         >
-          View Puantage Table
+          Puantaj Tablosunu Gör
         </button>
       </div>
     </div>
