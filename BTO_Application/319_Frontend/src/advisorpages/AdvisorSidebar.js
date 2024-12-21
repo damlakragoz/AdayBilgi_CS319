@@ -18,12 +18,23 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 <i className="fas fa-times close-icon" onClick={toggleSidebar}></i>
             </div>
             <ul className="nav flex-column">
+                <li>
+                    <a className="sidebar-subtitle">
+                        <i className="fas fa-user-cog"></i> Kullanıcı İşlemleri
+                    </a>
+                </li>
                 {/* Başvur-Tur Takvimi */}
                 <li>
                     <Link to="/advisor-tourenrollment" className="nav-link text-white">
                         <i className="fas fa-calendar-alt"></i> Başvur-Tur Takvimi
                     </Link>
                 </li>
+                <li>
+                    <Link to="/advisor-all-fairs" className="nav-link text-white">
+                        <i className="fas fa-briefcase"></i> Fuar Takvimi - Başvur
+                    </Link>
+                </li>
+
 
                 {/* Puantaj-Aktivite Giriş */}
                 <li>
@@ -38,6 +49,8 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-clipboard-list"></i> Turdan Çekilme İstekleri
                     </Link>
                 </li>
+
+                <hr/>
 
                 {/* Çıkış Yap */}
                 <li>
