@@ -20,42 +20,61 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                 <i className="fas fa-times close-icon" onClick={toggleSidebar}></i>
             </div>
             <ul className="nav flex-column">
-                {/* Subtitle: My Tours */}
+                {/* Subtitle: Kullanıcı İşlemleri */}
                 <li>
                     <Link to="/kullanici-islemleri" className="sidebar-subtitle">
-                        Kullanıcı İşlemleri
+                        <i className="fas fa-user-cog"></i> Kullanıcı İşlemleri
                     </Link>
                 </li>
-                <li><Link to="/tourguide-tourenrollment" className="nav-link text-white">
-                    Tur Takvimi - Başvur
-                </Link></li>
-                <li><Link to="/tourguide-all-fairs" className="nav-link text-white">
-                    Fuar Takvimi - Başvur
-                </Link></li>
-                <li><Link to="/tourguide-puantage" className="nav-link text-white">
-                Aktivite Giriş - Puantaj
-                </Link></li>
+                <li>
+                    <Link to="/tourguide-tourenrollment" className="nav-link text-white">
+                        <i className="fas fa-calendar-alt"></i> Turlara Başvur/Tur Takvimi
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/tourguide-all-fairs" className="nav-link text-white">
+                        <i className="fas fa-briefcase"></i> Fuara Başvur
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/basvur-diger" className="nav-link text-white">
+                        <i className="fas fa-ellipsis-h"></i> Diğer
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/tourguide-puantage" className="nav-link text-white">
+                        <i className="fas fa-edit"></i> Puantaj-Aktivite Giriş
+                    </Link>
+                </li>
 
                 <br />
-                {/* Subtitle: Notifications */}
+                {/* Subtitle: Bildirimler */}
                 <li>
                     <Link to="/tourguide-notifications" className="sidebar-subtitle">
-                        Bildirimler
+                        <i className="fas fa-bell"></i> Bildirimler
                     </Link>
                 </li>
+                <li>
+                    <Link to="/messages" className="nav-link text-white">
+                        <i className="fas fa-envelope"></i> Mesajlarım
+                    </Link>
+                </li>
+
                 <br />
                 {/* Subtitle: Resources */}
                 <li>
-                        Kaynaklar
+                    <Link to="/resources" className="sidebar-subtitle">
+                        <i className="fas fa-book"></i> Kaynaklar
+                    </Link>
                 </li>
                 <li>
                     <Link to="/tour-guidelines" className="nav-link text-white">
-                        Tur Kılavuzları
+                        <i className="fas fa-map-signs"></i> Tur Kılavuzları
                     </Link>
                 </li>
                 <li>
                     <Link to="/faqs" className="nav-link text-white">
-                        Sıkça Sorulan Sorular
+                        <i className="fas fa-question-circle"></i> Sıkça Sorulan Sorular
                     </Link>
                 </li>
 
@@ -63,15 +82,14 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Settings and Logout */}
                 <li>
                     <Link to="/settings" className="nav-link text-white">
-                        Ayarlar
+                        <i className="fas fa-cogs"></i> Ayarlar
                     </Link>
                 </li>
                 <li>
                     <a onClick={handleLogout} className="nav-link text-white">
-                        Çıkış Yap
+                        <i className="fas fa-sign-out-alt"></i> Çıkış Yap
                     </a>
                 </li>
-
             </ul>
         </div>
     );

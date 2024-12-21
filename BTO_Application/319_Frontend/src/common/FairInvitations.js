@@ -10,7 +10,7 @@ const statusMap = {
   "approved": "Onaylandı",
   "rejected": "Reddedildi",
   "cancelled": "İptal Edildi",
-  "Finished": "Tamamlandı",
+  "finished": "Tamamlandı",
   "not_specified": "-",
 };
 
