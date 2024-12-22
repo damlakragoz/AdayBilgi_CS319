@@ -135,8 +135,8 @@ const TourGuideHeader = ({ toggleSidebar }) => {
                 <a href="/tur-rehberi-anasayfa" className="nav-link">
                     Anasayfa
                 </a>
-                <a href="/kullanici-islemleri" className="nav-link">
-                    Kullanıcı İşlemleri
+                <a href="/tourguide-all-fairs" className="nav-link">
+                    Güncel Fuarlar
                 </a>
                 <a href="/tourguide-all-tours" className="nav-link">
                     Güncel Turlar
