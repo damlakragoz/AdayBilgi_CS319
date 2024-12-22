@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../common/Sidebar.css";
 import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
     const navigate = useNavigate();
-
+    const [profilePictureUrl, setProfilePictureUrl] = useState(
+        localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
+    );
     const handleLogout = () => {
         localStorage.clear();
         setProfilePictureUrl(defaultProfilePicture);
@@ -26,7 +28,7 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Başvur-Tur Takvimi */}
                 <li>
                     <Link to="/advisor-tourenrollment" className="nav-link text-white">
-                        <i className="fas fa-calendar-alt"></i> Başvur-Tur Takvimi
+                        <i className="fas fa-calendar-alt"></i> Tur Takvimi - Başvur
                     </Link>
                 </li>
                 <li>
@@ -39,7 +41,7 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Puantaj-Aktivite Giriş */}
                 <li>
                     <Link to="/advisor-puantage" className="nav-link text-white">
-                        <i className="fas fa-edit"></i> Puantaj-Aktivite Giriş
+                        <i className="fas fa-edit"></i> Puantaj - Aktivite Giriş
                     </Link>
                 </li>
 
@@ -53,6 +55,11 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 <hr/>
 
                 {/* Çıkış Yap */}
+                <li>
+                    <Link to="/danisman-ayarlar" className="nav-link text-white">
+                        <i className="fas fa-cogs"></i> Ayarlar
+                    </Link>
+                </li>
                 <li>
                     <a onClick={handleLogout} className="nav-link text-white">
                         <i className="fas fa-sign-out-alt"></i> Çıkış Yap
