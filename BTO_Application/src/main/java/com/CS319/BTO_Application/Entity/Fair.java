@@ -113,4 +113,41 @@ public class Fair {
         }
         return assignedGuideToFair.getFirstName();
     }
+
+    public String getApplyingHighschoolName(){
+        if(applyingHighschool == null){
+            return null;
+        }
+        return applyingHighschool.getSchoolName();
+    }
+
+    public String getApplyingCounselorFirstName(){
+        if(fairInvitation == null){
+            return null;
+        }
+        if(fairInvitation.getApplyingCounselor() == null){
+            return null;
+        }
+        return fairInvitation.getApplyingCounselor().getFirstName();
+    }
+
+    public String getApplyingCounselorLastName(){
+        if(fairInvitation == null){
+            return null;
+        }
+        if(fairInvitation.getApplyingCounselor() == null){
+            return null;
+        }
+        return fairInvitation.getApplyingCounselor().getLastName();
+    }
+
+    public String getApplyingCounselorEmail(){
+        if(fairInvitation == null){
+            return null;
+        }
+        if(fairInvitation.getApplyingCounselor() == null){
+            return null;
+        }
+        return fairInvitation.getApplyingCounselor().getEmail();
+    }
 }
