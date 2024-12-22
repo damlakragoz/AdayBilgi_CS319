@@ -13,6 +13,18 @@ const timeSlots = [
     { id: "SLOT_14_15", displayName: "14:00-15:00" },
 ];
 
+// Tur durumlarını Türkçe'ye çevirmek için bir eşleme tablosu
+const statusTranslations = {
+    "Approved": " Onaylandı",
+    "Rejected": " Reddedildi",
+    "Canceled": " İptal edildi",
+    "Withdrawn": " Turdan Çekilindi",
+    "WithdrawRequested": " Çekilme Talep Edildi",
+    "GuideAssigned": " Rehber Atandı",
+    "AdvisorAssigned": " Danışman Atandı",
+    "Finished": " Tamamlandı",
+};
+
 const ManagerTourSchedule = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [tours, setTours] = useState([]);
@@ -37,6 +49,11 @@ const ManagerTourSchedule = () => {
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+    };
+
+    // Durumu Türkçe'ye çeviren fonksiyon
+    const translateStatusToTurkish = (status) => {
+        return statusTranslations[status] || status; // Eğer durum bulunamazsa orijinal değeri döndür
     };
 
     const fetchTours = async () => {
@@ -204,9 +221,12 @@ const ManagerTourSchedule = () => {
                                             margin: "0.5rem 0",
                                         }}
                                     >
-                                        <strong>Visitor Count:</strong> {tour.visitorCount}
+                                        <strong>Ziyaretçi Sayısı:</strong> {tour.visitorCount}
                                         <br />
-                                        <strong>Tour Status:</strong> {tour.tourStatus}
+                                        <strong>Tur Durumu:</strong>
+                                            {(tour.tourStatus === "Rejected" && tour.assignedGuideEmail != null )? " İptal Edildi" : translateStatusToTurkish(tour.tourStatus)}
+                                        <br/>
+                                        <strong>Tur Rehberi E-mail:</strong> {tour.assignedGuideEmail}
                                         <br />
                                         {tour.tourStatus === "Pending" && (
                                             <button
