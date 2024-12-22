@@ -15,6 +15,7 @@ const TourGuideHeader = ({ toggleSidebar }) => {
     const [profilePictureUrl, setProfilePictureUrl] = useState(
         localStorage.getItem("profilePictureUrl") || defaultProfilePicture
     );
+    const [user, setUser] = useState(null); // State to store user data
 
     useEffect(() => {
         const fetchProfilePicture = async () => {
@@ -86,6 +87,34 @@ const TourGuideHeader = ({ toggleSidebar }) => {
         fetchProfilePicture();
     }, [localStorage.getItem("username")]);
 
+    useEffect(() => {
+        // Function to fetch user details
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                    navigate("/login"); // Redirect to login if no token
+                    return;
+                }
+
+                const email = localStorage.getItem("username");
+                const response = await axios.get("http://localhost:8081/api/users/getByEmail", {
+                    params: { email: email, },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                setUser(response.data); // Set user data from the API response
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                navigate("/login"); // Redirect to login on error
+            }
+        };
+
+        fetchUserData();
+    }, [navigate]);
+
     const handleLogout = () => {
         localStorage.clear();
         setProfilePictureUrl(defaultProfilePicture);
@@ -128,8 +157,10 @@ const TourGuideHeader = ({ toggleSidebar }) => {
                             className="user-avatar"
                         />
                         <div>
-                            <span className="user-name">{localStorage.username}</span>
-                            <div className="role">{localStorage.role}</div>
+                            <span
+                                className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
+                            <div
+                                className="role">{localStorage.role == "TourGuide" ? "Tur Rehberi" : localStorage.role}</div>
                         </div>
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>
