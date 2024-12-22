@@ -1,16 +1,14 @@
 import React from "react";
 import { Link , useNavigate} from "react-router-dom"; // Use Link for navigation
-import "../common/Sidebar.css"; // Update path if necessary
+import "../common/Sidebar.css";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg"; // Update path if necessary
 
 const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear authentication data (example: localStorage or context)
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("role"); // Adjust this as per your authentication logic
-        // Redirect to login page
+        localStorage.clear();
+        setProfilePictureUrl(defaultProfilePicture);
         navigate("/login");
     };
 
@@ -52,7 +50,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
 
-                <br />
+                <br/>
                 {/* Subtitle: Yaklaşan Etkinlikler */}
                 <li>
                     <span className="sidebar-subtitle">
@@ -75,7 +73,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
 
-                <br />
+                <br/>
                 {/* Subtitle: Performans Analizi */}
                 <li>
                     <span className="sidebar-subtitle">
@@ -92,11 +90,10 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-comments"></i> Geribildirimler
                     </Link>
                 </li>
-
-                <hr />
+                <hr/>
                 {/* Settings and Logout */}
                 <li>
-                    <Link to="/ayarlar" className="nav-link text-white">
+                    <Link to="/koordinator-ayarlar" className="nav-link text-white">
                         <i className="fas fa-cogs"></i> Ayarlar
                     </Link>
                 </li>

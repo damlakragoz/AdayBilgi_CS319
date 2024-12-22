@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./AddTourGuideForm.css";
 
 const departments = [
@@ -62,12 +64,9 @@ const AddTourGuideForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Input Validation: Ensure all fields are filled
-    for (const key in formData) {
-      if (!formData[key]) {
-        alert("Lütfen tüm alanları doldurunuz! (" + key + " boş bırakıldı.)");
-        return;
-      }
+    if (!validateForm()) {
+      toast.error("Lütfen tüm alanları doğru şekilde doldurun!");
+      return;
     }
 
     if (validateForm()) {
@@ -81,37 +80,37 @@ const AddTourGuideForm = () => {
     try {
       const token = localStorage.getItem("userToken");
       if (!token) {
-        alert("Authorization token missing. Please log in.");
+        toast.error("Yetkilendirme eksik. Lütfen tekrar giriş yapınız.");
         return;
       }
 
-      const body = { email, firstName, lastName, phoneNumber, department, grade: parseInt(grade), iban };
+      const body = {
+        ...formData,
+        grade: parseInt(formData.grade, 10),
+      };
 
       const response = await axios.post(
           "http://localhost:8081/api/tourguide/register",
           body,
-          { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
+          { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      console.log("Success:", response.data);
-      alert("Tur rehberi başarıyla eklendi!");
-
+      toast.success("Tur rehberi başarıyla eklendi!");
       setFormData({
         email: "",
         firstName: "",
         lastName: "",
         phoneNumber: "",
         department: "",
-        grade: 1, // Reset grade to 1
+        grade: 1,
         iban: "",
       });
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        // Show popup if user already exists
-        alert("Bu e-mail adresine sahip bir tur rehberi bulunmaktadır!");
+        toast.error("Bu e-mail adresine sahip bir tur rehberi bulunmaktadır!");
       } else {
-        console.error("Error:", error.response ? error.response.data : error.message);
-        alert("Bir hata oluştu. LÜtfen tekrar deneyin.");
+        console.error("Error:", error);
+        toast.error("Bir hata oluştu. Lütfen tekrar deneyin.");
       }
     }
   };
@@ -127,6 +126,7 @@ const AddTourGuideForm = () => {
       iban: "",
     });
     console.log("Form reset");
+    toast.info("Form sıfırlandı.");
   };
 
   return (
@@ -134,7 +134,7 @@ const AddTourGuideForm = () => {
         <h2>Yeni Rehber Ekle</h2>
         <form onSubmit={handleSubmit}>
           {/* Bilkent Email */}
-          <label>Bilkent Email</label>
+          <label>Bilkent E-mail</label>
           <input
               type="email"
               name="email"
@@ -217,8 +217,8 @@ const AddTourGuideForm = () => {
 
           {/* Buttons */}
           <div className="button-group">
-            <button type="submit" className="submit-button">Ekle</button>
             <button type="button" className="cancel-button" onClick={handleCancel}>İptal</button>
+            <button type="submit" className="submit-button">Ekle</button>
           </div>
         </form>
       </div>

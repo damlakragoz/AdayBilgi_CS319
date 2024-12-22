@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const AdvisorHeader = ({ toggleSidebar }) => {
     const navigate = useNavigate();
@@ -50,12 +51,11 @@ const AdvisorHeader = ({ toggleSidebar }) => {
         };
 
         fetchNotifications();
-    }, []);
+    }, [localStorage.getItem("username")]);
 
     const handleLogout = () => {
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("role");
+        localStorage.clear();
+        setProfilePictureUrl(defaultProfilePicture);
         navigate("/login");
     };
 
@@ -86,7 +86,7 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>
                     <div className="dropdown-menu">
-                        <a href="/advisor-change-password">Şifremi Değiştir</a>
+                        <a href="/danisman-sifre-degistir">Şifremi Değiştir</a>
                         <a onClick={handleLogout}>Çıkış Yap</a>
                     </div>
                 </div>

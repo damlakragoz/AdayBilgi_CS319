@@ -26,45 +26,33 @@ const LoginPage = () => {
         e.preventDefault();
 
         if (loginData.username.trim() === '' || loginData.password.trim() === '') {
-            toast.warn('Lütfen kullanıcı adı ve şifre alanlarını doldurun.', { position: 'top-center' });
+            toast.warn('Lütfen kullanıcı adı ve şifre alanlarını doldurun.');
             return;
         }
 
         try {
-            // Send a POST request to the backend login endpoint
             const response = await axios.post('/api/auth/login', {
-                username: loginData.username,  // Assuming the backend expects 'username' instead of 'email'
+                username: loginData.username,
                 password: loginData.password,
             });
 
             const roleResponse = await axios.post('/api/auth/user-role', {
-                username: loginData.username,  // Assuming the backend expects 'username' instead of 'email'
+                username: loginData.username,
                 password: loginData.password,
             });
+
             const role = roleResponse.data;
 
-            // If login is successful, store the JWT token in localStorage
             if (response.status === 200 && response.data.token) {
-                const token = typeof response.data === 'string' ? response.data : response.data.token;
-                const username = response.data.username;
-                console.log(token);
-                // Store the JWT token and username in localStorage
+                const token = response.data.token;
                 localStorage.setItem('userToken', token);
-                localStorage.setItem('username', loginData.username); // Save the username
+                localStorage.setItem('username', loginData.username);
                 localStorage.setItem('role', role);
 
-//                axios.defaults.headers.common['Authorization'] = Bearer ${token}; // Set token for future requests
-
-                // Log for debugging
-                console.log('Token stored in localStorage:', token);
-                console.log('Username stored in localStorage:', loginData.username);
-                console.log('Role:', role);
-
-                // Navigate based on the user's role
+                console.log('Role:', role); // Log the role for debugging
                 switch (role) {
                     case 'Coordinator':
                         navigate('/coordinator-homepage');
-                        console.log('COORDINATOR to applications page');
                         break;
                     case 'Counselor':
                         navigate('/counselor-homepage');
@@ -79,19 +67,22 @@ const LoginPage = () => {
                         navigate('/advisor-homepage');
                         break;
                     default:
-                        navigate('/applications'); // Fallback if the role is unknown
+                        toast.error('Rolünüz tanımlanamadı. Lütfen yöneticinizle iletişime geçin.');
+                        console.error('Unhandled role:', role);
+                        navigate('/applications');
                         break;
                 }
             } else {
-                toast.error('Giriş başarısız. E-mail veya şifrenizi doğru girdiğinizden emin olun.', { position: 'top-center' });
+                toast.error('Giriş başarısız. E-mail veya şifrenizi doğru girdiğinizden emin olun.');
             }
         } catch (err) {
+            console.error('Login Error:', err);
             if (err.response && err.response.status === 401) {
-                toast.error('Geçersiz kullanıcı adı veya şifre', { position: 'top-center' });
+                toast.error('Geçersiz kullanıcı adı veya şifre');
             } else if (err.response && err.response.status === 500) {
-                toast.error('Sunucu hatası. Lütfen daha sonra tekrar deneyin.', { position: 'top-center' });
+                toast.error('Sunucu hatası. Lütfen daha sonra tekrar deneyin.');
             } else {
-                toast.error('Bilinmeyen bir hata oluştu.', { position: 'top-center' });
+                toast.error('Bilinmeyen bir hata oluştu.');
             }
         }
     };

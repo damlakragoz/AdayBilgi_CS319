@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Use Link for navigation
-import "../common/Sidebar.css"; // Update path if necessary
+import "../common/Sidebar.css";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg"; // Update path if necessary
+
+const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+};
 
 const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
     return (
@@ -78,14 +84,14 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                 <hr/>
                 {/* Settings and Logout */}
                 <li>
-                    <Link to="/ayarlar" className="nav-link text-white">
+                    <Link to="/yonetici-ayarlar" className="nav-link text-white">
                         <i className="fas fa-cogs"></i> Ayarlar
                     </Link>
                 </li>
-                <li>
-                    <Link to="/logout" className="nav-link text-white">
+                <li className="nav-item">
+                    <a onClick={handleLogout} className="nav-link text-white">
                         <i className="fas fa-sign-out-alt"></i> Çıkış Yap
-                    </Link>
+                    </a>
                 </li>
             </ul>
         </div>

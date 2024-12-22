@@ -7,11 +7,7 @@ const CounselorSidebar = ({ isOpen, toggleSidebar }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear authentication data (example: localStorage or context)
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("role"); // Adjust this as per your authentication logic
-        // Redirect to login page
+        localStorage.clear();
         navigate("/login");
     };
     return (
@@ -66,7 +62,7 @@ const CounselorSidebar = ({ isOpen, toggleSidebar }) => {
 
                 {/* Ayarlar */}
                 <li className="nav-item">
-                    <Link to="/settings" className="nav-link text-white">
+                    <Link to="/ogretmen-ayarlar" className="nav-link text-white">
                         <i className="fas fa-cogs"></i> Ayarlar
                     </Link>
                 </li>

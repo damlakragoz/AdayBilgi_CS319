@@ -1,27 +1,23 @@
 .header {
-    position: fixed; /* Make the navbar fixed at the top */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;     /* Make it span the entire width of the page */
-    z-index: 1000;   /* Ensure it stays above other content */
+    width: 100%;
+    z-index: 1000;
     display: flex;
-    font-family: 'Poppins', sans-serif;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--dark-blue); /* Keep the original header color */
+    background-color: var(--dark-blue);
     padding: 10px 20px;
     color: white;
     height: 60px;
 }
-/*body {
-    padding-top: 60px;  Add padding to prevent content from overlapping the fixed navbar
-}*/
 
 .header h1 {
-    font-size: 18px; /* Adjust the size as needed */
-    font-weight: 600; /* Keep it bold but reduce weight slightly */
-    margin: 0; /* Remove any default margin */
-    color: white; /* Ensure text color matches the header */
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: white;
 }
 
 .header .logo {
@@ -58,12 +54,55 @@
     border-radius: 50%;
     border: 2px solid white;
     object-fit: cover;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .user-name {
     font-weight: bold;
     font-size: 14px;
 }
+
+.role {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.user-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--gray);
+    color: black;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 100;
+    width: 150px;
+}
+
+.user-dropdown .dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+.user-dropdown .dropdown-menu a:hover {
+    background-color: var(--deep-blue);
+    color: white !important;
+}
+
 
 .role {
     font-size: 12px;

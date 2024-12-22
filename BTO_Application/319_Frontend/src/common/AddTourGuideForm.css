@@ -1,94 +1,138 @@
+/* General form container styling */
 .add-tour-guide-form {
-  max-width: 400px;
-  margin: 60px auto;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: var(--white);
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 1.5rem;
+  border-radius: 15px;
+  background: var(--white);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark-gray);
 }
 
+/* Title */
 .add-tour-guide-form h2 {
   text-align: center;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--dark-blue);
+  margin-bottom: 1.5rem;
 }
 
+/* Labels */
 .add-tour-guide-form label {
   display: block;
-  margin-top: 10px;
-  font-weight: bold;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--dark-gray);
+  margin-bottom: 0.5rem;
 }
 
-.add-tour-guide-form input {
-  display: block;
-  margin-top: 10px;
-}
-
-.add-tour-guide-form input {
+/* Inputs and selects */
+.add-tour-guide-form input,
+.add-tour-guide-form select {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background: var(--background-light);
 }
 
+.add-tour-guide-form input:focus,
+.add-tour-guide-form select:focus {
+  border-color: var(--dark-blue);
+  box-shadow: 0 0 5px rgba(0, 40, 85, 0.2);
+  outline: none;
+}
+
+/* Placeholder styling for a more modern look */
+.add-tour-guide-form input::placeholder,
+.add-tour-guide-form select::placeholder {
+  color: #aaa;
+}
+
+/* Error messages */
+.error {
+  color: var(--my-red);
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
 .button-group {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
-  margin-top: 20px;
-  gap: 10px; /* Add spacing between buttons */
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.submit-button {
-  background-color: var(--dark-blue);;
-  color: white;
+.submit-button,
+.cancel-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
   border: none;
-  padding: 8px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-.cancel-button:hover,
+/* Submit button */
+.submit-button {
+  background: var(--dark-blue);
+  color: var(--white);
+}
+
 .submit-button:hover {
-  opacity: 0.9;
+  background: var(--deep-blue);
 }
 
+/* Cancel button */
+.cancel-button {
+  background: var(--my-red);
+  color: var(--white);
+}
 
-/* Style the select element to look like a text input */
+.cancel-button:hover {
+  background: #c33;
+}
+
+/* Select dropdown styling */
 select {
-  appearance: none; /* Removes default OS-specific styling */
-  -webkit-appearance: none; /* For Safari/Chrome */
-  -moz-appearance: none; /* For Firefox */
-  background-color: #fff; /* White background */
-  border: 1px solid #ccc; /* Match input border */
-  border-radius: 4px; /* Match input border radius */
-  padding: 10px; /* Match input padding */
-  font-size: 14px; /* Match font size */
-  color: #555; /* Text color */
-  outline: none; /* Remove outline */
-  width: 100%; /* Take up full width like input boxes */
-  cursor: pointer; /* Pointer cursor */
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight inner shadow */
+  appearance: none;
+  position: relative;
+  background: var(--background-light);
+  cursor: pointer;
 }
 
-/* Add a caret to mimic a dropdown */
 select::after {
-  content: "▼";
+  content: '▼';
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
 }
 
-/* On hover and focus */
-select:hover,
-select:focus {
-  border-color: #888;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
+/* Modern styling for mobile devices */
+@media (max-width: 768px) {
+  .add-tour-guide-form {
+    padding: 1.5rem;
+    margin: 20px;
+  }
 
-/* Disable option styling */
-select option {
-  font-size: 14px;
-  color: #333;
+  .submit-button,
+  .cancel-button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
 }

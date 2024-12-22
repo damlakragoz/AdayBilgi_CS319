@@ -1,16 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../common/Sidebar.css";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear authentication data (example: localStorage or context)
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("role"); // Adjust this as per your authentication logic
-        // Redirect to login page
+        localStorage.clear();
+        setProfilePictureUrl(defaultProfilePicture);
         navigate("/login");
     };
 
@@ -81,7 +79,7 @@ const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
                 <hr />
                 {/* Settings and Logout */}
                 <li>
-                    <Link to="/settings" className="nav-link text-white">
+                    <Link to="/tur-rehberi-ayarlar" className="nav-link text-white">
                         <i className="fas fa-cogs"></i> Ayarlar
                     </Link>
                 </li>
