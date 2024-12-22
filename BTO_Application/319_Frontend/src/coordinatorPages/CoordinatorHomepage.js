@@ -14,18 +14,18 @@ const CoordinatorHomepage = () => {
             style={{
                 position: 'relative',
                 alignItems: 'center',
-                backgroundImage: 'url(/images/kampus4.jpg)',
-                backgroundSize: 'contain',
+                backgroundImage: 'url(/images/slider5.jpg)',
+                backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 height: '100vh',
-                width: '100%',
+                width: '100wh',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 textAlign: 'left',
                 overflow: 'hidden',
-                margin: 0,
+                margin: -20,
 
             }}
         >

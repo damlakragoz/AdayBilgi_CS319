@@ -1,14 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../common/Sidebar.css";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("role");
+        localStorage.clear();
+        setProfilePictureUrl(defaultProfilePicture);
         navigate("/login");
     };
 

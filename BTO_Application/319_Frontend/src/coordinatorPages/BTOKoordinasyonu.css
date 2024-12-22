@@ -10,6 +10,7 @@
 
 /* Header */
 .bto-container h1 {
+  font-weight: bolder;
   text-align: center;
   font-size: 2.5rem;
   color: var(--dark-blue);
@@ -17,9 +18,8 @@
 }
 
 .bto-container h2 {
-  font-family: 'Poppins', sans-serif; /* Clean and modern font */
   font-size: 28px; /* Larger font size for better emphasis */
-  font-weight: 600; /* Semi-bold for prominence */
+  font-weight: bold;
   color: var(--dark-blue); /* Match your theme color */
   margin-bottom: 20px; /* Adds spacing between the title and the content below */
   text-align: center; /* Centers the text */
@@ -29,7 +29,6 @@
   padding-bottom: 10px; /* Padding to make space between the text and the border */
 }
 .bto-container h3 {
-  font-family: 'Poppins', sans-serif; /* Clean and modern font */
   font-size: 26px; /* Larger font size for better emphasis */
   font-weight: 550; /* Semi-bold for prominence */
   color: var(--dark-blue); /* Match your theme color */

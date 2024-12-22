@@ -12,6 +12,8 @@ import ChangePassword from "./passwordPages/ChangePassword";
 import ForgotPassword from './passwordPages/ForgotPassword';
 import ResetPassword from './passwordPages/ResetPassword';
 import Statistics from "./statistics/Statistics";
+import ProfilePictureUpload from "./common/ProfilePictureUpload";
+import UserSettings from "./common/UserSettings"; // Adjust the path as needed
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -76,6 +78,11 @@ import AllTours from "./tourguidepages/AllTours";
 import AllFairs from "./tourguidepages/AllFairs";
 import CoordinatorPayments from "./coordinatorPages/CoordinatorPayments";
 import SubmitFairActivity from "./executivePages/SubmitFairActivity";
+import AdvisorSettings from "./advisorpages/AdvisorSettings";
+import ExecutiveSettings from "./executivePages/ExecutiveSettings";
+import CoordinatorSettings from "./coordinatorPages/CoordinatorSettings";
+import CounselorSettings from "./counselorPages/CounselorSettings";
+import TourGuideSettings from "./tourguidepages/TourGuideSettings";
 
 function App() {
   return (
@@ -107,6 +114,7 @@ function App() {
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CoordinatorLayout />}>
+                        <Route path="/koordinator-profil-foto" element={<ProfilePictureUpload />} />
                         <Route path="/coordinator-homepage" element={<CoordinatorHomepage />} />
                         <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
                         <Route path="/onay-bekleyen-islemler" element={<OnayBekleyen />} />
@@ -120,13 +128,15 @@ function App() {
                         <Route path="/koordinator-ekle" element={<AddCoordinatorForm />} />
                         <Route path="/geribildirimler/coordinator" element={<GeriBildirimlerManagerView />} />
                         <Route path="/coordinator-notifications" element={<CoordinatorNotifications />} />
-                        <Route path="/coordinator-change-password" element={<ChangePassword />} />
+                        <Route path="/koordinator-sifre-degistir" element={<ChangePassword />} />
                         <Route path="/coordinator-statistics" element={<Statistics />} />
                         <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
                         <Route path="/rehber-puantaj/coordinator" element={<PuantageTable />} />
+                        <Route path="/koordinator-ayarlar" element={<CoordinatorSettings />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
+                        <Route path="/yonetici-profil-foto" element={<ProfilePictureUpload />} />
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
                         <Route path="/onay-bekleyen-islemler/yonetici" element={<OnayBekleyen />} />
                         <Route path="/yaklasan-etkinlikler/yonetici" element={<YaklasanEtkinlikler />} />
@@ -134,7 +144,7 @@ function App() {
                         <Route path="/fuar-takvimi/yonetici" element={<FairSchedule />} />
                         <Route path="/tur-basvurulari/yonetici" element={<AllTourApplications />} />
                         <Route path="/bildirimler/yonetici" element={<ExecutiveNotifications />} />
-                        <Route path="/executive-change-password" element={<ChangePassword />} />
+                        <Route path="/yonetici-sifre-degistir" element={<ChangePassword />} />
                         <Route path="/istatistikler/yonetici" element={<Statistics />} />
                         <Route path="/tur-takvimi/yonetici" element={<ManagerTourSchedule />} />
                        <Route path="/bto-koordinasyonu/yonetici" element={<BtoKoordinasyonu />} />
@@ -142,9 +152,11 @@ function App() {
                         <Route path="/fuar-aktivite-giris/yonetici" element={<SubmitFairActivity />} />
                         <Route path="/rehber-puantaj/yonetici" element={<PuantageTable />} />
                        <Route path="/geribildirimler/yonetici" element={<GeriBildirimlerManagerView />} />
+                        <Route path="/yonetici-ayarlar" element={<ExecutiveSettings />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CounselorLayout />}>
+                        <Route path="/ogretmen-profil-foto" element={<ProfilePictureUpload />} />
                         <Route path="/applications" element={<CounselorDashboard />} />
                         <Route path="/" element={<CounselorDashboardContent/>}/>
                         <Route path="/anasayfa/rehber-ogretmen" element={<CounselorHomepage/>}/>
@@ -157,10 +169,12 @@ function App() {
                         <Route path="/fair-invitations" element={<FuarBasvurularim/>}/>
                         <Route path="/fuar-basvurularim" element={<FuarBasvurularim/>}/>
                         <Route path="/counselor-notifications" element={<CounselorNotifications />} />
-                        <Route path="/counselor-change-password" element={<ChangePassword />} />
+                        <Route path="/ogretmen-sifre-degistir" element={<ChangePassword />} />
+                        <Route path="/ogretmen-ayarlar" element={<CounselorSettings />} />
                     </Route>
                     {/* TourGuide Routes Wrapped in TourGuide */}
                     <Route element={<TourGuideLayout />}>
+                        <Route path="/tur-rehberi-profil-foto" element={<ProfilePictureUpload />} />
                         <Route path="/tur-rehberi-anasayfa" element={<TourGuideHomepage />} />
                         <Route path="/bto-koordinasyonu" element={<BtoKoordinasyonu />} />
                         <Route path="/tourguide-puantage" element={<TourGuidePuantage />} />
@@ -168,24 +182,27 @@ function App() {
                         <Route path="/tourguide-tourenrollment" element={<TourEnrollmentPage />} />
                         <Route path="/tourguide-puantage-table" element={<PuantageTable />} />
                         <Route path="/tourguide-notifications" element={<TourGuideNotifications />} />
-                        <Route path="/tourguide-change-password" element={<ChangePassword />} />
+                        <Route path="/tur-rehberi-sifre-degistir" element={<ChangePassword />} />
                         <Route path="/tourguide-all-tours" element={<AllTours />} />
                         <Route path="/tourguide-all-fairs" element={<AllFairs />} />
                         /*<Route path="/geribildirimler" element={<GeriBildirimler />} />*/
+                        <Route path="/tur-rehberi-ayarlar" element={<TourGuideSettings />} />
                     </Route>
 
                     {/* Advisor Routes Wrapped in AdvisorLayout */}
                     <Route element={<AdvisorLayout />}>
+                        <Route path="/danisman-profil-foto" element={<ProfilePictureUpload />} />
                         <Route path="/advisor-homepage" element={<AdvisorHomepage />} />
                         <Route path="/advisor-tour-schedule" element={<AdvisorTourSchedule />} />
                         <Route path="/onay-bekleyen-islemler/advisor" element={<AdvisorOnayBekleyen />} />
                         <Route path="/advisor-tourenrollment" element={<AdvisorTourEnrollmentPage />} />
                         <Route path="/withdraw-requests" element={<TourWithdrawRequests />} />
                         <Route path="/advisor-notifications" element={<AdvisorNotifications />} />
-                        <Route path="/advisor-change-password" element={<ChangePassword />} />
+                        <Route path="/danisman-sifre-degistir" element={<ChangePassword />} />
                         <Route path="/advisor-puantage-table" element={<PuantageTable />} />
                         <Route path="/advisor-all-tours" element={<AllTours />} />
                         <Route path="/advisor-puantage" element={<AdvisorPuantage />} />
+                        <Route path="/danisman-ayarlar" element={<AdvisorSettings />} />
                         <Route path="/advisor-all-fairs" element={<AllFairs />} />
                     </Route>
                   </Routes>

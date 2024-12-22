@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const AdvisorHeader = ({ toggleSidebar }) => {
     const [user, setUser] = useState(null); // State to store user data
@@ -51,7 +52,7 @@ const AdvisorHeader = ({ toggleSidebar }) => {
         };
 
         fetchNotifications();
-    }, []);
+    }, [localStorage.getItem("username")]);
 
      useEffect(() => {
         // Function to fetch user details
@@ -82,9 +83,8 @@ const AdvisorHeader = ({ toggleSidebar }) => {
     }, [navigate]);
 
     const handleLogout = () => {
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("username");
-        localStorage.removeItem("role");
+        localStorage.clear();
+        setProfilePictureUrl(defaultProfilePicture);
         navigate("/login");
     };
 
@@ -98,6 +98,9 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                 </Link>
             </div>
             <div className="nav-links">
+                <a href="/advisor-homepage" className="nav-link">
+                    Anasayfa
+                </a>
                 <Link to="/onay-bekleyen-islemler/advisor" className="nav-link">Onay Bekleyen İşlemler</Link>
                 <Link to="/advisor-tourenrollment" className="nav-link">Güncel Turlar</Link>
                 <div className="notification-container">
@@ -116,16 +119,16 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                             className="user-avatar me-2"
                         />
                         <div>
-                            <span className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
-                            <div className="role">{localStorage.role== "Advisor" ? "Danışman" : localStorage.role}</div>
+                            <span
+                                className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
+                            <div
+                                className="role">{localStorage.role == "Advisor" ? "Danışman" : localStorage.role}</div>
                         </div>
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>
                     <div className="dropdown-menu">
-                        <a href="/advisor-change-password">Şifremi Değiştir</a>
-                        <a onClick={handleLogout}>
-                            Çıkış Yap
-                        </a>
+                        <a href="/danisman-sifre-degistir">Şifremi Değiştir</a>
+                        <a onClick={handleLogout}>Çıkış Yap</a>
                     </div>
                 </div>
 
