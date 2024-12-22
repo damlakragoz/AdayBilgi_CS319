@@ -184,6 +184,7 @@
     color: white;
     text-decoration: none;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .nav-link:hover {
@@ -205,6 +206,7 @@
     color: inherit; /* Makes the link inherit the color of its parent */
     display: flex; /* Ensures the logo and text are aligned */
     align-items: center;
+    cursor: pointer;
     gap: 10px; /* Optional: Adds spacing between the logo and the text */
 }
 
@@ -230,4 +232,8 @@
     padding: 1px 6px;
     font-size: 12px;
     font-weight: bold;
+}
+
+.header .fas.fa-bars {
+    cursor: pointer;
 }
