@@ -204,7 +204,7 @@ const AddTourGuideForm = () => {
             <input
               type="tel"
               name="phoneNumber"
-              placeholder="0 (5xx) xxx xxxx"
+              placeholder="(5xx) xxx xxxx"
               value={formData.phoneNumber}
               onChange={handleInputChange}
               required
