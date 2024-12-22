@@ -102,9 +102,49 @@ public class FairService {
         return fairRepos.findAll();
     }
 
-    public Fair submitFairActivity(Fair fair, double durationTime) {
+    public Fair submitFairActivityAsGuide(Fair fair, double durationTime) {
+        if(fair.getAssignedGuideToFair() != null){
+            TourGuide guide = fair.getAssignedGuideToFair();
+            guide.setWorkHours(guide.getWorkHours() + durationTime);
+        }
         fair.setDuration(durationTime);
         setStatusFinished(fair);
+        fair.getFairInvitation().setFairInvitationStatus("Finished");
+        return fair;
+    }
+
+    public Fair editFairActivityAsGuide(Fair fair, double durationTime) {
+        if(fair.getAssignedGuideToFair() != null){
+            TourGuide guide = fair.getAssignedGuideToFair();
+            if(fair.getFairStatus().equals("Finished")){
+                Double prevWorkhours = fair.getDuration();
+                guide.setWorkHours(guide.getWorkHours() - prevWorkhours);
+                guide.setWorkHours(guide.getWorkHours() + durationTime);
+            }
+        }
+        fair.setDuration(durationTime);
+        setStatusFinished(fair);
+        fair.getFairInvitation().setFairInvitationStatus("Finished");
+        return fair;
+    }
+
+    /*
+    this method is only called when the assigned guide to fair is null
+     */
+    public Fair submitFairActivityAsExecutive(Fair fair, double durationTime) {
+        fair.setDuration(durationTime);
+        setStatusFinished(fair);
+        fair.getFairInvitation().setFairInvitationStatus("Finished");
+        return fair;
+    }
+
+    /*
+    this method is only called when the assigned guide to fair is null
+     */
+    public Fair editFairActivityAsExecutive(Fair fair, double durationTime) {
+        fair.setDuration(durationTime);
+        setStatusFinished(fair);
+        fair.getFairInvitation().setFairInvitationStatus("Finished");
         return fair;
     }
 

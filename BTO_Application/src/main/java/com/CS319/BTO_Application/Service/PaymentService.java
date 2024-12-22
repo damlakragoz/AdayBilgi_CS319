@@ -113,18 +113,15 @@ public class PaymentService {
         if (existingPayment != null) {
             // Update the existing payment
             existingPayment.setAmount(fair.getDuration() * HOURLY_RATE_FAIR);
-            System.out.println("ccccccc");
             existingPayment.setApprovalDate(new Date()); // Update payment date
             existingPayment.setStatus("UPDATED");
             return paymentRepos.save(existingPayment);
         } else {
-            System.out.println("cxxxx");
             double amount = fair.getDuration() * HOURLY_RATE_FAIR;
 
             Payment newPayment = new Payment();
             newPayment.setTourGuide(tourGuide);
             newPayment.setAmount(amount);
-            newPayment.setApprovalDate(new Date());
             newPayment.setActivitySubmissionDate(new Date());
             newPayment.setStatus("PENDING");
             newPayment.setFairId(fairId);

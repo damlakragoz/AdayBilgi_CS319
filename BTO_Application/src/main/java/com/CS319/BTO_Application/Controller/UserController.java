@@ -357,7 +357,7 @@ public class UserController {
         }
         if(tourGuideService.getTourGuideByEmail(username).getEnrolledTours() != null){
             for(Tour tour: tourGuideService.getTourGuideByEmail(username).getEnrolledTours()){
-                if(tour.getTourStatus().equals("GuideAssigned") || tour.getTourStatus().equals("WithdrawRequested") || tour.getTourStatus().equals("Withdrawn")){
+                if(tour.getTourStatus().equals("GuideAssigned") || tour.getTourStatus().equals("WithdrawRequested") || tour.getTourStatus().equals("Withdrawn") || tour.getTourStatus().equals("AdvisorAssigned")){
                     return ResponseEntity.status(400).body("Bu emaildeki " + username + " rehberin bitmemiş turları var!");
                 }
             }

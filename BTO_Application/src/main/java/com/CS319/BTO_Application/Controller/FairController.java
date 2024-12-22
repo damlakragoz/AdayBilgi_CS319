@@ -120,7 +120,7 @@ public class FairController {
         }
     }
 
-    @PostMapping("/submit-activity-guide")
+    @PostMapping("/submit-fair-activity-guide")
     public ResponseEntity<?> submitFairActivityAsGuide(@RequestParam Long fairId,
                                                        @RequestParam String tourGuideEmail,
                                                        @RequestParam Double duration) {
@@ -152,7 +152,7 @@ public class FairController {
                         .body("Mismatch: The provided Tour Guide is not assigned to this fair.");
             }
 
-            Fair updatedFair = fairService.submitFairActivity(fair, duration);
+            Fair updatedFair = fairService.submitFairActivityAsGuide(fair, duration);
             paymentController.createPaymentForFair(tourGuideEmail, fairId);
 
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -176,7 +176,59 @@ public class FairController {
         }
     }
 
-    @PostMapping("/submit-activity-executive")
+    @PostMapping("/edit-fair-activity-guide")
+    public ResponseEntity<?> editFairActivityAsGuide(@RequestParam Long fairId,
+                                              @RequestParam String tourGuideEmail,
+                                              @RequestParam Double duration) {
+        try {
+            if (fairId == null || tourGuideEmail == null || duration <= 0) {
+                return ResponseEntity.badRequest()
+                        .body("Invalid input: Tour ID, Tour Guide ID, and duration must be provided, and duration should be greater than 0.");
+            }
+            Fair fair = fairService.getFairById(fairId);
+            TourGuide tourGuide = tourGuideService.getTourGuideByEmail(tourGuideEmail);
+
+            // Check if tour or tour guide does not exist
+            if (fair == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour with ID " + fairId + " not found.");
+            }
+            if (tourGuide == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Tour Guide with ID " + tourGuideEmail + " not found.");
+            }
+
+            // Check if the assigned guide matches
+            if (fair.getAssignedGuideEmail() == null || !fair.getAssignedGuideEmail().equals(tourGuide.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("Bu fuar bu rehbere atanmamış!.");
+            }
+
+            Fair updatedFair = fairService.editFairActivityAsGuide(fair, duration);
+            paymentController.createPaymentForTour(tourGuideEmail, fairId);
+
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(updatedFair);
+
+        } catch (EntityNotFoundException ex) {
+            // Log and return specific error if the entity isn't found
+            System.err.println("EntityNotFoundException: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Entity not found: " + ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            // Handle invalid arguments
+            System.err.println("IllegalArgumentException: " + ex.getMessage());
+            return ResponseEntity.badRequest()
+                    .body("Invalid input: " + ex.getMessage());
+        } catch (Exception ex) {
+            // General exception handling
+            System.err.println("Exception: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred: " + ex.getMessage());
+        }
+    }
+
+    @PostMapping("/submit-fair-activity-executive")
     public ResponseEntity<?> submitFairActivityAsExecutive(@RequestParam Long fairId,
                                                        @RequestParam String executiveEmail,
                                                        @RequestParam Double duration) {
@@ -203,13 +255,76 @@ public class FairController {
                         .body("Executive with ID " + executive + " not found.");
             }
 
-            // Check if the assigned guide matches
+            // Check if the assigned executive matches
             if (fair.getAssignedExecutiveEmail() == null || !fair.getAssignedExecutiveEmail().equals(executive.getEmail())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("Mismatch: The provided Executive is not assigned to this fair.");
             }
 
-            Fair updatedFair = fairService.submitFairActivity(fair, duration);
+            if(fair.getAssignedGuideToFair() != null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Eğer fuara rehber atanmış ise fuarın aktivite girişi rehber tarafından yapılmalıdır!");
+            }
+            Fair updatedFair = fairService.submitFairActivityAsExecutive(fair, duration);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(updatedFair);
+
+        } catch (EntityNotFoundException ex) {
+            // Log and return specific error if the entity isn't found
+            System.err.println("EntityNotFoundException: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Entity not found: " + ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            // Handle invalid arguments
+            System.err.println("IllegalArgumentException: " + ex.getMessage());
+            return ResponseEntity.badRequest()
+                    .body("Invalid input: " + ex.getMessage());
+        } catch (Exception ex) {
+            // General exception handling
+            System.err.println("Exception: " + ex.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred: " + ex.getMessage());
+        }
+    }
+
+    @PostMapping("/edit-fair-activity-executive")
+    public ResponseEntity<?> editFairActivityAsExecutive(@RequestParam Long fairId,
+                                                           @RequestParam String executiveEmail,
+                                                           @RequestParam Double duration) {
+
+        try {
+            if (fairId == null || executiveEmail == null || duration <= 0) {
+                return ResponseEntity.badRequest()
+                        .body("Invalid input: Fair ID, Executive ID, and duration must be provided, and duration should be greater than 0.");
+            }
+
+            System.out.println("Fetching Fair...");
+            Fair fair = fairService.getFairById(fairId);
+
+            System.out.println("Fetching Tour Guide...");
+            Executive executive = executiveService.getExecutiveByEmail(executiveEmail);
+
+            // Check if tour or tour guide does not exist
+            if (fair == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Fair with ID " + fairId + " not found.");
+            }
+            if (executive == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Executive with ID " + executive + " not found.");
+            }
+
+            // Check if the assigned executive matches
+            if (fair.getAssignedExecutiveEmail() == null || !fair.getAssignedExecutiveEmail().equals(executive.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("Mismatch: The provided Executive is not assigned to this fair.");
+            }
+
+            if(fair.getAssignedGuideToFair() != null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Eğer fuara rehber atanmış ise fuarın aktivite editi rehber tarafından yapılmalıdır!");
+            }
+            Fair updatedFair = fairService.editFairActivityAsExecutive(fair, duration);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(updatedFair);
 

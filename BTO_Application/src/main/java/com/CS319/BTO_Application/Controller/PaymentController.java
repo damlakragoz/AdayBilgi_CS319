@@ -35,8 +35,6 @@ public class PaymentController {
 
         try {
             Payment payment = paymentService.calculateAndCreatePaymentForFair(fairId, tourGuideEmail);
-            System.out.println("payment created for "+ tourGuideEmail);
-            System.out.println("PYMNT created for "+ payment);
             return ResponseEntity.status(HttpStatus.CREATED).body(payment);
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().body(null);
