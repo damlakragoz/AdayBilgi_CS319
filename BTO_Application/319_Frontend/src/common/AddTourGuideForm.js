@@ -107,7 +107,7 @@ const AddTourGuideForm = () => {
         lastName: "",
         phoneNumber: "",
         department: "",
-        grade: 1,
+        grade: 1, // Reset grade to 1
         iban: "",
       });
     } catch (error) {
