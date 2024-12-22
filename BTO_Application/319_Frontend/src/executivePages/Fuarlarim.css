@@ -37,7 +37,7 @@
     border-radius: 10px;
     padding: 15px;
     transition: transform 0.3s, box-shadow 0.3s;
-    border-left: 6px solid #d1d8e0 !important; /* Default light gray border */
+    border-left: 6px solid #d1d8e0 ; /* Default light gray border */
     position: relative;
     display: flex;
     flex-direction: column;

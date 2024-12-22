@@ -177,7 +177,6 @@ const OnayBekleyenTurlar = () => {
             <table className="onay-bekleyen-activity-table">
                 <thead>
                     <tr>
-                        <th>Tur Onay Durumu</th>
                         <th>Lise</th>
                         <th>Tur Tarihi</th>
                         <th>Saatler</th>
@@ -187,7 +186,6 @@ const OnayBekleyenTurlar = () => {
                 <tbody>
                     {tours.map((tour, index) => (
                         <tr key={index}>
-                            <td>{mapStatusToTurkish(tour.status)}</td>
                             <td>{tour.applyingHighschoolName}</td>
                             <td>
                                 {new Date(tour.chosenDate).toLocaleDateString('tr-TR', {

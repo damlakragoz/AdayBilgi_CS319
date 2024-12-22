@@ -52,7 +52,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
 
-                <br />
+                <br/>
                 {/* Subtitle: Yaklaşan Etkinlikler */}
                 <li>
                     <span className="sidebar-subtitle">
@@ -75,7 +75,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
 
-                <br />
+                <br/>
                 {/* Subtitle: Performans Analizi */}
                 <li>
                     <span className="sidebar-subtitle">
@@ -83,8 +83,13 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </span>
                 </li>
                 <li>
-                    <Link to="/executive-statistics" className="nav-link text-white">
+                    <Link to="/coordinator-statistics" className="nav-link text-white">
                         <i className="fas fa-chart-bar"></i> İstatistikler
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/rehber-puantaj/coordinator" className="nav-link text-white">
+                        <i className="fas fa-chart-bar"></i> Rehber Puantaj
                     </Link>
                 </li>
                 <li>
@@ -93,7 +98,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </Link>
                 </li>
 
-                <hr />
+                <hr/>
                 {/* Settings and Logout */}
                 <li>
                     <Link to="/ayarlar" className="nav-link text-white">

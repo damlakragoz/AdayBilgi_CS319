@@ -152,9 +152,9 @@ const ManagerTourSchedule = () => {
     });
 
     return (
-        <div className="tour-schedule-container">
-            <div className="calendar-container">
-            <h4 className="tour-list-header"> Tur Takvimi</h4>
+        <div className="tgschedule-tour-schedule-container">
+            <div className="tgschedule-calendar-container">
+            <h4 className="tgschedule-tour-list-header"> Tur Takvimi</h4>
                 <Calendar
                     onChange={handleDateChange}
                     value={selectedDate}
@@ -179,8 +179,8 @@ const ManagerTourSchedule = () => {
                 />
             </div>
 
-            <div className="tour-list-container">
-                <h4 className="tour-list-header">
+            <div className="tgschedule-tour-list-container">
+                <h4 className="tgschedule-tour-list-header">
                     {formatDate(selectedDate)} TARİHİNDEKİ TURLAR
                 </h4>
 

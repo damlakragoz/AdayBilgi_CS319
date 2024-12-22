@@ -174,7 +174,6 @@ const OnayBekleyenFuarlar = () => {
       <table className="onay-bekleyen-activity-table">
         <thead>
           <tr>
-            <th>Durum</th>
             <th>Okul Adı</th>
             <th>Fuar Tarihi</th>
             <th>Fuar Saatleri</th>
@@ -184,7 +183,6 @@ const OnayBekleyenFuarlar = () => {
         <tbody>
           {fairs.map((fair, index) => (
             <tr key={index}>
-              <td>{mapStatusToTurkish(fair.fairInvitationStatus)}</td>
               <td>{fair.applyingCounselor?.schoolName || "Bilinmiyor"}</td>
               <td>
                 {fair.fairStartDate !== fair.fairEndDate

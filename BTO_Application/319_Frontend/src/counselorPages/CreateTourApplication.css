@@ -16,7 +16,7 @@
     padding: 65px;
     font-family: "Poppins", sans-serif;
     color: var(--text-primary);
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
     background-color: var(--background-light);
     border-radius: var(--border-radius);
@@ -45,15 +45,6 @@
     min-width: 280px;
     text-align: center;
 }
-
-/*
-.tour-application-section {
-    flex:1;
-    min-width: 280px;
-    text-align: center;
-}
-
- */
 
 /* Calendar Styling */
 .tour-application-calendar {
@@ -107,15 +98,15 @@
 }
 
 .tour-application-input {
-    margin-top: 10px;
-    padding: 10px;
-    border: 2px solid var(--gray);
-    border-radius: var(--border-radius);
-    width: 100%;
-    max-width: 300px;
-    font-size: 14px;
-    color: var(--text-primary);
-}
+     margin-top: 10px;
+     padding: 10px;
+     border: 2px solid var(--gray);
+     border-radius: var(--border-radius);
+     width: 100%;
+     max-width: 500px; /* Ensure same width for both inputs */
+     font-size: 14px;
+     color: var(--text-primary);
+ }
 
 .tour-application-input:focus {
     border-color: var(--dark-blue);
@@ -124,12 +115,15 @@
 }
 
 /* Buttons */
+/* Add Date Button */
 .tour-application-button {
     margin-top: 12px;
+    margin-bottom: 20px;
     background-color: var(--dark-blue);
     color: var(--white);
-    padding: 12px 20px;
+    padding: 10px 20px;
     border: none;
+    max-width: 200px; /* Smaller width for the Add Date button */
     border-radius: var(--border-radius);
     cursor: pointer;
     font-weight: bold;
@@ -193,6 +187,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    align-content: center;
 }
 
 .tour-application-modal-content {
@@ -204,6 +199,7 @@
     max-width: 90%;
     text-align: center;
     z-index: 1010;
+    align-content: center;
 }
 
 .tour-application-modal-content h3 {
@@ -219,61 +215,51 @@
     margin-top: 20px;
 }
 
-.tour-application-modal-button {
-    padding: 10px 20px;
-    border-radius: var(--border-radius);
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-
-.tour-application-modal-button-confirm {
-    background-color: var(--dark-blue);
-    color: var(--white);
-}
-
-.tour-application-modal-button-confirm:hover {
-    background-color: var(--orange);
-}
-
-.tour-application-modal-button-cancel {
-    background-color: var(--gray);
-    color: var(--dark-gray);
-}
-
-.tour-application-modal-button-cancel:hover {
-    background-color: var(--dark-gray);
-    color: var(--white);
-}
-.tour-application-right-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Aligns content to the right */
-    text-align: right; /* Ensures inline text aligns properly */
-    gap: 20px; /* Adds spacing between the sections */
-}
-
-.tour-application-wrapper {
-    display: flex;
-    gap: 40px; /* Adds spacing between the calendar and the right-aligned content */
-}
-
 /* Wrapper and Section Layout */
 .tour-application-wrapper {
     display: flex;
     justify-content: space-between; /* Ensure spacing between left and right */
     align-items: flex-start; /* Aligns all content to the top */
     gap: 40px; /* Spacing between calendar and right section */
+    align-content: center;
 }
 
 /* Right Section Alignment */
 .tour-application-right-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns content to the left for cleaner alignment */
+    align-items: flex-center; /* Aligns content to the left for cleaner alignment */
     gap: 20px; /* Adds consistent spacing */
     width: 100%;
     max-width: 300px; /* Consistent width for the right side */
-    text-align: left; /* Align text properly */
+    text-align: center; /* Align text properly */
+
+    justify-content: center;
+}
+.tour-application-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    justify-content: center;
+}
+.tour-application-left-container,
+.tour-application-right-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    padding: 1rem;
+    background-color: var(--background-light);
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

@@ -93,13 +93,13 @@ const CounselorHeader = ({ toggleSidebar }) => {
         <div className="header">
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
-                <Link to="/anasayfa" className="logo-link">
+                <Link to="/anasayfa/rehber-ogretmen" className="logo-link">
                     <img src={logo} alt="Logo" className="logo" />
                     <h1>BTO AdayBilgi</h1>
                 </Link>
             </div>
             <div className="nav-links">
-                <a href="/counselor-homepage" className="nav-link">
+                <a href="/anasayfa/rehber-ogretmen" className="nav-link">
                     Anasayfa
                 </a>
                 <a href="/applications" className="nav-link">
