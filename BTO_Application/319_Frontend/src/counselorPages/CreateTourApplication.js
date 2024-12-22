@@ -3,6 +3,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CreateTourApplication.css";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateTourApplication = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -24,7 +26,7 @@ const CreateTourApplication = () => {
 
     const handleAddDateTime = () => {
         if (!selectedTimeSlot) {
-            alert("Lütfen bir saat aralığı seçin!");
+            toast.error("Lütfen bir saat aralığı seçin!");
             return;
         }
         const formattedDate = selectedDate.toLocaleDateString("en-CA");
@@ -33,7 +35,7 @@ const CreateTourApplication = () => {
         );
 
         if (isDuplicate) {
-            alert("Bu tarih ve saat aralığı zaten seçildi!");
+            toast.error("Bu tarih ve saat aralığı zaten seçildi!");
             return;
         }
 
@@ -43,7 +45,7 @@ const CreateTourApplication = () => {
                 { date: formattedDate, timeSlot: selectedTimeSlot },
             ]);
         } else {
-            alert("En fazla üç farklı tarih seçebilirsiniz.");
+            toast.error("En fazla üç farklı tarih seçebilirsiniz.");
         }
 
         setSelectedTimeSlot("");
@@ -55,15 +57,15 @@ const CreateTourApplication = () => {
 
     const handleSubmit = async () => {
         if (requestedDates.length === 0) {
-            alert("Lütfen en az bir tarih ve saat aralığı seçin!");
+            toast.error("Lütfen en az bir tarih ve saat aralığı seçin!");
             return;
         }
         if (!visitorCount) {
-            alert("Lütfen ziyaretçi sayısını girin!");
+            toast.error("Lütfen ziyaretçi sayısını girin!");
             return;
         }
         if (visitorCount > 60) {
-            alert("Tur gerekleri sebebiyle ziyaretçi sayısı 60'tan fazla olamaz.");
+            toast.error("Tur gerekleri sebebiyle ziyaretçi sayısı 60'tan fazla olamaz.");
             return;
         }
 
@@ -89,17 +91,17 @@ const CreateTourApplication = () => {
             );
 
             if (response.status === 201) {
-                alert("Başvurunuz başarıyla oluşturuldu!");
+                toast.info("Başvurunuz başarıyla oluşturuldu!");
                 setRequestedDates([]);
                 setVisitorCount("");
             }
         } catch (error) {
             if (error.response?.status === 409) {
-                alert(
-                    "Başvurunuzda liseniz ait aktif bir başvuruyla çakışan tarih var! Eğer bu başvuru size ait değil ise okulunuzun diğer rehber öğretmenlerine danışınız."
+                toast.error(
+                    "Başvurunuzda lisenize ait aktif bir başvuruyla çakışan tarih var! Eğer bu başvuru size ait değil ise okulunuzun diğer rehber öğretmenlerine danışınız."
                 );
             } else {
-                alert("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
+                toast.error("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
             }
         } finally {
             setIsSubmitting(false);
@@ -148,7 +150,7 @@ const CreateTourApplication = () => {
                                 )?.displayName;
                                 return (
                                     <li key={index}>
-                                        <strong>Tarih:</strong> {item.date}, <strong>Saat:</strong>{" "}
+                                        <strong>Tarih:</strong> {item.date} <strong>Saat:</strong>{" "}
                                         {timeSlotDisplayName || item.timeSlot}
                                         <button
                                             className="tour-application-remove-button"
