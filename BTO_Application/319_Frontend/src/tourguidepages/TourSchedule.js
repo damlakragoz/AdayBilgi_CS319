@@ -282,10 +282,10 @@ const TourSchedule = () => {
     };
 
     return (
-        <div className="tour-schedule-container">
+        <div className="tgschedule-tour-schedule-container">
 
             {/* Calendar Section */}
-            <div className="calendar-container">
+            <div className="tgschedule-calendar-container">
                 <Calendar
                     onChange={handleDateChange}
                     value={selectedDate}
@@ -306,8 +306,8 @@ const TourSchedule = () => {
                 />
             </div>
             {/* Tour List Section */}
-            <div className="tour-list-container">
-                <h4 className="tour-list-header">
+            <div className="tgschedule-tour-list-container">
+                <h4 className="tgschedule-tour-list-header">
                     {formatDate(selectedDate)} TARİHİNDEKİ ONAYLANMIŞ TURLAR
                 </h4>
 
@@ -365,7 +365,7 @@ const TourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Request Withdraw
+                                                        Turdan Çekil
                                                     </button>
                                                 ) : tour.tourStatus === "WithdrawRequested" ||
                                                 tour.tourStatus === "Withdrawn" ||
@@ -383,7 +383,7 @@ const TourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Enroll
+                                                        Kaydol
                                                     </button>
                                                 ) : null
                                             ) : (
@@ -403,7 +403,7 @@ const TourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Enroll
+                                                        Kaydol
                                                     </button>
                                                 ) : null
                                             )}
