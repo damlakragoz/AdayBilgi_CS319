@@ -34,8 +34,8 @@ const SendFairInvitation = () => {
     const handleSubmit = async () => {
         const requestData = {
             fairInvitation: {
-                fairStartDate: fairStartDate?.toISOString().split("T")[0],
-                fairEndDate: fairEndDate?.toISOString().split("T")[0],
+                fairStartDate: fairStartDate?.toLocaleDateString("en-CA"),
+                fairEndDate: fairEndDate?.toLocaleDateString("en-CA"),
                 fairStartTime,
                 fairEndTime,
             },
