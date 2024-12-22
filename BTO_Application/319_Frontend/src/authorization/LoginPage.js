@@ -104,9 +104,9 @@ const LoginPage = () => {
 
             {/* Login Section */}
             <div className="login-container">
-                <h2>Kampüsümüzü Keşfedin</h2>
+                <h2>AdayBilgi'ye Giriş Yap</h2>
                 <center>
-                    <p>Rehberli turlarımızla kampüsümüzün tüm güzelliklerini ve olanaklarını keşfedin.</p>
+                    <p>Bilkent Tanıtım Ofisinin hizmetlerine AdayBilgi üzerinden ulaşın.</p>
                 </center>
                 <form onSubmit={handleLogin} className="login-form">
                     <label>E-mail</label>
