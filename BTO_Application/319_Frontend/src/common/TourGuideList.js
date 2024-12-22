@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons"; // Import icons
 import { Link } from "react-router-dom"; // Import Link from React Router
 import "./UserTables.css";
+import "./AddTourGuideForm.css";
 
 const TourGuideList = () => {
   const [tourGuides, setTourGuides] = useState([]);
   const [error, setError] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoadingPromotion, setIsLoadingPromotion] = useState(false); // Loading state for promotion
 
   // Popup state
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -100,9 +102,12 @@ const TourGuideList = () => {
 
     if (confirmPromotion) {
       try {
+        setIsLoadingPromotion(true);
+
         const token = localStorage.getItem("userToken");
         if (!token) {
           alert("Authorization token missing. Please log in.");
+          setIsLoadingPromotion(false);
           return;
         }
 
@@ -133,7 +138,9 @@ const TourGuideList = () => {
         } else {
           alert("Beklenmedik bir hata oluştu.");
         }
-      }
+      } finally {
+          setIsLoadingPromotion(false); // Stop loading after promotion attempt
+        }
     }
   };
 
@@ -193,6 +200,13 @@ const TourGuideList = () => {
           </button>
         </Link>
       </div>
+
+      {isLoadingPromotion && (
+        <div className="userform-loading-screen">
+          <div className="spinner"></div>
+          <p>Yükseltiliyor...</p>
+        </div>
+      )}
 
       {/* Popup Modal */}
       {isPopupOpen && (
