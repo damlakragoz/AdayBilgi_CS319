@@ -213,6 +213,7 @@ public class StatisticsService {
         tourApplicationsByStatus.put("Rejected", 0);
         tourApplicationsByStatus.put("Finished", 0);
         tourApplicationsByStatus.put("Cancelled", 0);
+        tourApplicationsByStatus.put("Pre-rejected", 0);
 
         if (tourApplications != null) {
             for (TourApplication tourApplication : tourApplications) {
