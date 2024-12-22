@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./Fuarlarim.css";
+import { useNavigate } from "react-router-dom";
 
 const Fuarlarim = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
     const token = localStorage.getItem("userToken");
+    const navigate = useNavigate(); // Add useNavigate hook
 
    const mapStatusToTurkish = (status) => {
        const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
@@ -186,7 +188,7 @@ const Fuarlarim = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header" style={{ textAlign: "center" }}> Yaklaşan Fuarlar</h4>
+            <h4 className="tour-list-header" style={{ textAlign: "center" }}> Yaklaşan Fuarlarınız</h4>
             <ul className="fair-list">
                 {enrolledFairs
                     .map((fair) => {
@@ -221,6 +223,11 @@ const Fuarlarim = () => {
                         );
                     })}
             </ul>
+            <button
+              onClick={() => navigate("/yaklasan-fuarlar/yonetici")}
+            >
+              Tüm Fuarları Gör
+            </button>
 
 
         </div>
