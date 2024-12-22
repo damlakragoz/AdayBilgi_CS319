@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../assets/logo.png";
 import axios from "axios";
+import TourGuideHomepage from './TourGuideHomepage'; // import your tour guide homepage
+
 import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const TourGuideHeader = ({ toggleSidebar }) => {
@@ -95,16 +97,20 @@ const TourGuideHeader = ({ toggleSidebar }) => {
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
                 <Link to="/anasayfa" className="logo-link">
-                    <img src={logo} alt="Logo" className="logo" />
+                    <img src={logo} alt="Logo" className="logo"/>
                     <h1>BTO AdayBilgi</h1>
                 </Link>
             </div>
+
             <div className="nav-links">
+                <a href="/tur-rehberi-anasayfa" className="nav-link">
+                    Anasayfa
+                </a>
                 <a href="/kullanici-islemleri" className="nav-link">
                     Kullanıcı İşlemleri
                 </a>
                 <a href="/tourguide-all-tours" className="nav-link">
-                    Onay Bekleyen İşlemler
+                    Güncel Turlar
                 </a>
                 <div className="notification-container">
                     <Link to="/tourguide-notifications" className="nav-link">

@@ -55,7 +55,7 @@ const LoginPage = () => {
                         navigate('/coordinator-homepage');
                         break;
                     case 'Counselor':
-                        navigate('/counselor-homepage');
+                        navigate('/anasayfa/rehber-ogretmen');
                         break;
                     case 'TourGuide':
                         navigate('/tur-rehberi-anasayfa');

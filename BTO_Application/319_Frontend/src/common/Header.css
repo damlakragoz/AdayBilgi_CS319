@@ -28,7 +28,7 @@
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .nav-link {
@@ -216,17 +216,18 @@
 .notification-container {
     position: relative;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 20px;
 }
 
 .notification-badge {
     position: absolute;
-    top: -5px;
-    right: -10px;
+    top: -0px;
+    right: -5px;
     background-color: var(--my-red);
     color: white;
     border-radius: 50%;
-    padding: 4px 8px;
+    padding: 1px 6px;
     font-size: 12px;
     font-weight: bold;
 }

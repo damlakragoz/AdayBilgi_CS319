@@ -8,6 +8,7 @@ import axios from "axios";
 import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const CounselorHeader = ({ toggleSidebar }) => {
+    const [user, setUser] = useState(null); // State to store user data
     const navigate = useNavigate();
     const [unreadCount, setUnreadCount] = useState(0);
     const [profilePictureUrl, setProfilePictureUrl] = useState(
@@ -86,6 +87,34 @@ const CounselorHeader = ({ toggleSidebar }) => {
         fetchProfilePicture();
     }, [localStorage.getItem("username")]);
 
+    useEffect(() => {
+        // Function to fetch user details
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                    navigate("/login"); // Redirect to login if no token
+                    return;
+                }
+
+                const email = localStorage.getItem("username");
+                const response = await axios.get("http://localhost:8081/api/users/getByEmail", {
+                    params: { email: email, },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                setUser(response.data); // Set user data from the API response
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                navigate("/login"); // Redirect to login on error
+            }
+        };
+
+        fetchUserData();
+    }, [navigate]);
+
     const handleLogout = () => {
         localStorage.clear();
         setProfilePictureUrl(defaultProfilePicture);
@@ -96,13 +125,13 @@ const CounselorHeader = ({ toggleSidebar }) => {
         <div className="header">
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
-                <Link to="/anasayfa" className="logo-link">
+                <Link to="/anasayfa/rehber-ogretmen" className="logo-link">
                     <img src={logo} alt="Logo" className="logo" />
                     <h1>BTO AdayBilgi</h1>
                 </Link>
             </div>
             <div className="nav-links">
-                <a href="#" className="nav-link">
+                <a href="/anasayfa/rehber-ogretmen" className="nav-link">
                     Anasayfa
                 </a>
                 <a href="/applications" className="nav-link">
@@ -127,8 +156,8 @@ const CounselorHeader = ({ toggleSidebar }) => {
                             className="user-avatar"
                         />
                         <div>
-                            <span className="user-name">{localStorage.username}</span>
-                            <div className="role">{localStorage.role}</div>
+                            <span className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
+                            <div className="role">{localStorage.role== "Counselor" ? "Rehber Öğretmen" : localStorage.role}</div>
                         </div>
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>

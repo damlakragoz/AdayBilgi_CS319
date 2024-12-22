@@ -34,8 +34,8 @@ const SendFairInvitation = () => {
     const handleSubmit = async () => {
         const requestData = {
             fairInvitation: {
-                fairStartDate: fairStartDate?.toISOString().split("T")[0],
-                fairEndDate: fairEndDate?.toISOString().split("T")[0],
+                fairStartDate: fairStartDate?.toLocaleDateString("en-CA"),
+                fairEndDate: fairEndDate?.toLocaleDateString("en-CA"),
                 fairStartTime,
                 fairEndTime,
             },
@@ -94,8 +94,10 @@ const SendFairInvitation = () => {
 
     return (
         <div className="container">
+
             <div className="calendar-container">
-                <h2>{selectingEndDate ? "Fuar Bitiş Tarihi Seçin:" : "Fuar Başlangıç Tarihi Seçin:"}</h2>
+            <h3>{selectingEndDate ? "Fuar Bitiş Tarihi Seçin:" : "Fuar Başlangıç Tarihi Seçin:"}</h3>
+
                 <Calendar
                     onChange={handleDateSelection}
                     value={selectingEndDate ? fairEndDate : fairStartDate}

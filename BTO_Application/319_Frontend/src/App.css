@@ -30,8 +30,12 @@
 }
 
 h2 {
-    border-bottom: 2px solid var(--light-blue);  /*Soft underline for separation */
-    padding-bottom: 10px; /* Padding to make space between the text and the border */
+    font-size: 24px;
+        color: var(--light-blue);
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--dark-blue);
+        padding-bottom: 10px;
 }
 /* Header and Navigation */
 .app-header, .main-header {

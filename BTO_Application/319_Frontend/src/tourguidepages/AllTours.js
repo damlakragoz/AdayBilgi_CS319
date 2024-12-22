@@ -7,6 +7,23 @@ const AllTours = () => {
     const [enrolledTours, setEnrolledTours] = useState([]);
     const [toggleState, setToggleState] = useState(false);
 
+    // Tur durumlarını Türkçe'ye çevirmek için bir eşleme tablosu
+    const statusTranslations = {
+        Approved: "Onaylandı",
+        Withdrawn: "Turdan Çekilindi",
+        WithdrawRequested: "Çekilme Talep Edildi",
+        GuideAssigned: "Rehber Atandı",
+        AdvisorAssigned: "Danışman Atandı",
+        Completed: "Tamamlandı",
+    };
+
+
+    // Durumu Türkçe'ye çeviren fonksiyon
+    const translateStatusToTurkish = (status) => {
+        return statusTranslations[status] || status; // Eğer durum bulunamazsa orijinal değeri döndür
+    };
+
+
     const formatISODate = (date) => {
         return typeof date === "string" ? date : date.toLocaleDateString("en-CA");
     };
@@ -90,9 +107,9 @@ const AllTours = () => {
                         );
                         return isUserEnrolled ? 2 : 3; // Withdrawable first, then other GuideAssigned
                     }
-                    if (tour.tourStatus === "AdvisorAssigned") return 4; // Advisor assigned tours
-                    if (tour.tourStatus === "Completed") return 5; // Finished tours
-                    return 6; // Default fallback
+                    //if (tour.tourStatus === "AdvisorAssigned") return 4; // Advisor assigned tours
+                    //if (tour.tourStatus === "Completed") return 5; // Finished tours
+                    return 4; // Default fallback
                 };
 
                 const categoryDiff = getCategory(a) - getCategory(b);
@@ -104,6 +121,35 @@ const AllTours = () => {
                 return a.dateObj - b.dateObj;
             });
     }, [tours, enrolledTours]);
+
+    const filteredTours = useMemo(() => {
+        return tours
+            .filter((tour) => {
+                const isUserEnrolled = enrolledTours.some(
+                    (enrolledTour) => enrolledTour.id === tour.id
+                );
+
+                // Enroll yapılabilen veya Withdraw yapılabilen turları filtrele
+                const canEnroll =
+                    tour.tourStatus === "Approved" ||
+                    tour.tourStatus === "Withdrawn" ||
+                    tour.tourStatus === "WithdrawRequested";
+
+                const canRequestWithdraw =
+                    isUserEnrolled && tour.tourStatus === "GuideAssigned";
+
+                // Sadece bu iki durumu döndür
+                return canEnroll || canRequestWithdraw;
+            })
+            .map((tour) => ({
+                ...tour,
+                dateObj: new Date(tour.chosenDate), // Tarih sıralaması için date parse işlemi
+            }))
+            .sort((a, b) => a.dateObj - b.dateObj); // Tarihe göre sıralama
+    }, [tours, enrolledTours]);
+
+
+    console.log(filteredTours)
 
     const handleEnroll = async (tourId) => {
         const applyingGuideEmail = localStorage.getItem("username");
@@ -178,9 +224,9 @@ const AllTours = () => {
 
     return (
         <div className="tour-schedule-container">
-            <h4 className="tour-list-header">Available Tours</h4>
+            <h4 className="tour-list-header">Güncel Turlar</h4>
             <ul className="tour-list">
-                {sortedTours.map((tour) => {
+                {filteredTours.map((tour) => {
                     const isUserEnrolled = enrolledTours.some(
                         (enrolledTour) => enrolledTour.id === tour.id
                     );
@@ -199,7 +245,7 @@ const AllTours = () => {
                                 <strong>Tarih:</strong> {formatISODate(new Date(tour.chosenDate))}
                             </p>
                             <p>
-                                <strong>Tur Durumu:</strong> {tour.tourStatus}
+                                <strong>Tur Durumu:</strong> {translateStatusToTurkish(tour.tourStatus)}
                             </p>
                             <p>
                                 <strong>Ziyaretçi Sayısı:</strong> {tour.visitorCount}
@@ -209,7 +255,7 @@ const AllTours = () => {
                                     onClick={() => handleRequestWithdraw(tour.id)}
                                     className="withdraw-button"
                                 >
-                                    Request Withdraw
+                                    Turdan Çekil
                                 </button>
                             ) : (
                                 canEnroll && (
@@ -217,7 +263,7 @@ const AllTours = () => {
                                         onClick={() => handleEnroll(tour.id)}
                                         className="enroll-button"
                                     >
-                                        Enroll
+                                        Kayıt Ol
                                     </button>
                                 )
                             )}

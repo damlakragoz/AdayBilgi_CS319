@@ -22,6 +22,7 @@ const AddTourGuideForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const validateForm = () => {
     const newErrors = {};
@@ -74,6 +75,7 @@ const AddTourGuideForm = () => {
       // Perform further actions like API call
     }
 
+    setLoading(true); // Show loading screen
 
     const { email, firstName, lastName, phoneNumber, department, grade, iban } = formData;
 
@@ -81,6 +83,7 @@ const AddTourGuideForm = () => {
       const token = localStorage.getItem("userToken");
       if (!token) {
         toast.error("Yetkilendirme eksik. Lütfen tekrar giriş yapınız.");
+        setLoading(false);
         return;
       }
 
@@ -112,7 +115,9 @@ const AddTourGuideForm = () => {
         console.error("Error:", error);
         toast.error("Bir hata oluştu. Lütfen tekrar deneyin.");
       }
-    }
+    } finally {
+       setLoading(false); // Hide loading screen
+     }
   };
 
   const handleCancel = () => {
@@ -130,70 +135,80 @@ const AddTourGuideForm = () => {
   };
 
   return (
-      <div className="add-tour-guide-form">
-        <h2>Yeni Rehber Ekle</h2>
-        <form onSubmit={handleSubmit}>
-          {/* Bilkent Email */}
-          <label>Bilkent E-mail</label>
-          <input
+    <div className="add-tour-guide-form">
+      {loading && (
+        <div className="loading-screen">
+          <div className="spinner"></div>
+          <p>Yükleniyor...</p>
+        </div>
+      )}
+      {!loading && (
+        <div>
+          <h2>Yeni Rehber Ekle</h2>
+          <form onSubmit={handleSubmit}>
+            {/* Bilkent Email */}
+            <label>Bilkent E-mail</label>
+            <input
               type="email"
               name="email"
               placeholder="example@ug.bilkent.edu.tr"
               value={formData.email}
               onChange={handleInputChange}
               required
-          />
+            />
 
-          {/* First Name */}
-          <label>Ad</label>
-          <input
+            {/* First Name */}
+            <label>Ad</label>
+            <input
               type="text"
               name="firstName"
               placeholder="Adınızı giriniz."
               value={formData.firstName}
               onChange={handleInputChange}
               required
-          />
+            />
 
-          {/* Last Name */}
-          <label>Soyad</label>
-          <input
+            {/* Last Name */}
+            <label>Soyad</label>
+            <input
               type="text"
               name="lastName"
               placeholder="Soyadınızı giriniz."
               value={formData.lastName}
               onChange={handleInputChange}
               required
-          />
+            />
 
-          {/* Phone Number */}
-          <label>Telefon Numarası</label>
-          <input
+            {/* Phone Number */}
+            <label>Telefon Numarası</label>
+            <input
               type="tel"
               name="phoneNumber"
               placeholder="0 (5xx) xxx xxxx"
               value={formData.phoneNumber}
               onChange={handleInputChange}
               required
-          />
+            />
 
-          {/* Department */}
-          <label>Bölüm</label>
-          <select
+            {/* Department */}
+            <label>Bölüm</label>
+            <select
               name="department"
               value={formData.department}
               onChange={handleInputChange}
               required
-          >
-            <option value="" disabled>Bölüm Seçiniz</option>
-            {departments.map((dept) => (
-                <option key={dept} value={dept}>{dept}</option>
-            ))}
-          </select>
+            >
+              <option value="" disabled>Bölüm Seçiniz</option>
+              {departments.map((dept) => (
+                <option key={dept} value={dept}>
+                  {dept}
+                </option>
+              ))}
+            </select>
 
-          {/* Grade */}
-          <label>Sınıf</label>
-          <input
+            {/* Grade */}
+            <label>Sınıf</label>
+            <input
               type="number"
               name="grade"
               placeholder="Sınıf (1-4)"
@@ -202,27 +217,34 @@ const AddTourGuideForm = () => {
               min="1"
               max="4"
               required
-          />
+            />
 
-          {/* IBAN */}
-          <label>IBAN</label>
-          <input
+            {/* IBAN */}
+            <label>IBAN</label>
+            <input
               type="text"
               name="iban"
               placeholder="IBAN numaranızı giriniz."
               value={formData.iban}
               onChange={handleInputChange}
               required
-          />
+            />
 
-          {/* Buttons */}
-          <div className="button-group">
-            <button type="button" className="cancel-button" onClick={handleCancel}>İptal</button>
-            <button type="submit" className="submit-button">Ekle</button>
-          </div>
-        </form>
-      </div>
+            {/* Buttons */}
+            <div className="button-group">
+            <button type="button" className="cancel-button" onClick={handleCancel}>
+                İptal
+            </button>
+              <button type="submit" className="submit-button">
+                Ekle
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
   );
+
 };
 
 export default AddTourGuideForm;

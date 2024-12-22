@@ -81,8 +81,13 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                     </span>
                 </li>
                 <li>
-                    <Link to="/executive-statistics" className="nav-link text-white">
+                    <Link to="/coordinator-statistics" className="nav-link text-white">
                         <i className="fas fa-chart-bar"></i> İstatistikler
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/rehber-puantaj/coordinator" className="nav-link text-white">
+                        <i className="fas fa-chart-bar"></i> Rehber Puantaj
                     </Link>
                 </li>
                 <li>
@@ -90,6 +95,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-comments"></i> Geribildirimler
                     </Link>
                 </li>
+
                 <hr/>
                 {/* Settings and Logout */}
                 <li>
