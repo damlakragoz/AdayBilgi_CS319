@@ -1,0 +1,55 @@
+.settings-container {
+    margin: 50px auto;
+    width: 450px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: var(--white);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.settings-container h2 {
+    font-size: 1.5rem;
+    color: var(--dark-blue);
+    border-bottom: 2px solid var(--light-blue);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-section {
+    text-align: center;
+}
+
+.profile-picture-wrapper {
+    margin: 20px 0;
+}
+
+.profile-picture {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--light-blue);
+}
+
+.settings-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-list li {
+    margin: 15px 0;
+}
+
+.settings-list a {
+    text-decoration: none;
+    color: var(--dark-blue);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.settings-list a:hover {
+    color: var(--orange);
+    text-decoration: underline;
+}
