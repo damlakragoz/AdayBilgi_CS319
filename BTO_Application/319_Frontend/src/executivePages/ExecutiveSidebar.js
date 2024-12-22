@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom"; // Use Link for navigation
+import {Link, useNavigate} from "react-router-dom"; // Use Link for navigation
 import "../common/Sidebar.css";
 import defaultProfilePicture from "../assets/default-profile-picture.jpg"; // Update path if necessary
 
 
 const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
+    const navigate = useNavigate();
     const [profilePictureUrl, setProfilePictureUrl] = useState(
         localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
     );

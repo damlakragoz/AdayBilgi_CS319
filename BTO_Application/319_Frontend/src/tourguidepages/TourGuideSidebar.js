@@ -4,6 +4,7 @@ import "../common/Sidebar.css";
 import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const TourGuideSidebar = ({ isOpen, toggleSidebar }) => {
+    const navigate = useNavigate();
     const [profilePictureUrl, setProfilePictureUrl] = useState(
         localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
     );
