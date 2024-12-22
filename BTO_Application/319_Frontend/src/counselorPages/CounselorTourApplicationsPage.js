@@ -172,7 +172,7 @@ const CounselorTourApplicationsPage = () => {
 
     return (
         <div className="applications-container">
-            <h2 className="applications-header">Başvurularım</h2>
+            <h2 className="applications-header">Tur Başvurularım</h2>
 
             {/* Filter Buttons */}
             <div className="filter-buttons">

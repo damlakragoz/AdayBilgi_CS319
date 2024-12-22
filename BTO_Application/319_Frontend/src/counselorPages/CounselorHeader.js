@@ -134,11 +134,8 @@ const CounselorHeader = ({ toggleSidebar }) => {
                 <a href="/anasayfa/rehber-ogretmen" className="nav-link">
                     Anasayfa
                 </a>
-                <a href="/applications" className="nav-link">
-                    Başvurularım
-                </a>
-                <a href="#" className="nav-link">
-                    Yaklaşan Etkinlikler
+                <a href="/all-applications" className="nav-link">
+                    Tüm Başvurular
                 </a>
                 <div className="notification-container">
                     <Link to="/counselor-notifications" className="nav-link">

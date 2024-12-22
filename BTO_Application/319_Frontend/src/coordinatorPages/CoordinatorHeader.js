@@ -128,7 +128,7 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
         <div className="header">
             <div className="d-flex align-items-center">
                 <i className="fas fa-bars me-3" onClick={toggleSidebar}></i>
-                <Link to="/anasayfa" className="logo-link">
+                <Link to="/coordinator-homepage" className="logo-link">
                     <img src={logo} alt="Logo" className="logo" />
                     <h1>BTO AdayBilgi</h1>
                 </Link>
