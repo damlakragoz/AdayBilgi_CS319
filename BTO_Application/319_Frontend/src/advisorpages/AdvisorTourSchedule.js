@@ -23,6 +23,23 @@ const AdvisorTourSchedule = () => {
     const [enrolledTours, setEnrolledTours] = useState([]);
     const [toggleState, setToggleState] = useState(false); // Initially false
 
+    const statusTranslations = {
+        "Approved": "Onaylandı",
+        "Rejected": "Reddedildi",
+        "Canceled": "İptal edildi",
+        "Withdrawn": "Turdan Çekilindi",
+        "WithdrawRequested": "Çekilme Talep Edildi",
+        "GuideAssigned": "Rehber Atandı",
+        "AdvisorAssigned": "Danışman Atandı",
+        "Completed": "Tamamlandı",
+    };
+
+
+    // Durumu Türkçe'ye çeviren fonksiyon
+    const translateStatusToTurkish = (status) => {
+        return statusTranslations[status] || status; // Eğer durum bulunamazsa orijinal değeri döndür
+    };
+
     const formatDate = (date) => {
         return new Intl.DateTimeFormat("tr-TR", {
             day: "2-digit",
@@ -344,11 +361,9 @@ const AdvisorTourSchedule = () => {
                                                 margin: "0.5rem 0",
                                             }}
                                         >
-                                            <strong>Ziyaretçi
-                                                Sayısı:</strong> {tour.visitorCount}
+                                            <strong>Ziyaretçi Sayısı:</strong> {tour.visitorCount}
                                             <br/>
-                                            <strong>Tur
-                                                Durumu:</strong> {tour.tourStatus}
+                                            <strong>Tur Durumu:</strong> {(tour.tourStatus=="Rejected"&&tour.assignedGuide!=null )? "Canceled" : translateStatusToTurkish(tour.tourStatus)}
                                             <br/>
                                             <strong>Tur Rehberi Email:</strong> {tour.assignedGuideEmail}
                                             <br/>

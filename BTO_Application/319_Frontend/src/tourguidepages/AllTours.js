@@ -14,7 +14,7 @@ const AllTours = () => {
         WithdrawRequested: "Çekilme Talep Edildi",
         GuideAssigned: "Rehber Atandı",
         AdvisorAssigned: "Danışman Atandı",
-        Completed: "Tamamlandı",
+        Finished: "Tamamlandı",
     };
 
 
