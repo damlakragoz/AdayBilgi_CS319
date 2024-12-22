@@ -54,6 +54,11 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
 
                 {/* Çıkış Yap */}
                 <li>
+                    <Link to="/danisman-ayarlar" className="nav-link text-white">
+                        <i className="fas fa-cogs"></i> Ayarlar
+                    </Link>
+                </li>
+                <li>
                     <a onClick={handleLogout} className="nav-link text-white">
                         <i className="fas fa-sign-out-alt"></i> Çıkış Yap
                     </a>

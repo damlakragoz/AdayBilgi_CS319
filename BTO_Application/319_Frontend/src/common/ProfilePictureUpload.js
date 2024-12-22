@@ -12,10 +12,10 @@ const ProfilePictureUpload = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         const allowedTypes = ["image/jpeg", "image/png"];
-        if (file && allowedTypes.includes(file.type) && file.size <= 5 * 1024 * 1024) {
+        if (file && allowedTypes.includes(file.type) && file.size <= 10 * 1024 * 1024) {
             setFile(file);
         } else {
-            toast.error("Lütfen geçerli bir resim dosyası yükleyin (JPEG/PNG, maksimum 5MB).");
+            toast.error("Lütfen geçerli bir resim dosyası yükleyin (JPEG/PNG, maksimum 10MB).");
         }
     };
 
