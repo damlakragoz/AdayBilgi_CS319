@@ -217,33 +217,36 @@ public class StatisticsService {
     public Map<String, Integer> getTourCountByHighSchool() {
         Map<String, Integer> toursByHighSchool = new HashMap<>();
 
-        List<HighSchool> highSchools = highschoolRepos.findAll();
+        List<Tour> tours = schoolTourRepos.findAll();
 
-        if (highSchools != null) {
-            for (HighSchool highSchool : highSchools) {
-                if (highSchool == null) {
-                    System.out.println("Skipping null or empty high school");
+        if (tours != null) {
+            for (Tour tour : tours) {
+                if (tour == null) {
+                    System.out.println("Skipping null or empty tour");
                     continue; // Skip to the next iteration
                 }
 
-                String highSchoolName = highSchool.getSchoolName();
+                if (tour.getTourStatus().equals("Finished")) {
+                    String highSchoolName = tour.getApplyingHighschoolName();
 
-                // Skip if the high school name is null
-                if (highSchoolName == null || highSchoolName.trim().isEmpty()) {
-                    System.out.println("Skipping null or empty high school name");
-                    continue; // Skip to the next iteration
+                    // Skip if the high school name is null
+                    if (highSchoolName == null || highSchoolName.trim().isEmpty()) {
+                        System.out.println("Skipping null or empty high school name");
+                        continue; // Skip to the next iteration
+                    }
+
+                    // Check if the high school exists in the map; if not, add it with a count of 0
+                    if (!toursByHighSchool.containsKey(highSchoolName)) {
+                        toursByHighSchool.put(highSchoolName, 0);
+                    }
+
+                    // Increment the count for the school
+                    int currentCount = toursByHighSchool.get(highSchoolName);
+                    if (currentCount >= 0){
+                        toursByHighSchool.put(highSchoolName, currentCount + 1);
+                    }
                 }
 
-                // Check if the high school exists in the map; if not, add it with a count of 0
-                if (!toursByHighSchool.containsKey(highSchoolName)) {
-                    toursByHighSchool.put(highSchoolName, 0);
-                }
-
-                // Increment the count for the school
-                int currentCount = toursByHighSchool.get(highSchoolName);
-                if (currentCount >= 0){
-                    toursByHighSchool.put(highSchoolName, currentCount + 1);
-                }
             }
         }
 

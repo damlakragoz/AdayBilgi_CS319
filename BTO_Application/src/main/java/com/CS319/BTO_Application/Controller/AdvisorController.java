@@ -30,6 +30,19 @@ public class AdvisorController {
         this.tourService = tourService;
     }
 
+    /**
+     * Retrieves all assigned day tours for a specific advisor.
+     *
+     * Preconditions:
+     * - `advisorEmail` must not be null and must correspond to an existing advisor.
+     *
+     * Postconditions:
+     * - Returns a list of tours assigned to the advisor's assigned day.
+     * - If the advisor does not exist, returns status 400 (BAD_REQUEST).
+     *
+     * @param advisorEmail The email of the advisor.
+     * @return ResponseEntity containing the list of assigned day tours or error status.
+     */
     @GetMapping("/get/all-assigned-day-tours")
     public ResponseEntity<?> getAllAssignedDayTours(@RequestParam String advisorEmail) {
         List<Tour> tours = tourService.getAllSchoolTours();

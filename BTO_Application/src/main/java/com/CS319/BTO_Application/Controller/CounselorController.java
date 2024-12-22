@@ -34,6 +34,19 @@ public class CounselorController {
         this.fairInvitationService = fairInvitationService;
     }
 
+    /**
+     * Retrieves all tour applications for a specific counselor.
+     *
+     * Preconditions:
+     * - `counselorEmail` must not be null and must correspond to an existing counselor.
+     *
+     * Postconditions:
+     * - Returns a list of tour applications for the specified counselor.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param counselorEmail The email of the counselor.
+     * @return ResponseEntity containing the list of tour applications for the specified counselor or error status.
+     */
     @GetMapping("tourApplications/getAll")
     public ResponseEntity<?> getAllTourApplications(String counselorEmail) {
         try {
@@ -46,7 +59,19 @@ public class CounselorController {
         }
     }
 
-
+    /**
+     * Retrieves all fair invitations for a specific counselor.
+     *
+     * Preconditions:
+     * - `counselorEmail` must not be null and must correspond to an existing counselor.
+     *
+     * Postconditions:
+     * - Returns a list of fair invitations for the specified counselor.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param counselorEmail The email of the counselor.
+     * @return ResponseEntity containing the list of fair invitations for the specified counselor or error status.
+     */
     @GetMapping("fairInvitations/getAll")
     public ResponseEntity<?> getAllFairInvitations(String counselorEmail) {
         try {

@@ -19,7 +19,25 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
 
-    // Submit Feedback
+    /**
+     * Submits feedback for a tour.
+     *
+     * Preconditions:
+     * - `tourId` must not be null and must correspond to an existing tour.
+     * - `rating` must be a valid integer.
+     * - `comment` must not be null.
+     * - `counselorEmail` is optional.
+     *
+     * Postconditions:
+     * - The feedback is saved in the repository.
+     * - Returns the submitted feedback.
+     *
+     * @param tourId The ID of the tour.
+     * @param rating The rating of the tour.
+     * @param comment The comment for the tour.
+     * @param counselorEmail The email of the counselor (optional).
+     * @return ResponseEntity containing the submitted feedback or error status.
+     */
     @PostMapping("/submit")
     public ResponseEntity<?> submitFeedback(@RequestParam Long tourId,
                                             @RequestParam int rating,
@@ -39,7 +57,19 @@ public class FeedbackController {
         return ResponseEntity.ok(feedbackService.getAllFeedbacks());
     }
 
-    // Get Feedback by Tour ID
+    /**
+     * Retrieves feedback by tour ID.
+     *
+     * Preconditions:
+     * - `tourId` must not be null and must correspond to an existing tour.
+     *
+     * Postconditions:
+     * - Returns the feedback for the specified tour.
+     * - If the feedback does not exist, returns status 400 (BAD_REQUEST).
+     *
+     * @param tourId The ID of the tour.
+     * @return ResponseEntity containing the feedback or error status.
+     */
     @GetMapping("/getByTour")
     public ResponseEntity<?> getFeedbackByTourId(@RequestParam Long tourId) {
         try {
@@ -50,7 +80,20 @@ public class FeedbackController {
         }
     }
 
-    // Delete Feedback by ID
+    /**
+     * Deletes feedback by ID.
+     *
+     * Preconditions:
+     * - `feedbackId` must not be null and must correspond to an existing feedback.
+     *
+     * Postconditions:
+     * - The specified feedback is deleted.
+     * - Returns a success message.
+     * - If the feedback does not exist, returns status 400 (BAD_REQUEST).
+     *
+     * @param feedbackId The ID of the feedback to delete.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteFeedback(@RequestParam Long feedbackId) {
         try {

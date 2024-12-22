@@ -24,6 +24,20 @@ public class CoordinatorController {
         this.highschoolService = highschoolService;
     }
 
+    /**
+     * Approves a payment.
+     *
+     * Preconditions:
+     * - `paymentId` must not be null and must correspond to an existing payment.
+     * - `coordinatorEmail` must not be null and must correspond to an existing coordinator.
+     *
+     * Postconditions:
+     * - Returns the approved payment.
+     *
+     * @param paymentId The ID of the payment.
+     * @param coordinatorEmail The email of the coordinator.
+     * @return ResponseEntity containing the approved payment.
+     */
     @PutMapping("/approve-payment")
     public ResponseEntity<Payment> approvePayment(
             @RequestParam Long paymentId,
