@@ -94,8 +94,10 @@ const SendFairInvitation = () => {
 
     return (
         <div className="container">
+
             <div className="calendar-container">
-                <h2>{selectingEndDate ? "Fuar Bitiş Tarihi Seçin:" : "Fuar Başlangıç Tarihi Seçin:"}</h2>
+            <h3>{selectingEndDate ? "Fuar Bitiş Tarihi Seçin:" : "Fuar Başlangıç Tarihi Seçin:"}</h3>
+
                 <Calendar
                     onChange={handleDateSelection}
                     value={selectingEndDate ? fairEndDate : fairStartDate}

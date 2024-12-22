@@ -1,47 +1,17 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import "./AllFairs.css";
+import "../tourguidepages/AllFairs.css";
 
-const AllFairs = () => {
+const CounselorFairs = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
-
-    const formatISODate = (date) => {
-        if (!date) return "--";
-        return typeof date === "string" ? date : date.toLocaleDateString("en-CA");
-    };
+    const token = localStorage.getItem("userToken");
 
     // Map status from English to Turkish
     const mapStatusToTurkish = (status) => {
         const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
         return statusMap[normalizedStatus] || statusMap["not_specified"]; // Default to "Belirtilmedi" if not found
-    };
-
-    const formatDate = (date) => {
-       if (!date) return "Geçersiz Tarih"; // Handle null or undefined
-       try {
-           // If the date is a Date object, we can directly format it
-           if (date instanceof Date) {
-               return new Intl.DateTimeFormat('tr-TR', {
-                   day: '2-digit',
-                   month: '2-digit',
-                   year: 'numeric',
-               }).format(date);
-           }
-
-           // Otherwise, handle string format (expected format: 'YYYY-MM-DD')
-           const [year, month, day] = date.split('-');
-           const parsedDate = new Date(year, month - 1, day); // Create a Date object for formatting
-           return new Intl.DateTimeFormat('tr-TR', {
-               day: '2-digit',
-               month: '2-digit',
-               year: 'numeric',
-           }).format(parsedDate); // Format in Turkish
-       } catch (error) {
-           console.error("Error formatting date:", error);
-           return "Geçersiz Tarih";
-       }
     };
 
     // Mapping of fair invitation status in English to Turkish
@@ -56,6 +26,33 @@ const AllFairs = () => {
         "executiveandguideAssigned": "Yönetici ve Tur Rehberi Başvurdu",
         "tourguideAssigned": "Tur Rehberi Başvurdu",
         "not_specified": "-",
+    };
+
+    // Format the date to Turkish format
+    const formatDate = (date) => {
+        if (!date) return "Geçersiz Tarih"; // Handle null or undefined
+        try {
+            // If the date is a Date object, we can directly format it
+            if (date instanceof Date) {
+                return new Intl.DateTimeFormat('tr-TR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                }).format(date);
+            }
+
+            // Otherwise, handle string format (expected format: 'YYYY-MM-DD')
+            const [year, month, day] = date.split('-');
+            const parsedDate = new Date(year, month - 1, day); // Create a Date object for formatting
+            return new Intl.DateTimeFormat('tr-TR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+            }).format(parsedDate); // Format in Turkish
+        } catch (error) {
+            console.error("Error formatting date:", error);
+            return "Geçersiz Tarih";
+        }
     };
 
     // Fetch all fairs
@@ -79,6 +76,7 @@ const AllFairs = () => {
                 alert("Failed to load fairs. Please try again later.");
             }
         };
+
         fetchFairs();
     }, [toggleState]);
 
@@ -87,26 +85,30 @@ const AllFairs = () => {
         const fetchEnrolledFairs = async () => {
             try {
                 const token = localStorage.getItem("userToken");
-                const guideEmail = localStorage.getItem("username");
-                if (!token || !guideEmail) {
-                    alert("Authorization or user email missing. Please log in.");
+                const executiveEmail = localStorage.getItem("username"); // Retrieve the email here
+
+                if (!token || !executiveEmail) {
+                    alert("Authorization token or executive email is missing. Please log in.");
                     return;
                 }
 
-                const response = await axios.get(
-                    "http://localhost:8081/api/tourguide/get/enrolledFairs",
-                    {
-                        params: { guideEmail },
-                        headers: { Authorization: `Bearer ${token}` },
-                        withCredentials: true,
-                    }
-                );
+                const response = await axios.get("http://localhost:8081/api/fair/getAll", {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
 
                 if (response.status === 200) {
-                    setEnrolledFairs(response.data);
+                    console.log(response.data); // Log all fairs for debugging
+                    const filteredFairs = response.data.filter(
+                        (fair) =>
+                            (fair.assignedExecutiveEmail &&
+                                fair.assignedExecutiveEmail.toLowerCase() === executiveEmail.toLowerCase())
+                    );
+                    console.log(filteredFairs); // Log the filtered fairs for debugging
+                    setEnrolledFairs(filteredFairs);
                 }
             } catch (error) {
-                console.log("Error fetching enrolled tours:", error.message);
+                alert("Failed to load fairs. Please try again later.");
+                console.error("Error fetching fairs:", error.message);
             }
         };
         fetchEnrolledFairs();
@@ -123,6 +125,7 @@ const AllFairs = () => {
                 const getCategory = (fair) => {
                     if (
                         fair.fairStatus === "Pending" ||
+                        fair.fairStatus === "ExecutiveAndGuideAssigned" ||
                         fair.fairStatus === "ExecutiveAssigned"
                     ) {
                         return 1; // Enrollable fairs
@@ -138,11 +141,10 @@ const AllFairs = () => {
             });
     }, [fairs, enrolledFairs]);
 
-    console.log(enrolledFairs)
     const handleEnroll = async (fairId) => {
-        const applyingGuideEmail = localStorage.getItem("username");
+        const executiveEmail = localStorage.getItem("username");
 
-        if (!applyingGuideEmail) {
+        if (!executiveEmail) {
             alert("Guide email not found. Please log in again.");
             return;
         }
@@ -155,8 +157,8 @@ const AllFairs = () => {
             }
 
             const response = await axios.post(
-                "http://localhost:8081/api/fair/guide-enroll",
-                { fairId, applyingGuideEmail },
+                "http://localhost:8081/api/fair/executive-enroll",
+                { fairId, executiveEmail },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -179,50 +181,38 @@ const AllFairs = () => {
             } else {
                 alert("An unexpected error occurred. Please try again.");
             }
-
         }
     };
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header">Güncel Fuarlar</h4>
+            <h4 className="tour-list-header">Tüm Fuarlar</h4>
             <ul className="fair-list">
-                {sortedFairs
-                    .filter(
-                        (fair) =>
-                            fair.fairStatus === "Pending" ||
-                            fair.fairStatus === "ExecutiveAssigned"
-                    ) // Filter out only enrollable fairs
-                    .map((fair) => {
-                        const isUserEnrolled = enrolledFairs.some(
-                            (enrolledFair) => enrolledFair.id === fair.id
-                        );
-                        return (
-                            <li
-                                key={fair.id}
-                                className="tour-item"
-                                data-status={mapStatusToTurkish(fair.fairStatus)}
+                {sortedFairs.map((fair) => {
+                    const isUserEnrolled = enrolledFairs.some(
+                        (enrolledFair) => enrolledFair.id === fair.id
+                    );
+                    return (
+                        <li key={fair.id} className="tour-item" data-status={fair.fairStatus}>
+                            <p>
+                                <strong>Tarih:</strong> {formatDate(new Date(fair.startDate))} - {formatDate(new Date(fair.endDate))}
+                            </p>
+                            <p>
+                                <strong>Durum:</strong> {mapStatusToTurkish(fair.fairStatus)}
+                            </p>
+                            <button
+                                onClick={() => handleEnroll(fair.id)}
+                                className="enroll-button"
+                                disabled={isUserEnrolled}
                             >
-                                <p>
-                                    <strong>Tarih:</strong>
-                                    {" " + formatDate(new Date(fair.startDate)) + " - " + formatDate(new Date(fair.endDate)) }
-                                </p>
-                                <p>
-                                   <strong>Durum:</strong> {mapStatusToTurkish(fair.fairStatus)}
-                                </p>
-                                <button
-                                    onClick={() => handleEnroll(fair.id)}
-                                    className="enroll-button"
-                                    disabled={isUserEnrolled}
-                                >
-                                    {isUserEnrolled ? "Kaydoldunuz" : "Kaydol"}
-                                </button>
-                            </li>
-                        );
-                    })}
+                                {isUserEnrolled ? "Kaydolundu" : "Kaydol"}
+                            </button>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );
 };
 
-export default AllFairs;
+export default CounselorFairs;
