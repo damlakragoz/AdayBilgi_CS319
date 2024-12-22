@@ -28,6 +28,7 @@ const TourGuideHomepage = () => {
                 overflow: 'hidden',
                 margin: -20,
                 top: -10,
+                
 
             }}
         >
