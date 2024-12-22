@@ -41,6 +41,18 @@ public class UserController {
     }
 
 
+    /**
+     * Retrieves all users.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all users.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing the list of all users or error status.
+     */
     @GetMapping("/users/getAll")
     public ResponseEntity<?> getAllUsers() {
         try {
@@ -53,6 +65,20 @@ public class UserController {
         }
     }
 
+    /**
+     * Retrieves a user by email.
+     *
+     * Preconditions:
+     * - `email` must not be null and must correspond to an existing user.
+     *
+     * Postconditions:
+     * - Returns the user details.
+     * - If the user does not exist, returns status 404 (NOT_FOUND).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param email The email of the user.
+     * @return ResponseEntity containing the user details or error status.
+     */
     @GetMapping("/users/getByEmail")
     public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
         try {
@@ -71,6 +97,23 @@ public class UserController {
         }
     }
 
+    /**
+     * Changes the password of a user.
+     *
+     * Preconditions:
+     * - `currentPassword`, `newPassword`, and `username` must not be null.
+     * - `currentPassword` must match the user's current password.
+     *
+     * Postconditions:
+     * - The user's password is updated.
+     * - If the current password is incorrect, returns status 401 (UNAUTHORIZED).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param currentPassword The current password of the user.
+     * @param newPassword The new password for the user.
+     * @param username The username of the user.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @PutMapping("/user/changePassword")
     public ResponseEntity<?> changePassword(@RequestParam String currentPassword, @RequestParam String newPassword, @RequestParam String username) {
         try {
@@ -85,7 +128,20 @@ public class UserController {
         }
     }
 
-    // Forgot Password: Send Reset Code to Email
+    /**
+     * Sends a reset code to the user's email for password recovery.
+     *
+     * Preconditions:
+     * - `email` must not be null and must correspond to an existing user.
+     *
+     * Postconditions:
+     * - A reset code is sent to the user's email.
+     * - If the user does not exist, returns status 404 (NOT_FOUND).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param email The email of the user.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @PostMapping("/user/forgotPassword")
     public ResponseEntity<?> forgotPassword(@RequestParam String email) {
         try {
@@ -103,6 +159,24 @@ public class UserController {
         }
     }
 
+
+    /**
+     * Resets the password of a user using a reset code.
+     *
+     * Preconditions:
+     * - `email`, `code`, and `newPassword` must not be null.
+     * - `code` must be valid for the given `email`.
+     *
+     * Postconditions:
+     * - The user's password is updated.
+     * - If the code is invalid, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param email The email of the user.
+     * @param code The reset code sent to the user's email.
+     * @param newPassword The new password for the user.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @PutMapping("/user/resetPassword")
     public ResponseEntity<?> resetPassword(
             @RequestParam String email,
@@ -122,7 +196,18 @@ public class UserController {
         }
     }
 
-    // Counselor Methods
+    /**
+     * Retrieves all counselors.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all counselors.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing the list of all counselors or error status.
+     */
     @GetMapping("/counselors/getAll")
     public ResponseEntity<?> getAllCounselors() {
         try {
@@ -138,6 +223,23 @@ public class UserController {
         }
     }
 
+    /**
+     * Registers a new counselor.
+     *
+     * Preconditions:
+     * - `counselorRegister` must not be null.
+     * - `counselorRegister.email` must be unique.
+     * - `counselorRegister.schoolName` must correspond to an existing high school.
+     *
+     * Postconditions:
+     * - The counselor is registered and saved.
+     * - If the email is already taken, returns status 400 (BAD_REQUEST).
+     * - If the high school does not exist, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param counselorRegister The registration details of the counselor.
+     * @return ResponseEntity containing the registered counselor or error status.
+     */
     @PostMapping("/counselor/register")
     public ResponseEntity<?> registerCounselor(@RequestBody CounselorRegister counselorRegister) {
         // Check if the username is already taken
@@ -155,6 +257,19 @@ public class UserController {
         return new ResponseEntity<>(counselorService.saveCounselor(counselor), HttpStatus.CREATED);
     }
 
+    /**
+     * Deletes a counselor by username.
+     *
+     * Preconditions:
+     * - `username` must not be null and must correspond to an existing counselor.
+     *
+     * Postconditions:
+     * - The counselor is deleted.
+     * - If the counselor does not exist, returns status 400 (BAD_REQUEST).
+     *
+     * @param username The username of the counselor.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @DeleteMapping("/counselor/delete")
     public ResponseEntity<?> deleteCounselor(@RequestParam String username) {
         if (counselorService.getCounselorByUsername(username) == null) {
@@ -167,6 +282,22 @@ public class UserController {
     // Counselor Methods END
 ////////////////////////////
 // Coordinator Methods START
+
+    /**
+     * Registers a new coordinator.
+     *
+     * Preconditions:
+     * - `btoMemberRegister` must not be null.
+     * - `btoMemberRegister.email` must be unique.
+     *
+     * Postconditions:
+     * - The coordinator is registered and saved.
+     * - If the email is already taken, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param btoMemberRegister The registration details of the coordinator.
+     * @return ResponseEntity containing the registered coordinator or error status.
+     */
     @PostMapping("/coordinator/register")
     public ResponseEntity<?> registerCoordinator(@RequestBody BTOMemberRegister btoMemberRegister) {
         if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
@@ -209,6 +340,22 @@ public class UserController {
             return new ResponseEntity<>(coordinatorService.saveCoordinator(coordinator), HttpStatus.CREATED);
         }
     }
+
+    /**
+     * Registers a new executive.
+     *
+     * Preconditions:
+     * - `btoMemberRegister` must not be null.
+     * - `btoMemberRegister.email` must be unique.
+     *
+     * Postconditions:
+     * - The executive is registered and saved.
+     * - If the email is already taken, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param btoMemberRegister The registration details of the executive.
+     * @return ResponseEntity containing the registered executive or error status.
+     */
     @PostMapping("/executive/register")
     private ResponseEntity<?> registerExecutive(@RequestBody BTOMemberRegister btoMemberRegister) {
         // Check for unique username
@@ -253,6 +400,18 @@ public class UserController {
         }
     }
 
+    /**
+     * Retrieves all executives.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all executives.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing the list of all executives or error status.
+     */
     @GetMapping("/executive/getAll")
     public ResponseEntity<?> getAllExecutives() {
         try {
@@ -267,6 +426,19 @@ public class UserController {
                     .body("An error occurred while retrieving tour guides.");
         }
     }
+
+    /**
+     * Retrieves all coordinators.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all coordinators.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing the list of all coordinators or error status.
+     */
     @GetMapping("/coordinator/getAll")
     public ResponseEntity<?> getAllCoordinators() {
         try {
@@ -281,6 +453,20 @@ public class UserController {
                     .body("An error occurred while retrieving tour guides.");
         }
     }
+
+    /**
+     * Deletes a coordinator by username.
+     *
+     * Preconditions:
+     * - `username` must not be null and must correspond to an existing coordinator.
+     *
+     * Postconditions:
+     * - The coordinator is deleted.
+     * - If the coordinator does not exist, returns status 400 (BAD_REQUEST).
+     *
+     * @param username The username of the coordinator.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @DeleteMapping("/coordinator/delete")
     public ResponseEntity<?> deleteCoordinator(@RequestParam String username) {
         if (coordinatorService.getCoordinatorByEmail(username) == null) {
@@ -292,6 +478,22 @@ public class UserController {
     // Coordinator Methods END
 ////////////////////////
 // TourGuide Methods START
+
+    /**
+     * Registers a new tour guide.
+     *
+     * Preconditions:
+     * - `tourGuideRegister` must not be null.
+     * - `tourGuideRegister.email` must be unique.
+     *
+     * Postconditions:
+     * - The tour guide is registered and saved.
+     * - If the email is already taken, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param tourGuideRegister The registration details of the tour guide.
+     * @return ResponseEntity containing the registered tour guide or error status.
+     */
     @PostMapping("/tourguide/register")
     public ResponseEntity<?> registerTourGuide(@RequestBody TourGuideRegister tourGuideRegister) {
         if (userService.getUserByUsername(tourGuideRegister.getEmail()) != null) {
@@ -335,6 +537,18 @@ public class UserController {
         }
     }
 
+    /**
+     * Retrieves all tour guides.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all tour guides.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing the list of all tour guides or error status.
+     */
     @GetMapping("/tourguide/getAll")
     public ResponseEntity<?> getAllTourGuides() {
         try {
@@ -350,6 +564,20 @@ public class UserController {
         }
     }
 
+    /**
+     * Deletes a tour guide by username.
+     *
+     * Preconditions:
+     * - `username` must not be null and must correspond to an existing tour guide.
+     *
+     * Postconditions:
+     * - The tour guide is deleted.
+     * - If the tour guide does not exist, returns status 400 (BAD_REQUEST).
+     * - If the tour guide has unfinished tours or pending payments, returns status 400 (BAD_REQUEST).
+     *
+     * @param username The username of the tour guide.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @DeleteMapping("/tourguide/delete")
     public ResponseEntity<?> deleteTourGuide(@RequestParam String username) {
         if (tourGuideService.getTourGuideByEmail(username) == null) {
@@ -375,6 +603,21 @@ public class UserController {
 ////////////////
 // Advisor Methods START
 
+    /**
+     * Registers a new advisor.
+     *
+     * Preconditions:
+     * - `advisorRegister` must not be null.
+     * - `advisorRegister.email` must be unique.
+     *
+     * Postconditions:
+     * - The advisor is registered and saved.
+     * - If the email is already taken, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param advisorRegister The registration details of the advisor.
+     * @return ResponseEntity containing the registered advisor or error status.
+     */
     @PostMapping("/advisor/register")
     public ResponseEntity<?> registerAdvisor(@RequestBody AdvisorRegister advisorRegister) {
         if (userService.getUserByUsername(advisorRegister.getEmail()) != null) {
@@ -395,6 +638,19 @@ public class UserController {
 
         return new ResponseEntity<>(advisorService.saveAdvisor(advisor), HttpStatus.CREATED);
     }
+
+    /**
+     * Retrieves all advisors.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all advisors.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing the list of all advisors or error status.
+     */
     @GetMapping("/advisor/getAll")
     public ResponseEntity<?> getAllAdvisors() {
         try {
@@ -407,6 +663,19 @@ public class UserController {
         }
     }
 
+    /**
+     * Deletes an advisor by email.
+     *
+     * Preconditions:
+     * - `email` must not be null and must correspond to an existing advisor.
+     *
+     * Postconditions:
+     * - The advisor is deleted.
+     * - If the advisor does not exist, returns status 400 (BAD_REQUEST).
+     *
+     * @param email The email of the advisor.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @DeleteMapping("/advisor/delete")
     public ResponseEntity<?> deleteAdvisor(@RequestParam String email) {
         if (advisorService.getAdvisorByEmail(email) == null) {
@@ -429,7 +698,22 @@ public class UserController {
 // Advisor Methods END
 ////////////////
 
-
+    /**
+     * Promotes a tour guide to an advisor.
+     *
+     * Preconditions:
+     * - `guideEmail` must not be null and must correspond to an existing tour guide.
+     * - `assignedDay` must not be null.
+     *
+     * Postconditions:
+     * - The tour guide is promoted to an advisor.
+     * - If the tour guide does not exist, returns status 404 (NOT_FOUND).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param guideEmail The email of the tour guide.
+     * @param assignedDay The assigned day for the new advisor.
+     * @return ResponseEntity containing the success message or error status.
+     */
     @PostMapping("/promoteTourGuide")
     public ResponseEntity<?> promoteTourGuide(@RequestParam String guideEmail, @RequestParam String assignedDay){
         try {

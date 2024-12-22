@@ -22,6 +22,19 @@ public class TourGuideController {
         this.tourGuideService = tourGuideService;
     }
 
+    /**
+     * Retrieves the tours assigned to a tour guide.
+     *
+     * Preconditions:
+     * - `guideEmail` must not be null and must correspond to an existing tour guide.
+     *
+     * Postconditions:
+     * - Returns a list of tours assigned to the specified tour guide.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param guideEmail The email of the tour guide.
+     * @return ResponseEntity containing the list of assigned tours or error status.
+     */
     @GetMapping("/get/enrolledTours")
     public ResponseEntity<?> getAssignedTours(@RequestParam String guideEmail) {
 
@@ -36,6 +49,20 @@ public class TourGuideController {
                     .body("An error occurred while retrieving the assigned guide.");
         }
     }
+
+    /**
+     * Retrieves the fairs assigned to a tour guide.
+     *
+     * Preconditions:
+     * - `guideEmail` must not be null and must correspond to an existing tour guide.
+     *
+     * Postconditions:
+     * - Returns a list of fairs assigned to the specified tour guide.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param guideEmail The email of the tour guide.
+     * @return ResponseEntity containing the list of assigned fairs or error status.
+     */
     @GetMapping("/get/enrolledFairs")
     public ResponseEntity<?> getEnrolledFairs(@RequestParam String guideEmail) {
         try {
