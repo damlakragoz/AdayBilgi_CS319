@@ -537,8 +537,8 @@ public class FairController {
         String title = null;
         String text = null;
         String textForBTOMember = "Başlangıç Zamanı: " + fair.getStartDate() + " - " + fair.getStartTime() + "<br>" +
-                "Bitiş Zamanı: " + fair.getEndDate() + " - " + fair.getEndDate() +"<br>" +
-                "Lise: " + fair.getApplyingHighschool() +"<br>" +
+                "Bitiş Zamanı: " + fair.getEndDate() + " - " + fair.getEndTime() +"<br>" +
+                "Lise: " + fair.getApplyingHighschool().getSchoolName() +"<br>" +
                 "Şehir: " + fair.getApplyingHighschool().getCity();
         String textForCounselor = "Gelecek Kişinin Bilgileri: " + "<br>";
 

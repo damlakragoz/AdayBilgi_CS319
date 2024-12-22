@@ -79,6 +79,7 @@ public class StatisticsService {
     }
 
 
+    // sort
     public Map<String, Integer> getTourGuideCountByDepartment() {
         List<TourGuide> tourGuides = tourGuideRepos.findAllTourGuides();
         Map<String, Integer> guidesByDepartment = new HashMap<>();
@@ -115,7 +116,7 @@ public class StatisticsService {
 
         }
 
-        return guidesByDepartment;
+        return sortByValueDescending(guidesByDepartment);
     }
 
     public Map<Integer, Integer> getTourGuideCountByGrade() {
@@ -214,6 +215,7 @@ public class StatisticsService {
         return tourApplicationsByType;
     }
 
+    // sort
     public Map<String, Integer> getTourCountByHighSchool() {
         Map<String, Integer> toursByHighSchool = new HashMap<>();
 
@@ -250,9 +252,10 @@ public class StatisticsService {
             }
         }
 
-        return toursByHighSchool;
+        return sortByValueDescending(toursByHighSchool);
     }
 
+    // sort
     public Map<String, Integer> getHighSchoolCountByCity() {
         Map<String, Integer> highSchoolsByCity = new HashMap<>();
 
@@ -287,11 +290,12 @@ public class StatisticsService {
             }
         }
 
-        return highSchoolsByCity;
+        return sortByValueDescending(highSchoolsByCity);
     }
 
     public Map<Integer, Integer> getFeedbackCountByRating() {
         Map<Integer, Integer> feedbackByRating = new HashMap<>();
+        feedbackByRating.put(0, 0);
         feedbackByRating.put(1, 0);
         feedbackByRating.put(2, 0);
         feedbackByRating.put(3, 0);
@@ -551,6 +555,22 @@ public class StatisticsService {
         }
 
         return monthMap;
+    }
+
+    // Separate method to sort the map by value in descending order
+    private Map<String, Integer> sortByValueDescending(Map<String, Integer> map) {
+        List<Map.Entry<String, Integer>> entryList = new ArrayList<>(map.entrySet());
+
+        // Sort the list by value in descending order
+        entryList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        // Create a LinkedHashMap to maintain the sorted order
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : entryList) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 
 }
