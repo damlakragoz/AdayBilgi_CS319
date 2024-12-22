@@ -347,7 +347,7 @@ const TourSchedule = () => {
                                             <strong>Tur
                                                 Durumu:</strong> {tour.tourStatus}
                                             <br/>
-                                            <strong>Tur Rehberi:</strong> {tour.assignedGuideEmail}
+                                            <strong>Tur Rehberi Email:</strong> {tour.assignedGuideEmail}
                                             <br/>
                                             {/* Request Withdraw or Enroll Button Logic */}
                                             {isUserEnrolled ? (
