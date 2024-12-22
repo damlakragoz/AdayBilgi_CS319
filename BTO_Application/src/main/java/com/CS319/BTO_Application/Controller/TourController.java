@@ -6,7 +6,6 @@ import com.CS319.BTO_Application.DTO.TourOperationsForGuide;
 import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Service.*;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,12 +29,13 @@ public class TourController {
     private final PaymentController paymentController;
     private final IndividualTourApplicationService individualTourApplicationService;
     private final NotificationService notificationService;
+    private final UserService userService;
 
     @Autowired
     public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService,
                           TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService,
                           AdvisorService advisorService, CounselorService counselorService, PaymentController paymentController,
-                          IndividualTourApplicationService individualTourApplicationService, NotificationService notificationService){
+                          IndividualTourApplicationService individualTourApplicationService, NotificationService notificationService, UserService userService){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
@@ -48,6 +45,7 @@ public class TourController {
         this.paymentController = paymentController;
         this.individualTourApplicationService = individualTourApplicationService;
         this.notificationService = notificationService;
+        this.userService = userService;
     }
 
 
@@ -56,6 +54,21 @@ public class TourController {
            +visitorCount
            +application.applyingCounselor.getSchool = tour.applyingSchool
            not: tourda ve applciationde ayrı ayrı school ve counselor tutulabilir. Şu anda applicationde counselor turda school tutuluyor
+     */
+    /**
+     * Creates an individual tour based on a tour application.
+     *
+     * Preconditions:
+     * - `tourApplicationId` must correspond to an existing IndividualTourApplication.
+     * - The application status must be "Pending".
+     *
+     * Postconditions:
+     * - Creates a new Tour and associates it with the IndividualTourApplication.
+     * - Returns status 201 (CREATED) if successful.
+     * - Returns status 400 (BAD_REQUEST) if the application status is not "Pending".
+     *
+     * @param tourApplicationId ID of the IndividualTourApplication.
+     * @return ResponseEntity with the created tour or error status.
      */
     @PostMapping("/create/ind")
     public ResponseEntity<Tour> createIndividualTour(@RequestParam Long tourApplicationId) {
@@ -81,6 +94,21 @@ public class TourController {
 
     }
 
+    /**
+     * Creates a school tour based on a tour application.
+     *
+     * Preconditions:
+     * - `tourApplicationId` must correspond to an existing SchoolTourApplication.
+     * - The application status must be "Pending".
+     *
+     * Postconditions:
+     * - Creates a new Tour and associates it with the SchoolTourApplication.
+     * - Returns status 201 (CREATED) if successful.
+     * - Returns status 400 (BAD_REQUEST) if the application status is not "Pending".
+     *
+     * @param tourApplicationId ID of the SchoolTourApplication.
+     * @return ResponseEntity with the created tour or error status.
+     */
     @PostMapping("/create/school")
     public ResponseEntity<Tour> createTour(@RequestParam Long tourApplicationId) {
         SchoolTourApplication schoolTourApplication = schoolTourApplicationService.getSchoolTourApplicationById(tourApplicationId);
@@ -106,7 +134,18 @@ public class TourController {
     }
 
 
-
+    /**
+     * Retrieves all tours.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a list of all tours.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing all tours or an error message.
+     */
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllTours() {
 
@@ -121,6 +160,20 @@ public class TourController {
         }
     }
 
+    /**
+     * Retrieves a specific tour by ID.
+     *
+     * Preconditions:
+     * - `tourId` must correspond to an existing tour.
+     *
+     * Postconditions:
+     * - Returns the tour if found.
+     * - If the tour does not exist, returns status 404 (NOT_FOUND).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param tourId ID of the tour to retrieve.
+     * @return ResponseEntity containing the tour or an error message.
+     */
     @GetMapping("/getById")
     public ResponseEntity<?> getTourById(@RequestParam Long tourId){
         try {
@@ -142,6 +195,19 @@ public class TourController {
         }
     }
 
+    /**
+     * Retrieves the assigned guide for a specific tour.
+     *
+     * Preconditions:
+     * - `tourId` must correspond to an existing tour.
+     *
+     * Postconditions:
+     * - Returns the assigned guide for the specified tour if found.
+     * - Returns status 500 (INTERNAL_SERVER_ERROR) if an error occurs.
+     *
+     * @param tourId The ID of the tour whose assigned guide is to be retrieved.
+     * @return ResponseEntity containing the assigned guide or an error message.
+     */
     @GetMapping("/get/assignedGuide")
     public ResponseEntity<?> getAssignedGuide(@RequestParam Long tourId) {
         try {
@@ -155,22 +221,43 @@ public class TourController {
         }
     }
 
-
-
-
     /*
         This method receives coordinator email as a parameter and checks if that coordinator exists
         and if that coordinator exists then changes the status of the tourApplication from "Pending" to "Approved" or "Rejected"
+     */
+    /**
+     * Approves a tour.
+     *
+     * Preconditions:
+     * - `approveRejectTour` must not be null.
+     * - `approveRejectTour.getCoordinatorEmail` must correspond to an existing coordinator.
+     * - The tour status must be "Pending".
+     *
+     * Postconditions:
+     * - Updates the tour status to "Approved".
+     * - Sends notifications to relevant guides.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param approveRejectTour DTO containing the tour ID and coordinator email.
+     * @return ResponseEntity with the updated tour or error status.
      */
     @PutMapping("/approve")
     public ResponseEntity<Tour> approveTour(@RequestBody ApproveRejectTour approveRejectTour) {
         Tour tour = tourService.getTourById(approveRejectTour.getTourId());
 
-        if(coordinatorService.getCoordinatorByEmail(approveRejectTour.getCoordinatorEmail()) == null){
+        if(userService.getUserByUsername(approveRejectTour.getCoordinatorEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        User user = userService.getUserByUsername(approveRejectTour.getCoordinatorEmail());
+        if(!user.getRole().equalsIgnoreCase("Coordinator") && !user.getRole().equalsIgnoreCase("Advisor")) {
+            System.out.println("Role mismatch");
+            System.out.println(user.getRole());
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // user role must be either advisor or coordinator
+        }
+
         if(!tour.getTourStatus().equals("Pending")){
-            return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore/advisora pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
 
         // Notification Logic
@@ -181,13 +268,37 @@ public class TourController {
         return new ResponseEntity<>(tourService.setStatusApproved(tour), HttpStatus.ACCEPTED);
     }
 
+    /**
+     * Rejects a tour.
+     *
+     * Preconditions:
+     * - `approveRejectTour` must not be null.
+     * - `approveRejectTour.getCoordinatorEmail` must correspond to an existing coordinator.
+     * - The tour status must be "Pending".
+     *
+     * Postconditions:
+     * - Updates the tour status to "Rejected".
+     * - Sends notifications to relevant individuals.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param approveRejectTour DTO containing the tour ID and coordinator email.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PutMapping("/reject")
     public ResponseEntity<Tour> rejectTour(@RequestBody ApproveRejectTour approveRejectTour) {
         Tour tour = tourService.getTourById(approveRejectTour.getTourId());
 
-        if(coordinatorService.getCoordinatorByEmail(approveRejectTour.getCoordinatorEmail()) == null){
+        if(userService.getUserByUsername(approveRejectTour.getCoordinatorEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        User user = userService.getUserByUsername(approveRejectTour.getCoordinatorEmail());
+        if(!user.getRole().equalsIgnoreCase("Coordinator") && !user.getRole().equalsIgnoreCase("Advisor")) {
+            System.out.println("Role mismatch");
+            System.out.println(user.getRole());
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // user role must be either advisor or coordinator
+        }
+
         if(!tour.getTourStatus().equals("Pending")){
             return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
@@ -203,7 +314,25 @@ public class TourController {
         return new ResponseEntity<>(tourService.setStatusRejected(tour), HttpStatus.ACCEPTED);
     }
 
-
+    /**
+     * Enrolls a tour guide in a tour.
+     *
+     * Preconditions:
+     * - `tourOperationsForGuide` must not be null.
+     * - `tourOperationsForGuide.getTourId` must correspond to an existing tour.
+     * - `tourOperationsForGuide.getApplyingGuideEmail` must correspond to an existing guide.
+     * - The tour status must be "Approved", "Withdrawn", or "WithdrawRequested".
+     *
+     * Postconditions:
+     * - Assigns the guide to the specified tour.
+     * - Sends notifications based on the enrollment status.
+     * - Returns status 201 (CREATED) if successful.
+     * - Returns status 404 (NOT_FOUND) if the guide or tour does not exist.
+     * - Returns status 400 (BAD_REQUEST) if the status does not allow enrollment.
+     *
+     * @param tourOperationsForGuide DTO containing tour ID and guide email.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PostMapping("/enroll")
     public ResponseEntity<Tour> enrollInTour(@RequestBody TourOperationsForGuide tourOperationsForGuide) {
         Tour tour = tourService.getTourById(tourOperationsForGuide.getTourId());
@@ -239,6 +368,24 @@ public class TourController {
         }
     }
 
+    /**
+     * Handles a withdraw request from a tour guide.
+     *
+     * Preconditions:
+     * - `tourOperationsForGuide` must not be null.
+     * - `tourOperationsForGuide.getTourId` must correspond to an existing tour.
+     * - `tourOperationsForGuide.getApplyingGuideEmail` must correspond to the assigned guide.
+     *
+     * Postconditions:
+     * - Updates the tour status to "WithdrawRequested".
+     * - Notifies relevant advisors about the request.
+     * - Returns status 201 (CREATED) if successful.
+     * - Returns status 404 (NOT_FOUND) if the guide or tour does not exist.
+     * - Returns status 400 (BAD_REQUEST) if the guide is not assigned to the tour.
+     *
+     * @param tourOperationsForGuide DTO containing tour ID and guide email.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PostMapping("/request-withdraw")
     public ResponseEntity<Tour> requestWithdraw(@RequestBody TourOperationsForGuide tourOperationsForGuide) {
         Tour tour = tourService.getTourById(tourOperationsForGuide.getTourId());
@@ -261,6 +408,26 @@ public class TourController {
         }
     }
 
+    /**
+     * Rejects a withdraw request from a tour guide.
+     *
+     * Preconditions:
+     * - `tourOperationsForAdvisor` must not be null.
+     * - `tourOperationsForAdvisor.getTourId` must correspond to an existing tour.
+     * - `tourOperationsForAdvisor.getAdvisorEmail` must correspond to an existing advisor.
+     * - The tour status must be "WithdrawRequested".
+     * - The advisor's assigned day must match the tour's chosen date.
+     *
+     * Postconditions:
+     * - The withdraw request is rejected.
+     * - Sends a notification to the guide about the rejection.
+     * - Returns status 201 (CREATED) if the request is successfully rejected.
+     * - Returns status 404 (NOT_FOUND) if the advisor or tour does not exist.
+     * - Returns status 400 (BAD_REQUEST) if the preconditions are not met.
+     *
+     * @param tourOperationsForAdvisor DTO containing the tour ID and advisor email.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PutMapping("/reject-withdraw-request")
     public ResponseEntity<Tour> rejectWithdraw(@RequestBody TourOperationsForAdvisor tourOperationsForAdvisor) {
         Tour tour = tourService.getTourById(tourOperationsForAdvisor.getTourId());
@@ -280,6 +447,25 @@ public class TourController {
         }
     }
 
+    /**
+     * Accepts a withdraw request from a tour guide.
+     *
+     * Preconditions:
+     * - `tourOperationsForAdvisor` must not be null.
+     * - `tourOperationsForAdvisor.getTourId` must correspond to an existing tour.
+     * - `tourOperationsForAdvisor.getAdvisorEmail` must correspond to an existing advisor.
+     * - The tour status must be "WithdrawRequested".
+     *
+     * Postconditions:
+     * - The withdraw request is accepted.
+     * - Sends a notification to the guide about the acceptance.
+     * - Returns status 201 (CREATED) if the request is successfully accepted.
+     * - Returns status 404 (NOT_FOUND) if the advisor or tour does not exist.
+     * - Returns status 400 (BAD_REQUEST) if the preconditions are not met.
+     *
+     * @param tourOperationsForAdvisor DTO containing the tour ID and advisor email.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PutMapping("/accept-withdraw-request")
     public ResponseEntity<Tour> acceptWithdraw(@RequestBody TourOperationsForAdvisor tourOperationsForAdvisor) {
         Tour tour = tourService.getTourById(tourOperationsForAdvisor.getTourId());
@@ -297,6 +483,27 @@ public class TourController {
         }
     }
 
+    /**
+     * Submits the activity report for a completed tour.
+     *
+     * Preconditions:
+     * - `tourId` must correspond to an existing tour.
+     * - `tourGuideEmail` must correspond to the assigned guide.
+     * - `duration` must be greater than 0.
+     *
+     * Postconditions:
+     * - Updates the tour's duration and status to "Finished".
+     * - Creates a payment for the tour guide.
+     * - Returns status 201 (CREATED) if successful.
+     * - Returns status 404 (NOT_FOUND) if the tour or guide does not exist.
+     * - Returns status 400 (BAD_REQUEST) for invalid inputs.
+     * - Returns status 409 (CONFLICT) if the guide does not match the assigned guide.
+     *
+     * @param tourId The ID of the completed tour.
+     * @param tourGuideEmail The email of the assigned tour guide.
+     * @param duration The duration of the tour.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PostMapping("/submit-activity")
     public ResponseEntity<?> submitTourActivity(@RequestParam Long tourId,
                                                 @RequestParam String tourGuideEmail,
@@ -353,6 +560,28 @@ public class TourController {
                     .body("An unexpected error occurred: " + ex.getMessage());
         }
     }
+
+    /**
+     * Edits the activity report for a tour.
+     *
+     * Preconditions:
+     * - `tourId` must correspond to an existing tour.
+     * - `tourGuideEmail` must correspond to the assigned guide.
+     * - `duration` must be greater than 0.
+     *
+     * Postconditions:
+     * - Updates the tour's duration and status to "Finished".
+     * - Updates the guide's work hours accordingly.
+     * - Returns status 201 (CREATED) if successful.
+     * - Returns status 404 (NOT_FOUND) if the tour or guide does not exist.
+     * - Returns status 400 (BAD_REQUEST) for invalid inputs.
+     * - Returns status 409 (CONFLICT) if the guide does not match the assigned guide.
+     *
+     * @param tourId The ID of the tour.
+     * @param tourGuideEmail The email of the assigned tour guide.
+     * @param duration The new duration of the tour.
+     * @return ResponseEntity with the updated tour or error status.
+     */
     @PostMapping("/edit-activity")
     public ResponseEntity<?> editTourActivity(@RequestParam Long tourId,
                                                 @RequestParam String tourGuideEmail,
@@ -405,6 +634,21 @@ public class TourController {
         }
     }
 
+    /**
+     * Retrieves all tours scheduled in a specific month and year.
+     *
+     * Preconditions:
+     * - `month` must be a valid month (1-12).
+     * - `year` must be a positive integer.
+     *
+     * Postconditions:
+     * - Returns a list of tours scheduled in the specified month and year.
+     * - Returns status 200 (OK) with the list of tours.
+     *
+     * @param month The month to filter tours.
+     * @param year The year to filter tours.
+     * @return ResponseEntity containing the list of tours.
+     */
     @GetMapping("/by-month")
     public ResponseEntity<List<Tour>> getToursByMonthAndYear(
             @RequestParam int month,
@@ -413,6 +657,21 @@ public class TourController {
         return ResponseEntity.ok(tours);
     }
 
+    /**
+     * Retrieves all finished tours in a specific month and year.
+     *
+     * Preconditions:
+     * - `month` must be a valid month (1-12).
+     * - `year` must be a positive integer.
+     *
+     * Postconditions:
+     * - Returns a list of finished tours in the specified month and year.
+     * - Returns status 200 (OK) with the list of tours.
+     *
+     * @param month The month to filter finished tours.
+     * @param year The year to filter finished tours.
+     * @return ResponseEntity containing the list of finished tours.
+     */
     @GetMapping("/by-month/finished")
     public ResponseEntity<List<Tour>> getFinishedToursByMonthAndYear(
             @RequestParam int month,
@@ -421,6 +680,22 @@ public class TourController {
         return ResponseEntity.ok(finishedTours);
     }
 
+    /**
+     * Sends notifications related to a tour.
+     *
+     * Preconditions:
+     * - `tour` must not be null and must contain valid details.
+     * - `email` must be a valid email address.
+     * - `situation` must be a recognized situation type.
+     *
+     * Postconditions:
+     * - Sends a notification to the specified email address.
+     * - Generates appropriate notification content based on the situation.
+     *
+     * @param tour The tour for which the notification is sent.
+     * @param email The email address to send the notification.
+     * @param situation The situation type that determines the notification content.
+     */
     private void notifyForTour(Tour tour, String email, String situation) {
         String title = null;
         String text = null;
