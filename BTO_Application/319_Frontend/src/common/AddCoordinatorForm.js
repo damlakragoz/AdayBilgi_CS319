@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./AddTourGuideForm.css";
+import { useNavigate } from "react-router-dom";
 
 const AddCoordinatorForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const AddCoordinatorForm = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +79,7 @@ const AddCoordinatorForm = () => {
       phoneNumber: "",
     });
     console.log("Form reset");
+    navigate(-1);
   };
 
   return (

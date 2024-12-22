@@ -8,7 +8,7 @@ import "./UserTables.css";
 const ExecutiveList = () => {
   const [executives, setExecutives] = useState([]);
   const [error, setError] = useState(null);
-  const role = localStorage.getItem("role"); //
+  const role = localStorage.getItem("role");
 
   // Function to fetch executives
   const fetchExecutives = async () => {

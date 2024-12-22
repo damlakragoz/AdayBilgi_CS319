@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./AddTourGuideForm.css";
+import { useNavigate } from "react-router-dom";
 
 const departments = [
   "AMER", "ARCH", "COMD", "CS", "CTIS", "EE", "EDU", "ELIT", "FA",
@@ -21,6 +22,7 @@ const AddTourGuideForm = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
@@ -133,6 +135,7 @@ const AddTourGuideForm = () => {
       iban: "",
     });
     console.log("Form reset");
+    navigate(-1);
   };
 
   return (
