@@ -34,6 +34,7 @@ const Statistics = () => {
         Created: "Oluşturuldu",
         Pending: "Onay Bekliyor",
         Approved: "Onaylandı",
+        "Pre-rejected": "Önceden Reddedildi",
         Rejected: "Reddedildi",
         Cancelled: "İptal Edildi",
         Finished: "Tamamlandı",
@@ -260,16 +261,28 @@ const Statistics = () => {
                         {
                             data: Object.values(data),
                             backgroundColor: [
-                                "rgba(255, 99, 132, 0.6)",
-                                "rgba(54, 162, 235, 0.6)",
-                                "rgba(255, 206, 86, 0.6)",
-                                "rgba(75, 192, 192, 0.6)",
+                                "rgba(173, 216, 230, 0.6)", // Light Blue
+                                "rgba(144, 238, 144, 0.6)", // Light Green
+                                "rgba(240, 128, 128, 0.6)", // Light Coral
+                                "rgba(255, 218, 185, 0.6)", // Peach Puff
+                                "rgba(221, 160, 221, 0.6)", // Plum
+                                "rgba(255, 250, 205, 0.6)", // Lemon Chiffon
+                                "rgba(175, 238, 238, 0.6)", // Pale Turquoise
+                                "rgba(240, 230, 140, 0.6)", // Khaki
+                                "rgba(230, 230, 250, 0.6)", // Lavender
+                                "rgba(245, 222, 179, 0.6)", // Wheat
                             ],
                             borderColor: [
-                                "rgba(255, 99, 132, 1)",
-                                "rgba(54, 162, 235, 1)",
-                                "rgba(255, 206, 86, 1)",
-                                "rgba(75, 192, 192, 1)",
+                                "rgba(135, 206, 250, 1)",   // Sky Blue
+                                "rgba(60, 179, 113, 1)",   // Medium Sea Green
+                                "rgba(205, 92, 92, 1)",    // Indian Red
+                                "rgba(244, 164, 96, 1)",   // Sandy Brown
+                                "rgba(186, 85, 211, 1)",   // Medium Orchid
+                                "rgba(255, 240, 130, 1)",  // Light Goldenrod
+                                "rgba(32, 178, 170, 1)",   // Light Sea Green
+                                "rgba(218, 165, 32, 1)",   // Goldenrod
+                                "rgba(186, 188, 241, 1)",  // Light Lavender
+                                "rgba(222, 184, 135, 1)",  // Burly Wood
                             ],
                             borderWidth: 1,
                         },
@@ -496,14 +509,28 @@ const Statistics = () => {
                         {
                             data: Object.values(data),
                             backgroundColor: [
-                                "rgba(255, 99, 132, 0.6)",
-                                "rgba(54, 162, 235, 0.6)",
-                                "rgba(75, 192, 192, 0.6)",
+                                "rgba(173, 216, 230, 0.6)", // Light Blue
+                                "rgba(144, 238, 144, 0.6)", // Light Green
+                                "rgba(240, 128, 128, 0.6)", // Light Coral
+                                "rgba(255, 218, 185, 0.6)", // Peach Puff
+                                "rgba(221, 160, 221, 0.6)", // Plum
+                                "rgba(255, 250, 205, 0.6)", // Lemon Chiffon
+                                "rgba(175, 238, 238, 0.6)", // Pale Turquoise
+                                "rgba(240, 230, 140, 0.6)", // Khaki
+                                "rgba(230, 230, 250, 0.6)", // Lavender
+                                "rgba(245, 222, 179, 0.6)", // Wheat
                             ],
                             borderColor: [
-                                "rgba(255, 99, 132, 1)",
-                                "rgba(54, 162, 235, 1)",
-                                "rgba(75, 192, 192, 1)",
+                                "rgba(135, 206, 250, 1)",   // Sky Blue
+                                "rgba(60, 179, 113, 1)",   // Medium Sea Green
+                                "rgba(205, 92, 92, 1)",    // Indian Red
+                                "rgba(244, 164, 96, 1)",   // Sandy Brown
+                                "rgba(186, 85, 211, 1)",   // Medium Orchid
+                                "rgba(255, 240, 130, 1)",  // Light Goldenrod
+                                "rgba(32, 178, 170, 1)",   // Light Sea Green
+                                "rgba(218, 165, 32, 1)",   // Goldenrod
+                                "rgba(186, 188, 241, 1)",  // Light Lavender
+                                "rgba(222, 184, 135, 1)",  // Burly Wood
                             ],
                             borderWidth: 1,
                         },
