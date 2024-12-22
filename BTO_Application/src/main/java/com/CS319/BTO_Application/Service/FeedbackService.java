@@ -1,7 +1,9 @@
 package com.CS319.BTO_Application.Service;
 
+import com.CS319.BTO_Application.Entity.Counselor;
 import com.CS319.BTO_Application.Entity.Feedback;
 import com.CS319.BTO_Application.Entity.Tour;
+import com.CS319.BTO_Application.Repos.CounselorRepos;
 import com.CS319.BTO_Application.Repos.FeedbackRepos;
 import com.CS319.BTO_Application.Repos.SchoolTourRepos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +16,16 @@ public class FeedbackService {
 
     private final FeedbackRepos feedbackRepository;
     private final SchoolTourRepos schoolTourRepository;
+    private final CounselorRepos counselorRepos;
 
     @Autowired
-    public FeedbackService(FeedbackRepos feedbackRepository, SchoolTourRepos schoolTourRepository) {
+    public FeedbackService(FeedbackRepos feedbackRepository, SchoolTourRepos schoolTourRepository, CounselorRepos counselorRepos) {
         this.feedbackRepository = feedbackRepository;
         this.schoolTourRepository = schoolTourRepository;
+        this.counselorRepos = counselorRepos;
     }
 
-    public Feedback submitFeedback(Long tourId, int rating, String comment, Long counselorId) {
+    public Feedback submitFeedback(Long tourId, int rating, String comment, String counselorEmail) {
         Tour tour = schoolTourRepository.findById(tourId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour not found with ID: " + tourId));
 
@@ -32,8 +36,8 @@ public class FeedbackService {
         if (feedbackRepository.existsByTour(tour)) {
             throw new IllegalArgumentException("Feedback already exists for this Tour.");
         }
-
-        Feedback feedback = new Feedback(tour, rating, comment, null); // Set counselor if needed
+        Counselor counselor = counselorRepos.findByEmail(counselorEmail);
+        Feedback feedback = new Feedback(tour, rating, comment, counselor); // Set counselor if needed
         return feedbackRepository.save(feedback);
     }
 

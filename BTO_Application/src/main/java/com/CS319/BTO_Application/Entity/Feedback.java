@@ -22,7 +22,7 @@ public class Feedback {
     private Tour tour; // Associated Tour
 
     @Column(name = "rating", nullable = false)
-    private int rating; // Rating for the tour
+    private Integer rating; // Rating for the tour
 
     @Column(name = "comment", length = 500)
     private String comment; // Feedback comments

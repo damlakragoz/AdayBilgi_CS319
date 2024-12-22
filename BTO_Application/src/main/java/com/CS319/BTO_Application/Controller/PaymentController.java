@@ -18,14 +18,28 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Payment> createPayment(@RequestParam String tourGuideEmail, @RequestParam Long tourId) {
+    @PostMapping("/create-tour-payment")
+    public ResponseEntity<Payment> createPaymentForTour(@RequestParam String tourGuideEmail, @RequestParam Long tourId) {
         try {
-            Payment payment = paymentService.calculateAndCreatePayment(tourId, tourGuideEmail);
+            Payment payment = paymentService.calculateAndCreatePaymentForTour(tourId, tourGuideEmail);
             return ResponseEntity.status(HttpStatus.CREATED).body(payment);
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().body(null);
         } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PostMapping("/create-fair-payment")
+    public ResponseEntity<Payment> createPaymentForFair(@RequestParam String tourGuideEmail, @RequestParam Long fairId) {
+
+        try {
+            Payment payment = paymentService.calculateAndCreatePaymentForFair(fairId, tourGuideEmail);
+            return ResponseEntity.status(HttpStatus.CREATED).body(payment);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -40,4 +54,24 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
         }
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllPayments() {
+        try {
+            return ResponseEntity.ok(paymentService.getAllPayments());
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
+        }
+    }
+
+    @GetMapping("/pending/getAll")
+    public ResponseEntity<?> getAllPendingAndUpdatedPayments() {
+        try {
+            return ResponseEntity.ok(paymentService.getAllPendingAndUpdatedPayments());
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: " + ex.getMessage());
+        }
+    }
+
+
 }

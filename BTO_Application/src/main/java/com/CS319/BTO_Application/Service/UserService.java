@@ -19,6 +19,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,11 +31,15 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepos<User> userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
+    private Map<String, String> resetCodeStore = new HashMap<>(); // Temporary storage for reset codes
+
 
     @Autowired
-    public UserService(UserRepos<User> userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepos<User> userRepository, PasswordEncoder passwordEncoder, MailService mailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
     }
 
     @Override
@@ -63,6 +70,46 @@ public class UserService implements UserDetailsService {
     public void updatePassword(User user, String newPassword) {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+    }
+
+    // Step 1: Generate Reset Code and Send Email
+    public void sendResetCode(String email) {
+        if (getUserByUsername(email) == null) {
+            System.out.println("User with this email does not exist.");
+        }
+
+        while (!resetCodeStore.isEmpty() && resetCodeStore.get(email) != null) {
+            resetCodeStore.remove(email);
+        }
+         String code = generateRandomCode();
+        resetCodeStore.put(email, code);
+
+        String subject = "Şifre Sıfırlama Kodu";
+        String text = "Şifre sıfırlama kodunuz: " + code;
+
+        mailService.sendMail(email, subject, text);
+    }
+
+    // Step 2: Verify Code
+    public boolean verifyResetCode(String email, String code) {
+        return resetCodeStore.containsKey(email) && resetCodeStore.get(email).equals(code);
+    }
+
+    // Step 3: Reset Password
+    public void resetPassword(String email, String newPassword, String code) {
+        if (!verifyResetCode(email, code)) {
+            System.out.println("Invalid code or email.");
+        }
+
+        User user = getUserByUsername(email);
+        updatePassword(user, newPassword); // Hash password here in production
+        resetCodeStore.remove(email); // Clean up
+    }
+
+    // Utility to Generate Random 6-Digit Code
+    private String generateRandomCode() {
+        Random random = new Random();
+        return String.format("%06d", random.nextInt(999999));
     }
 
     public void saveUser(User user) {

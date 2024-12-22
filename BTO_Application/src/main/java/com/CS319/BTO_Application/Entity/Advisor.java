@@ -41,5 +41,6 @@ public class Advisor extends TourGuide{
         this.setIban(iban);
         this.setAssignedDay(assignedDay);
         this.setRole("Advisor");
+        this.setWorkHours(0.0);
     }
 }

@@ -20,14 +20,11 @@ public class TourGuide extends BTOMember {
     @Column(name = "department", nullable = true)
     private String department;
 
-    @Column(name = "puantage", nullable = true)
-    private Long puantage;
-
     @Column(name = "work_hours", nullable = true)
-    private float workHours;
+    private Double workHours;
 
     @Column(name = "grade", nullable = true)
-    private int grade;
+    private Integer grade;
 
     @Column(name = "iban", nullable = true)
     private String iban;
@@ -35,6 +32,10 @@ public class TourGuide extends BTOMember {
     @OneToMany(mappedBy = "assignedGuide",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Tour> enrolledTours;
+
+    @OneToMany(mappedBy = "assignedGuideToFair",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    private List<Fair> enrolledFairs;
     /*
     TODO:
      -paymentHistory: List<Payment>
@@ -47,8 +48,11 @@ public class TourGuide extends BTOMember {
     @JsonManagedReference
     private List<Payment> paymentHistory;
 
+    /*
     @OneToMany(mappedBy = "tourGuide", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<OtherActivity> otherActivities;
+
+     */
 
     public TourGuide(String email, String password, String role) {
         this.setEmail(email);
@@ -66,7 +70,7 @@ public class TourGuide extends BTOMember {
     }
 
     public TourGuide(String email, String password, String firstName, String lastName,
-                     String phoneNumber, String department, Integer grade, String iban) {
+                     String phoneNumber, String department, Integer grade, String iban, Double workHours) {
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
@@ -76,6 +80,7 @@ public class TourGuide extends BTOMember {
         this.setGrade(grade);
         this.setIban(iban);
         this.setRole("TourGuide");
+        this.setWorkHours(workHours);
     }
 
 }

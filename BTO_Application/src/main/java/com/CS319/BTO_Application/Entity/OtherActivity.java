@@ -1,3 +1,4 @@
+/*
 package com.CS319.BTO_Application.Entity;
 
 import jakarta.persistence.*;
@@ -21,7 +22,7 @@ public class OtherActivity {
     private String activityTitle;
 
     @Column(name = "work_hours", nullable = false)
-    private double workHours;
+    private Double workHours;
 
     @ManyToOne
     @JoinColumn(name = "tour_guide_id", nullable = false)
@@ -41,3 +42,5 @@ public class OtherActivity {
         return "Activity: " + activityTitle + ", Hours: " + workHours;
     }
 }
+
+ */

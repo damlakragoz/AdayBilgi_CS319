@@ -72,6 +72,9 @@ public class TourApplicationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }// not found when searched by username
 
+        if(schoolTourApplicationService.existsSchoolTourApplicationByHighSchoolAndDate(applicationRequest.getTourApplication(), applicationRequest.getCounselorUsername())){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(schoolTourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselorUsername()), HttpStatus.CREATED);
     }
 

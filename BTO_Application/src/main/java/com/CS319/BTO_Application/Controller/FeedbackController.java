@@ -24,9 +24,9 @@ public class FeedbackController {
     public ResponseEntity<?> submitFeedback(@RequestParam Long tourId,
                                             @RequestParam int rating,
                                             @RequestParam String comment,
-                                            @RequestParam(required = false) Long counselorId) {
+                                            @RequestParam(required = false) String counselorEmail) {
         try {
-            Feedback feedback = feedbackService.submitFeedback(tourId, rating, comment, counselorId);
+            Feedback feedback = feedbackService.submitFeedback(tourId, rating, comment, counselorEmail);
             return ResponseEntity.ok(feedback);
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());

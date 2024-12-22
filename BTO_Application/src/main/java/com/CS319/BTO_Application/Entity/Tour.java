@@ -49,13 +49,18 @@ public class Tour extends TourEvent{
     @Column(name = "duration", nullable = true)
     private Double duration; // Duration in hours
 
-    public Tour(Integer visitorCount, TimeSlot timeSlot, LocalDate chosenDate, String status, HighSchool applyingHighschool, TourApplication tourApplication) {
+    @Column(name = "type", nullable = true) // individual tour or school tour
+    private String type;
+
+    public Tour(Integer visitorCount, TimeSlot timeSlot, LocalDate chosenDate, String status,
+                HighSchool applyingHighschool, TourApplication tourApplication, String type) {
         this.setVisitorCount(visitorCount);
         this.setChosenTimeSlot(timeSlot);
         this.setChosenDate(chosenDate);
         this.setTourStatus(status);
         this.setApplyingHighschool(applyingHighschool);
         this.setTourApplication(tourApplication);
+        this.setType(type);
     }
 
     public String getAssignedGuideEmail() {

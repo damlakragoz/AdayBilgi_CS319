@@ -141,9 +141,14 @@ public class TourService {
         return schoolTourRepos.save(tour);
     }
 
-    public List<Tour> getAllTours() {
-        System.out.println("GETALLTOURS IS CALLED");
-        return schoolTourRepos.findAll();
+    public List<Tour> getAllIndividualTours() {
+        System.out.println("GETAll Individual tours IS CALLED");
+        return schoolTourRepos.findAllByType("individual");
+    }
+
+    public List<Tour> getAllSchoolTours() {
+        System.out.println("GETAll School tours IS CALLED");
+        return schoolTourRepos.findAllByType("school");
     }
 
     public void cancelTourByCounselor(Long tourApplicationId) {
@@ -153,6 +158,25 @@ public class TourService {
     }
 
     public Tour submitTourActivity(Tour tour, double durationTime) {
+        if(tour.getAssignedGuide() != null){
+            TourGuide guide = tour.getAssignedGuide();
+            guide.setWorkHours(guide.getWorkHours() + durationTime);
+        }
+
+        tour.setDuration(durationTime);
+        setStatusFinished(tour);
+        tour.getTourApplication().setApplicationStatus("Finished");
+        return tour;
+    }
+    public Tour editTourActivity(Tour tour, double durationTime) {
+        if(tour.getAssignedGuide() != null){
+            TourGuide guide = tour.getAssignedGuide();
+            if(tour.getTourStatus().equals("Finished")){
+                Double prevWorkhours = tour.getDuration();
+                guide.setWorkHours(guide.getWorkHours() - prevWorkhours);
+                guide.setWorkHours(guide.getWorkHours() + durationTime);
+            }
+        }
         tour.setDuration(durationTime);
         setStatusFinished(tour);
         tour.getTourApplication().setApplicationStatus("Finished");
@@ -166,4 +190,9 @@ public class TourService {
     public List<Tour> getFinishedToursByMonthAndYear(int month, int year) {
         return schoolTourRepos.findFinishedToursByMonthAndYear(month, year);
     }
+
+    public List<Tour> getAllTours() {
+        return schoolTourRepos.findAll(); // SchoolTourRepos stands for tour repo but don't rename it!
+    }
+
 }

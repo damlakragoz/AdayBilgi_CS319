@@ -51,7 +51,7 @@ public class SchoolTourApplicationService {
         LocalDateTime now = LocalDateTime.now();
 
         // İşlem penceresini 2 dakika sonrası olarak ayarla
-        LocalDateTime batchWindow = now.withSecond(20).withNano(0).plusMinutes(0);
+        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
 
         /*
 
@@ -66,6 +66,7 @@ public class SchoolTourApplicationService {
          */
 
         schoolTourApplication.setTransitionTime(batchWindow);
+        schoolTourApplication.setApplicationTime(now);
 
         return schoolTourApplicationRepos.save(schoolTourApplication);
     }
@@ -103,6 +104,24 @@ public class SchoolTourApplicationService {
         tourApplication.setApplicationStatus("Cancelled");
         schoolTourApplicationRepos.save(tourApplication);
         return tourApplication;
+    }
+    public boolean existsSchoolTourApplicationByHighSchoolAndDate(SchoolTourApplication schoolTourApplication, String counselorEmail) {
+        if(!counselorRepos.existsByEmail(counselorEmail)){
+            return false;
+        }
+        Counselor counselor  = counselorRepos.findByEmail(counselorEmail);
+        HighSchool applyingHighSchool = counselor.getHighSchool();
+        for(RequestedDateTime requestedDateTime: schoolTourApplication.getRequestedDates()){
+            LocalDate requestedDate = requestedDateTime.getDate();
+            if(schoolTourApplicationRepos.existsBySelectedDateAndApplyingHighschoolAndApplicationStatus
+                    (requestedDate,applyingHighSchool,"Pending")
+                    || schoolTourApplicationRepos.existsBySelectedDateAndApplyingHighschoolAndApplicationStatus
+                    (requestedDate,applyingHighSchool,"Approved")
+            ){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -23,15 +24,26 @@ public class Fair {
     private Long id;
 
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
-    private Date endDate;
+    private LocalDate endDate;
+
+    @Column(name = "start_time", nullable = false)
+    private LocalTime startTime; // The selected time slot for the tour
+
+    @Column(name = "end_time", nullable = false)
+    private LocalTime endTime;
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "assigned_BTO_member", referencedColumnName = "id", nullable = true)
-    private BTOMember assignedBTOMember;
+    @JoinColumn(name = "assigned_tour_guide", referencedColumnName = "id", nullable = true)
+    private TourGuide assignedGuideToFair;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "assigned_executive", referencedColumnName = "id", nullable = true)
+    private Executive assignedExecutive;
 
     @ManyToOne
     @JsonBackReference
@@ -46,17 +58,33 @@ public class Fair {
     @Column(name = "fair_status", nullable = true)
     private String fairStatus;
 
-    public Fair(Date startDate, Date endDate, BTOMember assignedBTOMember, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation) {
+    @Column(name = "duration", nullable = true)
+    private Double duration; // Duration in hours
+
+    public Fair(LocalDate startDate, LocalDate endDate, String fairStatus, HighSchool applyingHighschool, FairInvitation fairInvitation,
+                LocalTime startTime, LocalTime endTime, Double duration) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.assignedBTOMember = assignedBTOMember;
         this.fairStatus = fairStatus;
         this.applyingHighschool = applyingHighschool;
         this.fairInvitation = fairInvitation;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.duration = duration;
     }
 
-    public FairInvitation getFairInvitation() {
-        return fairInvitation;
+    public String getAssignedGuideEmail() {
+        if (assignedGuideToFair == null) {
+            return null; // Or return an empty string "" depending on your requirements
+        }
+        return assignedGuideToFair.getEmail();
+    }
+
+    public String getAssignedExecutiveEmail() {
+        if (assignedExecutive == null) {
+            return null; // Or return an empty string "" depending on your requirements
+        }
+        return assignedExecutive.getEmail();
     }
 
 }

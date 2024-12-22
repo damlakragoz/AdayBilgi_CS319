@@ -35,7 +35,19 @@ public class TourGuideService {
     }
 
     public List<Tour> getAssignedTours(String email) {
+        if (!tourGuideRepos.existsByEmail(email)) {
+            System.out.println("TourGuide Not Found with username " + email);
+            return null;
+        }
         return tourGuideRepos.findByEmail(email).getEnrolledTours();
+    }
+
+    public List<Fair> getAssignedFairs(String guideEmail) {
+        if (!tourGuideRepos.existsByEmail(guideEmail)) {
+            System.out.println("TourGuide Not Found with username " + guideEmail);
+            return null;
+        }
+        return tourGuideRepos.findByEmail(guideEmail).getEnrolledFairs();
     }
 
     public TourGuide saveTourGuide(TourGuide tourGuide) {
@@ -61,8 +73,13 @@ public class TourGuideService {
             tour.setAssignedGuide(null);
         }
 
+        for (Fair fair : tourGuide.getEnrolledFairs()) {
+            fair.setAssignedGuideToFair(null);
+        }
+
         tourGuideRepos.delete(tourGuide);
     }
+
 
     public TourGuide getTourGuideById(Long tourGuideId) {
         return tourGuideRepos.findById(tourGuideId)
