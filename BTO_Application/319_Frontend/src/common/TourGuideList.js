@@ -31,6 +31,7 @@ const TourGuideList = () => {
           withCredentials: true,
         }
       );
+      console.log(response.data)
       setTourGuides(response.data);
       setError(null);
     } catch (err) {

@@ -114,7 +114,7 @@ const ExecutiveList = () => {
         </table>
       )}
         {/* Centered Button Below the Table */}
-        { (role==="Admin") &&
+        { (role==="Admin" || role==="Executive" ) &&
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Link to="/yonetici-ekle">
               <button className="usertable-button usertable-button-add">

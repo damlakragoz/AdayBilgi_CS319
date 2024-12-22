@@ -9,6 +9,9 @@ const AddExecutiveForm = () => {
     lastName: "",
     phoneNumber: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -28,9 +31,12 @@ const AddExecutiveForm = () => {
     const { email, firstName, lastName, phoneNumber } = formData;
 
     try {
+      setIsLoading(true); // Set loading state to true when request is sent
+
       const token = localStorage.getItem("userToken");
       if (!token) {
         alert("Authorization token missing. Please log in.");
+        setIsLoading(false); // Reset loading state in case of error
         return;
       }
 
@@ -51,7 +57,9 @@ const AddExecutiveForm = () => {
         lastName: "",
         phoneNumber: "",
       });
+      setIsLoading(false); // Reset loading state after success
     } catch (error) {
+      setIsLoading(false); // Reset loading state on error
       if (error.response && error.response.status === 400) {
         alert("Aynı e-mail adresine sahip bir kullanıcı daha var!");
       } else {
@@ -121,10 +129,20 @@ const AddExecutiveForm = () => {
 
         {/* Buttons */}
         <div className="button-group">
-          <button type="submit" className="submit-button">Ekle</button>
+          <button type="submit" className="submit-button" disabled={isLoading}>
+            {isLoading ? "Yükleniyor..." : "Ekle"}
+          </button>
           <button type="button" className="cancel-button" onClick={handleCancel}>İptal</button>
         </div>
       </form>
+
+      {/* Loading Screen (Overlay) */}
+      {isLoading && (
+        <div className="userform-loading-screen">
+          <div className="spinner"></div>
+          <p>Yükleniyor...</p>
+        </div>
+      )}
     </div>
   );
 };

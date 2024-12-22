@@ -93,7 +93,7 @@ select option {
   color: #333;
 }
 
-.loading-screen {
+.userform-loading-screen {
   position: fixed;
   top: 0;
   left: 0;

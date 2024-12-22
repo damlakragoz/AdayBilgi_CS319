@@ -137,13 +137,6 @@ const AddTourGuideForm = () => {
 
   return (
     <div className="add-tour-guide-form">
-      {loading && (
-        <div className="loading-screen">
-          <div className="spinner"></div>
-          <p>Yükleniyor...</p>
-        </div>
-      )}
-      {!loading && (
         <div>
           <h2>Yeni Rehber Ekle</h2>
           <form onSubmit={handleSubmit}>
@@ -241,8 +234,15 @@ const AddTourGuideForm = () => {
               </button>
             </div>
           </form>
+
+        {/* Loading Screen (Overlay) */}
+        {loading && (
+          <div className="userform-loading-screen">
+            <div className="spinner"></div>
+            <p>Yükleniyor...</p>
+          </div>
+        )}
         </div>
-      )}
     </div>
   );
 
