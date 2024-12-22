@@ -3,6 +3,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./SendFairInvitation.css";
 import axios from "axios";
+import {toast} from "react-toastify"; // Import the updated CSS file
+
 
 const SendFairInvitation = () => {
     const [fairStartDate, setFairStartDate] = useState(null);
@@ -17,14 +19,14 @@ const SendFairInvitation = () => {
         if (!selectingEndDate) {
             // Başlangıç tarihi seçilirken bitiş tarihinden sonra olmamasını kontrol et
             if (fairEndDate && date > fairEndDate) {
-                alert("Başlangıç tarihi bitiş tarihinden sonra olamaz!");
+                toast.error("Başlangıç tarihi bitiş tarihinden sonra olamaz!");
             } else {
                 setFairStartDate(date);
             }
         } else {
             // Bitiş tarihi seçilirken başlangıç tarihinden önce olmamasını kontrol et
             if (fairStartDate && date < fairStartDate) {
-                alert("Bitiş tarihi başlangıç tarihinden önce olamaz!");
+                toast.error("Bitiş tarihi başlangıç tarihinden önce olamaz!");
             } else {
                 setFairEndDate(date);
             }
@@ -42,8 +44,10 @@ const SendFairInvitation = () => {
             counselorUsername: counselorUsername,
         };
 
-        if(requestData.fairInvitation.fairStartDate==null || requestData.fairInvitation.fairEndDate==null) {
-            alert("Lütfen fuar başlangıç ve bitiş saati seçiniz!");
+        if (requestData.fairInvitation.fairStartDate == null || requestData.fairInvitation.fairEndDate == null) {
+            toast.info("Lütfen fuar başlangıç ve bitiş saati seçiniz!");
+        } else if (fairStartDate?.toLocaleDateString("en-CA") === fairEndDate?.toLocaleDateString("en-CA") && fairStartTime >= fairEndTime) {
+            toast.error("Fur başlangıç saati bitiş saatinden önce olmalıdır!");
         }
         else {
             try {
@@ -59,22 +63,22 @@ const SendFairInvitation = () => {
                     }
                 );
                 if (response.status === 201) {
-                    alert("Fuar davetiyesi başarıyla oluşturuldu!");
+                    toast.info("Fuar davetiyesi başarıyla oluşturuldu!");
 
                     setFairEndDate(null)
                     setFairStartDate(null)
                 } else if (response.status === 409) {
-                    alert("Bu tarihlerde zaten bir davetiye mevcut.");
+                    toast.error("Bu tarihlerde zaten bir davetiye mevcut.");
                 } else {
-                    alert("Davetiyeyi gönderirken bir hata oluştu.");
+                    toast.error("Davetiyeyi gönderirken bir hata oluştu.");
                 }
             } catch (error) {
                 if (error.response && error.response.status === 409) {
-                    alert("Bu tarihlerde zaten bir davetiye mevcut.");
+                    toast.error("Bu tarihlerde zaten bir davetiye mevcut.");
                 } else if (error.response && error.response.status === 404) {
-                    alert("Counselor bulunamadı.");
+                    toast.error("Rehber öğretmen bulunamadı.");
                 } else {
-                    alert("Davetiyeyi gönderirken bir hata oluştu.");
+                    toast.error("Davetiyeyi gönderirken bir hata oluştu.");
                 }
                 console.error("Error submitting fair invitation:", error);
             }

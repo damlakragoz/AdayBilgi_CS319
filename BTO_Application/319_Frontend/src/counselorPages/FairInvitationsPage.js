@@ -26,7 +26,7 @@ const FairInvitationsPage = () => {
       try {
         const token = localStorage.getItem("userToken");
         if (!token) {
-          toast.error("Authorization token missing. Lütfen giriş yapın.", { autoClose: 3000 });
+          toast.error("Lütfen giriş yapın.", { autoClose: 3000 });
           return;
         }
 

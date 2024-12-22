@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CounselorTourApplicationsPage.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Status translations
 const statusTranslations = {
@@ -10,7 +12,7 @@ const statusTranslations = {
     Approved: "Onaylandı",
     Rejected: "Reddedildi",
     "Pre-rejected": "Reddedildi", // Map Pre-rejected to Reddedildi
-    "Cancelled": "Iptal edildi",
+    "Cancelled": "İptal edildi",
     Finished: "Tamamlandı", // Added Finished state
     default: "Oluşturuldu", // Handle unexpected statuses
 };
@@ -40,7 +42,7 @@ const CounselorTourApplicationsPage = () => {
             try {
                 const token = localStorage.getItem("userToken");
                 if (!token) {
-                    alert("Authorization token missing. Please log in.");
+                    toast.error("Lütfen giriş yapın.");
                     return;
                 }
 
@@ -77,7 +79,7 @@ const CounselorTourApplicationsPage = () => {
                 setApplications(sortedApplications);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                alert("Failed to fetch tour applications. Please try again later.");
+                toast.error("Tur başvurularına ulaşılamadı. Lütfen daha sonra tekrar deneyiniz.");
             } finally {
                 setIsLoading(false);
             }
@@ -111,7 +113,7 @@ const CounselorTourApplicationsPage = () => {
             );
 
             if (response.status === 200 || response.status === 201 || response.status === 202) {
-                alert("Başvuru başarıyla iptal edildi.");
+                toast.info("Başvuru başarıyla iptal edildi.");
                 setApplications((prevApplications) =>
                     prevApplications.filter((app) => app.id !== applicationId)
                 );
@@ -120,7 +122,7 @@ const CounselorTourApplicationsPage = () => {
             }
         } catch (error) {
             console.error("Error canceling application:", error);
-            alert("Başvuru iptal edilirken bir hata oluştu.");
+            toast.error("Başvuru iptal edilirken bir hata oluştu.");
         }
     };
     // Function to handle pagination
@@ -268,10 +270,44 @@ const CounselorTourApplicationsPage = () => {
 
                         <div className="card-actions">
                             {/* Conditionally render the Cancel button based on application status */}
-                            {(application.applicationStatus === "Pending" || application.applicationStatus === "Approved" || application.applicationStatus === "Created") &&(
+                            {(application.applicationStatus === "Pending" || application.applicationStatus === "Approved" || application.applicationStatus === "Created") && (
                                 <button
                                     className="cancel-button"
-                                    onClick={(event) => handleCancelTour(application.id, event)}
+                                    onClick={(event) => {
+                                        toast.warn("Başvuruyu iptal etmek istediğinizden emin misiniz?", {
+                                            position: "top-center",
+                                            style: { width: "400px" },
+                                            autoClose: false,
+                                            closeOnClick: false,
+                                            draggable: false,
+                                            onOpen: () => {},
+                                            closeButton: (
+                                                <div style={{display: 'flex', gap: '10px'}}>
+                                                    <button onClick={() => handleCancelTour(application.id)} style={{
+                                                        flex: 1,
+                                                        padding: '8px 12px',
+                                                        border: 'none',
+                                                        backgroundColor: '#f0f0f0',
+                                                        borderRadius: '4px',
+                                                        display: 'inline-block',
+                                                        whiteSpace: 'nowrap'
+                                                    }}>Evet
+                                                    </button>
+                                                    <button onClick={() => toast.dismiss()} style={{
+                                                        flex: 1,
+                                                        padding: '8px 12px',
+                                                        border: 'none',
+                                                        backgroundColor: '#f0f0f0',
+                                                        borderRadius: '4px',
+                                                        display: 'inline-block',
+                                                        whiteSpace: 'nowrap'
+                                                    }}>Hayır
+                                                    </button>
+
+                                                </div>
+                                            )
+                                        });
+                                    }}
                                 >
                                     İptal Et
                                 </button>
