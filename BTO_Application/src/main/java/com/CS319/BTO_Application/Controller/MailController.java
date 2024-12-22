@@ -21,9 +21,19 @@ public class MailController {
     }
 
     /**
-     * Endpoint to send the user's password to their email.
+     * Sends the user's password to their email.
+     *
+     * Preconditions:
+     * - `email` must not be null and must correspond to an existing user.
+     *
+     * Postconditions:
+     * - Sends an email containing the user's password.
+     * - Returns a boolean indicating success or failure.
+     * - If the email does not correspond to an existing user, returns status 400 (BAD_REQUEST).
+     * - If an error occurs while sending the email, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
      * @param email The email address of the user.
-     * @return A ResponseEntity with a boolean value indicating success or failure.
+     * @return ResponseEntity containing a boolean value indicating success or failure.
      */
     @PostMapping("/send-password")
     public ResponseEntity<?> sendPassword(@RequestParam String email) {

@@ -23,6 +23,21 @@ public class HighSchoolController {
         this.highschoolService = highschoolService;
     }
 
+    /**
+     * Registers a new high school.
+     *
+     * Preconditions:
+     * - `highSchoolRegister` must not be null.
+     * - The school name in `highSchoolRegister` must not already exist.
+     *
+     * Postconditions:
+     * - The high school is saved in the repository.
+     * - Returns the saved high school with status 201 (CREATED).
+     * - If the school name already exists, returns status 400 (BAD_REQUEST).
+     *
+     * @param highSchoolRegister The high school registration details.
+     * @return ResponseEntity containing the saved high school or error status.
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerHighSchool(@RequestBody HighSchoolRegister highSchoolRegister) {
         // Check if the username is already taken
@@ -35,6 +50,20 @@ public class HighSchoolController {
         return new ResponseEntity<>(highschoolService.saveHighSchool(highSchool),HttpStatus.CREATED);
     }
 
+    /**
+     * Retrieves all counselors for a specific high school.
+     *
+     * Preconditions:
+     * - `schoolName` must not be null and must correspond to an existing high school.
+     *
+     * Postconditions:
+     * - Returns a list of counselors for the specified high school.
+     * - If no counselors are found, returns status 404 (NOT_FOUND).
+     * - If an unexpected error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param schoolName The name of the high school.
+     * @return ResponseEntity containing the list of counselors for a specific high school or error status.
+     */
     @GetMapping("/getCounselors")
     public ResponseEntity<?> getCounselors(@RequestParam String schoolName) {
         try {
