@@ -37,6 +37,7 @@ import CounselorList from './common/CounselorList';
 import CoordinatorList from './common/CoordinatorList';
 // Counselor Page Imports
 import CounselorHomepage from './counselorPages/CounselorHomepage';
+import AllApplicationsCounselor from './counselorPages/AllApplicationsCounselor';
 import GeriBildirimler from './counselorPages/GeriBildirimler';
 import CounselorDashboardContent from "./counselorPages/CounselorDashboardContent";
 import FeedbackForm from "./counselorPages/FeedbackForm";
@@ -173,6 +174,7 @@ function App() {
                         <Route path="/counselor-notifications" element={<CounselorNotifications />} />
                         <Route path="/ogretmen-sifre-degistir" element={<ChangePassword />} />
                         <Route path="/ogretmen-ayarlar" element={<CounselorSettings />} />
+                        <Route path="/all-applications" element={<AllApplicationsCounselor />} />
                     </Route>
                     {/* TourGuide Routes Wrapped in TourGuide */}
                     <Route element={<TourGuideLayout />}>

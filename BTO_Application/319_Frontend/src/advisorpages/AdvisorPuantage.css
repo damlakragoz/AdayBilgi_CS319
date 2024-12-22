@@ -148,15 +148,16 @@
 .puantage-table-button button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #007bff; /* Blue */
+  background-color: var(--dark-gray); /* Blue */
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  self-align: center;
 }
 
 /* Hover effect for Puantage Table button */
 .puantage-table-button button:hover {
-  background-color: #0056b3; /* Darker blue */
+  background-color: var(--dark-blue); /* Darker blue */
 }
