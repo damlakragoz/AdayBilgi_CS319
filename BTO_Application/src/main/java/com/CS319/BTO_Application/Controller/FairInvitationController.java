@@ -22,14 +22,16 @@ public class FairInvitationController {
     private final CounselorService counselorService;
     private final CoordinatorService coordinatorService;
     private final ExecutiveService executiveService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public FairInvitationController(FairInvitationService fairInvitationService, CounselorService counselorService, FairService fairService, CoordinatorService coordinatorService, ExecutiveService executiveService) {
+    public FairInvitationController(FairInvitationService fairInvitationService, CounselorService counselorService, FairService fairService, CoordinatorService coordinatorService, ExecutiveService executiveService, NotificationService notificationService) {
         this.fairInvitationService = fairInvitationService;
         this.counselorService = counselorService;
         this.fairService = fairService;
         this.coordinatorService = coordinatorService;
         this.executiveService = executiveService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping("/getAll")
@@ -79,6 +81,18 @@ public class FairInvitationController {
                     System.out.println("Fair invitation cancelled: " + fairInvitation);
                 }
 
+                // Notify assigned BTO Members for cancellation
+                if (fairInvitation.getFairInvitationStatus().equals("Approved")) {
+                    TourGuide tourGuide = fairService.getFairByInvitationId(fairInvitationId).getAssignedGuideToFair();
+                    Executive executive = fairService.getFairByInvitationId(fairInvitationId).getAssignedExecutive();
+                    if (tourGuide != null) {
+                        notifyForFairInvitation(fairInvitation, tourGuide.getEmail(), "Guide Fair Cancelled");
+                    }
+                    if (executive != null) {
+                        notifyForFairInvitation(fairInvitation, executive.getEmail(), "Executive Fair Cancelled");
+                    }
+                }
+
                 return new ResponseEntity<>(fairInvitationService.cancelFairInvitation(counselorEmail, fairInvitationId), HttpStatus.ACCEPTED);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -112,8 +126,12 @@ public class FairInvitationController {
 
         if(Objects.equals(fairInvitation.getFairInvitationStatus(), "Created")) {
             if (coordinatorService.getCoordinatorByEmail(btoManagerEmail) != null) {
+                // Notify Counselor for rejection
+                notifyForFairInvitation(fairInvitation, fairInvitation.getApplyingCounselor().getEmail(), "Counselor Fair Rejected");
                 return new ResponseEntity<>(fairInvitationService.rejectFairInvitation(btoManagerEmail, fairInvitationId), HttpStatus.ACCEPTED);
             } else if (executiveService.getExecutiveByEmail(btoManagerEmail) != null) {
+                // Notify Counselor for rejection
+                notifyForFairInvitation(fairInvitation, fairInvitation.getApplyingCounselor().getEmail(), "Counselor Fair Rejected");
                 return new ResponseEntity<>(fairInvitationService.rejectFairInvitation(btoManagerEmail, fairInvitationId), HttpStatus.ACCEPTED);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -123,6 +141,35 @@ public class FairInvitationController {
         }
     }
 
+    private void notifyForFairInvitation(FairInvitation fairInvitation, String email, String situation) {
+        String title = null;
+        String text = null;
+        String textForBTOMember = "İptal Edilen Fuarın Bilgisi: " + "<br>" +
+                "Başlangıç Zamanı: " + fairInvitation.getFairStartDate() + " - " + fairInvitation.getFairStartTime() + "<br>" +
+                "Bitiş Zamanı: " + fairInvitation.getFairEndDate() + " - " + fairInvitation.getFairEndTime() +
+                "Lise: " + fairInvitation.getApplyingHighschool() +"<br>" +
+                "Şehir: " + fairInvitation.getApplyingHighschool().getCity();
+        String textForCounselor = "Reddedilen Fuar Davetiyesinin Bilgisi: " + "<br>" +
+                "Başlangıç Zamanı: " + fairInvitation.getFairStartDate() + " - " + fairInvitation.getFairStartTime() + "<br>" +
+                "Bitiş Zamanı: " + fairInvitation.getFairEndDate() + " - " + fairInvitation.getFairEndTime();
+
+        if (situation.equals("Guide Fair Cancelled")) {
+            title = "Kayıtlı Olduğunuz Fuar Lise Tarafından İptal Edildi";
+            text = textForBTOMember;
+        }
+        else if (situation.equals("Executive Fair Cancelled")) {
+            title = "Kayıtlı Olduğunuz Fuar Lise Tarafından İptal Edildi";
+            text = textForBTOMember;
+        }
+        else if (situation.equals("Counselor Fair Rejected")) {
+            title = "Fuar Davetiyeniz Ne Yazık ki Reddedildi";
+            text = textForCounselor;
+        }
+
+        if (title != null || text != null || email != null) {
+            notificationService.createNotification(email, title, text);
+        }
+    }
 
 }
 
