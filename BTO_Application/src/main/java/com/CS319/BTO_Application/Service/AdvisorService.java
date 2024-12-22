@@ -49,6 +49,19 @@ public class AdvisorService {
         return advisorRepos.save(advisor);
     }
 
+    /**
+     * Retrieves all assigned unfinished tours for an advisor.
+     *
+     * Preconditions:
+     * - `advisorEmail` must not be null and must correspond to an existing advisor.
+     *
+     * Postconditions:
+     * - Returns a list of all assigned unfinished tours for the specified advisor.
+     * - If the advisor does not exist, returns null.
+     *
+     * @param advisorEmail The email of the advisor.
+     * @return A list of all assigned unfinished tours for the specified advisor or null.
+     */
     public List<Tour> getAllAssignedUnfinishedTours(@RequestParam String advisorEmail) {
         List<Tour> tours = schoolTourRepos.findAll();
         List<Tour> activeToursAssignedToAdvisor = new ArrayList<>();

@@ -42,6 +42,13 @@ public class UserService implements UserDetailsService {
         this.mailService = mailService;
     }
 
+    /**
+     * Loads a user by their username (email).
+     *
+     * @param username The email of the user.
+     * @return UserDetails object for the user.
+     * @throws UsernameNotFoundException If no user with the specified email exists.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
@@ -55,24 +62,59 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
+    /**
+     * Retrieves a user by their email.
+     *
+     * @param username The email of the user.
+     * @return The `User` entity, or `null` if not found.
+     */
     public User getUserByUsername(String username) {
         return userRepository.findByEmail(username);
     }
 
+    /**
+     * Retrieves a list of all users in the system.
+     *
+     * @return List of all `User` entities.
+     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Checks if a raw password matches the encoded password of the user.
+     *
+     * @param user The `User` entity whose password is to be verified.
+     * @param rawPassword The raw password input.
+     * @return `true` if the passwords match, `false` otherwise.
+     */
     public boolean checkPassword(User user, String rawPassword) {
         return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 
+    /**
+     * Updates the password for a user.
+     *
+     * @param user The `User` entity whose password is to be updated.
+     * @param newPassword The new password to set (will be encoded).
+     */
     public void updatePassword(User user, String newPassword) {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 
-    // Step 1: Generate Reset Code and Send Email
+    /**
+     * Sends a password reset code to the user's email.
+     *
+     * Preconditions:
+     * - The email must belong to a registered user.
+     *
+     * Postconditions:
+     * - A reset code is generated and stored temporarily.
+     * - An email containing the reset code is sent to the user.
+     *
+     * @param email The email to which the reset code will be sent.
+     */
     public void sendResetCode(String email) {
         if (getUserByUsername(email) == null) {
             System.out.println("User with this email does not exist.");
@@ -90,12 +132,31 @@ public class UserService implements UserDetailsService {
         mailService.sendMail(email, subject, text);
     }
 
-    // Step 2: Verify Code
+    /**
+     * Verifies if a provided reset code matches the stored reset code for a user.
+     *
+     * @param email The email of the user.
+     * @param code The reset code to verify.
+     * @return `true` if the code is valid, `false` otherwise.
+     */
     public boolean verifyResetCode(String email, String code) {
         return resetCodeStore.containsKey(email) && resetCodeStore.get(email).equals(code);
     }
 
-    // Step 3: Reset Password
+    /**
+     * Resets the password for a user if the provided reset code is valid.
+     *
+     * Preconditions:
+     * - The provided reset code must match the stored reset code.
+     *
+     * Postconditions:
+     * - The user's password is updated to the new password.
+     * - The reset code is removed from storage.
+     *
+     * @param email The email of the user.
+     * @param newPassword The new password to set.
+     * @param code The reset code provided by the user.
+     */
     public void resetPassword(String email, String newPassword, String code) {
         if (!verifyResetCode(email, code)) {
             System.out.println("Invalid code or email.");
@@ -106,12 +167,21 @@ public class UserService implements UserDetailsService {
         resetCodeStore.remove(email); // Clean up
     }
 
-    // Utility to Generate Random 6-Digit Code
+    /**
+     * Generates a random 6-digit reset code.
+     *
+     * @return A randomly generated 6-digit code as a string.
+     */
     private String generateRandomCode() {
         Random random = new Random();
         return String.format("%06d", random.nextInt(999999));
     }
 
+    /**
+     * Saves a `User` entity to the database.
+     *
+     * @param user The `User` entity to save.
+     */
     public void saveUser(User user) {
         userRepository.save(user);
     }

@@ -32,10 +32,24 @@ public class CoordinatorService {
         this.mailService = mailService;
     }
 
+    /**
+     * Retrieves all coordinators.
+     *
+     * @return List of all coordinators.
+     */
     public List<Coordinator> getAllCoordinators() {
         return coordinatorRepos.findAll();
     }
 
+    /**
+     * Retrieves a coordinator by their email.
+     *
+     * Preconditions:
+     * - Email must exist in the database.
+     *
+     * @param email The email of the coordinator.
+     * @return Coordinator object or null if not found.
+     */
     public Coordinator getCoordinatorByEmail(String email) {
         if(!coordinatorRepos.existsByEmail(email)){
             System.out.println("Coordinator Not Found with username " + email);
@@ -43,13 +57,30 @@ public class CoordinatorService {
         }
         return coordinatorRepos.findByEmail(email);
     }
+
+    /**
+     * Saves a new coordinator to the database, encoding their password.
+     *
+     * Preconditions:
+     * - Coordinator object must have a non-null email and password.
+     *
+     * @param coordinator The coordinator to save.
+     * @return The saved coordinator.
+     */
     public Coordinator saveCoordinator(Coordinator coordinator) {
         coordinator.setPassword(passwordEncoder.encode(coordinator.getPassword())); //setPassword is new for this one
         return coordinatorRepos.save(coordinator);
     }
 
-    //we may need to remove notifications etc of
-    // the coordinator in the future in this method
+    /**
+     * Deletes a coordinator by their username.
+     *
+     * Preconditions:
+     * - The username must exist in the database.
+     *
+     * @param username The username of the coordinator to delete.
+     * @throws UsernameNotFoundException If the coordinator does not exist.
+     */
     @Transactional
     public void deleteCoordinatorByUsername(String username) {
         Coordinator coordinator = coordinatorRepos.findByEmail(username);
@@ -59,6 +90,24 @@ public class CoordinatorService {
         coordinatorRepos.delete(coordinator);
     }
 
+    /**
+     * Approves a payment and updates its status.
+     *
+     * Preconditions:
+     * - The payment ID must exist.
+     * - Coordinator email must correspond to a valid coordinator.
+     *
+     * Postconditions:
+     * - Payment status is updated to "APPROVED".
+     * - Notifications are sent to the associated tour guide.
+     * - An email is sent to the accountant if the tour guide has an IBAN.
+     *
+     * @param paymentId The ID of the payment to approve.
+     * @param coordinatorEmail The email of the approving coordinator.
+     * @return The updated Payment object.
+     * @throws UsernameNotFoundException If the coordinator is not found.
+     * @throws ResponseStatusException If the payment is already approved.
+     */
     //@Transactional
     public Payment approvePayment(Long paymentId, String coordinatorEmail) {
         Coordinator coordinator = coordinatorRepos.findByEmail(coordinatorEmail);
