@@ -4,14 +4,51 @@ import "../common/Header.css";
 import logo from "../assets/logo.png";
 import {toast} from "react-toastify";
 import axios from "axios";
+import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 
 const ExecutiveHeader = ({ toggleSidebar }) => {
     const [user, setUser] = useState(null); // State to store user data
     const navigate = useNavigate();
     const [unreadCount, setUnreadCount] = useState(0);
 
+    const [profilePictureUrl, setProfilePictureUrl] = useState(
+        localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
+    );
+
     useEffect(() => {
-        // Fetch all notifications and calculate unread count
+        const fetchProfilePicture = async () => {
+            try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                    return;
+                }
+
+                const response = await axios.get(
+                    "http://localhost:8081/api/profile/get-picture",
+                    {
+                        params: { username: localStorage.getItem("username") },
+                        responseType: "blob",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (response.data.size > 0) {
+                    const imageUrl = URL.createObjectURL(response.data);
+                    setProfilePictureUrl(imageUrl);
+                    localStorage.setItem("profilePictureUrl", imageUrl);
+                } else {
+                    // No picture uploaded, use the default
+                    setProfilePictureUrl(defaultProfilePicture);
+                }
+            } catch (error) {
+                console.error("Error fetching profile picture:", error);
+                // Use default profile picture on error
+                setProfilePictureUrl(defaultProfilePicture);
+            }
+        };
+
         const fetchNotifications = async () => {
             try {
                 const token = localStorage.getItem("userToken");
@@ -50,7 +87,8 @@ const ExecutiveHeader = ({ toggleSidebar }) => {
         };
 
         fetchNotifications();
-    }, []);
+        fetchProfilePicture();
+    }, [localStorage.getItem("username")]);
 
     useEffect(() => {
         // Function to fetch user details
@@ -119,20 +157,23 @@ const ExecutiveHeader = ({ toggleSidebar }) => {
                 <div className="user-dropdown">
                     <div className="d-flex align-items-center">
                         <img
-                            src="https://via.placeholder.com/40"
-                            alt="User Avatar"
-                            className="user-avatar me-2"
+                            src={profilePictureUrl}
+                            alt="Profile"
+                            className="user-avatar"
                         />
                         <div>
-                            <span className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
-                            <div className="role">{localStorage.role== "Executive" ? "Yönetici" : localStorage.role}</div>
+                            <span
+                                className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
+                            <div
+                                className="role">{localStorage.role == "Executive" ? "Yönetici" : localStorage.role}</div>
                         </div>
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>
                     <div className="dropdown-menu">
-                        <a href="/executive-change-password">Şifremi Değiştir</a>
+                        <a href="/yonetici-ayarlar">Ayarlar</a>
+                        <a href="/yonetici-sifre-degistir">Şifremi Değiştir</a>
                         <a onClick={handleLogout}>
-                        Çıkış Yap
+                            Çıkış Yap
                         </a>
                     </div>
                 </div>
