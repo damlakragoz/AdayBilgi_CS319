@@ -6,8 +6,8 @@ import "./PuantageTable.css";
 
 const PuantageTable = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
-  const [users, setUsers] = useState([]); // Dynamically fetched tour guides
-  const [activities, setActivities] = useState([]); // Finished tours
+  const [users, setUsers] = useState([]); // Dynamically fetched users
+  const [activities, setActivities] = useState([]); // Finished activities
   const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("userToken");
@@ -20,46 +20,65 @@ const PuantageTable = () => {
     try {
       setLoading(true);
 
-      // Fetch all active tour guides
+      // Fetch all active users
       const usersResponse = await axios.get(
-        "http://localhost:8081/api/tourguide/getAll",
-        { headers: { Authorization: `Bearer ${token}` } }
+          "http://localhost:8081/api/tourguide/getAll",
+          { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // Fetch finished tours
       const toursResponse = await axios.get(
-        "http://localhost:8081/api/tour/by-month/finished",
-        {
-          params: {
-            month: selectedMonth.getMonth() + 1,
-            year: selectedMonth.getFullYear(),
-          },
-          headers: { Authorization: `Bearer ${token}` },
-        }
+          "http://localhost:8081/api/tour/by-month/finished",
+          {
+            params: {
+              month: selectedMonth.getMonth() + 1,
+              year: selectedMonth.getFullYear(),
+            },
+            headers: { Authorization: `Bearer ${token}` },
+          }
       );
 
-      // Filter tours with duration > 0
-      const finishedTours = toursResponse.data.filter(
-        (tour) => tour.duration > 0
+      // Fetch finished fairs
+      const fairsResponse = await axios.get(
+          "http://localhost:8081/api/fair/by-month/finished",
+          {
+            params: {
+              month: selectedMonth.getMonth() + 1,
+              year: selectedMonth.getFullYear(),
+            },
+            headers: { Authorization: `Bearer ${token}` },
+          }
       );
 
-      const validUsers = usersResponse.data || []; // Ensure no null users
+      // Filter activities with duration > 0
+      const validTours = toursResponse.data.filter((tour) => tour.duration > 0);
+      const validFairs = fairsResponse.data.filter((fair) => fair.duration > 0);
+
+      const validUsers = usersResponse.data || [];
       const validUserEmails = validUsers.map((user) => user.email);
 
-      // Filter activities to exclude tours with invalid users
-      const validActivities = finishedTours.filter((tour) =>
-        validUserEmails.includes(tour.assignedGuideEmail)
-      );
+      const formattedTours = validTours
+          .filter((tour) => validUserEmails.includes(tour.assignedGuideEmail))
+          .map((tour) => ({
+            id: tour.id,
+            userEmail: tour.assignedGuideEmail,
+            date: tour.chosenDate,
+            hoursWorked: tour.duration,
+            type: "Tur",
+          }));
+
+      const formattedFairs = validFairs
+          .filter((fair) => validUserEmails.includes(fair.assignedGuideEmail))
+          .map((fair) => ({
+            id: fair.id,
+            userEmail: fair.assignedGuideEmail,
+            date: fair.startDate,
+            hoursWorked: fair.duration,
+            type: "Fuar",
+          }));
 
       setUsers(validUsers);
-      setActivities(
-        validActivities.map((tour) => ({
-          id: tour.id,
-          userEmail: tour.assignedGuideEmail,
-          date: tour.chosenDate,
-          hoursWorked: tour.duration,
-        }))
-      );
+      setActivities([...formattedTours, ...formattedFairs]);
     } catch (error) {
       console.error("Error fetching data:", error.message);
     } finally {
@@ -72,15 +91,14 @@ const PuantageTable = () => {
     fetchData();
   }, [selectedMonth]);
 
-  // Group activities by date and user email
   const groupActivitiesByDate = (activities) => {
     return activities.reduce((grouped, activity) => {
-      const { date, userEmail, hoursWorked } = activity;
+      const { date, userEmail, hoursWorked, type } = activity;
 
       if (!grouped[date]) grouped[date] = {};
-      if (!grouped[date][userEmail]) grouped[date][userEmail] = 0;
+      if (!grouped[date][userEmail]) grouped[date][userEmail] = [];
 
-      grouped[date][userEmail] += hoursWorked;
+      grouped[date][userEmail].push({ hoursWorked, type });
       return grouped;
     }, {});
   };
@@ -88,90 +106,86 @@ const PuantageTable = () => {
   const groupedActivities = groupActivitiesByDate(activities);
 
   return (
-    <div className="calendar-container">
-      {/* Month Selector */}
-      <div className="month-selector">
-        <button
-          onClick={() =>
-            setSelectedMonth(
-              new Date(selectedMonth.setMonth(selectedMonth.getMonth() - 1))
-            )
-          }
-        >
-          Önceki Ay
-        </button>
-        <span>{format(selectedMonth, "MMMM yyyy", { locale: tr })}</span>
-        <button
-          onClick={() =>
-            setSelectedMonth(
-              new Date(selectedMonth.setMonth(selectedMonth.getMonth() + 1))
-            )
-          }
-        >
-          Sonraki Ay
-        </button>
-      </div>
+      <div className="calendar-container">
+        {/* Month Selector */}
+        <div className="puantage-month-selector">
+          <button
+              onClick={() =>
+                  setSelectedMonth(
+                      new Date(selectedMonth.setMonth(selectedMonth.getMonth() - 1))
+                  )
+              }
+          >
+            Önceki Ay
+          </button>
+          <span>{format(selectedMonth, "MMMM yyyy", {locale: tr})}</span>
+          <button
+              onClick={() =>
+                  setSelectedMonth(
+                      new Date(selectedMonth.setMonth(selectedMonth.getMonth() + 1))
+                  )
+              }
+          >
+            Sonraki Ay
+          </button>
+        </div>
 
-      {/* Loading Indicator */}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="table-wrapper">
-          <table className="calendar-table">
+        {/* Scrollable Table Wrapper */}
+        <div className="puantage-table-wrapper">
+          <table className="puantage-calendar-table">
             <thead>
-              <tr>
-                <th>İsim/Gün</th>
-                {Array.from({ length: daysInMonth }, (_, i) => (
+            <tr>
+              <th>İsim/Gün</th>
+              {Array.from({length: daysInMonth}, (_, i) => (
                   <th key={i + 1}>{i + 1}</th>
-                ))}
-              </tr>
+              ))}
+            </tr>
             </thead>
             <tbody>
-              {users.length > 0 ? (
-                users.map((user) => {
-                  const userEmail = user.email;
-
-                  return (
-                    <tr key={userEmail}>
+            {users.length > 0 ? (
+                users.map((user) => (
+                    <tr key={user.email}>
                       <td>
                         {user.firstName} {user.lastName}
                       </td>
-                      {Array.from({ length: daysInMonth }, (_, i) => {
+                      {Array.from({length: daysInMonth}, (_, i) => {
                         const day = formatDate(
-                          new Date(
-                            selectedMonth.getFullYear(),
-                            selectedMonth.getMonth(),
-                            i + 1
-                          )
+                            new Date(
+                                selectedMonth.getFullYear(),
+                                selectedMonth.getMonth(),
+                                i + 1
+                            )
                         );
-                        const userHours =
-                          groupedActivities[day]?.[userEmail] || 0;
+                        const userActivities =
+                            groupedActivities[day]?.[user.email] || [];
 
                         return (
-                          <td key={i}>
-                            {userHours > 0 ? (
-                              <div className="activity-box">
-                                <span>{userHours} saat</span>
-                              </div>
-                            ) : (
-                              <span>–</span>
-                            )}
-                          </td>
+                            <td key={i}>
+                              {userActivities.length > 0 ? (
+                                  <div className="puantage-activity-box">
+                                    {userActivities.map((activity, index) => (
+                                        <span key={index}>
+                            {activity.hoursWorked} saat ({activity.type})
+                          </span>
+                                    ))}
+                                  </div>
+                              ) : (
+                                  <span>–</span>
+                              )}
+                            </td>
                         );
                       })}
                     </tr>
-                  );
-                })
-              ) : (
+                ))
+            ) : (
                 <tr>
                   <td colSpan={daysInMonth + 1}>No users found.</td>
                 </tr>
-              )}
+            )}
             </tbody>
           </table>
         </div>
-      )}
-    </div>
+      </div>
   );
 };
 
