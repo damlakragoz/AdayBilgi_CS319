@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
 import "./ChangePassword.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8081/";
 
@@ -60,7 +62,7 @@ const ChangePassword = () => {
             });
 
             // Success Handling
-            alert("Şifre başarıyla değiştirildi.");
+            toast.info("Şifre başarıyla değiştirildi.");
             setCurrentPassword("");
             setNewPassword("");
             setConfirmPassword("");
