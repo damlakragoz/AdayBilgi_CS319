@@ -107,6 +107,7 @@ const PuantageTable = () => {
 
   return (
       <div className="calendar-container">
+
         {/* Month Selector */}
         <div className="puantage-month-selector">
           <button
