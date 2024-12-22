@@ -87,7 +87,7 @@ const CoordinatorSidebar = ({ isOpen, toggleSidebar }) => {
                 </li>
                 <li>
                     <Link to="/rehber-puantaj/coordinator" className="nav-link text-white">
-                        <i className="fas fa-chart-bar"></i> Rehber Puantaj
+                        <i className="fas fa-bullseye"></i> Rehber Puantaj
                     </Link>
                 </li>
                 <li>
