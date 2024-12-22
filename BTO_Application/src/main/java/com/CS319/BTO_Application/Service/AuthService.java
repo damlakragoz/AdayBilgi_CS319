@@ -30,6 +30,20 @@ public class AuthService {
         this.userService = userService;
     }
 
+    /**
+     * Authenticates a user and generates a JWT token.
+     *
+     * Preconditions:
+     * - `loginRequest` must not be null.
+     * - `loginRequest.username` and `loginRequest.password` must not be null.
+     *
+     * Postconditions:
+     * - If authentication is successful, returns a JWT token.
+     * - If authentication fails, returns null.
+     *
+     * @param loginRequest The login request containing username and password.
+     * @return The generated JWT token or null if authentication fails.
+     */
     public String authenticateUser(LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -53,6 +67,20 @@ public class AuthService {
         }
     }
 
+    /**
+     * Retrieves the role of a user.
+     *
+     * Preconditions:
+     * - `loginRequest` must not be null.
+     * - `loginRequest.username` must not be null.
+     *
+     * Postconditions:
+     * - Returns the role of the user as a string.
+     * - If the user does not exist, returns null.
+     *
+     * @param loginRequest The login request containing username.
+     * @return The role of the user or null if the user does not exist.
+     */
     @GetMapping("/user/role")
     public String getUserRole(LoginRequest loginRequest) {
         // Extract the user information from the token and fetch the role from the database

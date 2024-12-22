@@ -36,9 +36,20 @@ public class SchoolTourApplicationService {
         this.tourApplicationRepos = tourApplicationRepos;
     }
 
-    /*
-    Change:
-        these tour applications will be saved to the SchoolTourApplicationRepos
+    /**
+     * Adds a new school tour application and associates it with a counselor and high school.
+     *
+     * Preconditions:
+     * - A valid counselor email must be provided.
+     * - The counselor associated with the email must exist.
+     *
+     * Postconditions:
+     * - The school tour application is saved with a status of "Created".
+     * - The transition time is set to the nearest batch processing window.
+     *
+     * @param schoolTourApplication The school tour application to be added.
+     * @param counselorEmail The email of the counselor submitting the application.
+     * @return The saved `SchoolTourApplication` entity.
      */
     public SchoolTourApplication addSchoolApplication(SchoolTourApplication schoolTourApplication, String counselorEmail) {
         Counselor counselor = (Counselor)userRepos.findByEmail(counselorEmail);
@@ -71,19 +82,64 @@ public class SchoolTourApplicationService {
         return schoolTourApplicationRepos.save(schoolTourApplication);
     }
 
+    /**
+     * Retrieves all school tour applications.
+     *
+     * Postconditions:
+     * - A list of all school tour applications is returned.
+     *
+     * @return A list of `SchoolTourApplication` entities.
+     */
     public List<SchoolTourApplication> getAllSchoolTourApplications() {
         return schoolTourApplicationRepos.findAll();
     }
 
+    /**
+     * Retrieves all school tour applications submitted by a specific counselor.
+     *
+     * Preconditions:
+     * - The provided counselor must not be null.
+     *
+     * Postconditions:
+     * - A list of school tour applications associated with the counselor is returned.
+     *
+     * @param counselor The counselor whose applications are to be retrieved.
+     * @return A list of `SchoolTourApplication` entities.
+     */
     public List<SchoolTourApplication> getAllSchoolTourApplicationsByCounselor(Counselor counselor) {
         return schoolTourApplicationRepos.findByApplyingCounselor(counselor);
     }
 
+    /**
+     * Retrieves a school tour application by its ID.
+     *
+     * Preconditions:
+     * - A valid application ID must be provided.
+     *
+     * Postconditions:
+     * - If the application exists, it is returned.
+     * - If the application does not exist, an `EntityNotFoundException` is thrown.
+     *
+     * @param tourApplicationId The ID of the school tour application to retrieve.
+     * @return The `SchoolTourApplication` entity.
+     */
     public SchoolTourApplication getSchoolTourApplicationById(Long tourApplicationId) {
         return schoolTourApplicationRepos.findById(tourApplicationId)
                 .orElseThrow(() -> new EntityNotFoundException("SchoolTourApplication not found with id: " + tourApplicationId));
     }
 
+    /**
+     * Deletes a school tour application by its ID.
+     *
+     * Preconditions:
+     * - The application with the specified ID must exist.
+     *
+     * Postconditions:
+     * - The application is deleted if it exists.
+     * - If the application does not exist, no action is performed, and a message is logged.
+     *
+     * @param schoolTourApplicationId The ID of the application to delete.
+     */
     public void deleteSchoolTourApplicationById(Long schoolTourApplicationId) {
         if(schoolTourApplicationRepos.existsById(schoolTourApplicationId)) {
             schoolTourApplicationRepos.deleteById(schoolTourApplicationId);
@@ -93,6 +149,21 @@ public class SchoolTourApplicationService {
         }
     }
 
+    /**
+     * Cancels a school tour application submitted by a counselor.
+     *
+     * Preconditions:
+     * - The counselor email must be valid and correspond to an existing counselor.
+     * - The school tour application ID must correspond to an existing application.
+     *
+     * Postconditions:
+     * - The status of the application is updated to "Cancelled".
+     * - The updated application is returned.
+     *
+     * @param counselorEmail The email of the counselor.
+     * @param schoolTourApplicationId The ID of the school tour application to cancel.
+     * @return The updated `SchoolTourApplication` entity.
+     */
     public SchoolTourApplication cancelSchoolTourApplication(String counselorEmail, Long schoolTourApplicationId) {
         if(!counselorRepos.existsByEmail(counselorEmail)){
             throw new EntityNotFoundException("Counselor not found with email: " + counselorEmail);
@@ -105,6 +176,21 @@ public class SchoolTourApplicationService {
         schoolTourApplicationRepos.save(tourApplication);
         return tourApplication;
     }
+
+    /**
+     * Checks if a school tour application already exists for a given high school and date.
+     *
+     * Preconditions:
+     * - The counselor email must be valid and correspond to an existing counselor.
+     *
+     * Postconditions:
+     * - Returns true if an application with a conflicting date and status exists.
+     * - Returns false otherwise.
+     *
+     * @param schoolTourApplication The school tour application to check for conflicts.
+     * @param counselorEmail The email of the counselor.
+     * @return True if a conflicting application exists, false otherwise.
+     */
     public boolean existsSchoolTourApplicationByHighSchoolAndDate(SchoolTourApplication schoolTourApplication, String counselorEmail) {
         if(!counselorRepos.existsByEmail(counselorEmail)){
             return false;

@@ -13,6 +13,22 @@ public class MailService {
     @Autowired
     private JavaMailSender mailSender;
 
+    /**
+     * Sends an email using the provided recipient, subject, and message body.
+     *
+     * Preconditions:
+     * - `to` must not be null or empty.
+     * - `subject` must not be null or empty.
+     * - `text` must not be null or empty.
+     *
+     * Postconditions:
+     * - Attempts to send the email using the configured mail sender.
+     * - If an error occurs during sending, an error message is logged, and the exception is caught.
+     *
+     * @param to The recipient's email address.
+     * @param subject The subject of the email.
+     * @param text The body of the email.
+     */
     public void sendMail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("btomailservice@gmail.com"); // Set the sender email here (use environment variable for better security)

@@ -23,10 +23,24 @@ public class CounselorService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Retrieves all counselors from the database.
+     *
+     * @return List of all counselors.
+     */
     public List<Counselor> getAllCounselors() {
         return counselorRepos.findAll();
     }
 
+    /**
+     * Retrieves a counselor by their username (email).
+     *
+     * Preconditions:
+     * - The username must exist in the database.
+     *
+     * @param username The username (email) of the counselor.
+     * @return The counselor if found, otherwise null.
+     */
     public Counselor getCounselorByUsername(String username) {
         if(!counselorRepos.existsByEmail(username)){
             System.out.println("Counselor Not Found with username " + username);
@@ -35,15 +49,37 @@ public class CounselorService {
         return counselorRepos.findByEmail(username);
     }
 
+    /**
+     * Saves a new counselor to the database with an encoded password.
+     *
+     * Preconditions:
+     * - The counselor must have valid email and password fields.
+     *
+     * Postconditions:
+     * - The counselor is persisted in the database with their password securely encoded.
+     *
+     * @param counselor The counselor to save.
+     * @return The saved counselor.
+     */
     public Counselor saveCounselor(Counselor counselor) {
         counselor.setPassword(passwordEncoder.encode(counselor.getPassword())); //setPassword is new for this one
         return counselorRepos.save(counselor);
     }
 
-    /*
-    this method does not remove the tour applications of the deleted counselor
-     it just turns their counselor id into null
-    */
+    /**
+     * Deletes a counselor by their username (email) and nullifies their related tour applications.
+     *
+     * Preconditions:
+     * - The username must exist in the database.
+     *
+     * Postconditions:
+     * - The counselor is removed from the database.
+     * - Any school tour applications associated with the counselor will have their
+     *   `applyingCounselor` field set to null.
+     *
+     * @param username The username (email) of the counselor to delete.
+     * @throws UsernameNotFoundException If the counselor does not exist.
+     */
     @Transactional
     public void deleteCounselorByUsername(String username) {
         Counselor counselor = counselorRepos.findByEmail(username);

@@ -56,6 +56,17 @@ public class StatisticsService {
         this.fairInvitationRepos = fairInvitationRepos;
     }
 
+    /**
+     * Retrieves the count of users categorized by their roles.
+     *
+     * Preconditions:
+     * - All repositories for user roles must be properly initialized.
+     *
+     * Postconditions:
+     * - Returns a map with role names as keys and their respective counts as values.
+     *
+     * @return A map of role names to their respective user counts.
+     */
     public Map<String, Integer> getUserCountByRole() {
         Map<String, Integer> userCounts = new HashMap<>();
 
@@ -79,6 +90,17 @@ public class StatisticsService {
     }
 
 
+    /**
+     * Retrieves the count of tour guides categorized by their department.
+     *
+     * Preconditions:
+     * - Tour guides must have valid department information.
+     *
+     * Postconditions:
+     * - Returns a map sorted in descending order of counts.
+     *
+     * @return A map of department names to their respective tour guide counts.
+     */
     public Map<String, Integer> getTourGuideCountByDepartment() {
         List<TourGuide> tourGuides = tourGuideRepos.findAllTourGuides();
         Map<String, Integer> guidesByDepartment = new HashMap<>();
@@ -115,9 +137,20 @@ public class StatisticsService {
 
         }
 
-        return guidesByDepartment;
+        return sortByValueDescending(guidesByDepartment);
     }
 
+    /**
+     * Retrieves the count of tour guides categorized by their grade levels (1 to 4).
+     *
+     * Preconditions:
+     * - Tour guides must have valid grade information between 1 and 4.
+     *
+     * Postconditions:
+     * - Returns a map where keys are grade levels, and values are the count of tour guides in each grade.
+     *
+     * @return A map of grade levels to their respective tour guide counts.
+     */
     public Map<Integer, Integer> getTourGuideCountByGrade() {
         List<TourGuide> tourGuides = tourGuideRepos.findAllTourGuides();
         Map<Integer, Integer> guidesByGrade = new LinkedHashMap<>();
@@ -159,6 +192,17 @@ public class StatisticsService {
         return guidesByGrade;
     }
 
+    /**
+     * Retrieves the count of tour applications categorized by their statuses.
+     *
+     * Preconditions:
+     * - Tour applications must have valid status fields.
+     *
+     * Postconditions:
+     * - Returns a map with application statuses as keys and their counts as values.
+     *
+     * @return A map of tour application statuses to their respective counts.
+     */
     public Map<String, Integer> getTourApplicationCountByStatus() {
         List<TourApplication> tourApplications = tourApplicationRepos.findAll();
         Map<String, Integer> tourApplicationsByStatus = new LinkedHashMap<>();
@@ -169,6 +213,7 @@ public class StatisticsService {
         tourApplicationsByStatus.put("Rejected", 0);
         tourApplicationsByStatus.put("Finished", 0);
         tourApplicationsByStatus.put("Cancelled", 0);
+        tourApplicationsByStatus.put("Pre-rejected", 0);
 
         if (tourApplications != null) {
             for (TourApplication tourApplication : tourApplications) {
@@ -202,6 +247,17 @@ public class StatisticsService {
         return tourApplicationsByStatus;
     }
 
+    /**
+     * Retrieves the count of tour applications categorized by their type (school or individual).
+     *
+     * Preconditions:
+     * - Both school and individual tour application repositories must be initialized and accessible.
+     *
+     * Postconditions:
+     * - Returns a map where keys are application types, and values are the count of each type.
+     *
+     * @return A map of application types to their respective counts.
+     */
     public Map<String, Integer> getTourApplicationCountByType() {
         Map<String, Integer> tourApplicationsByType = new HashMap<>();
 
@@ -214,6 +270,18 @@ public class StatisticsService {
         return tourApplicationsByType;
     }
 
+    /**
+     * Retrieves the count of tours categorized by the high schools that applied for them.
+     *
+     * Preconditions:
+     * - Tours must have valid high school information associated with them.
+     *
+     * Postconditions:
+     * - Returns a map where keys are high school names, and values are the count of tours for each school.
+     * - Only "Finished" tours are considered.
+     *
+     * @return A map of high school names to their respective tour counts.
+     */
     public Map<String, Integer> getTourCountByHighSchool() {
         Map<String, Integer> toursByHighSchool = new HashMap<>();
 
@@ -250,9 +318,20 @@ public class StatisticsService {
             }
         }
 
-        return toursByHighSchool;
+        return sortByValueDescending(toursByHighSchool);
     }
 
+    /**
+     * Retrieves the count of high schools categorized by their city.
+     *
+     * Preconditions:
+     * - High schools must have valid city information associated with them.
+     *
+     * Postconditions:
+     * - Returns a map where keys are city names, and values are the count of high schools in each city.
+     *
+     * @return A map of city names to their respective high school counts.
+     */
     public Map<String, Integer> getHighSchoolCountByCity() {
         Map<String, Integer> highSchoolsByCity = new HashMap<>();
 
@@ -287,11 +366,23 @@ public class StatisticsService {
             }
         }
 
-        return highSchoolsByCity;
+        return sortByValueDescending(highSchoolsByCity);
     }
 
+    /**
+     * Retrieves the count of feedback entries categorized by their rating (1 to 5).
+     *
+     * Preconditions:
+     * - Feedback entries must have valid rating values between 1 and 5.
+     *
+     * Postconditions:
+     * - Returns a map where keys are rating values, and values are the count of feedback entries for each rating.
+     *
+     * @return A map of rating values to their respective feedback counts.
+     */
     public Map<Integer, Integer> getFeedbackCountByRating() {
         Map<Integer, Integer> feedbackByRating = new HashMap<>();
+        feedbackByRating.put(0, 0);
         feedbackByRating.put(1, 0);
         feedbackByRating.put(2, 0);
         feedbackByRating.put(3, 0);
@@ -333,6 +424,17 @@ public class StatisticsService {
         return feedbackByRating;
     }
 
+    /**
+     * Retrieves the count of fair invitations categorized by their statuses (e.g., "Created", "Rejected").
+     *
+     * Preconditions:
+     * - Fair invitations must have valid status information.
+     *
+     * Postconditions:
+     * - Returns a map where keys are invitation statuses, and values are the count of invitations for each status.
+     *
+     * @return A map of invitation statuses to their respective counts.
+     */
     public Map<String, Integer> getFairInvitationCountByStatus() {
         List<FairInvitation> fairInvitations = fairInvitationRepos.findAll();
         Map<String, Integer> fairInvitationByStatus = new LinkedHashMap<>();
@@ -374,6 +476,18 @@ public class StatisticsService {
         return fairInvitationByStatus;
     }
 
+    /**
+     * Retrieves the count of tours categorized by the month they were selected within the last 12 months.
+     *
+     * Preconditions:
+     * - Tour applications must have valid selected dates.
+     *
+     * Postconditions:
+     * - Returns a map where keys are month-year combinations, and values are the count of tours in each month.
+     * - Only tours selected within the last 12 months are considered.
+     *
+     * @return A map of month-year to tour counts.
+     */
     public Map<String, Integer> getTourCountByMonth() {
         Map<String, Integer> toursByMonth = initializeMonthMap();
 
@@ -415,6 +529,18 @@ public class StatisticsService {
     }
 
 
+    /**
+     * Retrieves the count of fairs categorized by the month they were scheduled within the last 12 months.
+     *
+     * Preconditions:
+     * - Fair invitations must have valid start dates.
+     *
+     * Postconditions:
+     * - Returns a map where keys are month-year combinations, and values are the count of fairs in each month.
+     * - Only fairs scheduled within the last 12 months are considered.
+     *
+     * @return A map of month-year to fair counts.
+     */
     public Map<String, Integer> getFairCountByMonth() {
         Map<String, Integer> fairsByMonth = initializeMonthMap();
 
@@ -453,6 +579,17 @@ public class StatisticsService {
         return fairsByMonth;
     }
 
+    /**
+     * Retrieves the count of payments categorized by the month in which they were approved.
+     *
+     * Preconditions:
+     * - Payments must have valid approval dates.
+     *
+     * Postconditions:
+     * - Returns a map with month-year as keys and the total payment amounts as values.
+     *
+     * @return A map of month-year to total payment amounts.
+     */
     public Map<String, Double> getPaymentAmountByMonth() {
         Map<String, Double> paymentByMonth = initializeMonthMapDouble();
 
@@ -498,7 +635,14 @@ public class StatisticsService {
         return paymentByMonth;
     }
 
-    // Private method to initialize the map for the last 12 months
+    /**
+     * Initializes a map for the last 12 months with keys as month-year combinations and values as zero.
+     *
+     * Postconditions:
+     * - Returns a map where keys are month-year combinations, and values are initialized to zero.
+     *
+     * @return A map of month-year to zero values.
+     */
     private Map<String, Integer> initializeMonthMap() {
         Map<String, Integer> monthMap = new LinkedHashMap<>();
 
@@ -526,6 +670,14 @@ public class StatisticsService {
         return monthMap;
     }
 
+    /**
+     * Helper method to initialize a map for the last 12 months with zero values.
+     *
+     * Postconditions:
+     * - A map with the last 12 months as keys and values initialized to zero is returned.
+     *
+     * @return A map of month-year keys with values set to zero.
+     */
     private Map<String, Double> initializeMonthMapDouble() {
         Map<String, Double> monthMap = new LinkedHashMap<>();
 
@@ -551,6 +703,26 @@ public class StatisticsService {
         }
 
         return monthMap;
+    }
+
+    /**
+     * Helper method to sort a map by its values in descending order.
+     *
+     * @param map The map to be sorted.
+     * @return A new map sorted by its values in descending order.
+     */    private Map<String, Integer> sortByValueDescending(Map<String, Integer> map) {
+        List<Map.Entry<String, Integer>> entryList = new ArrayList<>(map.entrySet());
+
+        // Sort the list by value in descending order
+        entryList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        // Create a LinkedHashMap to maintain the sorted order
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : entryList) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 
 }

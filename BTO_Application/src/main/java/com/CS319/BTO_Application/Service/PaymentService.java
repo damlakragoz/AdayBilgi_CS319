@@ -34,6 +34,22 @@ public class PaymentService {
         this.fairRepos = fairRepos;
     }
 
+    /**
+     * Calculates and creates or updates a payment for a completed tour.
+     *
+     * Preconditions:
+     * - The tour with the given `tourId` must exist.
+     * - The tour guide with the provided `tourGuideEmail` must exist.
+     * - The tour's status must be "Finished".
+     *
+     * Postconditions:
+     * - If a payment already exists for the tour, it is updated.
+     * - If no payment exists, a new one is created and saved.
+     *
+     * @param tourId         The ID of the tour.
+     * @param tourGuideEmail The email of the tour guide.
+     * @return The created or updated `Payment` entity.
+     */
     public Payment calculateAndCreatePaymentForTour(Long tourId, String tourGuideEmail) {
         // Validate tour
         Tour tour = schoolTourRepos.findById(tourId)
@@ -82,6 +98,22 @@ public class PaymentService {
         }
     }
 
+    /**
+     * Calculates and creates or updates a payment for a completed fair.
+     *
+     * Preconditions:
+     * - The fair with the given `fairId` must exist.
+     * - The tour guide with the provided `tourGuideEmail` must exist.
+     * - The fair's status must be "Finished".
+     *
+     * Postconditions:
+     * - If a payment already exists for the fair, it is updated.
+     * - If no payment exists, a new one is created and saved.
+     *
+     * @param fairId         The ID of the fair.
+     * @param tourGuideEmail The email of the tour guide.
+     * @return The created or updated `Payment` entity.
+     */
     public Payment calculateAndCreatePaymentForFair(Long fairId, String tourGuideEmail) {
         System.out.println("calculating fair payment");
         // Validate tour
@@ -130,6 +162,18 @@ public class PaymentService {
         }
     }
 
+    /**
+     * Retrieves the payment history for a specific tour guide.
+     *
+     * Preconditions:
+     * - The tour guide with the provided `tourGuideEmail` must exist.
+     *
+     * Postconditions:
+     * - Returns a list of payments associated with the tour guide.
+     *
+     * @param tourGuideEmail The email of the tour guide.
+     * @return A list of `Payment` entities.
+     */
     public List<Payment> getPaymentHistoryByGuide(String tourGuideEmail) {
         // Validate tour guide
         TourGuide tourGuide = tourGuideRepos.findByEmail(tourGuideEmail);
@@ -140,11 +184,27 @@ public class PaymentService {
         return paymentRepos.findByTourGuideId(tourGuide.getId());
     }
 
+    /**
+     * Retrieves all payments.
+     *
+     * Postconditions:
+     * - Returns a list of all `Payment` entities in the repository.
+     *
+     * @return A list of `Payment` entities.
+     */
     public List<Payment> getAllPayments() {
         // Validate tour guide
         return paymentRepos.findAll();
     }
 
+    /**
+     * Retrieves all payments with "PENDING" or "UPDATED" statuses.
+     *
+     * Postconditions:
+     * - Returns a list of payments with the specified statuses.
+     *
+     * @return A list of `Payment` entities with "PENDING" or "UPDATED" statuses.
+     */
     public List<Payment> getAllPendingAndUpdatedPayments() {
         List<String> statuses = Arrays.asList("PENDING", "UPDATED");
         return paymentRepos.findAllByStatuses(statuses);

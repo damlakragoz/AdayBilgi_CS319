@@ -33,8 +33,16 @@ public class TourCancellationTask {
         this.advisorService = advisorService;
     }
 
-    /*
-        it finds the tours to cancel if the current date is 2 days prior to the tourdate and no guide is found(even no advisor)
+    /**
+     * Cancels tours that are within 2 days of their scheduled date and do not have any assigned guides or advisors.
+     *
+     * Preconditions:
+     * - The current date is used to determine the tours close to their scheduled date.
+     * - The tour must have no assigned guide or advisor.
+     *
+     * Postconditions:
+     * - Updates the tour status to "Rejected".
+     * - Updates the associated tour application status to "Rejected".
      */
     public void cancelUnenrolledTours() {
 
@@ -51,6 +59,19 @@ public class TourCancellationTask {
         tourRepository.saveAll(toursToCancel);
     }
 
+    /**
+     * Periodically assigns advisors to tours that are within 3 days of their scheduled date
+     * and do not have an assigned guide but are in the "Approved" state.
+     *
+     * Preconditions:
+     * - Tours must be within 3 days of their chosen date.
+     * - Advisors are selected based on availability and workload.
+     *
+     * Postconditions:
+     * - Assigns the least-loaded available advisor to the tour.
+     * - Updates the tour status to "AdvisorAssigned" and application status to "Approved".
+     * - If no advisor is available, the tour remains unassigned.
+     */
     @Scheduled(fixedRate = 10000) // 10 saniyelik rate ila çalışır
     public void assignAdvisorToUnenrolledTours() {
         LocalDate dateThreshold = LocalDate.now().plusDays(3);

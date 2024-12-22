@@ -241,7 +241,7 @@ public class FairInvitationController {
         String textForBTOMember = "İptal Edilen Fuarın Bilgisi: " + "<br>" +
                 "Başlangıç Zamanı: " + fairInvitation.getFairStartDate() + " - " + fairInvitation.getFairStartTime() + "<br>" +
                 "Bitiş Zamanı: " + fairInvitation.getFairEndDate() + " - " + fairInvitation.getFairEndTime() +
-                "Lise: " + fairInvitation.getApplyingHighschool() +"<br>" +
+                "Lise: " + fairInvitation.getApplyingHighschool().getSchoolName() +"<br>" +
                 "Şehir: " + fairInvitation.getApplyingHighschool().getCity();
         String textForCounselor = "Reddedilen Fuar Davetiyesinin Bilgisi: " + "<br>" +
                 "Başlangıç Zamanı: " + fairInvitation.getFairStartDate() + " - " + fairInvitation.getFairStartTime() + "<br>" +

@@ -21,6 +21,20 @@ public class UserAuthController {
         this.authService = authService;
     }
 
+    /**
+     * Authenticates a user and generates a JWT token.
+     *
+     * Preconditions:
+     * - `loginRequest` must not be null.
+     * - `loginRequest.username` and `loginRequest.password` must not be null.
+     *
+     * Postconditions:
+     * - If authentication is successful, returns a JWT token with status 200 (OK).
+     * - If authentication fails, returns status 401 (UNAUTHORIZED).
+     *
+     * @param loginRequest The login request containing username and password.
+     * @return ResponseEntity containing the JWT token or error status.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         System.out.println(loginRequest.getUsername() + " " + loginRequest.getPassword());
@@ -36,6 +50,19 @@ public class UserAuthController {
         }
     }
 
+    /**
+     * Retrieves the role of a user.
+     *
+     * Preconditions:
+     * - `loginRequest` must not be null.
+     * - `loginRequest.username` and `loginRequest.password` must not be null.
+     *
+     * Postconditions:
+     * - Returns the role of the user as a string.
+     *
+     * @param loginRequest The login request containing username and password.
+     * @return The role of the user.
+     */
     @PostMapping("/user-role")
     public String getUserRole(@RequestBody LoginRequest loginRequest) {
         return authService.getUserRole(loginRequest);
