@@ -7,9 +7,11 @@ import CoordinatorList from "../common/CoordinatorList";
 import ManagerTourSchedule from '../coordinatorPages/ManagerTourSchedule';
 import Fuarlarim from "../executivePages/Fuarlarim";
 import "../coordinatorPages/BTOKoordinasyonu.css";
-import AllFairsBTOManager from "./AllFairsBTOManager";
+import AllFairsBTOManager from "../executivePages/AllFairsBTOManager";
+import CoordinatorAllFairs_NotDetailed from "./CoordinatorAllFairs_NotDetailed";
 
-const YaklasanEtkinlikler = ({ data = [], itemsPerPage = 5 }) => {
+
+const YaklasanEtkinliklerKoordinator = ({ data = [], itemsPerPage = 5 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Handle Page Changes
@@ -59,7 +61,7 @@ const YaklasanEtkinlikler = ({ data = [], itemsPerPage = 5 }) => {
         unmountOnExit
       >
         <div className="page-content">
-          {<Fuarlarim />}
+          {< CoordinatorAllFairs_NotDetailed />}
         </div>
       </CSSTransition>
     </div>
@@ -67,9 +69,9 @@ const YaklasanEtkinlikler = ({ data = [], itemsPerPage = 5 }) => {
 };
 
 // Default Props
-YaklasanEtkinlikler.defaultProps = {
+YaklasanEtkinliklerKoordinator.defaultProps = {
   data: [],
   itemsPerPage: 5,
 };
 
-export default YaklasanEtkinlikler;
+export default YaklasanEtkinliklerKoordinator;

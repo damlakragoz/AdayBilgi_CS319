@@ -5,9 +5,9 @@ import "../common/FairInvitations.css"; // Reuse the same CSS file
 
 const statusMap = {
   "pending": "Onay bekliyor",
-  "created": "Oluşturuldu",
-  "approved": "Onaylandı",
-  "rejected": "Reddedildi",
+  "guideassigned": "Rehber Atandı",
+  "executiveandguideassigned": "Yönetici ve Rehber Atandı",
+  "executiveassigned": "Yönetici Atandı",
   "cancelled": "İptal Edildi",
   "finished": "Tamamlandı",
   "not_specified": "-",
@@ -36,7 +36,14 @@ const FairSchedule = () => {
           withCredentials: true,
         });
 
-        setData(response.data);
+        // Sort fairs by startDate
+        const sortedData = response.data.sort((a, b) => {
+          const dateA = new Date(a.startDate);
+          const dateB = new Date(b.startDate);
+          return dateA - dateB; // Ascending order
+        });
+
+        setData(sortedData);
       } catch (error) {
         if (!shownError) {
           console.error('Error fetching data:', error);
@@ -97,60 +104,64 @@ const FairSchedule = () => {
   };
 
   return (
-    <div className="fair-tour-lists-outer-container">
-      <h1 className="fair-tour-lists-title">Fuar Takvimi</h1>
-      <div className="fair-tour-lists-table-container">
-        <table className="fair-tour-lists-table">
-          <thead>
+      <div className="fair-tour-lists-outer-container">
+        <h1 className="fair-tour-lists-title">Fuar Takvimi</h1>
+        <div className="fair-tour-lists-table-container">
+          <table className="fair-tour-lists-table">
+            <thead>
             <tr>
-              <th>Davet Durumu</th>
+              <th>Durum</th>
+              <th>Atanan Rehber E-mail</th>
+              <th>Atanan Yönetici E-mail</th>
               <th>Lise Adı</th>
               <th>Tarihler</th>
               <th>Saatler</th>
               <th>Rehber Öğretmen</th>
               <th>Rehber Öğretmen E-maili</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {currentData.map((fair, index) => (
-              <tr key={index} className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}>
-                <td>{mapStatusToTurkish(fair.fairInvitationStatus) || "Belirtilmedi"}</td>
-                <td>{fair.applyingCounselor || "Bilinmiyor"}</td>
-                <td>{fair.fairStartDate !== fair.fairEndDate
-                  ? `${formatDate(fair.fairStartDate)} - ${formatDate(fair.fairEndDate)}`
-                  : `${formatDate(fair.fairStartDate)}`}</td>
-                <td>
-                  {fair.fairStartTime && fair.fairEndTime
-                    ? `${formatTime(fair.fairStartTime)} - ${formatTime(fair.fairEndTime)}`
-                    : "Bilinmiyor"}
-                </td>
-                <td>{fair.applyingCounselor ? `${fair.applyingCounselor.firstName} ${fair.applyingCounselor.lastName}` : "Bilinmiyor"}</td>
-                <td>{fair.applyingCounselor ? fair.applyingCounselor.email : "Bilinmiyor"}</td>
-              </tr>
+                <tr key={index} className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}>
+                  <td>{mapStatusToTurkish(fair.fairStatus) || "Belirtilmedi"}</td>
+                  <td>{fair.assignedGuideEmail || "-"}</td>
+                  <td>{fair.assignedExecutiveEmail || "-"}</td>
+                  <td>{fair.applyingHighschoolName || "Bilinmiyor"}</td>
+                  <td>{fair.startDate !== fair.endDate
+                      ? `${formatDate(fair.startDate)} - ${formatDate(fair.endDate)}`
+                      : `${formatDate(fair.startDate)}`}</td>
+                  <td>
+                    {fair.startTime && fair.endTime
+                        ? `${formatTime(fair.startTime)} - ${formatTime(fair.endTime)}`
+                        : "Bilinmiyor"}
+                  </td>
+                  <td>{`${fair.applyingCounselorFirstName} ${fair.applyingCounselorLastName}`}</td>
+                  <td>{fair.applyingCounselorEmail}</td>
+                </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="fair-tour-lists-footer">
-        <div className="fair-tour-lists-pagination-info">
-          {`Page ${currentPage} of ${totalPages}`}
+            </tbody>
+          </table>
         </div>
-        <div className="fair-tour-lists-arrow-navigation">
+        <div className="fair-tour-lists-footer">
+          <div className="fair-tour-lists-pagination-info">
+            {`Page ${currentPage} of ${totalPages}`}
+          </div>
+          <div className="fair-tour-lists-arrow-navigation">
           <span
-            className={`fair-tour-lists-arrow ${currentPage === 1 ? 'disabled' : ''}`}
-            onClick={handlePreviousPage}
+              className={`fair-tour-lists-arrow ${currentPage === 1 ? 'disabled' : ''}`}
+              onClick={handlePreviousPage}
           >
             {'<'}
           </span>
-          <span
-            className={`fair-tour-lists-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
-            onClick={handleNextPage}
-          >
+            <span
+                className={`fair-tour-lists-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
+                onClick={handleNextPage}
+            >
             {'>'}
           </span>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

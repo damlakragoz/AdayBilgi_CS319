@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "../tourguidepages/AllFairs.css";
+import { useNavigate } from "react-router-dom";
 
-const AllFairsBTOManager = () => {
+const CoordinatorAllFairs_NotDetailed = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
     const token = localStorage.getItem("userToken");
+    const navigate = useNavigate(); // Add useNavigate hook
 
    const mapStatusToTurkish = (status) => {
        const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
@@ -186,6 +188,7 @@ const AllFairsBTOManager = () => {
     return (
         <div className="fair-schedule-container">
             <h4 className="tour-list-header"> Yaklaşan Fuarlar</h4>
+
             <ul className="fair-list">
                 {sortedFairs
 
@@ -205,19 +208,18 @@ const AllFairsBTOManager = () => {
                                 <p>
                                     <strong>Durum:</strong> {mapStatusToTurkish(fair.fairStatus)}
                                 </p>
-                                <button
-                                    onClick={() => handleEnroll(fair.id)}
-                                    className="enroll-button"
-                                    disabled={isUserEnrolled}
-                                >
-                                    {isUserEnrolled ? "Kaydolundu" : "Kaydol"}
-                                </button>
+
                             </li>
                         );
                     })}
             </ul>
+                <button
+                  onClick={() => navigate("/fuar-takvimi")}
+                >
+                  Detaylı Fuar Takvimine Git
+                </button>
         </div>
     );
 };
 
-export default AllFairsBTOManager;
+export default CoordinatorAllFairs_NotDetailed;

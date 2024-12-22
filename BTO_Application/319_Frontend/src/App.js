@@ -24,6 +24,7 @@ import ManagerTourSchedule from './coordinatorPages/ManagerTourSchedule';
 import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import OnayBekleyen from './coordinatorPages/OnayBekleyen';
+import YaklasanEtkinliklerKoordinator from './coordinatorPages/YaklasanEtkinliklerKoordinator';
 import AddTourGuideForm from './common/AddTourGuideForm';
 import AddCoordinatorForm from './common/AddCoordinatorForm';
 import AddExecutiveForm from './common/AddExecutiveForm';
@@ -133,6 +134,7 @@ function App() {
                         <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
                         <Route path="/rehber-puantaj/coordinator" element={<PuantageTable />} />
                         <Route path="/koordinator-ayarlar" element={<CoordinatorSettings />} />
+                        <Route path="/yaklasan-etkinlikler/coordinator" element={<YaklasanEtkinlikler />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
@@ -202,6 +204,7 @@ function App() {
                         <Route path="/advisor-puantage-table" element={<PuantageTable />} />
                         <Route path="/advisor-all-tours" element={<AllTours />} />
                         <Route path="/advisor-puantage" element={<AdvisorPuantage />} />
+                        <Route path="/tourguide-puantage-table/advisor" element={<PuantageTable />} />
                         <Route path="/danisman-ayarlar" element={<AdvisorSettings />} />
                         <Route path="/advisor-all-fairs" element={<AllFairs />} />
                     </Route>

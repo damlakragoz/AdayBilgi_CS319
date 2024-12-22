@@ -27,58 +27,48 @@ const AddTourGuideForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
- const validateForm = () => {
-   let isValid = true;
-   let errorMessages = [];
+  const validateForm = () => {
+    const errors = {}; // Map field names to errors
 
-   // Validate email
-   if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-     isValid = false;
-     errorMessages.push("Geçerli bir e-mail adresi giriniz.");
-   }
+    // Validate email
+    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Geçerli bir e-mail adresi giriniz.";
+    }
 
-   // Validate first name
-   if (!formData.firstName) {
-     isValid = false;
-     errorMessages.push("Ad alanı boş olamaz.");
-   }
+    // Validate first name
+    if (!formData.firstName) {
+      errors.firstName = "Ad alanı boş olamaz.";
+    }
 
-   // Validate last name
-   if (!formData.lastName) {
-     isValid = false;
-     errorMessages.push("Soyad alanı boş olamaz.");
-   }
+    // Validate last name
+    if (!formData.lastName) {
+      errors.lastName = "Soyad alanı boş olamaz.";
+    }
 
-   // Validate phone number
-   if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
-     isValid = false;
-     errorMessages.push("Telefon numarası geçersiz. Lütfen 10 haneli bir telefon numarası giriniz.");
-   }
+    // Validate phone number
+    if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
+      errors.phoneNumber = "Telefon numarası geçersiz. Lütfen 10 haneli bir telefon numarası giriniz.";
+    }
 
-   // Validate department
-   if (!formData.department) {
-     isValid = false;
-     errorMessages.push("Bölüm alanı boş olamaz.");
-   }
+    // Validate department
+    if (!formData.department) {
+      errors.department = "Bölüm alanı boş olamaz.";
+    }
 
-   // Validate grade (ensure it is a number)
-   if (!formData.grade || isNaN(formData.grade)) {
-     isValid = false;
-     errorMessages.push("Sınıf geçersiz. Lütfen geçerli bir sınıf giriniz.");
-   }
+    // Validate grade (ensure it is a number)
+    if (!formData.grade || isNaN(formData.grade)) {
+      errors.grade = "Sınıf geçersiz. Lütfen geçerli bir sınıf giriniz.";
+    }
 
-   // Validate IBAN
-   if (!formData.iban || formData.iban.length !== 26) {
-     isValid = false;
-     errorMessages.push("IBAN numarası geçersiz. Lütfen 26 haneli bir IBAN giriniz.");
-   }
+    // Validate IBAN
+    if (!formData.iban || formData.iban.length !== 26) {
+      errors.iban = "IBAN numarası geçersiz. Lütfen 26 haneli bir IBAN giriniz.";
+    }
 
-   if (!isValid) {
-     setErrorMessages(errorMessages);
-   }
+    setErrors(errors);
+    return Object.keys(errors).length === 0; // Returns true if no errors
+  };
 
-   return isValid;
- };
 
 
   const handleInputChange = (e) => {
@@ -91,20 +81,10 @@ const AddTourGuideForm = () => {
 
     if (!validateForm()) {
       toast.error("Lütfen tüm alanları doğru şekilde doldurun!");
-      errorMessages.forEach((message) => {
-            toast.error(message);
-          });
       return;
     }
 
-    if (validateForm()) {
-      console.log("Form Submitted:", formData);
-      // Perform further actions like API call
-    }
-
-    setLoading(true); // Show loading screen
-
-    const { email, firstName, lastName, phoneNumber, department, grade, iban } = formData;
+    setLoading(true);
 
     try {
       const token = localStorage.getItem("userToken");
@@ -114,14 +94,9 @@ const AddTourGuideForm = () => {
         return;
       }
 
-      const body = {
-        ...formData,
-        grade: parseInt(formData.grade, 9),
-      };
-
       const response = await axios.post(
           "http://localhost:8081/api/tourguide/register",
-          body,
+          { ...formData, grade: parseInt(formData.grade, 10) },
           { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -136,16 +111,16 @@ const AddTourGuideForm = () => {
         iban: "",
       });
     } catch (error) {
-      if (error.response && error.response.status === 400) {
+      if (error.response?.status === 400) {
         toast.error("Bu e-mail adresine sahip bir tur rehberi bulunmaktadır!");
       } else {
-        console.error("Error:", error);
         toast.error("Bir hata oluştu. Lütfen tekrar deneyin.");
       }
     } finally {
-       setLoading(false); // Hide loading screen
-     }
+      setLoading(false);
+    }
   };
+
 
   const handleCancel = () => {
     setFormData({
@@ -163,72 +138,70 @@ const AddTourGuideForm = () => {
 
   return (
     <div className="add-tour-guide-form">
-        <div>
-          <h2>Yeni Rehber Ekle</h2>
-          <form onSubmit={handleSubmit}>
-            {/* Bilkent Email */}
-            <label>Bilkent E-mail</label>
-            <input
+      <div>
+        <h2>Yeni Rehber Ekle</h2>
+        <form onSubmit={handleSubmit}>
+          {/* Bilkent Email */}
+          <label>Bilkent E-mail</label>
+          <input
               type="email"
               name="email"
               placeholder="example@ug.bilkent.edu.tr"
               value={formData.email}
               onChange={handleInputChange}
-              required
-            />
+          />
+          {errors.email && <span className="error-message">{errors.email}</span>}
 
-            {/* First Name */}
-            <label>Ad</label>
-            <input
+          {/* First Name */}
+          <label>Ad</label>
+          <input
               type="text"
               name="firstName"
               placeholder="Adınızı giriniz."
               value={formData.firstName}
               onChange={handleInputChange}
-              required
-            />
+          />
+          {errors.firstName && <span className="error-message">{errors.firstName}</span>}
 
-            {/* Last Name */}
-            <label>Soyad</label>
-            <input
+          {/* Last Name */}
+          <label>Soyad</label>
+          <input
               type="text"
               name="lastName"
               placeholder="Soyadınızı giriniz."
               value={formData.lastName}
               onChange={handleInputChange}
-              required
-            />
+          />
+          {errors.lastName && <span className="error-message">{errors.lastName}</span>}
 
-            {/* Phone Number */}
-            <label>Telefon Numarası</label>
-            <input
+          {/* Phone Number */}
+          <label>Telefon Numarası</label>
+          <input
               type="tel"
               name="phoneNumber"
-              placeholder="0 (5xx) xxx xxxx"
+              placeholder="(5xx)xxxxxxx"
               value={formData.phoneNumber}
               onChange={handleInputChange}
-              required
-            />
+          />
+          {errors.phoneNumber && <span className="error-message">{errors.phoneNumber}</span>}
 
-            {/* Department */}
-            <label>Bölüm</label>
-            <select
+          {/* Department */}
+          <label>Bölüm</label>
+          <select
               name="department"
               value={formData.department}
               onChange={handleInputChange}
-              required
-            >
-              <option value="" disabled>Bölüm Seçiniz</option>
-              {departments.map((dept) => (
-                <option key={dept} value={dept}>
-                  {dept}
-                </option>
-              ))}
-            </select>
+          >
+            <option value="" disabled>Bölüm Seçiniz</option>
+            {departments.map((dept) => (
+                <option key={dept} value={dept}>{dept}</option>
+            ))}
+          </select>
+          {errors.department && <span className="error-message">{errors.department}</span>}
 
-            {/* Grade */}
-            <label>Sınıf</label>
-            <input
+          {/* Grade */}
+          <label>Sınıf</label>
+          <input
               type="number"
               name="grade"
               placeholder="Sınıf (1-4)"
@@ -236,39 +209,39 @@ const AddTourGuideForm = () => {
               onChange={handleInputChange}
               min="1"
               max="4"
-              required
-            />
+          />
+          {errors.grade && <span className="error-message">{errors.grade}</span>}
 
-            {/* IBAN */}
-            <label>IBAN</label>
-            <input
+          {/* IBAN */}
+          <label>IBAN</label>
+          <input
               type="text"
               name="iban"
               placeholder="IBAN numaranızı giriniz."
               value={formData.iban}
               onChange={handleInputChange}
-              required
-            />
+          />
+          {errors.iban && <span className="error-message">{errors.iban}</span>}
 
-            {/* Buttons */}
-            <div className="button-group">
+          {/* Buttons */}
+          <div className="button-group">
             <button type="button" className="cancel-button" onClick={handleCancel}>
-                İptal
+              İptal
             </button>
-              <button type="submit" className="submit-button">
-                Ekle
-              </button>
-            </div>
-          </form>
+            <button type="submit" className="submit-button">
+              Ekle
+            </button>
+          </div>
+        </form>
 
         {/* Loading Screen (Overlay) */}
         {loading && (
-          <div className="userform-loading-screen">
-            <div className="spinner"></div>
-            <p>Yükleniyor...</p>
-          </div>
+            <div className="userform-loading-screen">
+              <div className="spinner"></div>
+              <p>Yükleniyor...</p>
+            </div>
         )}
-        </div>
+      </div>
     </div>
   );
 
