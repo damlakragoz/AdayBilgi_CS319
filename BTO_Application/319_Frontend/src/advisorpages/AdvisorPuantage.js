@@ -183,6 +183,7 @@ const TourGuidePuantage = () => {
                 />
             </div>
 
+
             <div className="activity-list-container">
                 <h3>{selectedDate.toLocaleDateString("tr-TR")} Tarihindeki Aktiviteler:</h3>
                 {filteredActivities.tours.length > 0 && (
@@ -253,7 +254,7 @@ const TourGuidePuantage = () => {
             )}
 
             <div className="puantage-table-button">
-                <button onClick={() => navigate("/tourguide-puantage-table")}>Puantaj Tablosunu Gör</button>
+                <button onClick={() => navigate("/tourguide-puantage-table/advisor")}>Puantaj Tablosunu Gör</button>
             </div>
         </div>
     );

@@ -1,14 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom"; // Use Link for navigation
 import "../common/Sidebar.css";
 import defaultProfilePicture from "../assets/default-profile-picture.jpg"; // Update path if necessary
 
-const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
-};
 
 const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
+    const [profilePictureUrl, setProfilePictureUrl] = useState(
+        localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
+    );
+    const handleLogout = () => {
+        localStorage.clear();
+        setProfilePictureUrl(defaultProfilePicture);
+        navigate("/login");
+    };
     return (
         <div className={`sidebar ${isOpen ? "open" : ""}`}> {/* Fixed className syntax */}
             <div className="sidebar-header">
