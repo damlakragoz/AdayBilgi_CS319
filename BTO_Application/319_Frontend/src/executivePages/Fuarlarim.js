@@ -188,7 +188,7 @@ const Fuarlarim = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header" style={{ textAlign: "center" }}> Yaklaşan Fuarlarınız</h4>
+            <h4 className="tour-list-header" style={{ textAlign: "center" }}> Kaydolduğunuz Yaklaşan Fuarlar</h4>
             <ul className="fair-list">
                 {enrolledFairs
                     .map((fair) => {

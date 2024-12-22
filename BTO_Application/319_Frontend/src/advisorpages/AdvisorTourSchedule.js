@@ -349,8 +349,7 @@ const AdvisorTourSchedule = () => {
                                                 margin: "0.5rem 0",
                                             }}
                                         >
-                                            <strong>Ziyaretçi
-                                                Sayısı:</strong> {tour.visitorCount}
+                                            <strong>Ziyaretçi Sayısı:</strong> {tour.visitorCount}
                                             <br/>
                                             <strong>Tur Durumu:</strong>
                                                 {(tour.tourStatus === "Rejected" && tour.assignedGuideEmail != null )? " İptal Edildi" : translateStatusToTurkish(tour.tourStatus)}

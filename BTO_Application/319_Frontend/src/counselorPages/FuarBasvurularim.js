@@ -1,12 +1,23 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "../tourguidepages/AllFairs.css";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {useNavigate} from "react-router-dom";
+
 
 const FuarBasvurularim = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
     const token = localStorage.getItem("userToken");
+    const navigate = useNavigate();
+    const [applications, setApplications] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1); // Track the current page
+    const [statusFilter, setStatusFilter] = useState("All"); // Filter status state
+
 
     // Map status from English to Turkish
     const mapStatusToTurkish = (status) => {
@@ -55,6 +66,50 @@ const FuarBasvurularim = () => {
         }
     };
 
+    // Handle the cancelation of a tour
+    const handleCancelFair = async (fairInvitationId) => {
+        try {
+            const token = localStorage.getItem("userToken");
+            const counselorEmail = localStorage.getItem("username").toLowerCase();
+
+            console.log("Counselor Email:", counselorEmail);
+            console.log("Fair Invitation ID:", fairInvitationId);
+
+            const response = await axios.put(
+                "http://localhost:8081/api/fair-invitations/counselor/cancel",
+                null,
+                {
+                    params: {
+                        counselorEmail: counselorEmail,
+                        fairInvitationId: fairInvitationId,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+
+
+            console.log("Response Status:", response.status);
+            console.log("Response Data:", response.data);
+
+            if (response.status === 200 || response.status === 201 || response.status === 202) {
+                toast.info("Davetiye başarıyla iptal edildi.");
+
+                setApplications((prevApplications) =>
+                    prevApplications.filter((app) => app.fairInvitationId !== fairInvitationId)
+                );
+                // Toggle to trigger the rerender
+                setToggleState((prev) => !prev); // Toggle the state
+                toast.dismiss()
+            }
+        } catch (error) {
+            console.error("Error canceling invitation:", error);
+            toast.error("Başvuru iptal edilirken bir hata oluştu.");
+        }
+    };
     // Fetch all fairs
     useEffect(() => {
         const fetchFairs = async () => {
@@ -73,8 +128,10 @@ const FuarBasvurularim = () => {
                     setFairs(response.data);
                 }
             } catch (error) {
-                alert("Failed to load fairs. Please try again later.");
+                console.error("Error canceling invitation:", error.response?.data || error.message);
+                toast.error(`Başvuru iptal edilirken bir hata oluştu: ${error.response?.data?.message || error.message}`);
             }
+
         };
 
         fetchFairs();
@@ -111,7 +168,7 @@ const FuarBasvurularim = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header">Fuar Başvurularım</h4>
+            <h2 className="tour-list-header">Fuar Davetlerim</h2>
             <ul className="fair-list">
                 {sortedFairs.map((fair) => {
                     const isUserEnrolled = enrolledFairs.some(
@@ -126,6 +183,54 @@ const FuarBasvurularim = () => {
                             <p>
                                 <strong>Durum:</strong> {mapStatusToTurkish(fair.fairInvitationStatus)}
                             </p>
+
+                            <div className="card-actions">
+                                {/* Conditionally render the Cancel button based on application status */}
+                                {(fair.fairInvitationStatus !== "Rejected" && fair.fairInvitationStatus !== "Cancelled" && fair.fairInvitationStatus !== "Finished") && (
+                                    <button
+                                        className="cancel-button"
+                                        onClick={(event) => {
+                                            toast.warn("Fuar davetini iptal etmek istediğinizden emin misiniz?", {
+                                                position: "top-center",
+                                                style: {width: "400px"},
+                                                autoClose: true,
+                                                closeOnClick: false,
+                                                draggable: false,
+                                                color: "red",
+                                                onOpen: () => {
+                                                },
+                                                closeButton: (
+                                                    <div style={{display: 'flex', gap: '10px'}}>
+                                                        <button onClick={() => handleCancelFair(fair.id)}
+                                                                style={{
+                                                                    flex: 1,
+                                                                    padding: '8px 12px',
+                                                                    border: 'none',
+                                                                    backgroundColor: '#f0f0f0',
+                                                                    borderRadius: '4px',
+                                                                    display: 'inline-block',
+                                                                    whiteSpace: 'nowrap'
+                                                                }}>Evet
+                                                        </button>
+                                                        <button onClick={() => toast.dismiss()} style={{
+                                                            flex: 1,
+                                                            padding: '8px 12px',
+                                                            border: 'none',
+                                                            backgroundColor: '#f0f0f0',
+                                                            borderRadius: '4px',
+                                                            display: 'inline-block',
+                                                            whiteSpace: 'nowrap'
+                                                        }}>Hayır
+                                                        </button>
+                                                    </div>
+                                                )
+                                            });
+                                        }}
+                                    >
+                                        İptal Et
+                                    </button>
+                                )}
+                            </div>
 
                         </li>
                     );
