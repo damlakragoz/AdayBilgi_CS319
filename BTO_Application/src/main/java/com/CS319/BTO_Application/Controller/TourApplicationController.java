@@ -40,7 +40,18 @@ public class TourApplicationController {
     }
 
 
-
+    /**
+     * Fetches all tour applications.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a ResponseEntity containing a list of all tour applications.
+     * - If an error occurs, returns a ResponseEntity with status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing all tour applications or an error message.
+     */
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllTourApplications() {
         try {
@@ -54,6 +65,19 @@ public class TourApplicationController {
     }
 ////////////////////////////
 // SchoolTourApplication Methods START
+
+    /**
+     * Fetches all school tour applications.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a ResponseEntity containing a list of all school tour applications.
+     * - If an error occurs, returns a ResponseEntity with status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing all school tour applications or an error message.
+     */
     @GetMapping("/getAll/school-applications")
     public ResponseEntity<?> getAllSchoolTourApplications() {
         try {
@@ -66,6 +90,22 @@ public class TourApplicationController {
         }
     }
 
+    /**
+     * Adds a new school tour application.
+     *
+     * Preconditions:
+     * - `applicationRequest` must not be null.
+     * - `applicationRequest.counselorUsername` must correspond to an existing counselor.
+     * - There should not be a conflicting tour application for the same high school and date.
+     *
+     * Postconditions:
+     * - Creates and returns the new SchoolTourApplication with status 201 (CREATED).
+     * - If the counselor does not exist, returns status 404 (NOT_FOUND).
+     * - If there is a conflict, returns status 409 (CONFLICT).
+     *
+     * @param applicationRequest Request containing the details of the school tour application.
+     * @return ResponseEntity with the created application or error status.
+     */
     @PostMapping("/add/school-application")
     public ResponseEntity<SchoolTourApplication> addSchoolApplication(@RequestBody AddSchoolApplicationRequest applicationRequest) {
         if(counselorService.getCounselorByUsername(applicationRequest.getCounselorUsername()) == null){
@@ -78,6 +118,19 @@ public class TourApplicationController {
         return new ResponseEntity<>(schoolTourApplicationService.addSchoolApplication(applicationRequest.getTourApplication(),applicationRequest.getCounselorUsername()), HttpStatus.CREATED);
     }
 
+    /**
+     * Deletes a school tour application by ID.
+     *
+     * Preconditions:
+     * - `tourApplicationId` must correspond to an existing SchoolTourApplication.
+     *
+     * Postconditions:
+     * - Deletes the specified SchoolTourApplication.
+     * - Returns status 204 (NO_CONTENT).
+     *
+     * @param tourApplicationId ID of the SchoolTourApplication to delete.
+     * @return ResponseEntity with status 204 or error status.
+     */
     @DeleteMapping("/delete/school-application")
     public ResponseEntity<SchoolTourApplication> deleteSchoolApplication(@RequestParam Long tourApplicationId) {
         schoolTourApplicationService.deleteSchoolTourApplicationById(tourApplicationId);
@@ -89,6 +142,18 @@ public class TourApplicationController {
     ////////////////////////////
 // IndividualTourApplication Methods START
 
+    /**
+     * Fetches all individual tour applications.
+     *
+     * Preconditions:
+     * - None.
+     *
+     * Postconditions:
+     * - Returns a ResponseEntity containing a list of all individual tour applications.
+     * - If an error occurs, returns a ResponseEntity with status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @return ResponseEntity containing all individual tour applications or an error message.
+     */
     @GetMapping("/getAll/individual-applications")
     public ResponseEntity<?> getAllIndividualTourApplications() {
         try {
@@ -101,6 +166,20 @@ public class TourApplicationController {
         }
     }
 
+    /**
+     * Adds a new individual tour application.
+     *
+     * Preconditions:
+     * - `applicationRequest` must not be null.
+     * - `applicationRequest.schoolName` must correspond to an existing high school.
+     *
+     * Postconditions:
+     * - Creates and returns the new IndividualTourApplication with status 201 (CREATED).
+     * - If the high school does not exist, returns status 404 (NOT_FOUND).
+     *
+     * @param applicationRequest Request containing the details of the individual tour application.
+     * @return ResponseEntity with the created application or error status.
+     */
     @PostMapping("/add/individual-application")
     public ResponseEntity<?> addIndividualApplication(@RequestBody AddIndividualApplicationRequest applicationRequest) {
         System.out.println("Received Application: " + applicationRequest);
@@ -118,12 +197,42 @@ public class TourApplicationController {
         return new ResponseEntity<>(savedApplication, HttpStatus.CREATED);
     }
 
+    /**
+     * Deletes an individual tour application by ID.
+     *
+     * Preconditions:
+     * - `tourApplicationId` must correspond to an existing IndividualTourApplication.
+     *
+     * Postconditions:
+     * - Deletes the specified IndividualTourApplication.
+     * - Returns status 204 (NO_CONTENT).
+     *
+     * @param tourApplicationId ID of the IndividualTourApplication to delete.
+     * @return ResponseEntity with status 204 or error status.
+     */
     @DeleteMapping("delete/individual-application")
     public ResponseEntity<?> deleteIndividualApplication(@RequestParam Long tourApplicationId) {
         individualTourApplicationService.deleteIndividualTourApplicationById(tourApplicationId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Cancels a school tour application by the counselor.
+     *
+     * Preconditions:
+     * - `counselorEmail` must correspond to an existing counselor.
+     * - `tourApplicationId` must correspond to an existing SchoolTourApplication.
+     * - The application must belong to the specified counselor.
+     *
+     * Postconditions:
+     * - Cancels the specified SchoolTourApplication.
+     * - Updates related notifications.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param counselorEmail Email of the counselor requesting cancellation.
+     * @param tourApplicationId ID of the SchoolTourApplication to cancel.
+     * @return ResponseEntity with the updated application or error status.
+     */
     @PostMapping("/counselor/cancel")
     public ResponseEntity<SchoolTourApplication> cancelSchoolTourApplication(@RequestParam String counselorEmail,@RequestParam Long tourApplicationId) {
         SchoolTourApplication schoolTourApplication = schoolTourApplicationService.getSchoolTourApplicationById(tourApplicationId);
@@ -145,6 +254,21 @@ public class TourApplicationController {
         }
     }
 
+    /**
+     * Sends a notification for a specific tour application.
+     *
+     * Preconditions:
+     * - `tour` must not be null.
+     * - `email` must be a valid email address.
+     * - `situation` must be a recognized scenario for generating notifications.
+     *
+     * Postconditions:
+     * - A notification is created and sent to the specified email address.
+     *
+     * @param tour The tour associated with the notification.
+     * @param email The email address to which the notification will be sent.
+     * @param situation The scenario that determines the notification's content.
+     */
     private void notifyForTourApplication(Tour tour, String email, String situation) {
         String title = null;
         String text = null;

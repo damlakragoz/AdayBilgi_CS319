@@ -35,6 +35,19 @@ public class TourApplicationService {
     }
 
 
+    /**
+     * Processes all school tour applications to assign slots based on prioritization rules.
+     *
+     * Preconditions:
+     * - The repository must contain valid `SchoolTourApplication` entities.
+     * - The entities should have a status of "Created" and a valid `transitionTime`.
+     *
+     * Postconditions:
+     * - Conflicting or duplicate applications are marked as "Pre-rejected".
+     * - Unique applications are sorted by priority and processed for slot assignment.
+     * - If no slot is assigned, the application is marked "Pre-rejected".
+     * - If a slot is successfully assigned, the application is marked "Pending".
+     */
     @Transactional
     public void processSchoolTourApplications() {
         LocalDateTime now = LocalDateTime.now(); // Şu anki zaman
@@ -111,7 +124,20 @@ public class TourApplicationService {
      * Başvuruyu istenen bir slot'a atamayı dener.
      */
 
-
+    /**
+     * Attempts to assign a slot to a school tour application based on prioritization.
+     *
+     * Preconditions:
+     * - The application must not be null.
+     * - The application must have valid `requestedDates`.
+     *
+     * Postconditions:
+     * - Assigns a slot and updates the application status to "Pending" if successful.
+     * - Returns false if no slot is available.
+     *
+     * @param application The school tour application.
+     * @return True if a slot was successfully assigned, false otherwise.
+     */
     private boolean assignSlotWithPrioritization(SchoolTourApplication application) {
         for (RequestedDateTime requestedDateTime : application.getRequestedDates()) {
             LocalDate requestedDate = requestedDateTime.getDate();
@@ -165,7 +191,20 @@ public class TourApplicationService {
      * İki başvuru arasından önceliklendirme yapar.
      */
 
-
+    /**
+     * Handles the prioritization of conflicting school applications.
+     *
+     * Preconditions:
+     * - Both applications must not be null.
+     * - Both applications must belong to valid high schools.
+     *
+     * Postconditions:
+     * - Returns the application with higher priority based on school priority points.
+     *
+     * @param app1 The first school application.
+     * @param app2 The second school application.
+     * @return The prioritized school application.
+     */
     private SchoolTourApplication prioritizeSchool(SchoolTourApplication app1, SchoolTourApplication app2) {
         HighSchool highSchool1 = app1.getApplyingHighschool();
         HighSchool highSchool2 = app2.getApplyingHighschool();
@@ -197,7 +236,20 @@ public class TourApplicationService {
      * Daha düşük öncelikli okulu bir sonraki uygun slot'a atar.
      */
 
-
+    /**
+     * Attempts to assign a slot to a less prioritized school application for the next available preference.
+     *
+     * Preconditions:
+     * - The application must not be null.
+     * - The application must have valid `requestedDates` starting from the given index.
+     *
+     * Postconditions:
+     * - If a slot is assigned, the application status is updated to "Pending".
+     * - If no slot is available after iterating preferences, the application is marked "Pre-rejected".
+     *
+     * @param application The school tour application to handle.
+     * @param start The starting index for checking preferences in the requested dates.
+     */
     private void handleLessPrioritizedSchool(SchoolTourApplication application, int start) {
         if(start >= application.getRequestedDates().size()){
             // Eğer hiçbir slot atanamadıysa, başvuruyu "Pre-rejected" olarak işaretle
@@ -257,7 +309,19 @@ public class TourApplicationService {
     }
 
 
-
+    /**
+     * Processes all individual tour applications to assign slots based on prioritization rules.
+     *
+     * Preconditions:
+     * - The repository must contain valid `IndividualTourApplication` entities.
+     * - The entities should have a status of "Created" and a valid `transitionTime`.
+     *
+     * Postconditions:
+     * - Conflicting or duplicate applications are marked as "Pre-rejected".
+     * - Unique applications are sorted by priority and processed for slot assignment.
+     * - If no slot is assigned, the application is marked "Pre-rejected".
+     * - If a slot is successfully assigned, the application is marked "Pending".
+     */
     @Transactional
     public void processIndividualTourApplications() {
         LocalDateTime now = LocalDateTime.now(); // Şu anki zaman
@@ -331,7 +395,20 @@ public class TourApplicationService {
      * Başvuruyu istenen bir slot'a atamayı dener.
      */
 
-
+    /**
+     * Attempts to assign a slot to an individual tour application based on prioritization.
+     *
+     * Preconditions:
+     * - The application must not be null.
+     * - The application must have valid `requestedDates`.
+     *
+     * Postconditions:
+     * - Assigns a slot and updates the application status to "Pending" if successful.
+     * - Returns false if no slot is available.
+     *
+     * @param application The individual tour application.
+     * @return True if a slot was successfully assigned, false otherwise.
+     */
     private boolean assignSlotWithPrioritizationInd(IndividualTourApplication application) {
         for (RequestedDateTime requestedDateTime : application.getRequestedDates()) {
             LocalDate requestedDate = requestedDateTime.getDate();
@@ -385,7 +462,20 @@ public class TourApplicationService {
      * İki başvuru arasından önceliklendirme yapar.
      */
 
-
+    /**
+     * Handles the prioritization of conflicting individual applications.
+     *
+     * Preconditions:
+     * - Both applications must not be null.
+     * - Both applications must belong to valid high schools.
+     *
+     * Postconditions:
+     * - Returns the application with higher priority based on school priority points.
+     *
+     * @param app1 The first individual application.
+     * @param app2 The second individual application.
+     * @return The prioritized individual application.
+     */
     private IndividualTourApplication prioritizeSchoolInd(IndividualTourApplication app1, IndividualTourApplication app2) {
         HighSchool highSchool1 = app1.getApplyingHighschool();
         HighSchool highSchool2 = app2.getApplyingHighschool();
@@ -417,7 +507,20 @@ public class TourApplicationService {
      * Daha düşük öncelikli okulu bir sonraki uygun slot'a atar.
      */
 
-
+    /**
+     * Attempts to assign a slot to a less prioritized individual application for the next available preference.
+     *
+     * Preconditions:
+     * - The application must not be null.
+     * - The application must have valid `requestedDates` starting from the given index.
+     *
+     * Postconditions:
+     * - If a slot is assigned, the application status is updated to "Pending".
+     * - If no slot is available after iterating preferences, the application is marked "Pre-rejected".
+     *
+     * @param application The individual tour application to handle.
+     * @param start The starting index for checking preferences in the requested dates.
+     */
     private void handleLessPrioritizedSchoolInd(IndividualTourApplication application, int start) {
         if(start >= application.getRequestedDates().size()){
             // Eğer hiçbir slot atanamadıysa, başvuruyu "Pre-rejected" olarak işaretle
