@@ -98,8 +98,16 @@ const CreateTourApplication = () => {
         } catch (error) {
             if (error.response?.status === 409) {
                 toast.error(
-                    "Başvurunuzda lisenize ait aktif bir başvuruyla çakışan tarih var! Eğer bu başvuru size ait değil ise okulunuzun diğer rehber öğretmenlerine danışınız."
-                );
+                    "Başvurunuz lisenize ait aktif bir başvuruyla çakışıyor! Lütfen farklı bir tarih seçiniz.",
+                    {
+                        position: "top-center",
+                        style: { width: "600px" },
+                        autoClose: false,
+                        closeOnClick: false,
+                        draggable: false,
+                        onOpen: () => {}
+
+                    });
             } else {
                 toast.error("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
             }
