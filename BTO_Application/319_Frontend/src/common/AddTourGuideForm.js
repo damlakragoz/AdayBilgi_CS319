@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./AddTourGuideForm.css";
+import { useNavigate } from "react-router-dom";
 
 const departments = [
   "AMER", "ARCH", "COMD", "CS", "CTIS", "EE", "EDU", "ELIT", "FA",
@@ -11,6 +12,7 @@ const departments = [
 ].sort();
 
 const AddTourGuideForm = () => {
+    const [errorMessages, setErrorMessages] = useState([]);
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -23,39 +25,61 @@ const AddTourGuideForm = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const validateForm = () => {
-    const newErrors = {};
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@bilkent\.edu\.tr$/; // Validate Bilkent email
-    const ibanRegex = /^[A-Z0-9]{16,34}$/; // Basic IBAN format (adjust if needed)
-    const phoneRegex = /^[0-9]+$/; // Ensure only numeric values
+ const validateForm = () => {
+   let isValid = true;
+   let errorMessages = [];
 
+   // Validate email
+   if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
+     isValid = false;
+     errorMessages.push("Geçerli bir e-mail adresi giriniz.");
+   }
 
-    if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Geçerli bir Bilkent e-mail adresi girin (Örneğin: example@bilkent.edu.tr).";
-    }
-    if (!formData.firstName) {
-      newErrors.firstName = "Ad alanı boş bırakılamaz.";
-    }
-    if (!formData.lastName) {
-      newErrors.lastName = "Soyad alanı boş bırakılamaz.";
-    }
-    if (!phoneRegex.test(formData.phoneNumber) || formData.phoneNumber.length < 10) {
-      newErrors.phoneNumber = "Geçerli bir telefon numarası girin (en az 10 haneli).";
-    }
-    if (!formData.department) {
-      newErrors.department = "Lütfen bir bölüm seçin.";
-    }
-    if (!formData.grade || formData.grade < 1 || formData.grade > 4) {
-      newErrors.grade = "Sınıf 1 ile 4 arasında olmalıdır.";
-    }
-    if (!ibanRegex.test(formData.iban)) {
-      newErrors.iban = "Geçerli bir IBAN girin.";
-    }
+   // Validate first name
+   if (!formData.firstName) {
+     isValid = false;
+     errorMessages.push("Ad alanı boş olamaz.");
+   }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
-  };
+   // Validate last name
+   if (!formData.lastName) {
+     isValid = false;
+     errorMessages.push("Soyad alanı boş olamaz.");
+   }
+
+   // Validate phone number
+   if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber)) {
+     isValid = false;
+     errorMessages.push("Telefon numarası geçersiz. Lütfen 10 haneli bir telefon numarası giriniz.");
+   }
+
+   // Validate department
+   if (!formData.department) {
+     isValid = false;
+     errorMessages.push("Bölüm alanı boş olamaz.");
+   }
+
+   // Validate grade (ensure it is a number)
+   if (!formData.grade || isNaN(formData.grade)) {
+     isValid = false;
+     errorMessages.push("Sınıf geçersiz. Lütfen geçerli bir sınıf giriniz.");
+   }
+
+   // Validate IBAN
+   if (!formData.iban || formData.iban.length !== 26) {
+     isValid = false;
+     errorMessages.push("IBAN numarası geçersiz. Lütfen 26 haneli bir IBAN giriniz.");
+   }
+
+   if (!isValid) {
+     setErrorMessages(errorMessages);
+   }
+
+   return isValid;
+ };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,6 +91,9 @@ const AddTourGuideForm = () => {
 
     if (!validateForm()) {
       toast.error("Lütfen tüm alanları doğru şekilde doldurun!");
+      errorMessages.forEach((message) => {
+            toast.error(message);
+          });
       return;
     }
 
@@ -89,7 +116,7 @@ const AddTourGuideForm = () => {
 
       const body = {
         ...formData,
-        grade: parseInt(formData.grade, 10),
+        grade: parseInt(formData.grade, 9),
       };
 
       const response = await axios.post(
@@ -105,7 +132,7 @@ const AddTourGuideForm = () => {
         lastName: "",
         phoneNumber: "",
         department: "",
-        grade: 1,
+        grade: 1, // Reset grade to 1
         iban: "",
       });
     } catch (error) {
@@ -131,18 +158,11 @@ const AddTourGuideForm = () => {
       iban: "",
     });
     console.log("Form reset");
-    toast.info("Form sıfırlandı.");
+    navigate(-1);
   };
 
   return (
     <div className="add-tour-guide-form">
-      {loading && (
-        <div className="loading-screen">
-          <div className="spinner"></div>
-          <p>Yükleniyor...</p>
-        </div>
-      )}
-      {!loading && (
         <div>
           <h2>Yeni Rehber Ekle</h2>
           <form onSubmit={handleSubmit}>
@@ -240,8 +260,15 @@ const AddTourGuideForm = () => {
               </button>
             </div>
           </form>
+
+        {/* Loading Screen (Overlay) */}
+        {loading && (
+          <div className="userform-loading-screen">
+            <div className="spinner"></div>
+            <p>Yükleniyor...</p>
+          </div>
+        )}
         </div>
-      )}
     </div>
   );
 

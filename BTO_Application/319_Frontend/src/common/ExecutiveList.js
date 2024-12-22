@@ -8,7 +8,7 @@ import "./UserTables.css";
 const ExecutiveList = () => {
   const [executives, setExecutives] = useState([]);
   const [error, setError] = useState(null);
-  const role = localStorage.getItem("role"); //
+  const role = localStorage.getItem("role");
 
   // Function to fetch executives
   const fetchExecutives = async () => {
@@ -114,7 +114,7 @@ const ExecutiveList = () => {
         </table>
       )}
         {/* Centered Button Below the Table */}
-        { (role==="Admin") &&
+        { (role==="Admin" || role==="Executive" ) &&
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Link to="/yonetici-ekle">
               <button className="usertable-button usertable-button-add">
