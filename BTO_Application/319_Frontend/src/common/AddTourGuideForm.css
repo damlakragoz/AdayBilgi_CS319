@@ -137,7 +137,7 @@ select::after {
   }
 }
 
-.loading-screen {
+.userform-loading-screen {
   position: fixed;
   top: 0;
   left: 0;
@@ -147,7 +147,7 @@ select::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .spinner {

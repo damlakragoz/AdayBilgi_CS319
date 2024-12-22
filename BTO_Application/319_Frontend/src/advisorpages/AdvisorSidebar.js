@@ -26,7 +26,7 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Başvur-Tur Takvimi */}
                 <li>
                     <Link to="/advisor-tourenrollment" className="nav-link text-white">
-                        <i className="fas fa-calendar-alt"></i> Başvur-Tur Takvimi
+                        <i className="fas fa-calendar-alt"></i> Tur Takvimi - Başvur
                     </Link>
                 </li>
                 <li>
@@ -39,7 +39,7 @@ const AdvisorSidebar = ({ isOpen, toggleSidebar }) => {
                 {/* Puantaj-Aktivite Giriş */}
                 <li>
                     <Link to="/advisor-puantage" className="nav-link text-white">
-                        <i className="fas fa-edit"></i> Puantaj-Aktivite Giriş
+                        <i className="fas fa-edit"></i> Puantaj - Aktivite Giriş
                     </Link>
                 </li>
 
