@@ -89,24 +89,26 @@ public class FairController {
             fair.setFairStatus("GuideAssigned");
             fairInvitationService.setStatusApproved(fair.getFairInvitation());
 
+            Fair fair1 = fairService.assignFair(fair,
+                    fairOperationsForGuide.getApplyingGuideEmail(), null);
             // Notify Enrolled Guide
-            notifyForFair(fair, fairOperationsForGuide.getApplyingGuideEmail(), "Guide Enroll In Fair");
+            notifyForFair(fair1, fairOperationsForGuide.getApplyingGuideEmail(), "Guide Enroll In Fair");
             // Notify Counselor since someone will come to fair
-            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Guide");
+            notifyForFair(fair1, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Guide");
 
-            return new ResponseEntity<>(fairService.assignFair(fair,
-                    fairOperationsForGuide.getApplyingGuideEmail(), null), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(fair1, HttpStatus.ACCEPTED);
         }
         else if (fair.getFairStatus().equals("ExecutiveAssigned")) {
             fair.setFairStatus("ExecutiveAndGuideAssigned");
 
-            // Notify Enrolled Guide
-            notifyForFair(fair, fairOperationsForGuide.getApplyingGuideEmail(), "Guide Enroll In Fair");
-            // Notify Counselor since someone will come to fair
-            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Guide");
+            Fair fair2 = fairService.assignFair(fair, fairOperationsForGuide.getApplyingGuideEmail(), null);
 
-            return new ResponseEntity<>(fairService.assignFair(fair,
-                    fairOperationsForGuide.getApplyingGuideEmail(), null), HttpStatus.ACCEPTED);
+            // Notify Enrolled Guide
+            notifyForFair(fair2, fairOperationsForGuide.getApplyingGuideEmail(), "Guide Enroll In Fair");
+            // Notify Counselor since someone will come to fair
+            notifyForFair(fair2, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Guide");
+
+            return new ResponseEntity<>(fair2, HttpStatus.ACCEPTED);
         }
         else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -123,23 +125,25 @@ public class FairController {
             fair.setFairStatus("ExecutiveAssigned");
             fairInvitationService.setStatusApproved(fair.getFairInvitation());
 
+            Fair fair1 = fairService.assignFair(fair, null, fairOperationsForExecutive.getExecutiveEmail());
             // Notify Enrolled Executive
-            notifyForFair(fair, fairOperationsForExecutive.getExecutiveEmail(), "Executive Enroll In Fair");
+            notifyForFair(fair1, fairOperationsForExecutive.getExecutiveEmail(), "Executive Enroll In Fair");
             // Notify Counselor since someone will come to fair
-            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Executive");
+            notifyForFair(fair1, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Executive");
 
-            return new ResponseEntity<>(fairService.assignFair(fair, null,
-                    fairOperationsForExecutive.getExecutiveEmail()), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(fair1, HttpStatus.ACCEPTED);
         }else if (fair.getFairStatus().equals("GuideAssigned")) {
             fair.setFairStatus("ExecutiveAndGuideAssigned");
 
-            // Notificaty Enrolled Executive
-            notifyForFair(fair, fairOperationsForExecutive.getExecutiveEmail(), "Executive Enroll In Fair");
-            // Notify Counselor since someone will come to fair
-            notifyForFair(fair, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Executive");
 
-            return new ResponseEntity<>(fairService.assignFair(fair, null,
-                    fairOperationsForExecutive.getExecutiveEmail()), HttpStatus.ACCEPTED);
+            Fair fair2 = fairService.assignFair(fair, null, fairOperationsForExecutive.getExecutiveEmail());
+
+            // Notificaty Enrolled Executive
+            notifyForFair(fair2, fairOperationsForExecutive.getExecutiveEmail(), "Executive Enroll In Fair");
+            // Notify Counselor since someone will come to fair
+            notifyForFair(fair2, fair.getFairInvitation().getApplyingCounselor().getEmail(), "Counselor Fair Approved By Executive");
+
+            return new ResponseEntity<>(fair2, HttpStatus.ACCEPTED);
         }
         else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
