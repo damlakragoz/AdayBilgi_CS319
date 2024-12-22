@@ -133,6 +133,7 @@ function App() {
                         <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
                         <Route path="/rehber-puantaj/coordinator" element={<PuantageTable />} />
                         <Route path="/koordinator-ayarlar" element={<CoordinatorSettings />} />
+                        <Route path="/yaklasan-etkinlikler/koordinator" element={<YaklasanEtkinlikler />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
@@ -202,6 +203,7 @@ function App() {
                         <Route path="/advisor-puantage-table" element={<PuantageTable />} />
                         <Route path="/advisor-all-tours" element={<AllTours />} />
                         <Route path="/advisor-puantage" element={<AdvisorPuantage />} />
+                        <Route path="/tourguide-puantage-table/advisor" element={<PuantageTable />} />
                         <Route path="/danisman-ayarlar" element={<AdvisorSettings />} />
                         <Route path="/advisor-all-fairs" element={<AllFairs />} />
                     </Route>

@@ -7,6 +7,7 @@ import CoordinatorList from "../common/CoordinatorList";
 import ManagerTourSchedule from '../coordinatorPages/ManagerTourSchedule';
 import Fuarlarim from "../executivePages/Fuarlarim";
 import "../coordinatorPages/BTOKoordinasyonu.css";
+import AllFairsBTOManager from "./AllFairsBTOManager";
 
 const YaklasanEtkinlikler = ({ data = [], itemsPerPage = 5 }) => {
   const [currentPage, setCurrentPage] = useState(1);

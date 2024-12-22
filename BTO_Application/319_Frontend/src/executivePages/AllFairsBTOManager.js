@@ -21,8 +21,8 @@ const AllFairsBTOManager = () => {
     "cancelled": "İptal Edildi",
     "finished": "Tamamlandı",
     "executiveassigned": "Yönetici Başvurdu",
-    "executiveandguideAssigned": "Yönetici ve Tur Rehberi Başvurdu",
-    "tourguideAssigned": "Tur Rehberi Başvurdu",
+    "executiveandguideassigned": "Yönetici ve Tur Rehberi Başvurdu",
+    "guideassigned": "Tur Rehberi Başvurdu",
     "not_specified": "-",
   };
    const formatDate = (date) => {
@@ -95,6 +95,7 @@ const AllFairsBTOManager = () => {
 
                if (response.status === 200) {
                    console.log(response.data); // Log all fairs for debugging
+                   setEnrolledFairs(response.data);
                    const filteredFairs = response.data.filter(
                        (fair) =>
                            (fair.assignedExecutiveEmail &&
@@ -187,11 +188,7 @@ const AllFairsBTOManager = () => {
             <h4 className="tour-list-header"> Yaklaşan Fuarlar</h4>
             <ul className="fair-list">
                 {sortedFairs
-                    .filter(
-                        (fair) =>
-                            fair.fairStatus === "Pending" ||
-                            fair.fairStatus === "TourGuideAssigned"
-                    ) // Filter out only enrollable fairs
+
                     .map((fair) => {
                         const isUserEnrolled = enrolledFairs.some(
                             (enrolledFair) => enrolledFair.id === fair.id

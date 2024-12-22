@@ -51,14 +51,20 @@
 
 /* Highlighted tour-item based on status */
 .tour-item[data-status="Approved"],
-.tour-item[data-status="ExecutiveAssigned"] {
-    border-left: 6px solid #28a745; /* Green for Approved/ExecutiveAssigned */
+.tour-item[data-status="Pending"] {
+    border-left: 6px solid #28a745 !important; /* Green for Approved/ExecutiveAssigned */
+    background: #f0fff4;
+}
+
+.tour-item[data-status="ExecutiveAssigned"]
+.tour-item[data-status="ExecutiveAndGuideAssigned"] {
+    border-left: 6px solid #6c757d !important; /* Green for Approved/ExecutiveAssigned */
     background: #f0fff4;
 }
 
 .tour-item[data-status="GuideAssigned"] {
-    border-left: 6px solid #007bff; /* Blue for GuideAssigned */
-    background: #e8f4ff;
+    border-left: 6px solid #007bff !important; /* Blue for GuideAssigned */
+    background: #e8f4ff!important;
 }
 
 .tour-item[data-status="Withdrawn"],
