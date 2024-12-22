@@ -124,6 +124,11 @@
     box-shadow: none;
 }
 
+.enroll-button:disabled:hover {
+    background: #6c757d; /* Gray when disabled */
+}
+
+
 /* Withdraw Button */
 .withdraw-button {
     background: #dc3545; /* Solid red */

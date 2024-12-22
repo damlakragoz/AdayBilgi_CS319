@@ -53,7 +53,6 @@ const AllFairsBTOManager = () => {
        }
    };
 
-
     // Fetch all fairs
     useEffect(() => {
         const fetchFairs = async () => {
@@ -116,17 +115,17 @@ const AllFairsBTOManager = () => {
 
     // Sort fairs into prioritized categories and by nearest date
     const sortedFairs = useMemo(() => {
-        return fairs
-            .map((fair) => ({
-                ...fair,
-                dateObj: new Date(fair.chosenDate), // Parse date for sorting
-            }))
+         return fairs
+                .filter((fair) => fair.fairStatus !== "Finished") // Exclude "Finished" fairs
+                .map((fair) => ({
+                    ...fair,
+                    dateObj: new Date(fair.chosenDate), // Parse date for sorting
+                }))
             .sort((a, b) => {
                 const getCategory = (fair) => {
                     if (
                         fair.fairStatus === "Pending" ||
-                        fair.fairStatus === "ExecutiveAndGuideAssigned" ||
-                        fair.fairStatus === "ExecutiveAssigned"
+                        fair.fairStatus === "TourGuideAssigned"
                     ) {
                         return 1; // Enrollable fairs
                     }
@@ -210,9 +209,9 @@ const AllFairsBTOManager = () => {
                                 <button
                                     onClick={() => handleEnroll(fair.id)}
                                     className="enroll-button"
-                                    disabled={isUserEnrolled}
+                                    disabled={(isUserEnrolled || (fair.fairStatus=="ExecutiveAssigned" || fair.fairStatus=="ExecutiveAndGuideAssigned"))}
                                 >
-                                    {isUserEnrolled ? "Kaydolundu" : "Kaydol"}
+                                    {(isUserEnrolled || (fair.fairStatus=="ExecutiveAssigned" || fair.fairStatus=="ExecutiveAndGuideAssigned")) ? "Kaydolundu" : "Kaydol"}
                                 </button>
                             </li>
                         );
