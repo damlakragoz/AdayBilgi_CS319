@@ -98,7 +98,7 @@ const CreateTourApplication = () => {
         } catch (error) {
             if (error.response?.status === 409) {
                 toast.error(
-                    "Başvurunuz lisenize ait aktif bir başvuruyla çakışıyor! Lütfen farklı bir tarih seçiniz.",
+                    "Başvurunuz lisenize ait aktif bir başvuruyla çakışıyor! Bu başvuru size ait değilse okulunzdaki diğer rehber öğretmenlerine danışınız. Lütfen farklı bir tarih seçiniz.",
                     {
                         position: "top-center",
                         style: { width: "600px" },
