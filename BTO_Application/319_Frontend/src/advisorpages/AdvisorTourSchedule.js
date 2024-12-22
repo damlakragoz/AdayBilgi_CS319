@@ -5,6 +5,7 @@ import axios from "axios";
 
 import "react-calendar/dist/Calendar.css";
 import "./AdvisorTourSchedule.css";
+import "../tourguidepages/TourSchedule.css";
 
 const timeSlots = [
     { id: "SLOT_9_10", displayName: "09:00-10:00" },
@@ -282,9 +283,9 @@ const AdvisorTourSchedule = () => {
     };
 
     return (
-        <div className="tour-schedule-container">
+        <div className="tgschedule-tour-schedule-container">
             {/* Calendar Section */}
-            <div className="calendar-container">
+            <div className="tgschedule-calendar-container">
                 <Calendar
                     onChange={handleDateChange}
                     value={selectedDate}
@@ -306,8 +307,8 @@ const AdvisorTourSchedule = () => {
             </div>
 
             {/* Tour List Section */}
-            <div className="tour-list-container">
-                <h4 className="tour-list-header">
+            <div className="tgschedule-tour-list-container">
+                <h4 className="tgschedule-tour-list-header">
                     {formatDate(selectedDate)} TARİHİNDEKİ ONAYLANMIŞ TURLAR
                 </h4>
 
@@ -343,11 +344,13 @@ const AdvisorTourSchedule = () => {
                                                 margin: "0.5rem 0",
                                             }}
                                         >
-                                            <strong>Visitor
-                                                Count:</strong> {tour.visitorCount}
+                                            <strong>Ziyaretçi
+                                                Sayısı:</strong> {tour.visitorCount}
                                             <br/>
-                                            <strong>Tour
-                                                Status:</strong> {tour.tourStatus}
+                                            <strong>Tur
+                                                Durumu:</strong> {tour.tourStatus}
+                                            <br/>
+                                            <strong>Tur Rehberi Email:</strong> {tour.assignedGuideEmail}
                                             <br/>
                                             {/* Request Withdraw or Enroll Button Logic */}
                                             {isUserEnrolled ? (
