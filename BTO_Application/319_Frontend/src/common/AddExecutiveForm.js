@@ -64,10 +64,10 @@ const AddExecutiveForm = () => {
     } catch (error) {
       setIsLoading(false); // Reset loading state on error
       if (error.response && error.response.status === 400) {
-        alert("Aynı e-mail adresine sahip bir kullanıcı daha var!");
+        alert("Aynı e-mail adresine sahip bir kullanıcı bulunmaktadır.");
       } else {
         console.error("Error:", error.response ? error.response.data : error.message);
-        alert("Error registering executive. Please try again.");
+        alert("Hata. Lütfen tekrar deneyin.");
       }
     }
   };
