@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "../tourguidepages/AllFairs.css";
+import { useNavigate } from "react-router-dom";
 
 const AllFairsBTOManager = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
     const token = localStorage.getItem("userToken");
+    const navigate = useNavigate(); // Add useNavigate hook
 
    const mapStatusToTurkish = (status) => {
        const normalizedStatus = status ? status.trim().toLowerCase() : "not_specified";
@@ -216,6 +218,11 @@ const AllFairsBTOManager = () => {
                         );
                     })}
             </ul>
+            <button
+              onClick={() => navigate("/fuar-takvimi/yonetici")}
+            >
+              Detaylı Fuar Takvimine Git
+            </button>
         </div>
     );
 };
