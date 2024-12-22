@@ -75,6 +75,7 @@ import './App.css';
 import AllTours from "./tourguidepages/AllTours";
 import AllFairs from "./tourguidepages/AllFairs";
 import CoordinatorPayments from "./coordinatorPages/CoordinatorPayments";
+import SubmitFairActivity from "./executivePages/SubmitFairActivity";
 
 function App() {
   return (
@@ -122,6 +123,7 @@ function App() {
                         <Route path="/coordinator-change-password" element={<ChangePassword />} />
                         <Route path="/coordinator-statistics" element={<Statistics />} />
                         <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
+                        <Route path="/rehber-puantaj/coordinator" element={<PuantageTable />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
@@ -137,6 +139,8 @@ function App() {
                         <Route path="/tur-takvimi/yonetici" element={<ManagerTourSchedule />} />
                        <Route path="/bto-koordinasyonu/yonetici" element={<BtoKoordinasyonu />} />
                        <Route path="/fuar-davetleri/yonetici" element={<FairInvitations />} />
+                        <Route path="/fuar-aktivite-giris/yonetici" element={<SubmitFairActivity />} />
+                        <Route path="/rehber-puantaj/yonetici" element={<PuantageTable />} />
                        <Route path="/geribildirimler/yonetici" element={<GeriBildirimlerManagerView />} />
                     </Route>
                     {/* Counselor Routes Wrapped in CoordinatorLayout */}

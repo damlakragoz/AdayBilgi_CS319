@@ -25,6 +25,7 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-envelope-open-text"></i> Fuar Davetleri
                     </Link>
                 </li>
+
                 <li>
                     <Link to="/tur-basvurulari/yonetici" className="nav-link text-white">
                         <i className="fas fa-file-alt"></i> Tur Başvuruları
@@ -35,7 +36,6 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-bell"></i> Bildirimlerim
                     </Link>
                 </li>
-
 
                 <br/>
                 {/* Subtitle: Yaklaşan Etkinlikler */}
@@ -54,18 +54,28 @@ const ExecutiveSidebar = ({ isOpen, toggleSidebar }) => {
                         <i className="fas fa-building"></i> Yaklaşan Fuarlar
                     </Link>
                 </li>
+                <li>
+                    <Link to="/fuar-aktivite-giris/yonetici" className="nav-link text-white">
+                        <i className="fas fa-edit"></i> Fuar Aktivite Girişi
+                    </Link>
+                </li>
 
 
                 <br/>
                 {/* Subtitle: Yaklaşan Etkinlikler */}
                 <li>
-                    <a  className="sidebar-subtitle">
+                    <a className="sidebar-subtitle">
                         Performans Analizi
                     </a>
                 </li>
                 <li>
                     <Link to="/istatistikler/yonetici" className="nav-link text-white">
                         <i className="fas fa-chart-bar"></i> İstatistikler
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/rehber-puantaj/yonetici" className="nav-link text-white">
+                        <i className="fas fa-chart-bar"></i> Rehber Puantaj
                     </Link>
                 </li>
                 <li>

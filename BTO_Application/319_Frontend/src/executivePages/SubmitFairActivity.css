@@ -1,0 +1,153 @@
+/* Container for the entire SubmitFairActivity Page */
+.puantage-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar container styling */
+.calendar-container {
+    margin-bottom: 20px;
+}
+
+/* Calendar tile styles for finished and unfinished days */
+.calendar-finished {
+    background-color: #28a745 !important; /* Green background */
+    color: white !important; /* White text */
+    border-radius: 50%; /* Make the tile round */
+}
+
+.calendar-unfinished {
+    background-color: #dc3545 !important; /* Red background */
+    color: white !important; /* White text */
+    border-radius: 50%; /* Make the tile round */
+}
+
+/* Default calendar tile */
+.react-calendar__tile {
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    border-radius: 5px; /* Default rounded corners */
+}
+
+/* Hover effect for calendar tiles */
+.react-calendar__tile:hover {
+    background-color: #e2e6ea;
+    color: #495057;
+}
+
+/* Activity list container */
+.activity-list-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Activity list item styling */
+.activity-list-container li {
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Hover effect for activity items */
+.activity-list-container li:hover {
+    background-color: #e2e6ea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Highlight for selected activity */
+.activity-list-container li.selected {
+    background-color: #c3e6cb;
+    border-color: #28a745;
+    color: #155724;
+    font-weight: bold;
+}
+
+/* Input container for activity submission */
+.activity-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Styled label for input fields */
+.activity-input-container label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input field styling */
+.activity-input-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Submit button styling */
+.activity-input-container button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for the submit button */
+.activity-input-container button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Button to navigate to the Puantage Table */
+.puantage-table-button button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.puantage-table-button button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05);
+}
+
+/* Styling for the message when no activities are found */
+.activity-list-container p {
+    font-size: 16px;
+    color: #555;
+    margin: 15px 0;
+    text-align: center;
+}

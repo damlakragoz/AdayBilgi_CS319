@@ -92,6 +92,7 @@ const CoordinatorPayments = () => {
                     <thead>
                     <tr>
                         <th>Ödeme ID</th>
+                        <th>Aktivite Türü</th>
                         <th>Miktar</th>
                         <th>Durum</th>
                         <th>Aksiyon</th>
@@ -101,6 +102,9 @@ const CoordinatorPayments = () => {
                     {pendingPayments.map((payment) => (
                         <tr key={payment.id}>
                             <td>{payment.id}</td>
+                            <td>
+                                {payment.fairId === null ? "Tur" : payment.tourId === null ? "Fuar" : ""}
+                            </td>
                             <td>{payment.amount}</td>
                             <td>{translateStatus(payment.status)}</td>
                             <td>
@@ -108,7 +112,7 @@ const CoordinatorPayments = () => {
                                     className="pending-payments-approve-btn"
                                     onClick={() => approvePayment(payment.id)}
                                 >
-                                    Approve
+                                    Onayla
                                 </button>
                             </td>
                         </tr>
