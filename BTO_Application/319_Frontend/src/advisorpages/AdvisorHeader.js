@@ -98,6 +98,9 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                 </Link>
             </div>
             <div className="nav-links">
+                <a href="/advisor-homepage" className="nav-link">
+                    Anasayfa
+                </a>
                 <Link to="/onay-bekleyen-islemler/advisor" className="nav-link">Onay Bekleyen İşlemler</Link>
                 <Link to="/advisor-tourenrollment" className="nav-link">Güncel Turlar</Link>
                 <div className="notification-container">
@@ -116,8 +119,10 @@ const AdvisorHeader = ({ toggleSidebar }) => {
                             className="user-avatar me-2"
                         />
                         <div>
-                            <span className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
-                            <div className="role">{localStorage.role== "Advisor" ? "Danışman" : localStorage.role}</div>
+                            <span
+                                className="user-name">{user ? `${user.firstName} ${user.lastName}` : "User Name"}</span>
+                            <div
+                                className="role">{localStorage.role == "Advisor" ? "Danışman" : localStorage.role}</div>
                         </div>
                         <i className="fas fa-caret-down ms-2"></i>
                     </div>

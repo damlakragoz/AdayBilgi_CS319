@@ -13,7 +13,7 @@ const AdvisorHomepage = () => {
 
     return (
         <div
-            className="counselor-homepage"
+            className="advisor-homepage"
             style={{
                 position: 'relative',
                 alignItems: 'center',
