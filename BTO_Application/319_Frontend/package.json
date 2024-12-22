@@ -11,17 +11,21 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.1",
-    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.7",
     "date-fns": "^4.1.0",
+    "glob-parent": "^6.0.2",
     "react": "^18.0.0",
     "react-calendar": "^5.1.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.27.0",
     "react-scripts": "^5.0.1",
-    "react-toastify": "^11.0.0",
+    "react-toastify": "^11.0.2",
     "react-transition-group": "^4.4.5"
   },
   "author": "Your Name",
@@ -37,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^9.17.0",
+    "eslint-webpack-plugin": "^4.2.0"
   }
 }
