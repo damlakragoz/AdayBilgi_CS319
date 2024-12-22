@@ -86,12 +86,26 @@
   margin-bottom: 1px;
   align-items: center;
 }
+.puantage-month-selector span {
+   padding: 10px 10px;
+   margin: 10px;
+   margin-bottom: 0px;
+   margin-top: 10px;
+   border: none;
+   background-color: var(--light-blue);
+   color: black;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 14px;
+}
 
 .puantage-month-selector button {
-  padding: 10px 16px;
+  padding: 10px 10px;
+  margin: 10px;
+  margin-bottom: 0px;
   border: none;
-  background-color: var(--dark-blue);
-  color: #fff;
+  background-color: var(--light-blue);
+  color: black;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -99,6 +113,7 @@
 
 .puantage-month-selector button:hover {
   background-color: var(--dark-blue);
+  color: white;
 }
 
 .puantage-month-selector span {
