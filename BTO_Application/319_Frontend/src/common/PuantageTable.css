@@ -14,7 +14,7 @@
 .puantage-calendar-table {
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed; /* Ensure consistent column widths */
+  table-layout: auto; /* Allow table to adjust with content */
   background-color: #fff;
 }
 
