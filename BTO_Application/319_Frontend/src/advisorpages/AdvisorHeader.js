@@ -13,6 +13,7 @@ const AdvisorHeader = ({ toggleSidebar }) => {
     const [profilePictureUrl, setProfilePictureUrl] = useState(
         localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
     );
+    const [unreadCount, setUnreadCount] = useState(0);
 
     useEffect(() => {
         const fetchProfilePicture = async () => {
