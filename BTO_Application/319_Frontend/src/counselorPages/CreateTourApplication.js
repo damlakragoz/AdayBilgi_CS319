@@ -65,7 +65,7 @@ const CreateTourApplication = () => {
             return;
         }
         if (visitorCount > 60) {
-            toast.error("Tur gerekleri sebebiyle ziyaretçi sayısı 60'tan fazla olamaz.");
+            toast.error("Ziyaretçi sayısı 60'tan fazla olamaz.");
             return;
         }
 
@@ -98,15 +98,14 @@ const CreateTourApplication = () => {
         } catch (error) {
             if (error.response?.status === 409) {
                 toast.error(
-                    "Başvurunuz lisenize ait aktif bir başvuruyla çakışıyor! Bu başvuru size ait değilse okulunzdaki diğer rehber öğretmenlerine danışınız. Lütfen farklı bir tarih seçiniz.",
+                    "Başvurunuz lisenize ait aktif bir başvuruyla çakışıyor! Bu başvuru size ait değilse okulunuzdaki diğer rehber öğretmenlerine danışınız. Lütfen farklı bir tarih seçiniz.",
                     {
                         position: "top-center",
                         style: { width: "600px" },
-                        autoClose: false,
+                        autoClose: true,
                         closeOnClick: false,
                         draggable: false,
                         onOpen: () => {}
-
                     });
             } else {
                 toast.error("Başvuru sırasında bir hata oluştu. Lütfen tekrar deneyin.");
