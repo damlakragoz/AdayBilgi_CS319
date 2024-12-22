@@ -134,7 +134,7 @@ function App() {
                         <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
                         <Route path="/rehber-puantaj/coordinator" element={<PuantageTable />} />
                         <Route path="/koordinator-ayarlar" element={<CoordinatorSettings />} />
-                        <Route path="/yaklasan-etkinlikler/koordinator" element={<YaklasanEtkinliklerKoordinator />} />
+                        <Route path="/yaklasan-etkinlikler/coordinator" element={<YaklasanEtkinlikler />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
