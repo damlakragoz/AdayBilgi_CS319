@@ -6,7 +6,6 @@ import com.CS319.BTO_Application.DTO.TourOperationsForGuide;
 import com.CS319.BTO_Application.Entity.*;
 import com.CS319.BTO_Application.Service.*;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,12 +29,13 @@ public class TourController {
     private final PaymentController paymentController;
     private final IndividualTourApplicationService individualTourApplicationService;
     private final NotificationService notificationService;
+    private final UserService userService;
 
     @Autowired
     public TourController(TourService tourAssignmentService, CoordinatorService coordinatorService,
                           TourGuideService tourGuideService, SchoolTourApplicationService schoolTourApplicationService,
                           AdvisorService advisorService, CounselorService counselorService, PaymentController paymentController,
-                          IndividualTourApplicationService individualTourApplicationService, NotificationService notificationService){
+                          IndividualTourApplicationService individualTourApplicationService, NotificationService notificationService, UserService userService){
         this.tourService = tourAssignmentService;
         this.coordinatorService = coordinatorService;
         this.tourGuideService = tourGuideService;
@@ -48,6 +45,7 @@ public class TourController {
         this.paymentController = paymentController;
         this.individualTourApplicationService = individualTourApplicationService;
         this.notificationService = notificationService;
+        this.userService = userService;
     }
 
 
@@ -247,11 +245,19 @@ public class TourController {
     public ResponseEntity<Tour> approveTour(@RequestBody ApproveRejectTour approveRejectTour) {
         Tour tour = tourService.getTourById(approveRejectTour.getTourId());
 
-        if(coordinatorService.getCoordinatorByEmail(approveRejectTour.getCoordinatorEmail()) == null){
+        if(userService.getUserByUsername(approveRejectTour.getCoordinatorEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        User user = userService.getUserByUsername(approveRejectTour.getCoordinatorEmail());
+        if(!user.getRole().equalsIgnoreCase("Coordinator") && !user.getRole().equalsIgnoreCase("Advisor")) {
+            System.out.println("Role mismatch");
+            System.out.println(user.getRole());
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // user role must be either advisor or coordinator
+        }
+
         if(!tour.getTourStatus().equals("Pending")){
-            return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore/advisora pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }
 
         // Notification Logic
@@ -282,9 +288,17 @@ public class TourController {
     public ResponseEntity<Tour> rejectTour(@RequestBody ApproveRejectTour approveRejectTour) {
         Tour tour = tourService.getTourById(approveRejectTour.getTourId());
 
-        if(coordinatorService.getCoordinatorByEmail(approveRejectTour.getCoordinatorEmail()) == null){
+        if(userService.getUserByUsername(approveRejectTour.getCoordinatorEmail()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        User user = userService.getUserByUsername(approveRejectTour.getCoordinatorEmail());
+        if(!user.getRole().equalsIgnoreCase("Coordinator") && !user.getRole().equalsIgnoreCase("Advisor")) {
+            System.out.println("Role mismatch");
+            System.out.println(user.getRole());
+            return new ResponseEntity<>(HttpStatus.CONFLICT); // user role must be either advisor or coordinator
+        }
+
         if(!tour.getTourStatus().equals("Pending")){
             return new ResponseEntity<>(HttpStatus.CONFLICT); // tur coordinatore pending bir şekilde verilmesi lazım ki onaylasın veya reddetsin
         }

@@ -75,7 +75,18 @@ public class Tour extends TourEvent{
         }
         return applyingHighschool.getSchoolName();
     }
-
+    public String getAssignedGuideFirstName(){
+        if(assignedGuide == null){
+            return null;
+        }
+        return assignedGuide.getFirstName();
+    }
+    public String getAssignedGuideLastName(){
+        if(assignedGuide == null){
+            return null;
+        }
+        return assignedGuide.getLastName();
+    }
 }
     /*
     TODO:

@@ -87,4 +87,30 @@ public class Fair {
         return assignedExecutive.getEmail();
     }
 
+    public String getAssignedGuideFirstName(){
+        if(assignedGuideToFair == null){
+            return null;
+        }
+        return assignedGuideToFair.getFirstName();
+    }
+
+    public String getAssignedGuideLastName(){
+        if(assignedGuideToFair == null){
+            return null;
+        }
+        return assignedGuideToFair.getLastName();
+    }
+
+    public String getAssignedExecutiveLastName(){
+        if(assignedGuideToFair == null){
+            return null;
+        }
+        return assignedGuideToFair.getLastName();
+    }
+    public String getAssignedExecutiveFirstName(){
+        if(assignedGuideToFair == null){
+            return null;
+        }
+        return assignedGuideToFair.getFirstName();
+    }
 }
