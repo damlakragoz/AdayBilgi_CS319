@@ -112,5 +112,9 @@ public class UserService implements UserDetailsService {
         return String.format("%06d", random.nextInt(999999));
     }
 
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
 }
 

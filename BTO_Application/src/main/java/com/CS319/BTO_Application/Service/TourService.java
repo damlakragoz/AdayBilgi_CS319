@@ -41,18 +41,70 @@ public class TourService {
     /*
         this method changes the status of the schooltourapplication to enrolled
      */
+    /**
+     * Creates a new school tour and saves it to the repository.
+     *
+     * Preconditions:
+     * - The `tour` and `schoolTourApplication` must not be null.
+     *
+     * Postconditions:
+     * - The `tour` is saved to the database with its details.
+     *
+     * @param tour The tour to be created.
+     * @param schoolTourApplication The application associated with the tour.
+     * @return The saved `Tour` entity.
+     */
     public Tour createSchoolTour(Tour tour, SchoolTourApplication schoolTourApplication) {
         return schoolTourRepos.save(tour);
     }
+
+    /**
+     * Creates a new individual tour and saves it to the repository.
+     *
+     * Preconditions:
+     * - The `tour` and `individualTourApplication` must not be null.
+     *
+     * Postconditions:
+     * - The `tour` is saved to the database with its details.
+     *
+     * @param tour The tour to be created.
+     * @param individualTourApplication The application associated with the tour.
+     * @return The saved `Tour` entity.
+     */
     public Tour createIndividualTour(Tour tour, IndividualTourApplication individualTourApplication) {
         return schoolTourRepos.save(tour);
     }
 
+    /**
+     * Updates the status of a tour to "Approved".
+     *
+     * Preconditions:
+     * - The `tour` must not be null.
+     *
+     * Postconditions:
+     * - The tour's status is updated to "Approved" and saved to the database.
+     *
+     * @param tour The tour to be updated.
+     * @return The updated `Tour` entity.
+     */
     public Tour setStatusApproved(Tour tour) {
         tour.setTourStatus("Approved");
         return schoolTourRepos.save(tour);
     }
 
+    /**
+     * Updates the status of a tour to "Rejected" and marks the associated application as "Rejected".
+     *
+     * Preconditions:
+     * - The `tour` must not be null.
+     *
+     * Postconditions:
+     * - The tour's status is updated to "Rejected".
+     * - The application status is also updated to "Rejected".
+     *
+     * @param tour The tour to be rejected.
+     * @return The updated `Tour` entity.
+     */
     public Tour setStatusRejected(Tour tour) {
         tour.setTourStatus("Rejected");
         tour.getTourApplication().setApplicationStatus("Rejected");
@@ -106,6 +158,22 @@ public class TourService {
         return schoolTourRepos.findByTourApplicationId(tourApplicationId);
     }
 
+    /**
+     * Assigns a tour guide to a tour and updates the tour's status.
+     *
+     * Preconditions:
+     * - The `tour` and `tourGuideEmail` must not be null.
+     * - The `tourGuideEmail` must correspond to an existing tour guide.
+     *
+     * Postconditions:
+     * - The tour guide is assigned to the tour.
+     * - The tour's status is updated to "GuideAssigned".
+     * - The application status is updated to "Approved".
+     *
+     * @param tour The tour to be updated.
+     * @param tourGuideEmail The email of the tour guide to assign.
+     * @return The updated `Tour` entity.
+     */
     public Tour assignTour(Tour tour, String tourGuideEmail) {
         TourGuide guide = tourGuideRepos.findByEmail(tourGuideEmail);
         if (guide == null) {
@@ -117,11 +185,38 @@ public class TourService {
         return schoolTourRepos.save(tour);
     }
 
+    /**
+     * Marks a tour as having a withdraw request.
+     *
+     * Preconditions:
+     * - The `tour` must not be null.
+     *
+     * Postconditions:
+     * - The tour's status is updated to "WithdrawRequested".
+     *
+     * @param tour The tour to update.
+     * @return The updated `Tour` entity.
+     */
     public Tour requestWithdraw(Tour tour) {
         setStatusWithdrawRequested(tour);
         return schoolTourRepos.save(tour);
     }
 
+    /**
+     * Accepts a withdraw request for a tour and assigns an advisor to handle it.
+     *
+     * Preconditions:
+     * - The `tour` and `advisorEmail` must not be null.
+     * - The `advisorEmail` must correspond to an existing advisor.
+     *
+     * Postconditions:
+     * - The tour's status is updated to "AdvisorAssigned".
+     * - The advisor is assigned to the tour.
+     *
+     * @param tour The tour to update.
+     * @param advisorEmail The email of the advisor.
+     * @return The updated `Tour` entity.
+     */
     public Tour acceptWithdrawRequest(Tour tour, String advisorEmail) {
         Advisor advisor = advisorRepos.findByEmail(advisorEmail);
         if (advisor == null) {
@@ -132,6 +227,20 @@ public class TourService {
         return schoolTourRepos.save(tour);
     }
 
+    /**
+     * Rejects a withdraw request for a tour and updates the status.
+     *
+     * Preconditions:
+     * - The `tour` and `advisorEmail` must not be null.
+     * - The `advisorEmail` must correspond to an existing advisor.
+     *
+     * Postconditions:
+     * - The tour's status is updated to "Withdrawn".
+     *
+     * @param tour The tour to update.
+     * @param advisorEmail The email of the advisor.
+     * @return The updated `Tour` entity.
+     */
     public Tour rejectWithdrawRequest(Tour tour, String advisorEmail) {
         Advisor advisor = advisorRepos.findByEmail(advisorEmail);
         if (advisor == null) {
@@ -151,12 +260,41 @@ public class TourService {
         return schoolTourRepos.findAllByType("school");
     }
 
+    /**
+     * Cancels a tour based on the counselor's request and updates its status.
+     *
+     * Preconditions:
+     * - The `tourApplicationId` must correspond to an existing tour application.
+     *
+     * Postconditions:
+     * - The tour's status is updated to "Rejected".
+     * - The application status is also updated to "Rejected".
+     *
+     * @param tourApplicationId The ID of the tour application to cancel.
+     */
     public void cancelTourByCounselor(Long tourApplicationId) {
         Tour tour = schoolTourRepos.findByTourApplicationId(tourApplicationId);
         setStatusRejected(tour);
         schoolTourRepos.save(tour);
     }
 
+    /**
+     * Submits the activity for a completed tour and updates the guide's work hours.
+     *
+     * Preconditions:
+     * - The `tour` and `durationTime` must not be null.
+     * - The `durationTime` must be greater than 0.
+     *
+     * Postconditions:
+     * - The tour's duration is updated.
+     * - The guide's work hours are incremented by `durationTime`.
+     * - The tour's status is updated to "Finished".
+     * - The application status is updated to "Finished".
+     *
+     * @param tour The tour to update.
+     * @param durationTime The duration of the activity.
+     * @return The updated `Tour` entity.
+     */
     public Tour submitTourActivity(Tour tour, double durationTime) {
         if(tour.getAssignedGuide() != null){
             TourGuide guide = tour.getAssignedGuide();
@@ -168,6 +306,24 @@ public class TourService {
         tour.getTourApplication().setApplicationStatus("Finished");
         return tour;
     }
+
+    /**
+     * Edits the activity for a tour and adjusts the guide's work hours accordingly.
+     *
+     * Preconditions:
+     * - The `tour` and `durationTime` must not be null.
+     * - The `durationTime` must be greater than 0.
+     *
+     * Postconditions:
+     * - The tour's duration is updated.
+     * - The guide's work hours are adjusted based on the new `durationTime`.
+     * - The tour's status is updated to "Finished".
+     * - The application status is updated to "Finished".
+     *
+     * @param tour The tour to update.
+     * @param durationTime The new duration of the activity.
+     * @return The updated `Tour` entity.
+     */
     public Tour editTourActivity(Tour tour, double durationTime) {
         if(tour.getAssignedGuide() != null){
             TourGuide guide = tour.getAssignedGuide();
