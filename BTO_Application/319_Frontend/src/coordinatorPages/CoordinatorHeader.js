@@ -140,7 +140,7 @@ const CoordinatorHeader = ({ toggleSidebar }) => {
                 <a href="/onay-bekleyen-islemler" className="nav-link">
                     Onay Bekleyen İşlemler
                 </a>
-                <a href="#" className="nav-link">
+                <a href="yaklasan-etkinlikler/coordinator" className="nav-link">
                     Yaklaşan Etkinlikler
                 </a>
                 <div className="notification-container">
