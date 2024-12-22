@@ -119,6 +119,7 @@ const CounselorTourApplicationsPage = () => {
                 );
                 // Toggle to trigger the rerender
                 setToggleState((prev) => !prev); // Toggle the state
+                toast.dismiss()
             }
         } catch (error) {
             console.error("Error canceling application:", error);
@@ -277,7 +278,7 @@ const CounselorTourApplicationsPage = () => {
                                         toast.warn("Başvuruyu iptal etmek istediğinizden emin misiniz?", {
                                             position: "top-center",
                                             style: { width: "400px" },
-                                            autoClose: false,
+                                            autoClose: true,
                                             closeOnClick: false,
                                             draggable: false,
                                             onOpen: () => {},
