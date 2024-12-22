@@ -4,7 +4,7 @@ import "../tourguidepages/AllFairs.css";
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from "react-router-dom";
-import fairInvitations from "../common/FairInvitations";
+
 
 const FuarBasvurularim = () => {
     const [fairs, setFairs] = useState([]);
@@ -17,6 +17,7 @@ const FuarBasvurularim = () => {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1); // Track the current page
     const [statusFilter, setStatusFilter] = useState("All"); // Filter status state
+
 
     // Map status from English to Turkish
     const mapStatusToTurkish = (status) => {
@@ -167,14 +168,14 @@ const FuarBasvurularim = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="fair-list-header">Fuar Davetlerim</h4>
+            <h2 className="tour-list-header">Fuar Davetlerim</h2>
             <ul className="fair-list">
                 {sortedFairs.map((fair) => {
                     const isUserEnrolled = enrolledFairs.some(
                         (enrolledFair) => enrolledFair.id === fair.id
                     );
                     return (
-                        <li key={fair.id} className="fair-item" data-status={fair.fairInvitationStatus}>
+                        <li key={fair.id} className="tour-item" data-status={fair.fairInvitationStatus}>
                             <p>
                                 <strong>Tarih:</strong> {formatDate(new Date(fair.fairStartDate))} - {formatDate(new Date(fair.fairEndDate))}
 
@@ -191,13 +192,15 @@ const FuarBasvurularim = () => {
                                         onClick={(event) => {
                                             toast.warn("Fuar davetini iptal etmek istediğinizden emin misiniz?", {
                                                 position: "top-center",
-                                                style: { width: "400px" },
+                                                style: {width: "400px"},
                                                 autoClose: true,
                                                 closeOnClick: false,
                                                 draggable: false,
-                                                onOpen: () => {},
+                                                color: "red",
+                                                onOpen: () => {
+                                                },
                                                 closeButton: (
-                                                    <div style={{ display: 'flex', gap: '10px' }}>
+                                                    <div style={{display: 'flex', gap: '10px'}}>
                                                         <button onClick={() => handleCancelFair(fair.id)}
                                                                 style={{
                                                                     flex: 1,
