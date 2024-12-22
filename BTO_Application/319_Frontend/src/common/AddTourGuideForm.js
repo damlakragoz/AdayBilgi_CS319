@@ -112,7 +112,7 @@ const AddTourGuideForm = () => {
       });
     } catch (error) {
       if (error.response?.status === 400) {
-        toast.error("Bu e-mail adresine sahip bir tur rehberi bulunmaktadır!");
+        toast.error("Bu e-mail adresine sahip bir kullanıcı bulunmaktadır!");
       } else {
         toast.error("Bir hata oluştu. Lütfen tekrar deneyin.");
       }
