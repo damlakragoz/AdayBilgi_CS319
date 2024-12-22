@@ -32,8 +32,6 @@ public class HighSchool {
     @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "total_tour_count", nullable = true)
-    private Integer totalTourCount;
 
     @Column(name = "priority_point", nullable = true)
     private Integer priorityPoint;
@@ -45,7 +43,6 @@ public class HighSchool {
         this.schoolName = schoolName;
         this.city = city;
         this.priorityPoint = priorityPoint;
-        this.totalTourCount = 0;
     }
 
 }
