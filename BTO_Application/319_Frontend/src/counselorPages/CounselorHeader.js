@@ -99,7 +99,7 @@ const CounselorHeader = ({ toggleSidebar }) => {
                 </Link>
             </div>
             <div className="nav-links">
-                <a href="#" className="nav-link">
+                <a href="/counselor-homepage" className="nav-link">
                     Anasayfa
                 </a>
                 <a href="/applications" className="nav-link">
