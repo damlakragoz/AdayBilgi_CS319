@@ -33,6 +33,9 @@ public abstract class User {
     @Column(name = "role", nullable = false)
     private String role; // e.g., "ROLE_USER", "ROLE_ADMIN"
 
+    @Lob
+    @Column(name = "profile_picture", columnDefinition = "LONGBLOB", nullable = true)
+    private byte[] profilePicture;
 
     /*
     TODO: these will be added
