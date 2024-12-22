@@ -46,7 +46,7 @@ const CoordinatorSettings = () => {
                             className="profile-picture"
                         />
                     ) : (
-                        <p>No Profile Picture</p>
+                        <p>Profil Resmi Bulunamadı</p>
                     )}
                 </div>
                 <ul className="settings-list">

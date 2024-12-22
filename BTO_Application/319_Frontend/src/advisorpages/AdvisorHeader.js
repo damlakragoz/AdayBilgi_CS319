@@ -10,6 +10,7 @@ import defaultProfilePicture from "../assets/default-profile-picture.jpg";
 const AdvisorHeader = ({ toggleSidebar }) => {
     const [user, setUser] = useState(null); // State to store user data
     const navigate = useNavigate();
+    const [unreadCount, setUnreadCount] = useState(0);
     const [profilePictureUrl, setProfilePictureUrl] = useState(
         localStorage.getItem("profilePictureUrl") || "default-profile-picture.jpg"
     );
