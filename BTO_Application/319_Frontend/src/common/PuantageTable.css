@@ -1,8 +1,8 @@
 /* Wrapper for the entire table with internal scrolling */
 .puantage-table-wrapper {
   max-width: 100%;
-  overflow-x: auto; /* Add horizontal scrolling only for the table */
-  white-space: nowrap; /* Prevent line breaks within cells */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent breaking within cells */
   padding: 16px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
@@ -20,11 +20,12 @@
 
 /* Header cells */
 .puantage-calendar-table th {
+  min-width: 80px; /* Set a minimum width for all columns */
   border: 1px solid #ddd;
   text-align: center;
   padding: 12px;
-  background-color: #007bff; /* Blue header */
-  color: #fff;
+  background-color: var(--light-blue); /* Blue header */
+  color: black;
   font-weight: bold;
   position: sticky;
   top: 0; /* Keep the header row sticky */
@@ -34,22 +35,22 @@
 
 /* First column styling */
 .puantage-calendar-table td:first-child {
-  position: sticky;
-  left: 0; /* Keep the first column sticky */
-  background-color: #fff;
-  z-index: 1; /* Ensure it is below the header row */
+  background-color: #fff; /* Remove sticky behavior */
   font-weight: bold;
   padding: 12px;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 /* Table cells */
 .puantage-calendar-table td {
+  min-width: 80px; /* Ensure columns maintain a minimum width */
   border: 1px solid #ddd;
   text-align: center;
   padding: 8px;
   font-size: 14px;
   color: #333;
   vertical-align: middle;
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 /* Activity box */
@@ -61,7 +62,7 @@
 }
 
 .puantage-activity-box span {
-  background-color: #e9ecef;
+  background-color: var(--dark-blue);
   color: #495057;
   padding: 4px 8px;
   border-radius: 4px;
@@ -82,14 +83,14 @@
 .puantage-month-selector {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 1px;
   align-items: center;
 }
 
 .puantage-month-selector button {
   padding: 10px 16px;
   border: none;
-  background-color: #007bff;
+  background-color: var(--dark-blue);
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
@@ -97,7 +98,7 @@
 }
 
 .puantage-month-selector button:hover {
-  background-color: #0056b3;
+  background-color: var(--dark-blue);
 }
 
 .puantage-month-selector span {
