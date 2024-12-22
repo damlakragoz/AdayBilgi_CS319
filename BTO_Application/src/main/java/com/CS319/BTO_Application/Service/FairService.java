@@ -68,6 +68,22 @@ public class FairService {
         return fairRepos.save(fair);
     }
 
+    /**
+     * Assigns a tour guide and/or executive to a fair.
+     *
+     * Preconditions:
+     * - `fair` must not be null.
+     * - `tourGuideEmail` and `executiveEmail` must be valid emails.
+     *
+     * Postconditions:
+     * - The fair is assigned to the specified tour guide and/or executive.
+     * - The fair is saved in the repository.
+     *
+     * @param fair The fair to assign.
+     * @param tourGuideEmail The email of the tour guide to assign.
+     * @param executiveEmail The email of the executive to assign.
+     * @return The assigned fair.
+     */
     public Fair assignFair(Fair fair, String tourGuideEmail, String executiveEmail) {
         TourGuide guide = null;
         Executive executive = null;
@@ -102,6 +118,22 @@ public class FairService {
         return fairRepos.findAll();
     }
 
+    /**
+     * Submits a fair activity as a guide.
+     *
+     * Preconditions:
+     * - `fair` must not be null.
+     * - `durationTime` must be a positive number.
+     *
+     * Postconditions:
+     * - The fair activity is submitted.
+     * - The fair status is updated to "Finished".
+     * - The fair is saved in the repository.
+     *
+     * @param fair The fair to submit.
+     * @param durationTime The duration of the fair activity.
+     * @return The submitted fair.
+     */
     public Fair submitFairActivityAsGuide(Fair fair, double durationTime) {
         if(fair.getAssignedGuideToFair() != null){
             TourGuide guide = fair.getAssignedGuideToFair();
@@ -113,6 +145,22 @@ public class FairService {
         return fair;
     }
 
+    /**
+     * Edits a fair activity as a guide.
+     *
+     * Preconditions:
+     * - `fair` must not be null.
+     * - `durationTime` must be a positive number.
+     *
+     * Postconditions:
+     * - The fair activity is edited.
+     * - The fair status is updated to "Finished".
+     * - The fair is saved in the repository.
+     *
+     * @param fair The fair to edit.
+     * @param durationTime The new duration of the fair activity.
+     * @return The edited fair.
+     */
     public Fair editFairActivityAsGuide(Fair fair, double durationTime) {
         if(fair.getAssignedGuideToFair() != null){
             TourGuide guide = fair.getAssignedGuideToFair();
@@ -128,8 +176,21 @@ public class FairService {
         return fair;
     }
 
-    /*
-    this method is only called when the assigned guide to fair is null
+    /**
+     * Submits a fair activity as an executive.
+     *
+     * Preconditions:
+     * - `fair` must not be null.
+     * - `durationTime` must be a positive number.
+     *
+     * Postconditions:
+     * - The fair activity is submitted.
+     * - The fair status is updated to "Finished".
+     * - The fair is saved in the repository.
+     *
+     * @param fair The fair to submit.
+     * @param durationTime The duration of the fair activity.
+     * @return The submitted fair.
      */
     public Fair submitFairActivityAsExecutive(Fair fair, double durationTime) {
         fair.setDuration(durationTime);
@@ -138,8 +199,21 @@ public class FairService {
         return fair;
     }
 
-    /*
-    this method is only called when the assigned guide to fair is null
+    /**
+     * Edits a fair activity as an executive.
+     *
+     * Preconditions:
+     * - `fair` must not be null.
+     * - `durationTime` must be a positive number.
+     *
+     * Postconditions:
+     * - The fair activity is edited.
+     * - The fair status is updated to "Finished".
+     * - The fair is saved in the repository.
+     *
+     * @param fair The fair to edit.
+     * @param durationTime The new duration of the fair activity.
+     * @return The edited fair.
      */
     public Fair editFairActivityAsExecutive(Fair fair, double durationTime) {
         fair.setDuration(durationTime);

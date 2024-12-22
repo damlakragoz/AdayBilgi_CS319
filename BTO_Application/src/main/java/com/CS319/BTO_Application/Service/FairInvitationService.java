@@ -47,6 +47,19 @@ public class FairInvitationService {
         return fairInvitationRepos.findByApplyingCounselor(counselor);
     }
 
+    /**
+     * Adds a new fair invitation.
+     *
+     * Preconditions:
+     * - `fairInvitation` and `counselorUsername` must not be null.
+     *
+     * Postconditions:
+     * - The fair invitation is saved in the repository.
+     *
+     * @param fairInvitation The fair invitation to be added.
+     * @param counselorUsername The username of the counselor applying for the fair.
+     * @return The added fair invitation.
+     */
     public FairInvitation addFairInvitation(FairInvitation fairInvitation, String counselorUsername) {
         Counselor counselor = (Counselor)userRepos.findByEmail(counselorUsername);
         fairInvitation.setApplyingCounselor(counselor);
@@ -144,6 +157,19 @@ public class FairInvitationService {
         return fairInvitationRepos.save(fairInvitation);
     }
 
+    /**
+     * Checks if a fair invitation exists by high school and date.
+     *
+     * Preconditions:
+     * - `fairInvitation` and `counselorEmail` must not be null.
+     *
+     * Postconditions:
+     * - Returns true if a fair invitation exists with the specified high school and date, otherwise false.
+     *
+     * @param fairInvitation The fair invitation to check.
+     * @param counselorEmail The email of the counselor.
+     * @return True if a fair invitation exists, otherwise false.
+     */
     public boolean existsFairInvitationByHighSchoolAndDate(FairInvitation fairInvitation, String counselorEmail) {
         if(!counselorRepos.existsByEmail(counselorEmail)){
             return false;
@@ -165,6 +191,20 @@ public class FairInvitationService {
         return false;
     }
 
+    /**
+     * Cancels a fair invitation.
+     *
+     * Preconditions:
+     * - `counselorEmail` and `fairInvitationID` must not be null.
+     *
+     * Postconditions:
+     * - The fair invitation status is updated to "Cancelled".
+     * - The fair invitation is saved in the repository.
+     *
+     * @param counselorEmail The email of the counselor canceling the invitation.
+     * @param fairInvitationID The ID of the fair invitation to cancel.
+     * @return The canceled fair invitation.
+     */
     public FairInvitation cancelFairInvitation(String counselorEmail, Long fairInvitationID) {
         if(!counselorRepos.existsByEmail(counselorEmail)){
             throw new EntityNotFoundException("Counselor not found with email: " + counselorEmail);
@@ -178,6 +218,20 @@ public class FairInvitationService {
         return fairInvitation;
     }
 
+    /**
+     * Rejects a fair invitation.
+     *
+     * Preconditions:
+     * - `BTOManagerEmail` and `fairInvitationID` must not be null.
+     *
+     * Postconditions:
+     * - The fair invitation status is updated to "Rejected".
+     * - The fair invitation is saved in the repository.
+     *
+     * @param BTOManagerEmail The email of the BTO manager rejecting the invitation.
+     * @param fairInvitationID The ID of the fair invitation to reject.
+     * @return The rejected fair invitation.
+     */
     public FairInvitation rejectFairInvitation(String BTOManagerEmail, Long fairInvitationID) {
         if(!btoManagerRepos.existsByEmail(BTOManagerEmail)){
             throw new EntityNotFoundException("BTO Manager not found with email: " + BTOManagerEmail);
@@ -192,6 +246,21 @@ public class FairInvitationService {
         return fairInvitation;
     }
 
+    /**
+     * Approves a fair invitation.
+     *
+     * Preconditions:
+     * - `BTOManagerEmail` and `fairInvitationID` must not be null.
+     *
+     * Postconditions:
+     * - The fair invitation status is updated to "Pending".
+     * - A fair is created for the approved invitation.
+     * - The fair invitation is saved in the repository.
+     *
+     * @param BTOManagerEmail The email of the BTO manager approving the invitation.
+     * @param fairInvitationID The ID of the fair invitation to approve.
+     * @return The approved fair invitation.
+     */
     public FairInvitation approveFairInvitation(String BTOManagerEmail, Long fairInvitationID) {
         if(!btoManagerRepos.existsByEmail(BTOManagerEmail)){
             throw new EntityNotFoundException("BTO Manager not found with email: " + BTOManagerEmail);
@@ -209,6 +278,17 @@ public class FairInvitationService {
         return fairInvitation;
     }
 
+    /**
+     * Creates a fair for a given fair invitation.
+     *
+     * Preconditions:
+     * - `fairInvitation` must not be null.
+     *
+     * Postconditions:
+     * - A fair is created and saved in the repository.
+     *
+     * @param fairInvitation The fair invitation to create a fair for.
+     */
     public void createFair(FairInvitation fairInvitation) {
         LocalDate startDate = fairInvitation.getFairStartDate();
         LocalDate endDate = fairInvitation.getFairEndDate();

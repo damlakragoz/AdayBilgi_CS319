@@ -42,6 +42,7 @@ public class FairController {
         this.notificationService = notificationService;
     }
 
+
     @GetMapping("/getAll")
     public ResponseEntity<List<Fair>> getAllFairs() {
         try {
@@ -53,6 +54,19 @@ public class FairController {
         }
     }
 
+    /**
+     * Retrieves the assigned guide for a fair.
+     *
+     * Preconditions:
+     * - `fairId` must not be null.
+     *
+     * Postconditions:
+     * - Returns the assigned guide if found.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param fairId The ID of the fair.
+     * @return ResponseEntity containing the assigned guide or an error message.
+     */
     @GetMapping("/get/assigned-guide")
     public ResponseEntity<?> getAssignedGuideForFair(@RequestParam Long fairId) {
         try {
@@ -66,6 +80,19 @@ public class FairController {
         }
     }
 
+    /**
+     * Retrieves the assigned executive for a fair.
+     *
+     * Preconditions:
+     * - `fairId` must not be null.
+     *
+     * Postconditions:
+     * - Returns the assigned executive if found.
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param fairId The ID of the fair.
+     * @return ResponseEntity containing the assigned executive or an error message.
+     */
     @GetMapping("/get/assigned-executive")
     public ResponseEntity<?> getAssignedExecutiveForFair(@RequestParam Long fairId) {
         try {
@@ -79,6 +106,21 @@ public class FairController {
         }
     }
 
+    /**
+     * Enrolls a tour guide in a fair.
+     *
+     * Preconditions:
+     * - `fairOperationsForGuide` must not be null.
+     * - The tour guide must exist.
+     *
+     * Postconditions:
+     * - The fair status is updated.
+     * - Notifications are sent.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param fairOperationsForGuide The operations for the guide.
+     * @return ResponseEntity with the updated fair or error status.
+     */
     @PostMapping("/guide-enroll")
     public ResponseEntity<Fair> tourGuideEnrollsInFair(@RequestBody FairOperationsForGuide fairOperationsForGuide) {
         Fair fair = fairService.getFairById(fairOperationsForGuide.getFairId());
@@ -113,6 +155,21 @@ public class FairController {
         }
     }
 
+    /**
+     * Enrolls an executive in a fair.
+     *
+     * Preconditions:
+     * - `fairOperationsForExecutive` must not be null.
+     * - The executive must exist.
+     *
+     * Postconditions:
+     * - The fair status is updated.
+     * - Notifications are sent.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param fairOperationsForExecutive The operations for the executive.
+     * @return ResponseEntity with the updated fair or error status.
+     */
     @PostMapping("/executive-enroll")
     public ResponseEntity<Fair> executiveEnrollsInFair(@RequestBody FairOperationsForExecutive fairOperationsForExecutive) {
         Fair fair = fairService.getFairById(fairOperationsForExecutive.getFairId());
@@ -146,6 +203,23 @@ public class FairController {
         }
     }
 
+    /**
+     * Submits fair activity as a guide.
+     *
+     * Preconditions:
+     * - `fairId`, `tourGuideEmail`, and `duration` must not be null.
+     * - `duration` must be greater than 0.
+     *
+     * Postconditions:
+     * - The fair activity is submitted.
+     * - A payment is created for the guide.
+     * - Returns status 201 (CREATED) if successful.
+     *
+     * @param fairId The ID of the fair.
+     * @param tourGuideEmail The email of the tour guide.
+     * @param duration The duration of the activity.
+     * @return ResponseEntity with the updated fair or error status.
+     */
     @PostMapping("/submit-fair-activity-guide")
     public ResponseEntity<?> submitFairActivityAsGuide(@RequestParam Long fairId,
                                                        @RequestParam String tourGuideEmail,
@@ -202,6 +276,23 @@ public class FairController {
         }
     }
 
+    /**
+     * Edits fair activity as a guide.
+     *
+     * Preconditions:
+     * - `fairId`, `tourGuideEmail`, and `duration` must not be null.
+     * - `duration` must be greater than 0.
+     *
+     * Postconditions:
+     * - The fair activity is edited.
+     * - A payment is created for the guide.
+     * - Returns status 201 (CREATED) if successful.
+     *
+     * @param fairId The ID of the fair.
+     * @param tourGuideEmail The email of the tour guide.
+     * @param duration The duration of the activity.
+     * @return ResponseEntity with the updated fair or error status.
+     */
     @PostMapping("/edit-fair-activity-guide")
     public ResponseEntity<?> editFairActivityAsGuide(@RequestParam Long fairId,
                                               @RequestParam String tourGuideEmail,
@@ -254,6 +345,22 @@ public class FairController {
         }
     }
 
+    /**
+     * Submits fair activity as an executive.
+     *
+     * Preconditions:
+     * - `fairId`, `executiveEmail`, and `duration` must not be null.
+     * - `duration` must be greater than 0.
+     *
+     * Postconditions:
+     * - The fair activity is submitted.
+     * - Returns status 201 (CREATED) if successful.
+     *
+     * @param fairId The ID of the fair.
+     * @param executiveEmail The email of the executive.
+     * @param duration The duration of the activity.
+     * @return ResponseEntity with the updated fair or error status.
+     */
     @PostMapping("/submit-fair-activity-executive")
     public ResponseEntity<?> submitFairActivityAsExecutive(@RequestParam Long fairId,
                                                        @RequestParam String executiveEmail,
@@ -313,6 +420,22 @@ public class FairController {
         }
     }
 
+    /**
+     * Edits fair activity as an executive.
+     *
+     * Preconditions:
+     * - `fairId`, `executiveEmail`, and `duration` must not be null.
+     * - `duration` must be greater than 0.
+     *
+     * Postconditions:
+     * - The fair activity is edited.
+     * - Returns status 201 (CREATED) if successful.
+     *
+     * @param fairId The ID of the fair.
+     * @param executiveEmail The email of the executive.
+     * @param duration The duration of the activity.
+     * @return ResponseEntity with the updated fair or error status.
+     */
     @PostMapping("/edit-fair-activity-executive")
     public ResponseEntity<?> editFairActivityAsExecutive(@RequestParam Long fairId,
                                                            @RequestParam String executiveEmail,
@@ -372,6 +495,7 @@ public class FairController {
         }
     }
 
+
     @GetMapping("/by-month")
     public ResponseEntity<List<Fair>> getFairsByMonthAndYear(
             @RequestParam int month,
@@ -379,6 +503,7 @@ public class FairController {
         List<Fair> fairs = fairService.getFairsByMonthAndYear(month, year);
         return ResponseEntity.ok(fairs);
     }
+
 
     @GetMapping("/by-month/finished")
     public ResponseEntity<List<Fair>> getFinishedFairsByMonthAndYear(
@@ -388,6 +513,22 @@ public class FairController {
         return ResponseEntity.ok(finishedFairs);
     }
 
+    /**
+     * Sends notifications related to a fair.
+     *
+     * Preconditions:
+     * - `fair` must not be null and must contain valid details.
+     * - `email` must be a valid email address.
+     * - `situation` must be a recognized situation type.
+     *
+     * Postconditions:
+     * - Sends a notification to the specified email address.
+     * - Generates appropriate notification content based on the situation.
+     *
+     * @param fair The fair for which the notification is sent.
+     * @param email The email address to send the notification.
+     * @param situation The situation type that determines the notification content.
+     */
     private void notifyForFair(Fair fair, String email, String situation) {
         String title = null;
         String text = null;

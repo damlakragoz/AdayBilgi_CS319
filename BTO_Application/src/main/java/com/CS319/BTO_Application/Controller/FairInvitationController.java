@@ -34,6 +34,7 @@ public class FairInvitationController {
         this.notificationService = notificationService;
     }
 
+
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllFairInvitations() {
         try {
@@ -46,6 +47,21 @@ public class FairInvitationController {
         }
     }
 
+    /**
+     * Adds a new fair invitation.
+     *
+     * Preconditions:
+     * - `invitationRequest` must not be null.
+     * - The counselor specified in `invitationRequest` must exist.
+     * - The fair invitation must not already exist.
+     *
+     * Postconditions:
+     * - The fair invitation is added to the repository.
+     * - Returns status 201 (CREATED) if successful.
+     *
+     * @param invitationRequest The request containing the fair invitation details.
+     * @return ResponseEntity with the created fair invitation or error status.
+     */
     @PostMapping("/add")
     public ResponseEntity<FairInvitation> addFairInvitation(@RequestBody AddInvitationRequest invitationRequest) {
         if(counselorService.getCounselorByUsername(invitationRequest.getCounselorUsername()) == null){
@@ -57,6 +73,19 @@ public class FairInvitationController {
         return new ResponseEntity<>(fairInvitationService.addFairInvitation(invitationRequest.getFairInvitation(),invitationRequest.getCounselorUsername()), HttpStatus.CREATED);
     }
 
+    /**
+     * Deletes a fair invitation by its ID.
+     *
+     * Preconditions:
+     * - `fairInvitationId` must correspond to an existing fair invitation.
+     *
+     * Postconditions:
+     * - Deletes the specified fair invitation.
+     * - Returns status 204 (NO_CONTENT).
+     *
+     * @param fairInvitationId ID of the fair invitation to delete.
+     * @return ResponseEntity with status 204 or error status.
+     */
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteFairInvitation(@RequestParam Long fairInvitationId) {
         if (fairInvitationService.getFairInvitationById(fairInvitationId) == null) {
@@ -66,6 +95,22 @@ public class FairInvitationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Cancels a fair invitation by a counselor.
+     *
+     * Preconditions:
+     * - `counselorEmail` must correspond to an existing counselor.
+     * - `fairInvitationId` must correspond to an existing fair invitation.
+     *
+     * Postconditions:
+     * - Cancels the specified fair invitation.
+     * - Notifies assigned BTO members if the fair invitation was approved.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param counselorEmail The email of the counselor canceling the invitation.
+     * @param fairInvitationId The ID of the fair invitation to cancel.
+     * @return ResponseEntity with the canceled fair invitation or error status.
+     */
     @PutMapping("/counselor/cancel")
     public ResponseEntity<FairInvitation> cancelFairInvitation(@RequestParam String counselorEmail,@RequestParam Long fairInvitationId) {
         FairInvitation fairInvitation = fairInvitationService.getFairInvitationById(fairInvitationId);
@@ -103,6 +148,22 @@ public class FairInvitationController {
 
     }
 
+    /**
+     * Approves a fair invitation by a BTO manager.
+     *
+     * Preconditions:
+     * - `btoManagerEmail` must correspond to an existing BTO manager.
+     * - `fairInvitationId` must correspond to an existing fair invitation.
+     * - The fair invitation status must be "Created".
+     *
+     * Postconditions:
+     * - Approves the specified fair invitation.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param btoManagerEmail The email of the BTO manager approving the invitation.
+     * @param fairInvitationId The ID of the fair invitation to approve.
+     * @return ResponseEntity with the approved fair invitation or error status.
+     */
     @PostMapping("/bto-manager/approve")
     public ResponseEntity<FairInvitation> approveFairInvitation(@RequestParam String btoManagerEmail,@RequestParam Long fairInvitationId) {
         FairInvitation fairInvitation = fairInvitationService.getFairInvitationById(fairInvitationId);
@@ -120,6 +181,23 @@ public class FairInvitationController {
         }
     }
 
+    /**
+     * Rejects a fair invitation by a BTO manager.
+     *
+     * Preconditions:
+     * - `btoManagerEmail` must correspond to an existing BTO manager.
+     * - `fairInvitationId` must correspond to an existing fair invitation.
+     * - The fair invitation status must be "Created".
+     *
+     * Postconditions:
+     * - Rejects the specified fair invitation.
+     * - Notifies the counselor of the rejection.
+     * - Returns status 202 (ACCEPTED) if successful.
+     *
+     * @param btoManagerEmail The email of the BTO manager rejecting the invitation.
+     * @param fairInvitationId The ID of the fair invitation to reject.
+     * @return ResponseEntity with the rejected fair invitation or error status.
+     */
     @PostMapping("/bto-manager/reject")
     public ResponseEntity<FairInvitation> rejectFairInvitation(@RequestParam String btoManagerEmail,@RequestParam Long fairInvitationId) {
         FairInvitation fairInvitation = fairInvitationService.getFairInvitationById(fairInvitationId);
@@ -141,6 +219,22 @@ public class FairInvitationController {
         }
     }
 
+    /**
+     * Sends notifications related to a fair invitation.
+     *
+     * Preconditions:
+     * - `fairInvitation` must not be null and must contain valid details.
+     * - `email` must be a valid email address.
+     * - `situation` must be a recognized situation type.
+     *
+     * Postconditions:
+     * - Sends a notification to the specified email address.
+     * - Generates appropriate notification content based on the situation.
+     *
+     * @param fairInvitation The fair invitation for which the notification is sent.
+     * @param email The email address to send the notification.
+     * @param situation The situation type that determines the notification content.
+     */
     private void notifyForFairInvitation(FairInvitation fairInvitation, String email, String situation) {
         String title = null;
         String text = null;
