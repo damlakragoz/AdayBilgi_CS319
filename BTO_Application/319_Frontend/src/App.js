@@ -24,6 +24,7 @@ import ManagerTourSchedule from './coordinatorPages/ManagerTourSchedule';
 import CoordinatorHomepage from './coordinatorPages/CoordinatorHomepage';
 import BtoKoordinasyonu from './coordinatorPages/BtoKoordinasyonu';
 import OnayBekleyen from './coordinatorPages/OnayBekleyen';
+import YaklasanEtkinliklerKoordinator from './coordinatorPages/YaklasanEtkinliklerKoordinator';
 import AddTourGuideForm from './common/AddTourGuideForm';
 import AddCoordinatorForm from './common/AddCoordinatorForm';
 import AddExecutiveForm from './common/AddExecutiveForm';
@@ -133,7 +134,7 @@ function App() {
                         <Route path="/ödemeler/coordinator" element={<CoordinatorPayments />} />
                         <Route path="/rehber-puantaj/coordinator" element={<PuantageTable />} />
                         <Route path="/koordinator-ayarlar" element={<CoordinatorSettings />} />
-                        <Route path="/yaklasan-etkinlikler/koordinator" element={<YaklasanEtkinlikler />} />
+                        <Route path="/yaklasan-etkinlikler/koordinator" element={<YaklasanEtkinliklerKoordinator />} />
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>

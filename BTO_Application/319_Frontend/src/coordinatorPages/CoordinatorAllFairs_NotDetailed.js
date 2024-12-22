@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import "./Fuarlarim.css";
+import "../tourguidepages/AllFairs.css";
 import { useNavigate } from "react-router-dom";
 
-const Fuarlarim = () => {
+const CoordinatorAllFairs_NotDetailed = () => {
     const [fairs, setFairs] = useState([]);
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
@@ -16,17 +16,17 @@ const Fuarlarim = () => {
      };
   // Mapping of fair invitation status in English to Turkish
   const statusMap = {
-      "pending": "Onay bekliyor",
-      "created": "Oluşturuldu",
-      "approved": "Onaylandı",
-      "rejected": "Reddedildi",
-      "cancelled": "İptal Edildi",
-      "finished": "Tamamlandı",
-      "executiveassigned": "Yönetici Başvurdu",
-      "executiveandguideassigned": "Yönetici ve Tur Rehberi Başvurdu",
-      "tourguideAssigned": "Tur Rehberi Başvurdu",
-      "not_specified": "-",
-    };
+    "pending": "Kayıt bekliyor",
+    "created": "Oluşturuldu",
+    "approved": "Onaylandı",
+    "rejected": "Reddedildi",
+    "cancelled": "İptal Edildi",
+    "finished": "Tamamlandı",
+    "executiveassigned": "Yönetici Başvurdu",
+    "executiveandguideassigned": "Yönetici ve Tur Rehberi Başvurdu",
+    "guideassigned": "Tur Rehberi Başvurdu",
+    "not_specified": "-",
+  };
    const formatDate = (date) => {
        if (!date) return "Geçersiz Tarih"; // Handle null or undefined
        try {
@@ -97,13 +97,11 @@ const Fuarlarim = () => {
 
                if (response.status === 200) {
                    console.log(response.data); // Log all fairs for debugging
-                   let filteredFairs = response.data.filter(
+                   setEnrolledFairs(response.data);
+                   const filteredFairs = response.data.filter(
                        (fair) =>
                            (fair.assignedExecutiveEmail &&
                            fair.assignedExecutiveEmail.toLowerCase() === executiveEmail.toLowerCase())
-                   );
-                   filteredFairs = response.data.filter(
-                      (fair) => (fair.fairStatus.toLowerCase() == "executiveassigned" || fair.fairStatus.toLowerCase() == "executiveandguideassigned")
                    );
                    console.log(filteredFairs); // Log the filtered fairs for debugging
                    setEnrolledFairs(filteredFairs);
@@ -127,7 +125,8 @@ const Fuarlarim = () => {
                 const getCategory = (fair) => {
                     if (
                         fair.fairStatus === "Pending" ||
-                        fair.fairStatus === "TourGuideAssigned"
+                        fair.fairStatus === "ExecutiveAndGuideAssigned" ||
+                        fair.fairStatus === "ExecutiveAssigned"
                     ) {
                         return 1; // Enrollable fairs
                     }
@@ -188,9 +187,11 @@ const Fuarlarim = () => {
 
     return (
         <div className="fair-schedule-container">
-            <h4 className="tour-list-header" style={{ textAlign: "center" }}> Yaklaşan Fuarlarınız</h4>
+            <h4 className="tour-list-header"> Yaklaşan Fuarlar</h4>
+
             <ul className="fair-list">
-                {enrolledFairs
+                {sortedFairs
+
                     .map((fair) => {
                         const isUserEnrolled = enrolledFairs.some(
                             (enrolledFair) => enrolledFair.id === fair.id
@@ -208,30 +209,17 @@ const Fuarlarim = () => {
                                     <strong>Durum:</strong> {mapStatusToTurkish(fair.fairStatus)}
                                 </p>
 
-                                {/* Conditionally render assignedTourGuideEmail */}
-                                {(fair.fairStatus === "TourGuideAssigned" || fair.fairStatus === "ExecutiveAndGuideAssigned" )&& fair.assignedGuideEmail && (
-                                    <p>
-                                        <strong>Tur rehberi:</strong> {fair.assignedGuideEmail}
-                                    </p>
-                                )}
-
-                                <button
-                                >
-                                    {isUserEnrolled ? "Kaydoldunuz" : "Kaydol"}
-                                </button>
                             </li>
                         );
                     })}
             </ul>
-            <button
-              onClick={() => navigate("/yaklasan-fuarlar/yonetici")}
-            >
-              Tüm Fuarları Gör
-            </button>
-
-
+                <button
+                  onClick={() => navigate("/fuar-takvimi")}
+                >
+                  Detaylı Fuar Takvimine Git
+                </button>
         </div>
     );
 };
 
-export default Fuarlarim;
+export default CoordinatorAllFairs_NotDetailed;
