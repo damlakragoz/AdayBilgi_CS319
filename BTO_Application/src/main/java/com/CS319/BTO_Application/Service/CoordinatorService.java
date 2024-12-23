@@ -145,8 +145,8 @@ public class CoordinatorService {
             String iban = tourGuide.getIban();
             if (iban != null) {
                 String accountantEmail = "eray.isci@ug.bilkent.edu.tr";
-                String accountantText = "Ad: " + tourGuide.getFirstName() + "<br>" +
-                                        "Soyad" + tourGuide.getLastName() + "<br>" +
+                String accountantText = "Ad: " + tourGuide.getFirstName() + "\n" +
+                                        "Soyad" + tourGuide.getLastName() + "\n" +
                                         "Iban" + iban;
                 mailService.sendMail(accountantEmail,
                         "Bir Kişinin Ödeme İsteği Geldi",
