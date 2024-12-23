@@ -410,7 +410,7 @@ const AdvisorTourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Enroll
+                                                        Kaydol
                                                     </button>
                                                 ) : null
                                             )}
