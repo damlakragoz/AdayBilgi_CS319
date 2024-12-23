@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./AllFairs.css";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AllFairs = () => {
     const [fairs, setFairs] = useState([]);
@@ -167,7 +169,7 @@ const AllFairs = () => {
             );
 
             if (response.status === 200 || response.status === 201 || response.status === 202) {
-                alert("Enrollment successful!");
+                toast.info("Kayıt başarılı!");
                 // Refresh the enrolled fairs and available fairs
                 setToggleState((prev) => !prev);
             }
