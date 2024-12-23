@@ -145,6 +145,8 @@ function App() {
                     </Route>
                     {/* Executive Routes Wrapped in ExecutiveLayout */}
                     <Route element={<ExecutiveLayout />}>
+                        <Route path="/rehber-ekle/yonetici"element={<AddTourGuideForm />} />
+                        <Route path="/koordinator-ekle/yonetici" element={<AddCoordinatorForm />} />
                         <Route path="/yonetici-profil-foto" element={<ProfilePictureUpload />} />
                         <Route path="/executive-homepage" element={<ExecutiveHomepage />} />
                         <Route path="/onay-bekleyen-islemler/yonetici" element={<OnayBekleyen />} />

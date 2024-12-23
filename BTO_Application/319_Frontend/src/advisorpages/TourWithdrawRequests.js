@@ -165,16 +165,16 @@ const TourWithdrawRequests = () => {
                   <div key={tour.id} className="withdraw-card">
                     <div className="tour-details">
                       <div>
-                        <strong>Tour ID:</strong> {tour.id}
+                        <strong>Tur ID:</strong> {tour.id}
                       </div>
                       <div>
-                        <strong>Date:</strong> {tour.chosenDate}
+                        <strong>Tarih:</strong> {tour.chosenDate}
                       </div>
                       <div>
-                        <strong>Time Slot:</strong> {tour.chosenTimeSlot}
+                        <strong>Saat aralığı:</strong> {tour.chosenTimeSlot}
                       </div>
                       <div>
-                        <strong>Guide Email:</strong> {tour.guideEmail || "Loading..."}
+                        <strong>Rehber E-mail:</strong> {tour.guideEmail || "Loading..."}
                       </div>
                     </div>
                     <div className="action-buttons">
