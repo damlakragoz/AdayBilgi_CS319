@@ -37,9 +37,10 @@ const SubmitFairActivity = () => {
                     (fair) =>
                         (fair.fairStatus === "Finished" ||
                             fair.fairStatus === "ExecutiveAssigned") &&
-                        fair.assignedExecutiveEmail === executiveEmail &&
+                        fair.assignedExecutiveEmail.toLowerCase() === executiveEmail.toLowerCase() &&
                         fair.assignedGuideEmail === null
                 );
+                console.log(fairs)
                 setFairs(fairs);
             } catch (error) {
                 console.error("Error fetching data:", error.message);
