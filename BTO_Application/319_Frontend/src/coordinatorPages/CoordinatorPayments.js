@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../coordinatorPages/CoordinatorPayments.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CoordinatorPayments = () => {
     const [allPayments, setAllPayments] = useState([]);
     const [pendingPayments, setPendingPayments] = useState([]);
     const token = localStorage.getItem("userToken");
     const coordinatorEmail = localStorage.getItem("username");
+    const [loading, setLoading] = useState(false);
 
     const translateStatus = (status) => {
         switch (status) {
@@ -20,6 +23,20 @@ const CoordinatorPayments = () => {
                 return status; // Eğer farklı bir durum varsa orijinal haliyle döner
         }
     };
+
+    const formatDateForTurkish = (isoDate) => {
+        const date = new Date(isoDate);
+        const options = {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'Europe/Istanbul',
+        };
+        return new Intl.DateTimeFormat('tr-TR', options).format(date);
+    };
+
     // Tüm ödeme bilgilerini getir
     const fetchAllPayments = async () => {
         try {
@@ -30,7 +47,7 @@ const CoordinatorPayments = () => {
             });
             setAllPayments(response.data);
         } catch (error) {
-            console.error("Error fetching all payments:", error);
+            toast.error("Tüm ödemeler getirilirken hata uluştu:", error);
         }
     };
 
@@ -44,12 +61,13 @@ const CoordinatorPayments = () => {
             });
             setPendingPayments(response.data);
         } catch (error) {
-            console.error("Error fetching pending payments:", error);
+            toast.error("Tüm ödemeler getirilirken hata oluştu:", error);
         }
     };
 
     // Ödemeyi onayla
     const approvePayment = async (paymentId) => {
+        setLoading(true);
         try {
             const response = await axios.put(
                 `http://localhost:8081/api/coordinator/approve-payment`,
@@ -66,14 +84,18 @@ const CoordinatorPayments = () => {
             );
 
             if (response.status === 200) {
-                alert("Payment approved successfully!");
+                toast.success("Ödeme başarıyla onaylandı.");
                 fetchPendingPayments();
                 fetchAllPayments();
+                setLoading(false);
             }
         } catch (error) {
-            console.error("Error approving payment:", error);
-            alert("Failed to approve payment.");
-        }
+            console.error("Ödeme onaylanırken hata oluştu:", error);
+             toast.error("Ödeme onaylanırken hata oluştu.");
+             setLoading(false);
+        } finally {
+            setLoading(false);
+          }
     };
 
     // İlk yüklemede tüm ödemeleri ve bekleyen ödemeleri getir
@@ -93,7 +115,7 @@ const CoordinatorPayments = () => {
                     <tr>
                         <th>Ödeme ID</th>
                         <th>Aktivite Türü</th>
-                        <th>Miktar</th>
+                        <th>Miktar (₺)</th>
                         <th>Durum</th>
                         <th>Aksiyon</th>
                     </tr>
@@ -123,13 +145,14 @@ const CoordinatorPayments = () => {
                 <p>Bekleyen Ödeme Bulunamadı</p>
             )}
 
+            <br/>
             <h2 className="pending-payments-header">TÜM ÖDEMELER</h2>
             {allPayments.length > 0 ? (
                 <table className="pending-payments-table">
                     <thead>
                     <tr>
                         <th>Ödeme ID</th>
-                        <th>Miktar</th>
+                        <th>Miktar (₺)</th>
                         <th>Durum</th>
                         <th>Onaylayan Kişi</th>
                         <th>Onaylanma Tarihi</th>
@@ -142,7 +165,7 @@ const CoordinatorPayments = () => {
                             <td>{payment.amount}</td>
                             <td>{translateStatus(payment.status)}</td>
                             <td>{payment.approvedBy || "N/A"}</td>
-                            <td>{payment.approvalDate || "N/A"}</td>
+                            <td>{payment.approvalDate ? formatDateForTurkish(payment.approvalDate) : "N/A"}</td>
                         </tr>
                     ))}
                     </tbody>
@@ -150,7 +173,16 @@ const CoordinatorPayments = () => {
             ) : (
                 <p>Ödeme Bulunamadı</p>
             )}
+
+            {/* Loading Screen (Overlay) */}
+            {loading && (
+                <div className="userform-loading-screen">
+                  <div className="spinner"></div>
+                  <p>Yükleniyor...</p>
+                </div>
+            )}
         </div>
+
     );
 };
 
