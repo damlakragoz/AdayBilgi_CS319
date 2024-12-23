@@ -396,7 +396,7 @@ public class TourController {
 
             // Notification Logic
             for (Advisor advisor: advisorService.getAllAdvisors()) {
-                if(advisor.getAssignedDay().equals(tour.getChosenDate().getDayOfWeek().toString())){
+                if(advisor.getAssignedDay().equalsIgnoreCase(tour.getChosenDate().getDayOfWeek().toString())){
                     notifyForTour(tour, advisor.getEmail(), "Advisor Tour Withdraw Request");
                 }
             }
