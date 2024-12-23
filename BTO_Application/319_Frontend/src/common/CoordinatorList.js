@@ -91,7 +91,7 @@ const CoordinatorList = () => {
               <th>Ad Soyad</th>
               <th>Email</th>
               <th>Telefon Numarası</th>
-              <th>Tercihler</th>
+              {(role == "Executive" || role == "Admin") && <th>Tercihler</th>}
             </tr>
           </thead>
           <tbody>
@@ -100,11 +100,16 @@ const CoordinatorList = () => {
                 <td>{coordinator.firstName + " " + coordinator.lastName}</td>
                 <td>{coordinator.email}</td>
                 <td>{coordinator.phoneNumber}</td>
-                <td>
-                  <button className="usertable-button usertable-button-promote" onClick={() => removeCoordinator(coordinator.email)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </td>
+                {(role === "Executive" || role === "Admin") && (
+                  <td>
+                    <button
+                      className="usertable-button usertable-button-promote"
+                      onClick={() => removeCoordinator(coordinator.email)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
@@ -112,15 +117,21 @@ const CoordinatorList = () => {
       )}
 
         {/* Conditional Add Coordinator Button Below the Table */}
-        {  (role == "Executive" || role == "Admin") &&
-             <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <Link to={role==="Admin" ? "/koordinator-ekle/admin" : "/koordinator-ekle"}>
-                  <button className="usertable-button usertable-button-add">
-                    Yeni Koordinatör Kaydet
-                  </button>
-                </Link>
-              </div>
-        }
+        {(role === "Executive" || role === "Admin") && (
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                  <Link
+                    to={
+                      role === "Admin"
+                        ? "/koordinator-ekle/admin"
+                        : "/koordinator-ekle"
+                    }
+                  >
+                    <button className="usertable-button usertable-button-add">
+                      Yeni Koordinatör Kaydet
+                    </button>
+                  </Link>
+                </div>
+              )}
     </div>
   );
 };
