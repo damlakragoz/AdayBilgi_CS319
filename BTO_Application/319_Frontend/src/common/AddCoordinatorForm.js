@@ -45,7 +45,7 @@ const AddCoordinatorForm = () => {
       const body = { email, firstName, lastName, phoneNumber };
 
       const response = await axios.post(
-        "http://localhost:8081/api/executive/register", // Update API endpoint
+        "http://localhost:8081/api/coordinator/register", // Update API endpoint
         body,
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
