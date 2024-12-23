@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "../tourguidepages/AllFairs.css";
 import { useNavigate } from "react-router-dom";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AllFairsBTOManager = () => {
     const [fairs, setFairs] = useState([]);
@@ -168,17 +170,17 @@ const AllFairsBTOManager = () => {
                 );
 
                 if (response.status === 200 || response.status === 201 || response.status === 202) {
-                    alert("Enrollment successful!");
+                    toast.info("Kayıt başarılı!");
                     // Refresh the enrolled fairs and available fairs
                     setToggleState((prev) => !prev);
                 }
             } catch (error) {
                 if (error.response?.status === 400) {
-                    alert("Invalid enrollment request. Please try again.");
+                    toast.error("Kayıt oluşturulamadı. Lütfen tekrar deneyin.");
                 } else if (error.response?.status === 403) {
-                    alert("You are not authorized to enroll in this fair.");
+                    toast.error("Bu fuara kaydolamazsınız.");
                 } else {
-                    alert("An unexpected error occurred. Please try again.");
+                    toast.error("Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.");
                 }
 
             }
