@@ -2,7 +2,9 @@
 
 
 
-Uploading grup1btovideo.mp4…
+https://github.com/user-attachments/assets/8c53b029-c632-4f5d-8491-a138ce170acf
+
+
 
 
 **AdayBilgi** is a web application that is an existing website of **Bilkent Tanitim Ofisi (BTO)**, being redeveloped in the scope of **CS319 - Fall 2024**. This website offers prospective students a variety of resources and information to assist in their decision-making process when choosing Bilkent University. Throughout the year, AdayBilgi provides a range of services, including:
