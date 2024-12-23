@@ -45,7 +45,7 @@ const AddCoordinatorForm = () => {
       const body = { email, firstName, lastName, phoneNumber };
 
       const response = await axios.post(
-        "http://localhost:8081/api/executive/register", // Update API endpoint
+        "http://localhost:8081/api/coordinator/register", // Update API endpoint
         body,
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
@@ -132,12 +132,13 @@ const AddCoordinatorForm = () => {
 
         {/* Buttons */}
         <div className="button-group">
+            <button type="button" className="cancel-button" onClick={handleCancel}>
+                    İptal
+                  </button>
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Yükleniyor..." : "Ekle"}
           </button>
-          <button type="button" className="cancel-button" onClick={handleCancel}>
-            İptal
-          </button>
+
         </div>
       </form>
 

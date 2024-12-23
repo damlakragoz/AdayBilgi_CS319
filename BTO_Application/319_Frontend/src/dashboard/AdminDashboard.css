@@ -1,0 +1,30 @@
+.admin-logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+   width: 100%;
+}
+
+.admin-logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--my-red); /* Button background color */
+  color: white; /* Text color */
+  font-size: 12px; /* Font size */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 5px 10px; /* Padding for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.admin-logout-button:hover {
+  background-color: var(--my-red); /* Darker shade on hover */
+}
+
+.admin-logout-icon {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 14px; /* Icon size */
+}

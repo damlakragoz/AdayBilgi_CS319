@@ -66,10 +66,13 @@ const LoginPage = () => {
                     case 'Advisor':
                         navigate('/advisor-homepage');
                         break;
+                    case 'Admin':
+                        navigate('/admin-dashboard');
+                        break;
                     default:
                         toast.error('Rolünüz tanımlanamadı. Lütfen yöneticinizle iletişime geçin.');
                         console.error('Unhandled role:', role);
-                        navigate('/applications');
+                        navigate('/login');
                         break;
                 }
             } else {

@@ -226,11 +226,13 @@ const AddTourGuideForm = () => {
           {/* Buttons */}
           <div className="button-group">
             <button type="button" className="cancel-button" onClick={handleCancel}>
-              İptal
+                        İptal
             </button>
             <button type="submit" className="submit-button">
               Ekle
             </button>
+
+
           </div>
         </form>
 

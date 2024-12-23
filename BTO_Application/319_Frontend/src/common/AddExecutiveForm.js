@@ -80,7 +80,7 @@ const AddExecutiveForm = () => {
       phoneNumber: "",
     });
     console.log("Form reset");
-    navigate(-1); // G // This will take the user back to the previous page
+    navigate(-1);
   };
 
   return (
@@ -133,10 +133,11 @@ const AddExecutiveForm = () => {
 
         {/* Buttons */}
         <div className="button-group">
+          <button type="button" className="cancel-button" onClick={handleCancel}>İptal</button>
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Yükleniyor..." : "Ekle"}
           </button>
-          <button type="button" className="cancel-button" onClick={handleCancel}>İptal</button>
+
         </div>
       </form>
 

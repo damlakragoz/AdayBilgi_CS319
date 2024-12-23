@@ -14,7 +14,7 @@ const TourGuideList = () => {
   const [error, setError] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isLoadingPromotion, setIsLoadingPromotion] = useState(false); // Loading state for promotion
-
+  const role = localStorage.getItem("role"); // Retrieve the user role
   // Popup state
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState("");
@@ -239,7 +239,7 @@ const TourGuideList = () => {
 
       {/* Centered Button Below the Table */}
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Link to="/rehber-ekle">
+        <Link to={role==="Admin" ? "/rehber-ekle/admin" : "/rehber-ekle"}>
           <button className="usertable-button usertable-button-add">
             Yeni Tur Rehberi Kaydet
           </button>

@@ -16,6 +16,7 @@ import ProfilePictureUpload from "./common/ProfilePictureUpload";
 import UserSettings from "./common/UserSettings"; // Adjust the path as needed
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminDashboard from './dashboard/AdminDashboard';
 
 
 // Coordinator Page Imports
@@ -113,6 +114,11 @@ function App() {
                     <Route path="/notifications" element={<Notifications />} />
 
                     <Route path="/submit-application" element={<SubmitApplication />} />
+                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/rehber-ekle/admin"element={<AddTourGuideForm />} />
+                    <Route path="/yonetici-ekle/admin"element={<AddExecutiveForm />} />
+                    <Route path="/koordinator-ekle/admin" element={<AddCoordinatorForm />} />
+
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CoordinatorLayout />}>
