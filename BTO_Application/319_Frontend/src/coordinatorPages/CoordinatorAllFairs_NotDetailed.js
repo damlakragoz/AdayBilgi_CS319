@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "../tourguidepages/AllFairs.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CoordinatorAllFairs_NotDetailed = () => {
     const [fairs, setFairs] = useState([]);
@@ -60,7 +62,7 @@ const CoordinatorAllFairs_NotDetailed = () => {
             try {
                 const token = localStorage.getItem("userToken");
                 if (!token) {
-                    alert("Authorization token missing. Please log in.");
+                    toast.error("Oturumunuz sonlanmıştır. Lütfen giriş yapın.");
                     return;
                 }
 
@@ -72,7 +74,7 @@ const CoordinatorAllFairs_NotDetailed = () => {
                     setFairs(response.data);
                 }
             } catch (error) {
-                alert("Failed to load fairs. Please try again later.");
+                toast.error("Sayfa yüklenemdi. Lütfen daha sonra tekrar deneyin.");
             }
         };
 
@@ -87,7 +89,7 @@ const CoordinatorAllFairs_NotDetailed = () => {
                const executiveEmail = localStorage.getItem("username"); // Retrieve the email here
 
                if (!token || !executiveEmail) {
-                   alert("Authorization token or executive email is missing. Please log in.");
+                   toast.error("Oturumunuz sonlanmıştır. Lütfen giriş yapın.");
                    return;
                }
 
@@ -107,7 +109,7 @@ const CoordinatorAllFairs_NotDetailed = () => {
                    setEnrolledFairs(filteredFairs);
                }
            } catch (error) {
-               alert("Failed to load fairs. Please try again later.");
+               toast.error("Fuarlar yüklenemedi. Lütfen daha sonra tekrar deneyin.");
                console.error("Error fetching fairs:", error.message);
            }
        };
@@ -145,14 +147,14 @@ const CoordinatorAllFairs_NotDetailed = () => {
             const executiveEmail = localStorage.getItem("username");
 
             if (!executiveEmail) {
-                alert("Guide email not found. Please log in again.");
+                toast.error("Kullanıcı bulunamadı. Lütfen daha sonra tekrar deneyin");
                 return;
             }
 
             try {
                 const token = localStorage.getItem("userToken");
                 if (!token) {
-                    alert("Authorization token missing. Please log in.");
+                    toast.error("Oturumunuz sonlanmıştır. Lütfen giriş yapın.");
                     return;
                 }
                 console.log("Email sent to backend:", { fairId, executiveEmail }); //prints correct values
@@ -169,17 +171,17 @@ const CoordinatorAllFairs_NotDetailed = () => {
                 );
 
                 if (response.status === 200 || response.status === 201 || response.status === 202) {
-                    alert("Enrollment successful!");
+                    toast.info("Kaydolma işlemi başarılı!");
                     // Refresh the enrolled fairs and available fairs
                     setToggleState((prev) => !prev);
                 }
             } catch (error) {
                 if (error.response?.status === 400) {
-                    alert("Invalid enrollment request. Please try again.");
+                    toast.error("Kayıt işlemi reddedildi. Lütfen daha sonra tekrar deneyin.");
                 } else if (error.response?.status === 403) {
-                    alert("You are not authorized to enroll in this fair.");
+                    toast.error("Bu fuara kaydolamazsınız.");
                 } else {
-                    alert("An unexpected error occurred. Please try again.");
+                    toast.error("Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
                 }
 
             }

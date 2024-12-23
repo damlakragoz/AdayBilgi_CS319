@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OnayBekleyen.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const OnayBekleyenTurlar = () => {
     const [tours, setTours] = useState([]);
@@ -57,7 +60,7 @@ const OnayBekleyenTurlar = () => {
             const token = localStorage.getItem('userToken'); // Retrieve the auth token
 
             if (!token) {
-                alert('Authorization token missing. Please log in.');
+                toast.error("Oturumunuz sonlanmıştır. Lütfen giriş yapın.");
                 return;
             }
             console.log('Retrieved Token:', token);
@@ -88,7 +91,7 @@ const OnayBekleyenTurlar = () => {
         try {
             const token = localStorage.getItem("userToken");
             if (!token) {
-                alert("Authorization token missing. Please log in.");
+                toast.error("Oturumunuz sonlanmıştır. Lütfen giriş yapın.");
                 return;
             }
 
@@ -105,7 +108,7 @@ const OnayBekleyenTurlar = () => {
             );
 
             if (response.status === 200 || response.status === 201 || response.status === 202) {
-                alert("Tour approved successfully!");
+                toast.info("Tur başarıyla onaylanmıştır!");
                 setTours((prevTours) =>
                     prevTours.map((tour) =>
                         tour.id === tourId ? { ...tour, tourStatus: "Approved" } : tour
@@ -116,7 +119,7 @@ const OnayBekleyenTurlar = () => {
             }
         } catch (error) {
             console.error("Error approving tour:", error.message);
-            alert("Failed to approve the tour. Please try again.");
+            toast.error("Tur onaylanamadı. Lütfen tekrar deneyin.");
         }
     };
 
@@ -125,7 +128,7 @@ const OnayBekleyenTurlar = () => {
         try {
             const token = localStorage.getItem("userToken");
             if (!token) {
-                alert("Authorization token missing. Please log in.");
+                toast.error("Oturumunuz sonlanmıştır. Lütfen giriş yapın.");
                 return;
             }
 
@@ -142,7 +145,7 @@ const OnayBekleyenTurlar = () => {
             );
 
             if (response.status === 200 || response.status === 201 || response.status === 202) {
-                alert("Tour rejected successfully!");
+                toast.info("Tur başarıyla reddedildi!");
                 setTours((prevTours) =>
                     prevTours.map((tour) =>
                         tour.id === tourId ? { ...tour, tourStatus: "Rejected" } : tour
@@ -153,7 +156,7 @@ const OnayBekleyenTurlar = () => {
             }
         } catch (error) {
             console.error("Error rejecting tour:", error.message);
-            alert("Failed to reject the tour. Please try again.");
+            toast.error("Tur reddedilemedi. Lütfen tekrar deneyin.");
         }
     };
 

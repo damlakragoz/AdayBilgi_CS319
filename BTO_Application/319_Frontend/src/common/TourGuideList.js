@@ -6,6 +6,9 @@ import { Link } from "react-router-dom"; // Import Link from React Router
 import "./UserTables.css";
 import "./AddTourGuideForm.css";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const TourGuideList = () => {
   const [tourGuides, setTourGuides] = useState([]);
   const [error, setError] = useState(null);
@@ -21,7 +24,7 @@ const TourGuideList = () => {
     try {
       const token = localStorage.getItem("userToken");
       if (!token) {
-        alert("Authorization token missing. Please log in.");
+        toast.error("Oturumunuz sonlandı. Lütfen giriş yapın.");
         return;
       }
       const response = await axios.get(
@@ -47,40 +50,61 @@ const TourGuideList = () => {
   }, []);
 
   const removeRow = async (firstName, lastName, email) => {
-    const confirmRemoval = window.confirm(
-      `${firstName} ${lastName} isimli tur rehberini silmek istediğinizden emin misiniz?`
-    );
-    if (confirmRemoval) {
-      try {
-        const token = localStorage.getItem("userToken");
-        if (!token) {
-          alert("Lütfen tekrar giriş yapın.");
-          return;
-        }
+    toast.warn(`${firstName} ${lastName} isimli tur rehberini silmek istediğinizden emin misiniz?`, {
+      position: "top-center",
+      style: {width: "400px"},
+      autoClose: true,
+      closeOnClick: false,
+      draggable: false,
+      onClose: () => {},
+      closeButton: (
+          <div style={{ display: 'flex', gap: '10px'}}>
+            <button onClick={async () => {
+              try {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
+                  toast.error("Lütfen tekrar giriş yapın.");
+                  return;
+                }
 
-        const response = await axios.delete(
-          "http://localhost:8081/api/tourguide/delete",
-          {
-            params: { username: email },
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          }
-        );
+                const response = await axios.delete(
+                    "http://localhost:8081/api/tourguide/delete",
+                    {
+                      params: { username: email },
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
+                      withCredentials: true,
+                    }
+                );
 
-        if (response.status === 204 || response.status === 200) {
-          setTourGuides(tourGuides.filter((tg) => tg.email !== email));
-          alert("Tur rehberi başarıyla silindi!");
-        }
-      } catch (error) {
-        if (error.response) {
-          alert(`Hata: ${error.response.data}`);
-        } else {
-          alert("Beklenmedik bir hata oluştu.");
-        }
-      }
-    }
+                if (response.status === 204 || response.status === 200) {
+                  setTourGuides(tourGuides.filter((tg) => tg.email !== email));
+                  toast.info("Tur rehberi başarıyla silindi!");
+                }
+              } catch (error) {
+                if (error.response) {
+                  toast.error(`Hata: ${error.response.data}`);
+                } else {
+                  toast.error("Beklenmedik bir hata oluştu.");
+                }
+              }
+            }} style={{ flex: 1,
+              padding: '8px 12px',
+              border: 'none',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '4px',
+              display: 'inline-block',
+              whiteSpace: 'nowrap' }}>Evet</button>
+            <button onClick={() => toast.dismiss()} style={{ flex: 1,
+              padding: '8px 12px',
+              border: 'none',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '4px',
+              display: 'inline-block',
+              whiteSpace: 'nowrap' }}>Hayır</button></div>
+      )
+    });
   };
 
   const handlePromoteButtonClick = (guide) => {
@@ -90,28 +114,50 @@ const TourGuideList = () => {
 
   const promoteToExpert = async () => {
     if (!selectedDay) {
-      alert("Lütfen bir gün seçin.");
+      toast.error("Lütfen bir gün seçin.");
       return;
     }
 
     const { firstName, lastName, email } = currentGuide;
 
-    const confirmPromotion = window.confirm(
-        `${firstName} ${lastName} isimli tur rehberini danışmanlığa yükseltmeyi onaylıyor musunuz?`
-    );
+    toast.warn(`${firstName} ${lastName} isimli tur rehberini danışmanlığa yükseltmeyi onaylıyor musunuz?`, {
+      position: "top-center",
+      autoClose: true,
+      closeOnClick: false,
+      draggable: false,
+      onClose: () => {},
+      closeButton: (
+          <div style={{ display: 'flex', gap: '10px'}}>
+            <button onClick={() => confirmPromotion(currentGuide.email)} style={{ flex: 1,
+              padding: '8px 12px',
+              border: 'none',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '4px',
+              display: 'inline-block',
+              whiteSpace: 'nowrap'
+            }}>Evet
+            </button>
+            <button onClick={() => toast.dismiss()} style={{
+              flex: 1,
+              padding: '8px 12px',
+              border: 'none', backgroundColor: '#f0f0f0', borderRadius: '4px', display: 'inline-block', whiteSpace: 'nowrap' }}>Hayır</button>
+          </div>
+      )
+    });
+  };
 
-    if (confirmPromotion) {
-      try {
-        setIsLoadingPromotion(true);
+  const confirmPromotion = async (email) => {
+    try {
+      setIsLoadingPromotion(true);
 
-        const token = localStorage.getItem("userToken");
-        if (!token) {
-          alert("Authorization token missing. Please log in.");
-          setIsLoadingPromotion(false);
-          return;
-        }
+      const token = localStorage.getItem("userToken");
+      if (!token) {
+        toast.error("Oturumunuz sonlandı. Lütfen giriş yapın.");
+        setIsLoadingPromotion(false);
+        return;
+      }
 
-        const response = await axios.post(
+      const response = await axios.post(
           "http://localhost:8081/api/promoteTourGuide",
           null, // No JSON body
           {
@@ -125,22 +171,21 @@ const TourGuideList = () => {
             },
             withCredentials: true,
           }
-        );
+      );
 
-        if ([200, 201, 202].includes(response.status)) {
-          alert(`${firstName} ${lastName} danışmanlığa yükseltildi!`);
-          setIsPopupOpen(false); // Close the popup
-          fetchTourGuides(); // Refresh the list
-        }
-      } catch (error) {
-        if (error.response) {
-          alert(`Error: ${error.response.data}`);
-        } else {
-          alert("Beklenmedik bir hata oluştu.");
-        }
-      } finally {
-          setIsLoadingPromotion(false); // Stop loading after promotion attempt
-        }
+      if ([200, 201, 202].includes(response.status)) {
+        toast.info(`${currentGuide.firstName} ${currentGuide.lastName} danışmanlığa yükseltildi!`);
+        setIsPopupOpen(false); // Close the popup
+        fetchTourGuides(); // Refresh the list
+      }
+    } catch (error) {
+      if (error.response) {
+        toast.error(`Error: ${error.response.data}`);
+      } else {
+        toast.error("Beklenmedik bir hata oluştu.");
+      }
+    } finally {
+      setIsLoadingPromotion(false); // Stop loading after promotion attempt
     }
   };
 
