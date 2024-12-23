@@ -293,7 +293,7 @@ public class TourController {
         }
 
         User user = userService.getUserByUsername(approveRejectTour.getCoordinatorEmail());
-        if(!user.getRole().equalsIgnoreCase("Coordinator") && !user.getRole().equalsIgnoreCase("Advisor")) {
+        if(!user.getRole().equalsIgnoreCase("Coordinator") && !user.getRole().equalsIgnoreCase("Advisor") && !user.getRole().equalsIgnoreCase("Executive")) {
             System.out.println("Role mismatch");
             System.out.println(user.getRole());
             return new ResponseEntity<>(HttpStatus.CONFLICT); // user role must be either advisor or coordinator

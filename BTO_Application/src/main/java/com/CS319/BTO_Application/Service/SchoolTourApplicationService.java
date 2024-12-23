@@ -71,7 +71,6 @@ public class SchoolTourApplicationService {
             batchWindow = batchWindow.plusMinutes(3);
         }
 
-
         /*
 
         // Bir sonraki işlem penceresini belirle (ör. 23:59 bugünün sonu)
@@ -211,6 +210,8 @@ public class SchoolTourApplicationService {
                     (requestedDate,applyingHighSchool,"Pending")
                     || schoolTourApplicationRepos.existsBySelectedDateAndApplyingHighschoolAndApplicationStatus
                     (requestedDate,applyingHighSchool,"Approved")
+                    || schoolTourApplicationRepos.existsBySelectedDateAndApplyingHighschoolAndApplicationStatus
+                    (requestedDate,applyingHighSchool,"Created")
             ){
                 return true;
             }
