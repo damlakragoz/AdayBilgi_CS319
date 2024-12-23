@@ -25,11 +25,12 @@ public class UserController {
     private final AdvisorService advisorService;
     private final ExecutiveService executiveService;
     private final MailService mailService;
+    private final AdminService adminService;
 
     @Autowired
     public UserController(UserService userService, CounselorService counselorService,
                           CoordinatorService coordinatorService, TourGuideService tourGuideService,
-                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService, MailService mailService) {
+                          HighSchoolService highschoolService, AdvisorService advisorService, ExecutiveService executiveService, MailService mailService, AdminService adminService) {
         this.userService = userService;
         this.counselorService = counselorService;
         this.coordinatorService = coordinatorService;
@@ -38,6 +39,7 @@ public class UserController {
         this.advisorService = advisorService;
         this.executiveService = executiveService;
         this.mailService = mailService;
+        this.adminService = adminService;
     }
 
 
@@ -195,6 +197,37 @@ public class UserController {
                     .body("An error occurred while resetting password.");
         }
     }
+
+
+    /**
+     * Registers a new admin.
+     *
+     * Preconditions:
+     * - `btoMemberRegister` must not be null.
+     * - `btoMemberRegister.email` must be unique.
+     *
+     * Postconditions:
+     * - The admin is registered and saved.
+     * - If the email is already taken, returns status 400 (BAD_REQUEST).
+     * - If an error occurs, returns status 500 (INTERNAL_SERVER_ERROR).
+     *
+     * @param btoMemberRegister The registration details of the admin.
+     * @return ResponseEntity containing the registered admin or error status.
+     */
+    @PostMapping("/admin/register")
+    public ResponseEntity<?> registerAdmin(@RequestBody BTOMemberRegister btoMemberRegister) {
+        // Check if the username is already taken
+        if (userService.getUserByUsername(btoMemberRegister.getEmail()) != null) {
+            return ResponseEntity.status(400).body("Username is already taken");
+        }
+
+        Admin admin = new Admin(btoMemberRegister.getEmail(), btoMemberRegister.getPassword(),
+                btoMemberRegister.getFirstName(), btoMemberRegister.getLastName(),
+                btoMemberRegister.getPhoneNumber(), "Admin");
+        // Save the user to the database
+        return new ResponseEntity<>(adminService.saveAdmin(admin), HttpStatus.CREATED);
+    }
+
 
     /**
      * Retrieves all counselors.
