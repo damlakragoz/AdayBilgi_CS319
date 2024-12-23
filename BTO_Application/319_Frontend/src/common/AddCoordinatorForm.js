@@ -51,7 +51,7 @@ const AddCoordinatorForm = () => {
       );
 
       console.log("Success:", response.data);
-      alert("Yönetici başarıyla eklendi!");
+      alert("Koordinatör başarıyla eklendi!");
 
       setFormData({
         email: "",
