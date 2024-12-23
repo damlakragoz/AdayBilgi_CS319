@@ -110,6 +110,7 @@ const PuantageTable = () => {
 
         {/* Month Selector */}
         <div className="puantage-month-selector">
+          <h2 Rehberler Puantaj Tablosu h2/>
           <button
               onClick={() =>
                   setSelectedMonth(
