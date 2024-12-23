@@ -79,6 +79,7 @@ const AddCoordinatorForm = () => {
       phoneNumber: "",
     });
     console.log("Form reset");
+    navigate(-1);
   };
 
   return (
@@ -131,12 +132,13 @@ const AddCoordinatorForm = () => {
 
         {/* Buttons */}
         <div className="button-group">
+            <button type="button" className="cancel-button" onClick={handleCancel}>
+                    İptal
+                  </button>
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Yükleniyor..." : "Ekle"}
           </button>
-          <button type="button" className="cancel-button" onClick={handleCancel}>
-            İptal
-          </button>
+
         </div>
       </form>
 

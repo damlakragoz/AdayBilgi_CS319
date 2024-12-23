@@ -114,7 +114,7 @@ const CoordinatorList = () => {
         {/* Conditional Add Coordinator Button Below the Table */}
         {  (role == "Executive" || role == "Admin") &&
              <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <Link to="/koordinator-ekle">
+                <Link to={role==="Admin" ? "/koordinator-ekle/admin" : "/koordinator-ekle"}>
                   <button className="usertable-button usertable-button-add">
                     Yeni Koordinatör Kaydet
                   </button>

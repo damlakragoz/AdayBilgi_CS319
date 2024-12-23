@@ -116,7 +116,7 @@ const ExecutiveList = () => {
         {/* Centered Button Below the Table */}
         { (role==="Admin" || role==="Executive" ) &&
           <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Link to="/yonetici-ekle">
+            <Link to={role==="Admin" ? "/yonetici-ekle/admin" : "/yonetici-ekle"}>
               <button className="usertable-button usertable-button-add">
                 Yeni Yönetici Kaydet
               </button>

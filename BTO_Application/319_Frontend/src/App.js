@@ -115,6 +115,10 @@ function App() {
 
                     <Route path="/submit-application" element={<SubmitApplication />} />
                     <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/rehber-ekle/admin"element={<AddTourGuideForm />} />
+                    <Route path="/yonetici-ekle/admin"element={<AddExecutiveForm />} />
+                    <Route path="/koordinator-ekle/admin" element={<AddCoordinatorForm />} />
+
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CoordinatorLayout />}>
