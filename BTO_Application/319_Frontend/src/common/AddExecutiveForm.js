@@ -80,7 +80,6 @@ const AddExecutiveForm = () => {
       phoneNumber: "",
     });
     console.log("Form reset");
-    navigate(-1); // G // This will take the user back to the previous page
   };
 
   return (

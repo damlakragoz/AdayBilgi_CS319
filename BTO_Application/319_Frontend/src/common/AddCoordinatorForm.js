@@ -79,7 +79,6 @@ const AddCoordinatorForm = () => {
       phoneNumber: "",
     });
     console.log("Form reset");
-    navigate(-1);
   };
 
   return (

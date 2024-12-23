@@ -133,7 +133,6 @@ const AddTourGuideForm = () => {
       iban: "",
     });
     console.log("Form reset");
-    navigate(-1);
   };
 
   return (
