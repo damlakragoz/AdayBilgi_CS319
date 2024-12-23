@@ -123,6 +123,8 @@ const CoordinatorList = () => {
                     to={
                       role === "Admin"
                         ? "/koordinator-ekle/admin"
+                        : role === "Executive"
+                        ? "/koordinator-ekle/yonetici"
                         : "/koordinator-ekle"
                     }
                   >

@@ -239,7 +239,15 @@ const TourGuideList = () => {
 
       {/* Centered Button Below the Table */}
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Link to={role==="Admin" ? "/rehber-ekle/admin" : "/rehber-ekle"}>
+        <Link
+            to={
+              role === "Admin"
+                ? "/rehber-ekle/admin"
+                : role === "Executive"
+                ? "/rehber-ekle/yonetici"
+                : "/rehber-ekle"
+            }
+          >
           <button className="usertable-button usertable-button-add">
             Yeni Tur Rehberi Kaydet
           </button>
