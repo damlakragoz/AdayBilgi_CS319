@@ -16,6 +16,7 @@ import ProfilePictureUpload from "./common/ProfilePictureUpload";
 import UserSettings from "./common/UserSettings"; // Adjust the path as needed
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminDashboard from './dashboard/AdminDashboard';
 
 
 // Coordinator Page Imports
@@ -113,6 +114,7 @@ function App() {
                     <Route path="/notifications" element={<Notifications />} />
 
                     <Route path="/submit-application" element={<SubmitApplication />} />
+                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
                     {/* Coordinator Routes Wrapped in CoordinatorLayout */}
                     <Route element={<CoordinatorLayout />}>
