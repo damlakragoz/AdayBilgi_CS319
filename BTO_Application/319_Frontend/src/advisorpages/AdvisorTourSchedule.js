@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Calendar from "react-calendar";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 import "react-calendar/dist/Calendar.css";
@@ -65,7 +67,7 @@ const AdvisorTourSchedule = () => {
                 console.log("CEM All TOURS")
                 const token = localStorage.getItem("userToken");
                 if (!token) {
-                    alert("Authorization token missing. Please log in.");
+                    toast.error("Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.");
                     return;
                 }
 
@@ -114,7 +116,7 @@ const AdvisorTourSchedule = () => {
                 }
             } catch (error) {
                 console.error("Error fetching tours:", error.message);
-                alert("Failed to load tours. Please try again later.");
+                toast.error("Sayfa yüklenemedi. Lütfen daha sonra tekrar deneyin.");
             }
         };
 
@@ -128,7 +130,7 @@ const AdvisorTourSchedule = () => {
                 const token = localStorage.getItem("userToken");
                 const guideEmail = localStorage.getItem("username");
                 if (!token || !guideEmail) {
-                    alert("Authorization or user email missing. Please log in.");
+                    toast.error("Lütfen tekrar giriş yapın.");
                     return;
                 }
                 console.log(token);
@@ -186,15 +188,14 @@ const AdvisorTourSchedule = () => {
         const applyingGuideEmail = localStorage.getItem("username");
 
         if (!applyingGuideEmail) {
-            alert("Guide email not found. Please log in again.");
+            toast.error("Rehber bulunamadı. Lütfen tekrar giriş yapın.");
             return;
         }
 
         try {
             const token = localStorage.getItem("userToken");
             if (!token) {
-                alert("Authorization token missing. Please log in.");
-                return;
+                toast.error("Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.");                return;
             }
 
             const response = await axios.post(
@@ -210,7 +211,7 @@ const AdvisorTourSchedule = () => {
             );
 
             if (response.status == 200 || response.status == 201) {
-                alert("Enrollment successful!");
+                toast.info("Kayıt başarılı!");
                 // Update the enrolled tours state to include the newly enrolled tour
                 setEnrolledTours((prev) => [
                     ...prev,
@@ -237,15 +238,14 @@ const AdvisorTourSchedule = () => {
         const applyingGuideEmail = localStorage.getItem("username");
 
         if (!applyingGuideEmail) {
-            alert("Guide email not found. Please log in again.");
+            toast.error("Tur rehberi maili bulunamadı. Lütfen daha sonra tekrar deneyin.");
             return;
         }
 
         try {
             const token = localStorage.getItem("userToken");
             if (!token) {
-                alert("Authorization token missing. Please log in.");
-                return;
+                toast.error("Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.");                return;
             }
 
             const response = await axios.post(
@@ -260,7 +260,7 @@ const AdvisorTourSchedule = () => {
             );
 
             if (response.status == 200 || response.status == 201) {
-                alert("Withdraw request successful!");
+                toast.info("Geri çekilme talebiniz iletildi!");
                 // Update the enrolled tours state to remove the withdrawn tour
                 setEnrolledTours((prev) =>
                     prev.map((tour) =>
@@ -372,7 +372,7 @@ const AdvisorTourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Request Withdraw
+                                                        Turdan Çekil
                                                     </button>
                                                 ) : tour.tourStatus === "WithdrawRequested" ||
                                                 tour.tourStatus === "Withdrawn" ||
@@ -390,7 +390,7 @@ const AdvisorTourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Enroll
+                                                        Kaydol
                                                     </button>
                                                 ) : null
                                             ) : (
@@ -410,7 +410,7 @@ const AdvisorTourSchedule = () => {
                                                             cursor: "pointer",
                                                         }}
                                                     >
-                                                        Enroll
+                                                        Kaydol
                                                     </button>
                                                 ) : null
                                             )}
