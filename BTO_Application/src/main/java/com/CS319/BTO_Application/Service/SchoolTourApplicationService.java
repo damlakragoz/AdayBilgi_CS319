@@ -61,8 +61,16 @@ public class SchoolTourApplicationService {
         // Şu anki zamanı al
         LocalDateTime now = LocalDateTime.now();
 
-        // İşlem penceresini 2 dakika sonrası olarak ayarla
-        LocalDateTime batchWindow = now.withSecond(0).withNano(0).plusMinutes(1);
+        // Şu anki zamanı en yakın 3 dakikalık bloğa yuvarla
+        int minute = now.getMinute();
+        int roundedMinute = (minute / 3) * 3; // 3 dakikalık bloğa yuvarlama
+        LocalDateTime batchWindow = now.withMinute(roundedMinute).withSecond(0).withNano(0);
+
+        // Eğer şimdiki zaman, yuvarlanmış zamandan sonra ise bir sonraki 2 dakikalık bloğa geç
+        if (now.isAfter(batchWindow)) {
+            batchWindow = batchWindow.plusMinutes(3);
+        }
+
 
         /*
 

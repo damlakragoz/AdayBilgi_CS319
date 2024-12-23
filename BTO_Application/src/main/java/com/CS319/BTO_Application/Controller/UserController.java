@@ -453,6 +453,34 @@ public class UserController {
                     .body("An error occurred while retrieving tour guides.");
         }
     }
+    /**
+     * Deletes an executive user from the system by their username.
+     *
+
+     * Preconditions:
+     * - The `username` parameter must not be null or empty.
+     * - The system must have access to the executive database or repository.
+     *
+     * Postconditions:
+     * - If the executive exists, they are removed from the database.
+     * - If the executive does not exist, the database remains unchanged.
+     * - The appropriate HTTP response is returned to the client.
+     *
+     * @param username the username of the executive to be deleted (provided as a request parameter).
+     * @return ResponseEntity indicating the result of the operation:
+     *         - If the executive with the given username does not exist, returns a 400 Bad Request status
+     *           with a message "Executive With Username {username} Not Found".
+     *         - If the executive is successfully deleted, returns a 204 No Content status.
+     */
+
+    @DeleteMapping("/executive/delete")
+    public ResponseEntity<?> deleteExecutive(@RequestParam String username) {
+        if (executiveService.getExecutiveByEmail(username) == null) {
+            return ResponseEntity.status(400).body("Executive With Username "+username+"Not Found");
+        }
+        executiveService.deleteExecutiveByUsername(username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     /**
      * Deletes a coordinator by username.
