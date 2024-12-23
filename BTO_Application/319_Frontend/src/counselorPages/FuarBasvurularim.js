@@ -11,6 +11,7 @@ const FuarBasvurularim = () => {
     const [enrolledFairs, setEnrolledFairs] = useState([]);
     const [toggleState, setToggleState] = useState(false);
     const token = localStorage.getItem("userToken");
+    const counselorEmail = localStorage.getItem("username");
     const navigate = useNavigate();
     const [applications, setApplications] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -124,8 +125,13 @@ const FuarBasvurularim = () => {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 console.log(response.data)
+                const filteredData = response.data.filter(
+                    (fair) => fair.applyingCounselor?.email === counselorEmail
+                );
+                console.log(filteredData);
+
                 if (response.status === 200) {
-                    setFairs(response.data);
+                    setFairs(filteredData);
                 }
             } catch (error) {
                 console.error("Error canceling invitation:", error.response?.data || error.message);
