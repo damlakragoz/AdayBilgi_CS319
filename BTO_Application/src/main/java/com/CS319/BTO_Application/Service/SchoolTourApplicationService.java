@@ -210,8 +210,6 @@ public class SchoolTourApplicationService {
                     (requestedDate,applyingHighSchool,"Pending")
                     || schoolTourApplicationRepos.existsBySelectedDateAndApplyingHighschoolAndApplicationStatus
                     (requestedDate,applyingHighSchool,"Approved")
-                    || schoolTourApplicationRepos.existsBySelectedDateAndApplyingHighschoolAndApplicationStatus
-                    (requestedDate,applyingHighSchool,"Created")
             ){
                 return true;
             }
