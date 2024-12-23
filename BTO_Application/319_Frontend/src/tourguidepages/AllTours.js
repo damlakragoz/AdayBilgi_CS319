@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./AllTours.css";
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AllTours = () => {
     const [tours, setTours] = useState([]);
@@ -179,7 +181,7 @@ const AllTours = () => {
             );
 
             if (response.status === 200 || response.status === 201) {
-                alert("Enrollment successful!");
+                toast.info("Kayıt başarılı!");
                 setToggleState((prev) => !prev);
             }
         } catch (error) {
@@ -214,7 +216,7 @@ const AllTours = () => {
             );
 
             if (response.status === 200 || response.status === 201) {
-                alert("Withdraw request successful!");
+                toast.info("Geri çekilme talebi başarılı!");
                 setToggleState((prev) => !prev);
             }
         } catch (error) {
